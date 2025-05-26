@@ -5,6 +5,7 @@ import AOS from "aos";
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Socialbtns from "./componants/socialbtns";
+import Contactbtns from "./componants/contactbtns";
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -41,7 +42,8 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
-        <Socialbtns/>
+        <Socialbtns />
+        <Contactbtns />
       </ThemeProvider>
     </Fragment>
   )
