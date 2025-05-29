@@ -92,6 +92,7 @@
     height: 112px;
     @include center("yflex");
     justify-content: space-around;
+    backdrop-filter: blur(100px);
     a{
         @include center("flex");
         svg{
