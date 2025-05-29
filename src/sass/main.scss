@@ -26,7 +26,7 @@ html{
         border-radius: 4vw;
     }
 }
-body{height: 2500px;
+body{
     background-image: url($sitebackground);
     background-repeat: repeat;
 }
@@ -309,11 +309,14 @@ body{height: 2500px;
     // }
 }
 //*about*/
+.aboutsection{
+    padding-top: 40px;
+}
 .aboutsectionside1{
     display: flex;
     justify-content: flex-end;
     div {
-        border-radius: 50px;
+        border-radius: 40px;
         border-bottom: 10px solid $primarycolor;
         position: relative;
         overflow: hidden;
@@ -321,7 +324,6 @@ body{height: 2500px;
         height:648px;
         img {
             position: absolute;
-            top: 160px;
             margin-left: -100px;
             height: 130%;
             object-fit: cover;
@@ -329,6 +331,114 @@ body{height: 2500px;
     }
 }
 .aboutsectionside2{
-    padding-left: 55px;
-    padding-top: 55px;
+    padding:55px;
+    padding-right: 52px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    font-family: "Plexnormal";
+
+    h3{
+        font-family: "Plexbold";
+        color: $secondtextcolor;
+    }
+    h1{
+        font-family: "Plexbold";
+        font-size: 40px;
+        text-transform: uppercase;
+        color: $secondtextcolor;
+        div{
+            background: linear-gradient(
+                to right,
+                $primarycolor 50%,
+                $secondtextcolor 50%
+            );
+            background-size: 200% 100%;
+            background-position-x: 0%;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+    }
+    p{
+        color: $secondtextcolor;
+        font-family: 'Plexnormal';
+    }
+    button{
+        width: 260px;
+        height: 50px;
+        border-radius: 50px;
+        @extend %animatedBG;
+        @extend %transition;
+        @include center("flex");
+        padding: 0px;
+        
+        >div{
+            border-radius: 50px;
+            background-color: $secondcolor;
+            width: 98.2%;
+            height: 90%;
+            @include center("yflex");
+
+            &:hover{
+                background-color: transparent;
+            }
+            &:hover>span{
+                color: $secondcolor;
+                left: -35px;
+            }
+            &:hover>div{
+                left: 83%;
+            }
+            div{
+                position: relative;
+                left: 0px;
+                @extend %animatedBG;
+                width: 40px;
+                height: 40px;
+                color: $secondcolor;
+                margin: 2px;
+                margin-right: 8px;
+                font-weight: 900;
+                transition: 0.3s;
+                z-index: 2;
+            }
+            span{
+                line-height: 0.7;
+                position: relative;
+                left: 0px;
+                @extend %transition;
+                color: #000;
+                text-transform: capitalize;
+                font-family: "Plexnormal";
+            }
+        }
+    }
+}
+.establishmentcounter{
+    position: relative;
+    padding-right: 45px;
+    margin-top: 30px;
+    span{
+        text-transform: uppercase;
+        font-family: "Plexnormal";
+        font-weight: 900;
+        font-size: 16px;
+        transform: rotate(90deg);
+        position: absolute;
+        right: -52px;
+        top: 40%;
+        display: block;
+    }
+    h2{
+        font-size: 100px;
+        font-weight: 600;
+        background-image: url('../assets/photo/global/background.png');
+        background-clip: text;
+        background-size: contain;
+        color: transparent;
+        -webkit-text-stroke: 1px;
+        -webkit-text-stroke-color: $secondtextcolor;
+        filter: opacity(70%);
+    }
 }
