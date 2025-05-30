@@ -4,7 +4,7 @@ import AOS from "aos";
 //*components
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
-import About from "./componants/about";
+import {About,Our} from "./componants/about";
 import Socialbtns from "./componants/socialbtns";
 import Contactbtns from "./componants/contactbtns";
 //*css
@@ -36,14 +36,14 @@ const theme = createTheme({
 
 function App() {
 
-
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />
         <Home />
-        <About/>
+        <About />
+        <Our/>
         <Socialbtns />
         <Contactbtns />
       </ThemeProvider>

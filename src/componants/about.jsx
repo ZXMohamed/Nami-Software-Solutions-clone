@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Box, Container, Grid, Typography, Button, IconButton, Stack } from '@mui/material'
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import gsap from 'gsap';
@@ -9,7 +9,7 @@ import TextPlugin from "gsap/TextPlugin";
 
 import aboutsideimg from "../assets/photo/about/aboutsideimg.webp";
 
-export default function About() {
+export function About() {
 
   const aboutimgcontainer = useRef();
   const aboutimg = useRef();
@@ -117,6 +117,57 @@ export default function About() {
                 </Stack>
               </Grid>
           </Grid>
+      </Container>
+    </Box>
+  )
+}
+
+const Ourlazysidevideo = lazy(() => import("./Oursidevideo"));
+export function Our() { 
+
+  const [ourvalues] = useState(["Innovation", "Quality", "Focus on the client", "Teamwork", "Quick response", "Continuous learning", "Sustainability"]);
+
+  return (
+    <Box className="oursection">
+      <Container maxWidth={ "lg" }>
+        <Grid container spacing={4}>
+          <Grid size={ 6 } className="ourvision" container spacing={ 1 } data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="0" alignItems={ "center" }>
+            <Suspense>
+              <Grid size={ 3 }>
+                <Ourlazysidevideo />
+              </Grid>
+            </Suspense>
+            <Grid size={ 9 }>
+              <Typography variant='h4' component='h2'>Our vision</Typography>
+              <Typography>We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way.</Typography>
+            </Grid>
+          </Grid>
+          <Grid size={ 6 } className="ourmessage" container spacing={ 1 } data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="50" alignItems={ "center" }>
+            <Suspense>
+              <Grid size={ 3 }>
+                <Ourlazysidevideo />
+              </Grid>
+            </Suspense>
+            <Grid size={ 9 }>
+              <Typography variant='h4' component='h2'>Our message</Typography>
+              <Typography>We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success.</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid size={ 12 } className="ourvalues" data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="0">
+            <Typography variant='h4' component='h2'>Our values</Typography>
+            <Typography>We at Nami Corporation are proud of a set of core values ​​that drive our operations, build our relationships with our customers, and define our approach to providing integrated technology solutions.</Typography>
+            <Stack direction={ 'row' } spacing={ 2 }>
+              { ourvalues.map((val, inx) => (
+                <Stack key={ inx } direction={ 'column' } justifyContent={ 'space-around' } alignItems={ 'center' } data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay={50*(inx+1)}>
+                  <Box></Box>
+                  <span>{ val }</span>
+                </Stack>
+              )) }
+            </Stack>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   )
