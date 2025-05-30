@@ -13,7 +13,7 @@ import '../node_modules/aos/dist/aos.css';
 import "./sass/main.scss"
 import "./sass/float.scss"
 
-AOS.init();
+AOS.init({ once:true,offset: 65 });
 
 const theme = createTheme({
   typography: {

@@ -476,21 +476,30 @@ body{
     }
 }
 .ourvision,.ourmessage{
-    padding: 35px;
     @extend %oursectioncard;
     video{
         width: 90%;
         filter: hue-rotate(270deg);
+        @media screen and (max-width:992px) and (min-width:768px), (max-width:500px) {
+            width: 35%;
+            margin-bottom: 10px;
+        }
     }
 }
 .ourvalues{
-    padding: 35px;
     @extend %oursectioncard;
     >div{
         padding-top: 12px;
+        display: flex;
+        column-gap: 16px;
+        row-gap: 16px;
+        flex-wrap: wrap;
+        overflow: hidden;
         >div{
             border:1px dashed $primarytransparent;
-            width: 160px;
+            width: 158px;
+            flex-grow: 1;
+            flex-shrink: 0;
             height: 135px;
             border-radius: 10px;
             padding-top: 20px;
