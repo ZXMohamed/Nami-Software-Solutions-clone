@@ -315,6 +315,7 @@ body{
 .aboutsectionside1{
     display: flex;
     justify-content: flex-end;
+    padding-left: 8px;
     div {
         border-radius: 40px;
         border-bottom: 10px solid $primarycolor;
@@ -329,14 +330,14 @@ body{
             object-fit: cover;
         }
         @media screen and (max-width:992px) and (min-width:768px){
-            width:99%;
+            width:100%;
             height: 500px;
             img{
                 height: 220%;
             }
         }
         @media screen and (max-width:768px) {
-            width: 99%;
+            width: 100%;
             height: 500px;
             img {
                 right: -14%;
