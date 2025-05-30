@@ -17,13 +17,13 @@ html{
     }
     &::-webkit-scrollbar
     {
-        width: 0.5vw;
+        width: 8px;
         background-color: $secondcolor;
     }
     &::-webkit-scrollbar-thumb
     {
         background-color: $scrollcolor;
-        border-radius: 4vw;
+        border-radius: 40vw;
     }
 }
 body{
