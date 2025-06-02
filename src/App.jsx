@@ -15,6 +15,10 @@ import "./sass/float.scss"
 AOS.init({ once: true, offset: 65 });
 
 const theme = createTheme({
+  palette: {
+    primary: {main: "#009f6f", contrastText: '#fff'},
+    secondary: { main: "#ffffff", contrastText: '#009f6f' },
+  },
   typography: {
     button: {
       textTransform: 'none'
