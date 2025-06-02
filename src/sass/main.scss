@@ -429,9 +429,9 @@ body{
                     border: 2px solid $secondcolor;
                     border-radius: 20px;
                     width: 120px;
-                    background-color: $primarycolor;
+                    // background-color: $primarycolor;
                     @include center("flex");
-                    color: $secondcolor;
+                    // color: $secondcolor;
                     padding: 3px;
                     &::after{
                         content:"";

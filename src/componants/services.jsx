@@ -59,7 +59,7 @@ export default function Services() {
                                 <ul>
                                    {val.points.map((val,inx)=><li key={inx}>{val}</li>)}
                                 </ul>
-                                <Button>Read more</Button>
+                                <Button variant='contained'>Read more</Button>
                             </Stack>
                         </Grid>);
             if ((inx + 1) % cellinrow == 0) {
