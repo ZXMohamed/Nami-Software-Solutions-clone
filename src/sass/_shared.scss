@@ -6,7 +6,9 @@ $primary2color: #38c684;
 $primary3color: #11b14e;
 $primarytransparent: #009f6f31;
 $primary1-2transparent:#009f6f0d;
+$primary1-3transparent:#009f6f5e;
 $primary2transparent: #38c68441;
+$primary2-2transparent: #38c684bb;
 $primary3transparent: #11b04e13;
 $primary3-2transparent: #11b04e2c;
 $secondcolor:white;
@@ -14,6 +16,7 @@ $secondtextcolor:#777;
 $scrollcolor:#CACACA;
 
 $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $primarycolor 100%);
+$gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2transparent 50%, $primarycolor 100%);
 
 // *{
 //     border: 1px solid #000000;
@@ -58,6 +61,23 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     animation-name: moveBG;
     animation-duration: 4s;
     animation-iteration-count: infinite;
+}
+%animatedservicesBG{
+    background: $gradienttransparentBG,url('../assets/photo/services/servicesbg.jpg');
+    background-size: 200%;
+    animation-name: moveBG;
+    animation-duration: 30s;
+    animation-iteration-count: infinite;
+    position: relative;
+    &::after{
+        content: "";
+        background-image: url('../assets/photo/global/background.png');
+        background-size: cover;
+        z-index: 1;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 @keyframes moveBG {

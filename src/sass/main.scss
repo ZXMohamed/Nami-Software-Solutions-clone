@@ -27,7 +27,7 @@ html{
     }
 }
 body{
-    height: 1500px;
+    height: 2500px;
     background-image: url($sitebackground);
     background-repeat: repeat;
 }
@@ -308,4 +308,88 @@ body{
     //     // padding-left: 10.045%;
     //     // padding-right: 10.045%;
     // }
+}
+
+//*servicessec*/
+.servicessec{
+    @extend %animatedservicesBG;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    color: $secondcolor;
+    @include center("flex");
+}
+.servicesheader{
+    @include center("flex");
+    h1{
+        text-transform: uppercase;
+        font-family: 'Plexbold';
+        font-size: 40px;
+    }
+    h2{
+        font-family: 'Plexbold';
+    }
+    p{
+        font-family: 'Plexnormal';
+        text-wrap: balance;
+        text-align: center;
+    }
+}
+.servicesitems{
+    width: 100%;
+    padding: 20px;
+    @include center("flex");
+    >div{
+        width: 100%;
+        >div{
+            box-shadow: 0px 0px 0px 2px $primary1-3transparent;
+            border-radius: 20px;
+            padding: 40px;
+            background-color: $primary2transparent;
+            backdrop-filter:  brightness(0) opacity(20%);
+            >div{
+                >div{
+                    @include center('yflex');
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                    img{
+                        width: 58px;
+                    }
+                    >div{
+                        border: 1px dashed $secondcolor;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        &::before{
+                            content: "";
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                            filter: brightness(0) invert(0.9) opacity(0.8);
+                            background-image: url('../assets/photo/services/arrow.svg');
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: 45%;
+                        }
+                    }
+                }
+                h3{
+                    font-family: 'Plexbold';
+                    font-size: 28px;
+                }
+                p{
+                    font-family: 'Plexnormal';
+                    height: 68px;
+                    -webkit-line-clamp:3;
+                    line-clamp: 3;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: block;
+                    display: -moz-box;
+                    display: -webkit-box;
+                    -webkit-box-orient:vertical;
+                    white-space: wrap;
+                }
+            }
+        }
+    }
 }
