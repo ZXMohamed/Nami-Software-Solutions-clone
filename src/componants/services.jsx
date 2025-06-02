@@ -13,35 +13,41 @@ export default function Services() {
     const [servicesitems, setservicesitems] = useState([{
         icon: webdevelopment,
         title: "Website development",
-        description: "We excel in building advanced and responsive websites that reflect your brand identity and help you communicate effectively with your audience. From design to implementation, we are committed to delivering an exceptional digital experience."
+        description: "We excel in building advanced and responsive websites that reflect your brand identity and help you communicate effectively with your audience. From design to implementation, we are committed to delivering an exceptional digital experience.",
+        points: ["User interface design (UI/UX) ", "Front and back end development ", "Search Engine Optimization (SEO) ", "E-commerce development ","Dynamic websites "],
     }, {
-            icon: mobiledevelopment,
-            title: "Mobile application development",
-            description: "We provide comprehensive solutions for developing mobile applications on both Android and iOS platforms, with a focus on performance and optimal user experience to ensure your apps achieve widespread success."
-        }, {
-            icon: markiting,
-            title: "Digital marketing",
-            description: "We help you reach your target audience through advanced digital marketing strategies, including search engine optimization (SEO), social media marketing, and pay-per-click (PPC) advertising."
-        }, {
-            icon: consalting,
-            title: "Technical consulting",
-            description: "We provide innovative cloud services that enable you to scale your business easily and securely.From cloud hosting to comprehensive cloud solutions, we are here to support your digital transformation."
-        }, {
-            icon: cloud,
-            title: "Cloud services",
-            description: "We offer specialized technical consulting to help you choose and implement the best technological solutions that meet your business needs and drive digital success."
-        }, {
-            icon: design,
-            title: "Design services",
-            description: "We offer a comprehensive range of design services that include graphic design and brand identity design.We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience."
-        }]);
+        icon: mobiledevelopment,
+        title: "Mobile application development",
+        description: "We provide comprehensive solutions for developing mobile applications on both Android and iOS platforms, with a focus on performance and optimal user experience to ensure your apps achieve widespread success.",
+        points: ["Native apps ", "Hybrid applications", "User interface design for applications", "Improve application performance","Integration of applications with other systems"],
+    }, {
+        icon: markiting,
+        title: "Digital marketing",
+        description: "We help you reach your target audience through advanced digital marketing strategies, including search engine optimization (SEO), social media marketing, and pay-per-click (PPC) advertising.",
+        points: ["Social media marketing", "Pay-per-click (PPC) campaigns", "Search Engine Optimization (SEO)", "Digital content creation","Digital campaign management"],
+    }, {
+        icon: consalting,
+        title: "Technical consulting",
+        description: "We provide innovative cloud services that enable you to scale your business easily and securely.From cloud hosting to comprehensive cloud solutions, we are here to support your digital transformation.",
+        points: ["Business analysis", "Digital project planning", "Digital transformation consulting", "Choose the appropriate technology","Technical risk management"],
+    }, {
+        icon: cloud,
+        title: "Cloud services",
+        description: "We offer specialized technical consulting to help you choose and implement the best technological solutions that meet your business needs and drive digital success.",
+        points: ["Cloud hosting", "Infrastructure as a Service (IaaS)", "Software as a Service (SaaS)", "Cloud computing services","Cloud integration with other systems"],
+    }, {
+        icon: design,
+        title: "Design services",
+        description: "We offer a comprehensive range of design services that include graphic design and brand identity design.We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience.",
+        points: ["Graphic Design", "Brand identity design", "Logos design", "Marketing materials design","User interface (UI) design"],
+    }]);
     
     
     function servicesitemsshow(cellinrow) { 
         let rowcells = [];
         return servicesitems.map((val, inx) => {
             rowcells.push(<Grid key={ inx } size={ 12/cellinrow }>
-                            <Stack direction={ 'column' } spacing={ 1 }>
+                            <Stack direction={ 'column' } spacing={ 1 } className='face'>
                                 <Stack direction={ 'row' }>
                                     <img src={ val.icon } alt={ val.title+" service"} loading='lazy'/>
                                     <div></div>
@@ -49,13 +55,9 @@ export default function Services() {
                                 <Typography variant='h5' component={ 'h3' }>{ val.title }</Typography>
                                 <Typography>{ val.description }</Typography>
                             </Stack>
-                            <Stack direction={'column'} className=''>
+                            <Stack direction={'column'} className='back'>
                                 <ul>
-                                   <li>1 item</li> 
-                                   <li>2 item</li> 
-                                   <li>3 item</li> 
-                                   <li>4 item</li> 
-                                   <li>5 item</li> 
+                                   {val.points.map((val,inx)=><li key={inx}>{val}</li>)}
                                 </ul>
                                 <Button>Read more</Button>
                             </Stack>

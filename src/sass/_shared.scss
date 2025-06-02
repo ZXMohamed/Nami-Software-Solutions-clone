@@ -13,6 +13,7 @@ $primary3transparent: #11b04e13;
 $primary3-2transparent: #11b04e2c;
 $secondcolor:white;
 $secondtextcolor:#777;
+$thirdcolor:#000000;
 $scrollcolor:#CACACA;
 
 $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $primarycolor 100%);
@@ -63,13 +64,13 @@ $gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2tra
     animation-iteration-count: infinite;
 }
 %animatedservicesBG{
-    background: $gradienttransparentBG,url('../assets/photo/services/servicesbg.jpg');
+    background: $gradienttransparentBG, url('../assets/photo/services/servicesbg.jpg');
     background-size: 200%;
     animation-name: moveBG;
     animation-duration: 30s;
     animation-iteration-count: infinite;
     position: relative;
-    &::after{
+    &::before{
         content: "";
         background-image: url('../assets/photo/global/background.png');
         background-size: cover;
