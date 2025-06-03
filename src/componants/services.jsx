@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Grid, Stack, Typography, Container, Button } from '@mui/material';
+import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import webdevelopment from '../assets/photo/services/webdevelopment.svg';
 import mobiledevelopment from '../assets/photo/services/mobiledevelopment.svg';
@@ -40,56 +43,81 @@ export default function Services() {
         title: "Design services",
         description: "We offer a comprehensive range of design services that include graphic design and brand identity design.We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience.",
         points: ["Graphic Design", "Brand identity design", "Logos design", "Marketing materials design","User interface (UI) design"],
-    }]);
-    
-    
+        }]);
+    const servicespragraph = useRef();
+    gsap.registerPlugin(SplitText, ScrollTrigger);
+    useEffect(() => {
+        const servicespragraphsplit = new SplitText(servicespragraph.current, {
+            type: "words"
+        });
+
+        gsap.from(servicespragraphsplit.words, {
+            scrollTrigger: {
+                trigger: servicespragraph.current,
+                scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=50 bottom"
+            },
+            y: 10,
+            opacity:1,
+            stagger: 0.05,
+        });
+    },[]);
+
     function servicesitemsshow(cellinrow) { 
-        let rowcells = [];
-        return servicesitems.map((val, inx) => {
-            rowcells.push(<Grid key={ inx } size={ 12/cellinrow }>
-                            <Stack direction={ 'column' } spacing={ 1 } className='face'>
-                                <Stack direction={ 'row' }>
-                                    <img src={ val.icon } alt={ val.title+" service"} loading='lazy'/>
-                                    <div></div>
-                                </Stack>
-                                <Typography variant='h5' component={ 'h3' }>{ val.title }</Typography>
-                                <Typography>{ val.description }</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className='back'>
-                                <ul>
-                                   {val.points.map((val,inx)=><li key={inx}>{val}</li>)}
-                                </ul>
-                                <Button variant='contained'>Read more</Button>
-                            </Stack>
-                        </Grid>);
-            if ((inx + 1) % cellinrow == 0) {
-                let cells = rowcells;
-                rowcells = [];
-                return (
-                    <Grid key={ (inx + 1) / cellinrow } container spacing={ 3 }>
-                        { ...cells }
-                    </Grid>
-                )
-            }
-        })
+        return servicesitems.map((val, inx) => <Item key={ inx } data={ val } size={ 12 / cellinrow } aos={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*50).toString()}} />);
     }
+
   return (
     <Box className="servicessec">
         <Container disableGutters="false">
             <Stack direction={'column'} spacing={2} className='servicesheader'>
-                <Typography variant='h5' component='h2'><i>Our Services</i></Typography>
-                <Typography variant='h4' component='h1'>Where quality meets innovation</Typography>
-                <Typography>
+                <Typography variant='h5' component='h2' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>Our Services</i></Typography>
+                <Typography variant='h4' component='h1'data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Where quality meets innovation</Typography>
+                <Typography ref={servicespragraph} data-aos="fade-up" data-aos-duration="600" data-aos-delay="150">
                     Nami Foundation provides integrated digital solutions for resale in website design And mobile
                     applications. We resell upgraded products with the highest quality standards to meet your needs.
                 </Typography>
             </Stack>
             <br/>
             <br/>
-            <Stack direction={'column'} spacing={4} className='servicesitems'>
-                {servicesitemsshow(3)}
-            </Stack>
+            <Grid container spacing={ 3 } className='servicesitems'>
+            {servicesitemsshow(3)}
+            </Grid>
         </Container>
     </Box>
   )
+}
+
+function Item({ data, size, aos }) { 
+    const itempoints = useRef();
+    useEffect(() => {
+        const itempointsanimate = gsap.to(itempoints.current.querySelectorAll("li"), {
+            stagger: 0.1,
+            transform: "translateX(0px)",
+            filter: "opacity(100%)",
+            duration: 0.6,
+            paused: true
+        });
+        itempoints.current.parentElement.onmouseover = ()=>itempointsanimate.restart();
+        itempoints.current.parentElement.onmouseleave = ()=>itempointsanimate.kill();
+    }, []);
+    return (
+        <Grid size={ { md: size, xxxs: 6, xs: 12 } } { ...aos }>
+            <Stack direction={ 'column' } spacing={ 1 } className='face'>
+                <Stack direction={ 'row' }>
+                    <img src={ data.icon } alt={ data.title + " service" } loading='lazy' />
+                    <div></div>
+                </Stack>
+                <Typography variant='h5' component={ 'h3' }>{ data.title }</Typography>
+                <Typography>{ data.description }</Typography>
+            </Stack>
+            <Stack direction={ 'column' } className='back'>
+                <ul ref={ itempoints }>
+                    { data.points.map((val, inx) => <li key={ inx }>{ val }</li>) }
+                </ul>
+                <Button variant='contained' disableRipple={ true } >Read more</Button>
+            </Stack>
+        </Grid>
+    )
 }
