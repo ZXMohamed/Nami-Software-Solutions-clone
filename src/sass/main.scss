@@ -437,6 +437,9 @@ body{
                     margin: 9px 0px;
                     font-family: 'Plexnormal';
                     filter: brightness(77%) opacity(0);
+                    @media screen and (max-width:768px) {
+                        font-size: 14px;
+                    }
                 }
             }
             button{
