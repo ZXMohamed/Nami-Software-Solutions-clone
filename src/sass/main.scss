@@ -337,10 +337,14 @@ body{
         }
     }
     p{
-        transform: translateY(0px);
         font-family: 'Plexnormal';
         text-wrap: balance;
         text-align: center;
+        div{
+            will-change: transform, opacity;
+            transform: translateY(30px);
+            opacity: 0;
+        }
         @media screen and (max-width:768px) {
             font-size: 14px;
         }

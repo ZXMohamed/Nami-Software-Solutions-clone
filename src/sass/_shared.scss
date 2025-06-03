@@ -102,8 +102,9 @@ $gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2tra
         animation-name: moveservicesBG;
         animation-duration: 50s;
         animation-iteration-count: infinite;
+        filter: brightness(85%);
         will-change: transform;
-        transform: translateZ(0); 
+        transform: translateZ(0);
     }
     &::before{
         content: "";
@@ -128,10 +129,10 @@ $gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2tra
         transform:translateY(-15%) translateX(-15%);
     }
     75%{
-        transform:translateY(-5%) translateX(-5%);
+        transform:translateY(5%) translateX(5%);
     }
     100%{
-        transform:translateY(10%) translateX(10%);
+        transform:translateY(-10%) translateX(-10%);
     }
 }
 

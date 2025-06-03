@@ -51,21 +51,22 @@ export default function Services() {
             type: "words"
         });
 
-        gsap.from(servicespragraphsplit.words, {
+        gsap.to(servicespragraphsplit.words, {
             scrollTrigger: {
                 trigger: servicespragraph.current,
                 scrub: 1,
                 start: "top+=0 bottom",
-                end: "top+=50 bottom"
+                end: "top+=20 bottom",
             },
-            y: 10,
+            duration:1,
+            y: 0,
             opacity:1,
             stagger: 0.05,
         });
     },[]);
 
     function servicesitemsshow(cellinrow) { 
-        return servicesitems.map((val, inx) => <Item key={ inx } data={ val } size={ 12 / cellinrow } aos={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*50).toString()}} />);
+        return servicesitems.map((val, inx) => <Item key={ inx } data={ val } size={ 12 / cellinrow } aos={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
     }
 
   return (
