@@ -11,7 +11,7 @@ import '../node_modules/aos/dist/aos.css';
 import "./sass/main.scss"
 import "./sass/float.scss"
 import "./sass/sectionheader.scss"
-import Sectionheader from "./componants/sectionheader";
+
 
 AOS.init({ once: true, offset: 65 });
 
@@ -47,7 +47,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
-        <Socialbtns/>
+        <Socialbtns />
       </ThemeProvider>
     </Fragment>
   )

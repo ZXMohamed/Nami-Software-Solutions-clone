@@ -51,6 +51,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
 }
 
 %transition{
+    transition-property: all;
     transition-duration: 0.3s;
     transition-timing-function: ease-out;
 }
@@ -104,6 +105,36 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     100%{
         top:100%;
         filter: opacity(0%);
+    }
+}
+
+%shiningimage{
+    overflow: hidden;
+    &::before{
+        position: relative;
+        z-index: 100;
+        content: "";
+        display: block;
+        width: 150%;
+        height: 150%;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        transform: translateX(100%) translateY(100%) rotate(130deg);
+        background: linear-gradient(0deg,transparent 0% 50%, #ffffff4f 52%, transparent 90% 100%);
+    }
+    &:hover{
+        &::before{
+            animation-name: shinemove;
+        }
+    }
+}
+
+@keyframes shinemove {
+    0%{
+        transform: translateX(100%) translateY(100%) rotate(130deg);
+    }
+    100%{
+        transform: translateX(-100%) translateY(-100%) rotate(130deg);
     }
 }
 
