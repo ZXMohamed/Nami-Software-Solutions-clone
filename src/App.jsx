@@ -10,6 +10,8 @@ import '../node_modules/aos/dist/aos.css';
 //*sass files
 import "./sass/main.scss"
 import "./sass/float.scss"
+import "./sass/sectionheader.scss"
+import Sectionheader from "./componants/sectionheader";
 
 AOS.init({ once: true, offset: 65 });
 
