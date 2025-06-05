@@ -1,0 +1,21 @@
+@use "_shared.scss" as *;
+
+.statisticsbox{
+    color: $secondcolor;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    background-color: $second1-2transparent;
+    width: 230px;
+    height: 148px;
+    border: 1px solid $primary2color;
+    h4{
+        font-family: 'Plexbold';
+        font-size: 40px;
+        text-align: center;
+    }
+    h3{
+        font-family: 'Plexbold';
+        font-size: 16px;
+        text-align: center;
+    }
+}

@@ -5,12 +5,16 @@ import AOS from "aos";
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Socialbtns from "./componants/socialbtns";
+import Infocard from "./componants/infocard";
+import { Statisricslist, Statisticsbox } from "./componants/statisricsbox";
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
 import "./sass/main.scss"
 import "./sass/float.scss"
 import "./sass/sectionheader.scss"
+import "./sass/infocard.scss"
+import "./sass/statisricsbox.scss"
 
 
 AOS.init({ once: true, offset: 65 });
@@ -47,6 +51,15 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
+          <Statisricslist>
+            <Statisticsbox value="8" type="+" title="Years" />
+            <Statisticsbox value="75" type="+" title="Projects"/>
+            <Statisticsbox value="200" type="+" title="Mobile Application"/>
+            <Statisticsbox value="160" type="+" title="Websites"/>
+            <Statisticsbox value="95" type="%" title="Customer satisfaction"/>
+          </Statisricslist>
+        </Infocard>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
