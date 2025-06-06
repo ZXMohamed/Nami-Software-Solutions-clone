@@ -24,3 +24,8 @@ export default function Infocard({title,subtitle,description,children,style}) {
     </Box>
   )
 }
+
+/*
+<Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }></Infocard>
+
+*/

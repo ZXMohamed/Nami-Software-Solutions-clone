@@ -48,3 +48,16 @@ export function Statisticsbox({ value, title, type, aosanimation}) {
     </Stack>
   )
 }
+
+
+/*
+<Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
+    <Statisricslist>
+    <Statisticsbox value="8" type="+" title="Years" />
+    <Statisticsbox value="75" type="+" title="Projects"/>
+    <Statisticsbox value="200" type="+" title="Mobile Application"/>
+    <Statisticsbox value="160" type="+" title="Websites"/>
+    <Statisticsbox value="95" type="%" title="Customer satisfaction"/>
+    </Statisricslist>
+</Infocard>
+ */
