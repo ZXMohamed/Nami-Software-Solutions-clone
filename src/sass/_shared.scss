@@ -262,3 +262,13 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         margin:auto;
     }
 }
+
+@mixin textoverflow($line){
+    text-overflow: ellipsis;
+    line-clamp: #{$line};
+    display: block;
+    display: -moz-box;
+    display: -webkit-box;
+    -webkit-line-clamp:#{$line};
+    -webkit-box-orient:vertical;
+}

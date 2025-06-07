@@ -352,11 +352,7 @@ body{
         color: $secondtextcolor;
         height: 40px;
         overflow: hidden;
-        display: -webkit-box;
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
+        @include textoverflow(2);
         text-indent: 10px;
     }
     &:hover{
