@@ -14,7 +14,6 @@ export default function Sectionheader({title,subtitle,showallurl}) {
                         <a href={ showallurl } data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Show all<Box></Box></a>
                     </Grid>
                 </Grid>
-                <br/>
             </Container>
         </Box>
     )

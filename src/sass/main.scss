@@ -309,3 +309,52 @@ body{
     //     // padding-right: 10.045%;
     // }
 }
+
+.ourproductssec{
+    background-color: $primarytransparent;
+    padding: 60px 0px 160px 0px;
+}
+.productcard{
+    position: relative;
+    top: 0px;
+    overflow: hidden;
+    width: 424px;
+    background-color: $secondcolor;
+    border-radius: 20px;
+    align-items: center;
+    padding-bottom: 20px;
+    @extend %transition;
+    img{
+        @extend %shiningimage;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        width: 424px;
+        height: 424px;
+    }
+    h3{
+        font-family: 'Plexbold';
+        margin: 0px 20px;
+    }
+    p{
+        font-family: 'Plexnormal';
+        margin: 10px 25px;
+        text-wrap: balance;
+        font-size: 14px;
+        color: $secondtextcolor;
+        height: 40px;
+        overflow: hidden;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        text-indent: 10px;
+    }
+    &:hover{
+        top: -10px;
+    }
+}
+.infocardsec{
+    position: relative;
+    top: -60px;
+}

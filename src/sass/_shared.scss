@@ -113,9 +113,9 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
 %shiningimage{
     overflow: hidden;
     &::before{
+        content: "";
         position: relative;
         z-index: 100;
-        content: "";
         display: block;
         width: 150%;
         height: 150%;

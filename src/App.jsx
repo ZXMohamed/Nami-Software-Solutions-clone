@@ -7,6 +7,7 @@ import Home from "./componants/Home";
 import Socialbtns from "./componants/socialbtns";
 import Infocard from "./componants/infocard";
 import { Statisricslist, Statisticsbox } from "./componants/statisricsbox";
+import Ourproducts from "./componants/ourproducts";
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -51,6 +52,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Ourproducts/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
