@@ -398,15 +398,8 @@ body{
             p{
                 font-family: 'Plexnormal';
                 height: 68px;
-                -webkit-line-clamp:3;
-                line-clamp: 3;
                 overflow: hidden;
-                text-overflow: ellipsis;
-                display: block;
-                display: -moz-box;
-                display: -webkit-box;
-                -webkit-box-orient:vertical;
-                white-space: wrap;
+                @extend %textoverflow;
                 @media screen and (max-width:768px) {
                     font-size: 14px;
                 }
