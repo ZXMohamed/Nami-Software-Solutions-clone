@@ -399,7 +399,7 @@ body{
                 font-family: 'Plexnormal';
                 height: 68px;
                 overflow: hidden;
-                @extend %textoverflow;
+                @include textoverflow(3);
                 @media screen and (max-width:768px) {
                     font-size: 14px;
                 }

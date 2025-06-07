@@ -56,16 +56,6 @@ $gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2tra
     transition-timing-function: ease-out;
 }
 
-%textoverflow{
-    text-overflow: ellipsis;
-    line-clamp: 3;
-    display: block;
-    display: -moz-box;
-    display: -webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-}
-
 //*animation controls*/
 %animatedBG{
     background: $gradientBG;
@@ -232,4 +222,14 @@ $gradienttransparentBG: linear-gradient(45deg, $primary3color 0%, $primary2-2tra
         display: block;
         margin:auto;
     }
+}
+
+@mixin textoverflow($line){
+    text-overflow: ellipsis;
+    line-clamp: #{$line};
+    display: block;
+    display: -moz-box;
+    display: -webkit-box;
+    -webkit-line-clamp:#{$line};
+    -webkit-box-orient:vertical;
 }
