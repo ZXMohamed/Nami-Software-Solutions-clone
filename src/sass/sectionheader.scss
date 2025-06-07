@@ -30,6 +30,7 @@
         @include center("flex");
         color: $secondcolor;
         font-size: 14px;
+        transition: 0.3s all !important;
         div{
             @extend %transition;
             background-image: url('../assets/photo/sectionheader/show all arrow.svg');
@@ -41,7 +42,6 @@
             height: 30px;
         }
         &:hover{
-            transition: 0.3s !important;
             width: 110px;
             div{
                 margin-left: 8px;
