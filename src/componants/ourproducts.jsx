@@ -61,7 +61,9 @@ export default function Ourproducts() {
 function Productcard({image, name, description, badges}) {
   return (
     <Stack direction={"column"} className='productcard'>
-        <img src={image} alt={name+" shopping service product from nami"} loading='lazy'/>
+        <Box className="shine">
+          <img src={ image } alt={ name + " shopping service product from nami" } loading='lazy' />
+        </Box>
         <Typography variant='h6' component={'h3'}>{name}</Typography>
         <Typography>{description}</Typography>
         {/*//$ services badges*/}
