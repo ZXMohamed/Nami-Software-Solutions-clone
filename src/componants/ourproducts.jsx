@@ -35,13 +35,13 @@ export default function Ourproducts() {
                 <Stack direction={'row'} spacing={1.4}>
                     {products.map((val,inx)=>{
                         return (
-                            <Productcard key={inx} image={val.image} name={val.name} description={val.description} badges={val.badges}/>
+                            <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
                         )
                     })}
                 </Stack>
             </Container>
         </Box>
-        <Box className='infocardsec'>
+        <Box className='infocardsec'>{/*//$use loop on obj */}
             <Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
                 <Statisricslist>
                     <Statisticsbox value="8" type="+" title="Years" />
@@ -58,7 +58,7 @@ export default function Ourproducts() {
 
 
 
-function Productcard({ image, name, description, badges }) {
+function Productcard({ image, name, description, badges, aosanimation }) {{/*//$ set aos on slider */}
     if (!image && !name) { 
         throw "product name or image unset !"
     }
