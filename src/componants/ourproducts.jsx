@@ -1,13 +1,14 @@
-import { Box, Container, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { Box, Container, Stack, Typography } from '@mui/material'
 import Sectionheader from './sectionheader'
 import Infocard from './infocard'
 import { Statisricslist, Statisticsbox } from './statisricsbox'
+import { Servicebadge, servicebadgesize, servicebadgetypes, Servicesbadgeslist, servicesbadgeslisttype } from './servicesbadges'
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import circle from "../assets/photo/ourproducts/circle/circle.webp";
 import mishwar from "../assets/photo/ourproducts/Mishwar/Mishwar.webp";
 import ADhmn from "../assets/photo/ourproducts/ADhmn/ADhmn.webp";
-import { Servicebadge, servicebadgesize, servicebadgetypes, Servicesbadgeslist, servicesbadgeslisttype } from './servicesbadges'
 
 export default function Ourproducts() {
 
@@ -43,13 +44,21 @@ export function Products() {
 
     return (
         <Container maxWidth="lg">
-            <Stack direction={'row'} spacing={1.4}>
+            <Swiper slidesPerView={3} spaceBetween={10} className='slider'>
+                {products.map((val,inx)=>{
+                    return (<SwiperSlide className='slide'>
+                            <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
+            {/* <Stack direction={'row'} spacing={1.4}>
                 {products.map((val,inx)=>{
                     return (
                         <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
                     )
                 })}
-            </Stack>
+            </Stack> */}
         </Container>
   )
 }

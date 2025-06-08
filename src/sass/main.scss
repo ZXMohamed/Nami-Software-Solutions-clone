@@ -313,6 +313,15 @@ body{
 .ourproductssec{
     background-color: $primarytransparent;
     padding: 60px 0px 160px 0px;
+    .slider{
+        width: 100%;
+        overflow: visible;
+        .slide{
+            height: unset;
+            width: 424px;
+            display: flex;
+        }
+    }
 }
 .productcard{
     position: relative;
