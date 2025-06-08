@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Container, Stack, Typography, useMediaQuery } from '@mui/material'
 import Sectionheader from './sectionheader'
 import Infocard from './infocard'
 import { Statisricslist, Statisticsbox } from './statisricsbox'
@@ -41,29 +41,25 @@ export function Products() {
         image: ADhmn,
         badges:[ "applicationdesign", "website", "androidapplication", "iosapp"]
     }]);
+    
+    const ismdsize = useMediaQuery('(max-width:992px)');
+    const isxxxssize = useMediaQuery('(max-width:600px)');
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={3} spaceBetween={10} className='slider'>
-                {products.map((val,inx)=>{
-                    return (<SwiperSlide className='slide'>
+            <Swiper slidesPerView={ismdsize?(isxxxssize?1:2):3} spaceBetween={10} className='slider'>
+                { products.map((val, inx) => {
+                    return (<SwiperSlide className='slide' data-aos="fade-up" data-aos-duration="1000" data-aos-delay={ (100 * inx).toString() }>
                             <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
                         </SwiperSlide>
                     )
                 })}
             </Swiper>
-            {/* <Stack direction={'row'} spacing={1.4}>
-                {products.map((val,inx)=>{
-                    return (
-                        <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
-                    )
-                })}
-            </Stack> */}
         </Container>
   )
 }
 
-function Productcard({ image, name, description, badges, aosanimation }) {{/*//$ set aos on slider */}
+function Productcard({ image, name, description, badges }) {
     if (!image && !name) { 
         throw "product name or image unset !"
     }

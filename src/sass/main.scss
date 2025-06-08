@@ -315,11 +315,14 @@ body{
     padding: 60px 0px 160px 0px;
     .slider{
         width: 100%;
-        overflow: visible;
+        overflow-x:hidden !important;
         .slide{
             height: unset;
             width: 424px;
             display: flex;
+            @media screen and (max-width:992px) {
+                width: 463px;
+            }
         }
     }
 }
@@ -327,7 +330,7 @@ body{
     position: relative;
     top:0px;
     overflow: hidden;
-    width: 424px;
+    width: 100%;
     background-color: $secondcolor;
     border-radius: 20px;
     align-items: center;
@@ -337,7 +340,7 @@ body{
     >div.shine{
         overflow: hidden;
         width: 100%;
-        height: 424px;
+        // height: 424px;
         margin-bottom: 20px;
         border-radius: 20px;
         img{
