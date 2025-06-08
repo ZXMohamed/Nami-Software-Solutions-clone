@@ -325,7 +325,7 @@ body{
     padding-bottom: 20px;
     @extend %transition;
     @extend %shiningimage;
-    >div{
+    >div.shine{
         overflow: hidden;
         width: 100%;
         height: 424px;
@@ -354,6 +354,9 @@ body{
         overflow: hidden;
         @include textoverflow(2);
         text-indent: 10px;
+    }
+    div.badges{
+        width: 90%;
     }
     &:hover{
         top: -10px;
