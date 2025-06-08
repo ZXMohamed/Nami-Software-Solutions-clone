@@ -5,6 +5,7 @@ import Infocard from './infocard'
 import { Statisricslist, Statisticsbox } from './statisricsbox'
 import { Servicebadge, servicebadgesize, servicebadgetypes, Servicesbadgeslist, servicesbadgeslisttype } from './servicesbadges'
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules'
 
 import circle from "../assets/photo/ourproducts/circle/circle.webp";
 import mishwar from "../assets/photo/ourproducts/Mishwar/Mishwar.webp";
@@ -47,35 +48,36 @@ export function Products() {
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={ismdsize?(isxxxssize?1:2):3} spaceBetween={10} className='slider'>
+            <Swiper slidesPerView={ ismdsize ? (isxxxssize ? 1 : 2) : 3 } spaceBetween={ 10 } loop={ true } autoplay={ { delay: 2000,disableOnInteraction: false } } modules={[Autoplay]} className='slider'>
                 { products.map((val, inx) => {
-                    return (<SwiperSlide className='slide' data-aos="fade-up" data-aos-duration="1000" data-aos-delay={ (100 * inx).toString() }>
-                            <Productcard key={ inx } image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
-                        </SwiperSlide>
-                    )
+                    return (<SwiperSlide key={inx} className='slide'>{/* data-aos="fade-up" data-aos-duration="1000" data-aos-delay={ (100 * inx).toString() } */}
+                                <Productcard image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
+                            </SwiperSlide>)
                 })}
             </Swiper>
         </Container>
   )
 }
 
-function Productcard({ image, name, description, badges }) {
+function Productcard({ image, name, description, badges, aosanimation }) {
     if (!image && !name) { 
         throw "product name or image unset !"
     }
   return (
-    <Stack direction={"column"} className='productcard'>
-        <Box className="shine">
-          <img src={ image } alt={ name + " shopping service product from nami" } loading='lazy' />
-        </Box>
-        <Typography variant='h6' component={'h3'}>{name}</Typography>
-        <Typography>{description}</Typography>
-        <Box className="badges">            
-            <Servicesbadgeslist type={servicesbadgeslisttype.box}>
-                {badges.map((val,inx)=><Servicebadge key={inx} type={servicebadgetypes[val]} size={servicebadgesize.small}/>)}
-            </Servicesbadgeslist>
-        </Box>
-    </Stack>
+    <Box className='productcard' {...aosanimation}>
+        <Stack direction={"column"} >
+            <Box className="shine">
+            <img src={ image } alt={ name + " shopping service product from nami" } loading='lazy' />
+            </Box>
+            <Typography variant='h6' component={'h3'}>{name}</Typography>
+            <Typography>{description}</Typography>
+            <Box className="badges">            
+                <Servicesbadgeslist type={servicesbadgeslisttype.box}>
+                    {badges.map((val,inx)=><Servicebadge key={inx} type={servicebadgetypes[val]} size={servicebadgesize.small}/>)}
+                </Servicesbadgeslist>
+            </Box>
+        </Stack>
+    </Box>
   )
 }
 
@@ -107,7 +109,7 @@ function Statisrics() {
         <Box className='infocardsec'>
             <Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
                 <Statisricslist>
-                    { namistatisrics.map((val, inx) =><Statisticsbox value={val.value} type={val.type} title={val.title} />) }
+                    { namistatisrics.map((val, inx) => <Statisticsbox key={inx} value={val.value} type={val.type} title={val.title} />) }
                 </Statisricslist>
             </Infocard>
         </Box>
