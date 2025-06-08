@@ -9,6 +9,7 @@ import Infocard from "./componants/infocard";
 import { Statisricslist, Statisticsbox } from "./componants/statisricsbox";
 //*css
 import '../node_modules/aos/dist/aos.css';
+import 'swiper/css';
 //*sass files
 import "./sass/main.scss"
 import "./sass/float.scss"
