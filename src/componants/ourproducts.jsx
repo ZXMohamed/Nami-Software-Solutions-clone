@@ -58,7 +58,10 @@ export default function Ourproducts() {
 
 
 
-function Productcard({image, name, description, badges}) {
+function Productcard({ image, name, description, badges }) {
+    if (!image && !name) { 
+        throw "product name or image unset !"
+    }
   return (
     <Stack direction={"column"} className='productcard'>
         <Box className="shine">
