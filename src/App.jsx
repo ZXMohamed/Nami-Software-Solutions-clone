@@ -54,10 +54,6 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
-        <Servicesbadgeslist type={servicesbadgeslisttype.box}>
-          <Servicebadge type={servicebadgetypes.androidapplication} size={servicebadgesize.small}/>
-          <Servicebadge type={servicebadgetypes.applicationdesign} size={ servicebadgesize.small}/>
-        </Servicesbadgeslist>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>

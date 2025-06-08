@@ -30,7 +30,7 @@
         @include center("flex");
         color: $secondcolor;
         font-size: 14px;
-        transition: 0.3s all !important;
+        @extend %transition;
         div{
             @extend %transition;
             background-image: url('../assets/photo/sectionheader/show all arrow.svg');
