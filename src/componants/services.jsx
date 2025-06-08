@@ -92,6 +92,11 @@ export default function Services() {
 
 function Item({ data, size, aos }) { 
     const itempoints = useRef();
+
+    if (!data) { 
+        throw "Service item data unset !"
+    }
+
     useEffect(() => {
         const itempointsanimate = gsap.to(itempoints.current.querySelectorAll("li"), {
             stagger: 0.1,
