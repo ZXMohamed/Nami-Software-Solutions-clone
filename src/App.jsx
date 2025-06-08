@@ -16,6 +16,8 @@ import "./sass/float.scss"
 import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
 import "./sass/statisricsbox.scss"
+import "./sass/Servicebadge.scss"
+import {Servicebadge, servicebadgesize, servicebadgetypes, Servicesbadgeslist, servicesbadgeslisttype } from "./componants/servicesbadges";
 
 
 AOS.init({ once: true, offset: 65 });
@@ -24,6 +26,7 @@ const theme = createTheme({
   palette: {
     primary: {main: "#009f6f", contrastText: '#fff'},
     secondary: { main: "#ffffff", contrastText: '#009f6f' },
+    third: { main: "#e1e1e1", contrastText: '#000000' },
   },
   typography: {
     button: {

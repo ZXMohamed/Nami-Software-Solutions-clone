@@ -27,6 +27,10 @@ export function Statisticsbox({ value, title, type, aosanimation}) {
 
     const Statisticvalue = useRef();
 
+    if (!value || !title) { 
+        throw "Statistics box value or title unset !"
+    }
+
     gsap.registerPlugin(ScrollTrigger);
     
     useEffect(() => { 
