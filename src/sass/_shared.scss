@@ -139,7 +139,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
 
 @keyframes shinemove {
     0%{
-        transform: translateX(15%) translateY(15%) rotate(130deg);
+        transform: translateX(15%) translateY(15%) rotate(110deg);
     }
     100%{
         transform: translateX(-100%) translateY(-100%) rotate(130deg);
