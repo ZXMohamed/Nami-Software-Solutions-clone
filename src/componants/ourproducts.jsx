@@ -69,7 +69,11 @@ function Productcard({ image, name, description, badges, aosanimation }) {{/*//$
         </Box>
         <Typography variant='h6' component={'h3'}>{name}</Typography>
         <Typography>{description}</Typography>
-        {/*//$ services badges*/}
+        <Servicesbadgeslist type={servicesbadgeslisttype.box}>
+            {
+                badges.map((val,inx)=><Servicebadge key={inx} type={servicebadgetypes.androidapplication} size={servicebadgesize.small}/>)
+            }
+        </Servicesbadgeslist>
     </Stack>
   )
 }
