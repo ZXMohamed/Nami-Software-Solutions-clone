@@ -15,6 +15,7 @@ import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
 import "./sass/statisricsbox.scss"
 import "./sass/Servicebadge.scss"
+import Portfolio from "./componants/portfolio";
 
 
 AOS.init({ once: true, offset: 65 });
@@ -52,6 +53,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Portfolio/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
