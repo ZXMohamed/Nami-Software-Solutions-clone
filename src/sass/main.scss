@@ -312,7 +312,7 @@ body{
 
 .ourproductssec{
     background-color: $primarytransparent;
-    padding: 40px 0px 120px 0px;
+    padding: 60px 0px 120px 0px;
     .slider{
         padding-top: 20px;
         padding-bottom: 40px;
@@ -379,6 +379,7 @@ body{
     }
 }
 .infocardsec{
+    background: linear-gradient(180deg, transparent 0px 60px, $secondcolor 60px 100%);
     position: relative;
     top: -60px;
 }

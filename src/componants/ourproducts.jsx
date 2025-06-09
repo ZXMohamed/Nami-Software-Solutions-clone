@@ -19,7 +19,7 @@ export default function Ourproducts() {
             <Sectionheader title={ "Where quality meets innovation" } subtitle={ "Our products" } showallurl={ "" } />
             <Products/>
         </Box>
-        <Statisrics/>
+        <Statistics/>
     </>
   )
 }
@@ -67,7 +67,7 @@ function Productcard({ image, name, description, badges, aosanimation }) {
     <Box className='productcard' {...aosanimation}>
         <Stack direction={"column"} >
             <Box className="shine">
-            <img src={ image } alt={ name + " shopping service product from nami" } loading='lazy' />
+            <img src={ image } alt={ name + " service product from nami" } loading='lazy' />
             </Box>
             <Typography variant='h6' component={'h3'}>{name}</Typography>
             <Typography>{description}</Typography>
@@ -81,7 +81,7 @@ function Productcard({ image, name, description, badges, aosanimation }) {
   )
 }
 
-function Statisrics() {
+export function Statistics() {
 
     const [namistatisrics,setnamistatisrics] = useState([{
         title: "Years",
