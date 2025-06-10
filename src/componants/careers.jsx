@@ -1,9 +1,10 @@
 import { Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 export default function Careers() {
 
     const [openposition, setopenposition] = useState(["PHP Developer"]);
+    const [job, setjob] = useState("0");
 
   return (
     <Box className='careerssec'>
@@ -25,8 +26,8 @@ export default function Careers() {
                         <Typography variant='h6' component={'h3'}><i>Upload your CV</i></Typography>
                         <TextField variant="outlined" type='text' placeholder='Full name'/>
                         <TextField variant="outlined" type="number" placeholder='Phone number'/>
-                        <Select variant='outlined' value={0} onChange={"handleChange"}>
-                            <MenuItem value={0}>Select the job</MenuItem>
+                        <Select variant='outlined' value={job} onChange={(selected)=>{setjob(selected.target.value)}}>
+                            <MenuItem value={"0"}>Select the job</MenuItem>
                               { openposition.map((val,inx) => <MenuItem key={inx} value={val}>{val}</MenuItem>)}
                         </Select>
                         <Fileinput/>
@@ -44,12 +45,17 @@ export default function Careers() {
 
 function Fileinput(props) { 
 
+    const filename = useRef();
+
+    const open = (e) => { 
+        filename.current.textContent = e.target.files[0]?.name || "No file chosen";
+    }
     return (
         <Box className="fileinput">
-            <input type="file" id="cvupload" hidden { ...props } />
+            <input type="file" id="cvupload" hidden { ...props } onChange={open}/>
             <label htmlFor="cvupload">
                 <div variant='contained' disableRipple>Choose File</div>
-                <Typography component={'span'}>No file chosen</Typography>
+                <Typography ref={filename} component={'span'}>No file chosen</Typography>
             </label>
         </Box>
     )

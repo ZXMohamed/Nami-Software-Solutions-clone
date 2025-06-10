@@ -453,9 +453,12 @@ body{
             }
         }
         span{
+            overflow: hidden;
+            width: 70%;
             font-size: 14px;
             text-transform: capitalize;
             padding-left: 10px;
+            @include textoverflow(1);
         }
     }
 }
