@@ -31,6 +31,7 @@ export default function Careers() {
                         </Select>
                         <Fileinput/>
                         <Button variant='contained' disableRipple>Apply now</Button>
+                        <Typography>This is a required field</Typography>
                     </Stack>
                 </Grid>
             </Grid>
