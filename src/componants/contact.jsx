@@ -27,14 +27,14 @@ export default function Contact() {
   return (
     <Box className="contactsec">
         <Container maxWidth="lg">
-            <Grid container>
-                <Grid size={6}>
+            <Grid container rowSpacing={{xs:5,md:0}}>
+                <Grid size={{xs:12,md:6}} order={{xs:1,md:0}}>
                     <Stack component={"form"} direction={"column"} spacing={10} className='contactformsec' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                         <Grid container rowSpacing={8} columnSpacing={3}>
-                            <Grid size={6}><TextField type={"text"}  color='secondary' label="Name" variant="standard" /></Grid>
-                            <Grid size={6}><TextField type="email"  color='secondary'  label="Email" variant="standard" /></Grid>
-                            <Grid size={6}><TextField type={"numper"} color='secondary'   label="Phone" variant="standard" /></Grid>
-                            <Grid size={6}><TextField type={"Text"}  color='secondary'  label="Subject" variant="standard" /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type={"text"}  color='secondary' label="Name" variant="standard" /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type={"numper"} color='secondary'   label="Phone" variant="standard" /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type={"Text"}  color='secondary'  label="Subject" variant="standard" /></Grid>
                             <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={4} variant="standard" /></Grid>
                         </Grid>
                         <Box>captcha</Box>
@@ -45,7 +45,7 @@ export default function Contact() {
                         </Stack>
                     </Stack>
                 </Grid>
-                <Grid size={6}>
+                <Grid size={{xs:12,md:6}} order={{xs:0,md:1}}>
                     <Stack direction="column" spacing={2} className='headsec'>
                         <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
                         <Typography variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
@@ -74,12 +74,12 @@ function Contactinfoitem({icon,title,contactmethod,route,aosanimation}) {
 
     return (
         <Grid container {...aosanimation}>
-            <Grid size={ 1 }>
+            <Grid size={ { xs:2,xxs:1 } }>
                 <Box className="iconbox">
                     <img src={icon} alt={ title } />
                 </Box>
             </Grid>
-            <Grid size={ 11 }>
+            <Grid size={ { xs:10,xxs:11 } }>
                 <Stack direction={ "column" } spacing={ 1 }>
                     <Typography variant='h6' component={ 'h3' }>{ title}</Typography>
                     <Typography variant='h6' component={ 'h4' }>{ contactmethod}</Typography>
