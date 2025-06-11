@@ -299,7 +299,7 @@ body{
 }
 
 .contactsec{
-    padding: 80px 10px 120px 10px;
+    padding: 96px 10px 136px 10px;
     background-color: $secondcolor;
 
     .contactformsec{
@@ -308,9 +308,24 @@ body{
         padding: 40px 40px 20px 40px;
         border-radius: 15px;
         
+        .MuiFormLabel-root{
+            color: $secondcolor;
+            font-size: 14px;
+        }
         .MuiTextField-root{
             width: 100%;
             font-family: "Plexnormal";
+        }
+        .MuiInput-root {
+            &:before {
+                border-bottom: 1px solid $secondcolor;
+            }
+            &:hover:not(.Mui-disabled):before {
+                border-bottom: 1px solid $secondcolor;
+            }
+        }
+        .MuiFormHelperText-root{
+            font-size: 16px;
         }
         input,textarea{
             caret-color: $secondcolor;
@@ -318,6 +333,9 @@ body{
             &::selection{
                 background-color: $primary2color;
             }
+        }
+        input::-webkit-inner-spin-button{
+            display: none;
         }
         textarea{
             @extend %scroll;
@@ -387,6 +405,10 @@ body{
                 height: 46px;
                 @include center("flex");
                 border: 1px solid $primarycolor;
+                &::selection{
+                    background-color: transparent;
+                    color: transparent;
+                }
                 img{
                     width: 45%;
                 }

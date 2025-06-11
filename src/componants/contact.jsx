@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material'
+import { Box, Container, Grid, Stack, TextField, Typography } from '@mui/material'
 
 import location from "../assets/photo/contact/location.svg"
 import call from "../assets/photo/contact/call.svg"
@@ -23,19 +23,30 @@ export default function Contact() {
         contactmethod: "+201099347981",
         route:""
     }]);
+    const [inputhelptext, setinputhelptext] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message:""
+    });
+
+    function helptextshow(e,input) { 
+        setinputhelptext({...inputhelptext,[input]:(e.target.value=="" ?"This is a required field":"")})
+    }
 
   return (
     <Box className="contactsec">
         <Container maxWidth="lg">
             <Grid container rowSpacing={{xs:5,md:0}}>
                 <Grid size={{xs:12,md:6}} order={{xs:1,md:0}}>
-                    <Stack component={"form"} direction={"column"} spacing={10} className='contactformsec' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                        <Grid container rowSpacing={8} columnSpacing={3}>
-                            <Grid size={{xs:12,sm:6}}><TextField type={"text"}  color='secondary' label="Name" variant="standard" /></Grid>
-                            <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" /></Grid>
-                            <Grid size={{xs:12,sm:6}}><TextField type={"numper"} color='secondary'   label="Phone" variant="standard" /></Grid>
-                            <Grid size={{xs:12,sm:6}}><TextField type={"Text"}  color='secondary'  label="Subject" variant="standard" /></Grid>
-                            <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={4} variant="standard" /></Grid>
+                    <Stack component={"form"} direction={"column"} spacing={6} className='contactformsec' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+                        <Grid container rowSpacing={8} columnSpacing={4}>
+                            <Grid size={{xs:12,sm:6}}><TextField type={"text"}  color='secondary' label="Name" variant="standard" helperText={inputhelptext.name} onBlur={(e)=>helptextshow(e,"name")} /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" helperText={inputhelptext.email} onBlur={(e)=>helptextshow(e,"email")} /></Grid>
+                            <Grid size={{xs:12,sm:6}}><TextField type={"number"} color='secondary'   label="Phone" variant="standard" helperText={inputhelptext.phone} onBlur={(e)=>{helptextshow(e,"phone")}} /></Grid>
+                            <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={ inputhelptext.subject } onBlur={(e)=>{helptextshow(e,"subject")}} /></Grid>
+                            <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={4} variant="standard" helperText={inputhelptext.message} onBlur={(e)=>{setinputhelptext({...inputhelptext,message:(e.target.value=="" ?"This is a required field":"")})}} /></Grid>
                         </Grid>
                         <Box>captcha</Box>
                         <Stack direction={"row"} className='sendbuttoncon'>
@@ -45,7 +56,7 @@ export default function Contact() {
                         </Stack>
                     </Stack>
                 </Grid>
-                <Grid size={{xs:12,md:6}} order={{xs:0,md:1}}>
+                <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
                     <Stack direction="column" spacing={2} className='headsec'>
                         <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
                         <Typography variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
@@ -58,7 +69,7 @@ export default function Contact() {
                     <br/>
                     <br/>
                     <Stack direction="column" spacing={2} className='contactinfosec'>
-                        {contactinfo.map((val,inx)=><Contactinfoitem icon={val.icon} title={val.title} contactmethod={val.contactmethod} route={val.route} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":((inx+1)*50)}}/>)}
+                        {contactinfo.map((val,inx)=><Contactinfoitem key={inx} icon={val.icon} title={val.title} contactmethod={val.contactmethod} route={val.route} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":((inx+1)*50)}}/>)}
                     </Stack>
                 </Grid>
             </Grid>
