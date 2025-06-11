@@ -47,12 +47,12 @@ function Fileinput(props) {
 
     const filename = useRef();
 
-    const open = (e) => { 
-        filename.current.textContent = e.target.files[0]?.name || "No file chosen";
+    const open = (e,shownametarget) => { 
+        shownametarget.current.textContent = e.target.files[0]?.name || "No file chosen";
     }
     return (
         <Box className="fileinput">
-            <input type="file" id="cvupload" hidden { ...props } onChange={open}/>
+            <input type="file" id="cvupload" hidden { ...props } onChange={(e)=>open(e,filename)}/>
             <label htmlFor="cvupload">
                 <div variant='contained' disableRipple>Choose File</div>
                 <Typography ref={filename} component={'span'}>No file chosen</Typography>
