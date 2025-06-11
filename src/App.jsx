@@ -15,6 +15,7 @@ import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
 import "./sass/statisricsbox.scss"
 import "./sass/Servicebadge.scss"
+import Contact from "./componants/contact";
 
 
 AOS.init({ once: true, offset: 65 });
@@ -52,6 +53,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Contact/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>

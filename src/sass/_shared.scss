@@ -23,6 +23,23 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
 // }
 
 //*global style*/
+
+%scroll{
+    &::selection{
+        background-color: $primarycolor;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: $secondcolor;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: $scrollcolor;
+        border-radius: 40vw;
+    }
+}
+
 %hexagonborder{
     position: relative;
     top: 0px;
@@ -37,7 +54,6 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         @extend %animatedBG;
     }
 }
-
 
 %semihexagon{
     clip-path: polygon(15% 12%, 83% 12%, 100% 50%, 85% 86%, 15% 87%, 2% 50%);

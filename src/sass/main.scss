@@ -12,19 +12,7 @@
 }
 
 html{
-    &::selection{
-        background-color: $primarycolor;
-    }
-    &::-webkit-scrollbar
-    {
-        width: 8px;
-        background-color: $secondcolor;
-    }
-    &::-webkit-scrollbar-thumb
-    {
-        background-color: $scrollcolor;
-        border-radius: 40vw;
-    }
+    @extend %scroll;
 }
 body{
     height: 1500px;
@@ -308,4 +296,115 @@ body{
     //     // padding-left: 10.045%;
     //     // padding-right: 10.045%;
     // }
+}
+
+.contactsec{
+    padding: 80px 20px 120px 20px;
+    background-color: $secondcolor;
+
+    .contactformsec{
+        background-color: $primarycolor;
+        width: 98%;
+        padding: 40px 40px 20px 40px;
+        border-radius: 15px;
+        
+        .MuiTextField-root{
+            width: 100%;
+            font-family: "Plexnormal";
+        }
+        input,textarea{
+            caret-color: $secondcolor;
+            color: $secondcolor;
+            &::selection{
+                background-color: $primary2color;
+            }
+        }
+        textarea{
+            @extend %scroll;
+        }
+
+        .sendbuttoncon{
+            width: 100%;
+            justify-content: flex-end;
+            align-items: center;
+            div{
+                @include center("flex");
+                width: 80px;
+                height: 45px;
+                @extend %hexagonborder;
+                button{
+                    width: 92%;
+                    height: 90%;
+                    @extend %hexagon;
+                    background-color: $secondcolor;
+                    border: none;
+                    outline: none;
+                    position: relative;
+                    z-index: 1;
+                    @extend %transition;
+                    &:hover{
+                        @extend %animatedBG;
+                        color:$secondcolor;
+                    }
+                }
+            }
+        }
+    }
+    .headsec{
+        margin-left: 20px;
+        h1{
+            font-family: "Plexbold";
+            max-width: 350px;
+            text-transform: uppercase;
+            font-size: 30px;
+        }
+        h2{
+            color: $secondtextcolor;
+            font-family: "Plexbold";
+        }
+        p{
+            color: $secondtextcolor;
+            font-family: "Plexnormal";
+            text-wrap: balance;
+        }
+    }
+    .contactinfosec{
+        margin-left: 20px;
+        >div{
+            @include center("yflex");
+            &:hover{
+                div.iconbox{
+                    background-color: $primarycolor;
+                    img{
+                        filter: brightness(0) invert(1);
+                    }
+                }
+            }
+            div.iconbox{
+                @extend %transition;
+                border-radius: 50%;
+                width: 46px;
+                height: 46px;
+                @include center("flex");
+                border: 1px solid $primarycolor;
+                img{
+                    width: 45%;
+                }
+            }
+            h3{
+                padding-left: 20px;
+                width: 100%;
+                font-family: "Plexbold";
+                color: $secondtextcolor;
+                font-size: 13px;
+            }
+            h4{
+                width: 100%;
+                padding-left: 20px;
+                font-family: "Plexnormal";
+                font-size: 16px;
+                color: $primarycolor;
+            }
+        }
+    }
 }
