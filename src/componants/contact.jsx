@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Box, Container, Grid, Stack, TextField, Typography } from '@mui/material'
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 import location from "../assets/photo/contact/location.svg"
 import call from "../assets/photo/contact/call.svg"
 import mail from "../assets/photo/contact/mail.svg"
+
 
 export default function Contact() {
 
@@ -23,6 +26,7 @@ export default function Contact() {
         contactmethod: "+201099347981",
         route:""
     }]);
+    
     const [inputhelptext, setinputhelptext] = useState({
         name: "",
         email: "",
@@ -30,6 +34,25 @@ export default function Contact() {
         subject: "",
         message:""
     });
+
+    const [captchaToken, setCaptchaToken] = useState(null);
+
+    const handleCaptchaChange = (token) => {
+        setCaptchaToken(token);
+        console.log("Captcha token:", token);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!captchaToken) {
+        alert("Please complete the CAPTCHA.");
+        return;
+        }
+
+        // Proceed with form submission logic (e.g. send data to backend)
+        console.log("Form submitted with CAPTCHA:", captchaToken);
+    };
+
 
     function helptextshow(e,input) { 
         setinputhelptext({...inputhelptext,[input]:(e.target.value=="" ?"This is a required field":"")})
@@ -40,7 +63,7 @@ export default function Contact() {
         <Container maxWidth="lg">
             <Grid container rowSpacing={{xs:5,md:0}}>
                 <Grid size={{xs:12,md:6}} order={{xs:1,md:0}}>
-                    <Stack component={"form"} direction={"column"} spacing={6} className='contactformsec' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+                    <Stack component={"form"} direction={"column"} spacing={6} className='contactformsec' onSubmit={handleSubmit} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                         <Grid container rowSpacing={8} columnSpacing={4}>
                             <Grid size={{xs:12,sm:6}}><TextField type={"text"}  color='secondary' label="Name" variant="standard" helperText={inputhelptext.name} onBlur={(e)=>helptextshow(e,"name")} /></Grid>
                             <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" helperText={inputhelptext.email} onBlur={(e)=>helptextshow(e,"email")} /></Grid>
@@ -48,10 +71,10 @@ export default function Contact() {
                             <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={ inputhelptext.subject } onBlur={(e)=>{helptextshow(e,"subject")}} /></Grid>
                             <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={4} variant="standard" helperText={inputhelptext.message} onBlur={(e)=>{setinputhelptext({...inputhelptext,message:(e.target.value=="" ?"This is a required field":"")})}} /></Grid>
                         </Grid>
-                        <Box>captcha</Box>
+                        <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange} />
                         <Stack direction={"row"} className='sendbuttoncon'>
                             <Box className="">
-                                <button>Send</button>
+                                <button type='submit'>Send</button>
                             </Box>
                         </Stack>
                     </Stack>
