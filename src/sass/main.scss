@@ -311,6 +311,7 @@ body{
 }
 
 .careerssec{
+    overflow: hidden;
     position: relative;
     top: 0px;
     padding: 60px 40px;
@@ -321,6 +322,7 @@ body{
         height: 100%;
         position: absolute;
         top: 0;
+        left: 0;
         z-index: 0;
         background: url('../assets/photo/global/Namiicon.svg');
         background-position: center;
@@ -385,9 +387,11 @@ body{
             }
         }
         >button{
-            @extend %widehexagon;
-            @extend %animatedBG;
-            height: 58px;
+            &:not(.g-recaptcha){
+                @extend %widehexagon;
+                @extend %animatedBG;
+                height: 58px;
+            }
         }
         p{
             font-family: "Plexnormal";

@@ -1,10 +1,35 @@
 import { Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 export default function Careers() {
 
     const [openposition, setopenposition] = useState(["PHP Developer"]);
     const [job, setjob] = useState("0");
+
+    const [helptext, sethelptext] = useState("");
+
+    const [captchaToken, setCaptchaToken] = useState(null);
+
+    const handleCaptchaChange = (token) => {
+        setCaptchaToken(token);
+        console.log("Captcha token:", token);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!captchaToken) {
+            alert("Please complete the CAPTCHA.");
+            return;
+        }
+        // Proceed with form submission logic (e.g. send data to backend)
+        console.log("Form submitted with CAPTCHA:", captchaToken);
+    };
+
+    const showhelptext = (e)=> { 
+        sethelptext(e.target.value == "" || e.target.value == "0" || e.target.files[0].name == undefined ? "This is a required field" : "");
+    }
 
   return (
     <Box className='careerssec'>
@@ -22,17 +47,18 @@ export default function Careers() {
                     </Stack>
                 </Grid>
                 <Grid size={{xs:12,md:5}}>
-                    <Stack component={'form'} direction={'column'} spacing={2} className='formsec' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
+                    <Stack component={'form'} direction={'column'} spacing={2} className='formsec' onSubmit={handleSubmit} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
                         <Typography variant='h6' component={'h3'}><i>Upload your CV</i></Typography>
-                        <TextField variant="outlined" type='text' placeholder='Full name'/>
-                        <TextField variant="outlined" type="number" placeholder='Phone number'/>
-                        <Select variant='outlined' value={job} onChange={(selected)=>{setjob(selected.target.value)}}>
+                        <TextField variant="outlined" type='text' placeholder='Full name' onBlur={showhelptext} onChange={showhelptext}/>
+                        <TextField variant="outlined" type="number" placeholder='Phone number' onBlur={showhelptext} onChange={showhelptext}/>
+                        <Select variant='outlined' value={job} onChange={(selected)=>{setjob(selected.target.value);}} onBlur={showhelptext}>
                             <MenuItem value={"0"}>Select the job</MenuItem>
                               { openposition.map((val,inx) => <MenuItem key={inx} value={val}>{val}</MenuItem>)}
                         </Select>
-                        <Fileinput/>
-                        <Button variant='contained' disableRipple>Apply now</Button>
-                        <Typography>This is a required field</Typography>
+                        <Fileinput onFocus={showhelptext} onBlur={showhelptext}/>
+                        <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>
+                        <Button variant='contained' disableRipple type='submit'>Apply now</Button>
+                        <Typography>{helptext}</Typography>
                     </Stack>
                 </Grid>
             </Grid>
@@ -54,7 +80,7 @@ function Fileinput(props) {
         <Box className="fileinput">
             <input type="file" id="cvupload" hidden { ...props } onChange={(e)=>open(e,filename)}/>
             <label htmlFor="cvupload">
-                <div variant='contained' disableRipple>Choose File</div>
+                <div variant='contained'>Choose File</div>
                 <Typography ref={filename} component={'span'}>No file chosen</Typography>
             </label>
         </Box>
