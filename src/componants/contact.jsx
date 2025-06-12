@@ -69,7 +69,7 @@ export default function Contact() {
                             <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" helperText={inputhelptext.email} onBlur={(e)=>helptextshow(e,"email")} /></Grid>
                             <Grid size={{xs:12,sm:6}}><TextField type={"number"} color='secondary'   label="Phone" variant="standard" helperText={inputhelptext.phone} onBlur={(e)=>{helptextshow(e,"phone")}} /></Grid>
                             <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={ inputhelptext.subject } onBlur={(e)=>{helptextshow(e,"subject")}} /></Grid>
-                            <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={4} variant="standard" helperText={inputhelptext.message} onBlur={(e)=>{setinputhelptext({...inputhelptext,message:(e.target.value=="" ?"This is a required field":"")})}} /></Grid>
+                            <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={6} variant="standard" helperText={inputhelptext.message} onBlur={(e)=>{setinputhelptext({...inputhelptext,message:(e.target.value=="" ?"This is a required field":"")})}} /></Grid>
                         </Grid>
                         <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange} />
                         <Stack direction={"row"} className='sendbuttoncon'>
