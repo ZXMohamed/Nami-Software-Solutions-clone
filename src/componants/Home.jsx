@@ -16,7 +16,7 @@ export default function Home() {
                 countries of the world.
             </Typography>
 
-            <Socialbuttons/>
+            <Socialbuttons aosanimation={ { ["data-aos"]: "fade-up",["data-aos-duration"] : "1000",["data-aos-delay"]: "150" } }/>
 
             <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homebtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <Button variant="outlined" disableRipple="false" className="homebtn homeportfoliobtn">Portfolio</Button>
