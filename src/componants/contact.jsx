@@ -35,6 +35,29 @@ export default function Contact() {
         message:""
     });
 
+    const contactparagraph = useRef();
+
+    gsap.registerPlugin(SplitText, ScrollTrigger);
+    
+    useEffect(() => {
+        const contactparagraphsplit = new SplitText(contactparagraph.current, {
+            type: "words"
+        });
+
+        gsap.to(contactparagraphsplit.words, {
+            scrollTrigger: {
+                trigger: contactparagraph.current,
+                scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:1,
+            y: 0,
+            opacity:1,
+            stagger: 0.05,
+        });
+    },[]);
+
     const [captchaToken, setCaptchaToken] = useState(null);
 
     const handleCaptchaChange = (token) => {
@@ -83,7 +106,7 @@ export default function Contact() {
                     <Stack direction="column" spacing={2} className='headsec'>
                         <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
                         <Typography variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
-                        <Typography data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+                        <Typography ref="contactpragraph" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                             Our team of professionals is committed to delivering exceptional results in
                             software development and technical project management. Share your project
                             details with us so we can create a custom experience that meets your vision.
