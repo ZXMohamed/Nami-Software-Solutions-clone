@@ -3,6 +3,7 @@ import React from 'react'
 
 import logo from "../assets/photo/global/namilogo.svg";
 import mailbox from "../assets/photo/footer/mailbox.svg";
+import Socialbuttons from './socialbuttons';
 
 export default function Footer() {
   return (
@@ -46,6 +47,7 @@ export default function Footer() {
             </Grid>
             <Stack direction={'row'} spacing={2} className='social'>
                 <Typography>© 2025 All rights reserved for Nami Software Development Company.</Typography>
+                <Socialbuttons/>
             </Stack>
         </Container>
     </Box>
