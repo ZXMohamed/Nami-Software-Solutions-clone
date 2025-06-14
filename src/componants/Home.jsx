@@ -1,4 +1,5 @@
 import { Box, Typography, Stack, Button } from "@mui/material";
+import Socialbuttons from "./socialbuttons";
 
 export default function Home() { 
 
@@ -15,13 +16,7 @@ export default function Home() {
                 countries of the world.
             </Typography>
 
-            <Stack direction="row" spacing={ 1 } className="homesocialbtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </Stack>
+            <Socialbuttons/>
 
             <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homebtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <Button variant="outlined" disableRipple="false" className="homebtn homeportfoliobtn">Portfolio</Button>
