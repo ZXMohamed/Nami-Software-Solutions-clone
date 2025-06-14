@@ -1,14 +1,14 @@
 import React from 'react'
 import { Stack } from '@mui/material'
 
-export default function Socialbuttons() {
-  return (
-        <Stack direction="row" spacing={ 1 } className="socialbtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+export default function Socialbuttons({ aosanimation }) {
+    return (
+        <Stack direction="row" spacing={ 1 } className="socialbtns" {...aosanimation} >
             <div></div>
             <div></div>
             <div></div>
             <div></div>
             <div></div>
         </Stack>
-  )
+    )
 }
