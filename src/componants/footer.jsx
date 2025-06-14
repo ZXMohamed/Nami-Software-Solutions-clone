@@ -45,7 +45,7 @@ export default function Footer() {
                     </ul>
                 </Grid>
             </Grid>
-            <Stack direction={'row'} spacing={2} className='social'>
+            <Stack direction={'row'} spacing={0.5} className='social'>
                 <Typography>© 2025 All rights reserved for Nami Software Development Company.</Typography>
                 <Socialbuttons/>
             </Stack>

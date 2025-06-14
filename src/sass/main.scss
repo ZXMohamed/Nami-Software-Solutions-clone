@@ -304,6 +304,7 @@ body{
         div.about{
             padding-right: 10px;
             padding-left: 10px;
+            padding-bottom: 10px;
             img{
                 height: 60px;
             }
@@ -318,6 +319,7 @@ body{
             }
         }
         div.links,div.services,div.contactemail{
+            padding-left: 10px;
             h1{
                 font-family: "Plexnormal";
                 font-weight: 600;
@@ -377,10 +379,17 @@ body{
         padding: 0 20px;
         border-radius: 20px;
         background-color: $primary3transparent;
-        height: 65px;
+        min-height: 65px;
         flex-wrap: wrap;
         p{
             font-family: "Plexnormal";
+            text-align: center;
+        }
+        @media screen and (max-width:858px) {
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 0;
         }
     }
 
