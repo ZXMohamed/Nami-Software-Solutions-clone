@@ -177,32 +177,6 @@ body{
         }
     }
 }
-.homesocialbtns {
-    margin-top: 25px;
-    div{
-        width: 40px;
-        height: 40px;
-        @extend %transition;
-        @include socialbtnsstyle("sty1");
-        &:hover{
-            background-color: $primarycolor;
-            margin-top: -5px;
-        }
-        &::after{
-            @extend %transition;
-        }
-        &:hover::after{
-            filter:brightness(0) invert(1);
-        }
-    }
-    $inx:0;
-    @each $iconURL in $socialiconurls {
-        $inx : $inx + 1;
-        div:nth-child(#{$inx})::after{
-            background-image: url($iconURL);
-        }
-    }
-}
 .homesecbg{
     position: absolute;
     z-index: -1;

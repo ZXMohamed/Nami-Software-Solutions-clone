@@ -11,6 +11,7 @@ import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
 import "./sass/main.scss"
+import "./sass/socialbuttons.scss"
 import "./sass/float.scss"
 import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
