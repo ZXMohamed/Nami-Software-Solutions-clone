@@ -1,6 +1,8 @@
+import React, { useEffect, useRef, useState } from 'react'
 import { Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
-import React, { useRef, useState } from 'react'
-
+import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Careers() {
@@ -11,6 +13,29 @@ export default function Careers() {
     const [helptext, sethelptext] = useState("");
 
     const [captchaToken, setCaptchaToken] = useState(null);
+
+    const careerspragraph = useRef();
+
+    gsap.registerPlugin(SplitText, ScrollTrigger);
+    
+    useEffect(() => {
+        const servicespragraphsplit = new SplitText(careerspragraph.current, {
+            type: "words"
+        });
+
+        gsap.to(servicespragraphsplit.words, {
+            scrollTrigger: {
+                trigger: careerspragraph.current,
+                scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=50 bottom",
+            },
+            duration:1,
+            y: 0,
+            opacity:1,
+            stagger: 0.05,
+        });
+    },[]);
 
     const handleCaptchaChange = (token) => {
         setCaptchaToken(token);
@@ -39,7 +64,7 @@ export default function Careers() {
                     <Stack direction={'column'} spacing={1} className='headersec'>
                         <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Careers</i></Typography>
                         <Typography variant='h3' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Build your future with our company</Typography>
-                        <Typography data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+                        <Typography ref={careerspragraph} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                             At our company, we strive to create an environment focused on learning and striving to achieve
                             a person's fullest potential. We got itWe maintain a prominent presence in the industry thanks to
                             our continuous efforts, and we invite you to be part of the story of our continuous development.
