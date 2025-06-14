@@ -27,6 +27,7 @@ html{
     }
 }
 body{
+    overflow: hidden;
     height: 1500px;
     background-image: url($sitebackground);
     background-repeat: repeat;
@@ -308,4 +309,26 @@ body{
     //     // padding-left: 10.045%;
     //     // padding-right: 10.045%;
     // }
+}
+
+.servicesticker{
+    @extend %animatedBG;
+    height: 55px;
+    color: $secondcolor;
+    @include center("flex");
+    div{
+        height: 100%;
+        padding: 14px 0;
+        width: 1920px;
+        // overflow: hidden;
+        position: relative;
+        p{
+            position: absolute;
+            left: 0px;
+            &::before{
+                content: "#";
+
+            }
+        }
+    }
 }
