@@ -14,18 +14,18 @@ export default function Careers() {
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
-    const careerspragraph = useRef();
+    const careersparagraph = useRef();
 
     gsap.registerPlugin(SplitText, ScrollTrigger);
     
     useEffect(() => {
-        const servicespragraphsplit = new SplitText(careerspragraph.current, {
+        const careerparagraphsplit = new SplitText(careersparagraph.current, {
             type: "words"
         });
 
-        gsap.to(servicespragraphsplit.words, {
+        gsap.to(careerparagraphsplit.words, {
             scrollTrigger: {
-                trigger: careerspragraph.current,
+                trigger: careersparagraph.current,
                 scrub: 1,
                 start: "top+=0 bottom",
                 end: "top+=50 bottom",
