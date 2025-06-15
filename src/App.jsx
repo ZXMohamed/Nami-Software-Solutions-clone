@@ -5,6 +5,7 @@ import AOS from "aos";
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Socialbtns from "./componants/socialbtns";
+import Requestform from "./componants/requestform";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
@@ -16,6 +17,7 @@ import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
 import "./sass/statisricsbox.scss"
 import "./sass/Servicebadge.scss"
+import "./sass/requestform.scss"
 
 
 AOS.init({ once: true, offset: 65 });
@@ -53,6 +55,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Requestform/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
