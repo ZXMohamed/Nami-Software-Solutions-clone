@@ -27,7 +27,8 @@ html{
     }
 }
 body{
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: 1500px;
     background-image: url($sitebackground);
     background-repeat: repeat;
@@ -313,21 +314,31 @@ body{
 
 .servicesticker{
     @extend %animatedBG;
-    height: 55px;
+    height: 76px;
     color: $secondcolor;
     @include center("flex");
     div{
         height: 100%;
         padding: 14px 0;
         width: 1920px;
-        // overflow: hidden;
+        @include center("yflex");
+        overflow: hidden;
         position: relative;
         p{
+            font-family: "Plexnormal";
+            font-size: 18px;
+            display: flex;
             position: absolute;
             left: 0px;
             &::before{
-                content: "#";
-
+                content: "";
+                background-image: url('../assets/photo/servicesticker/split.png');
+                background-position: left 60%;
+                background-repeat: no-repeat;
+                background-size: 40%;
+                filter: brightness(0) invert(1);
+                width: 50px;
+                display: block;
             }
         }
     }

@@ -1,39 +1,48 @@
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, useMediaQuery } from '@mui/material';
 
 export default function Servicesticker() {
 
   const ticker = useRef();
 
   useEffect(() => {
+    const tickerwidth = ticker.current.offsetWidth;
     const tickeritems = ticker.current.children;
-    let delay = 0;
-
+    const tickermoves = [];
+    
     gsap.utils.toArray(tickeritems).forEach((item, index) => {
 
-      const previtemwidth = (index == 0 ? 0 : getComputedStyle(tickeritems[index - 1]).getPropertyValue("width"));
+      const tickeritemmove = gsap.timeline();
 
-      delay = delay + parseInt(previtemwidth) / 43;
-
-      console.log(delay);
-      const x = gsap.timeline();
-
-      x.fromTo(item, {
-        left:"0",
-        x: "1950",
-      },{
-        x: "-50",
-        duration: 30,
+      tickeritemmove.fromTo(item, {
+        left: "0",
+        x: tickerwidth,
+      }, {
+        x: -1*((1912-ticker.current.offsetWidth)+100),
+        duration: 28,
         ease: "none",
         repeat: -1,
-        delay: delay
+        onStart: () => {
+          const itemwidth = gsap.getProperty(item, "width");
+          callnextitem(itemwidth,tickerwidth);
+          function callnextitem(itemwidth,tickerwidth) {
+            setTimeout(() => {
+              if (gsap.getProperty(item, "x") <= tickerwidth - itemwidth) {
+                tickermoves[index + 1]?.play();
+              }
+              else {
+                callnextitem(...arguments);
+              }
+            }, 478)//*delay between each item
+          }
+        }
       });
-// x.progress(((index+1)/10)).play();
+      if (index != 0) tickeritemmove.pause();
+    tickermoves.push(tickeritemmove)
     });
-
-
-  },[]);
+    
+  });
 
   return (
     <Box className='servicesticker'>
