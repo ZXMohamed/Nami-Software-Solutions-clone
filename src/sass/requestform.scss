@@ -13,7 +13,7 @@
     form{
         position: relative;
         border-radius: 20px;
-        padding: 24px;
+        padding: 8px 24px 24px 24px;
         width: 500px;
         background-color: $secondcolor;
 
@@ -36,23 +36,57 @@
             font-size: 13px;
             color: $secondtextcolor;
             margin-bottom: 5px;
+
             span{
                 color: #ff0000;
             }
         }
-        div.MuiInputBase-root{
-            border-radius:10px;
-            >input{
-                padding: 0px 12px;
-                height: 46px;
-                background-color: $secondcolor;
-                border-radius:8px;
-                &::placeholder{
-                    font-size: 12px;
-                }
+        .MuiTextField-root{
+            width: 100%;
+            font-family: "Plexnormal";
+        }
+        .MuiInput-root {
+            &:before {
+                border-bottom: 1px solid $secondcolor;
             }
-            >textarea{
-                resize: both;
+            &:hover:not(.Mui-disabled):before {
+                border-bottom: 1px solid $secondcolor;
+            }
+        }
+        .MuiFormHelperText-root{
+            font-size: 16px;
+            font-family: "Plexnormal";
+            margin-left: 0;
+            margin-bottom: 5px;
+            color: #000000;
+        }
+        .MuiInputBase-multiline{
+            padding: 0;
+        }
+        input,textarea{
+            padding: 0px 12px;
+            height: 46px;
+            background-color: $secondcolor;
+            border-radius:8px;
+            caret-color: $secondcolor;
+            &::selection{
+                background-color: $primary2color;
+            }
+        }
+        input::-webkit-inner-spin-button{
+            display: none;
+        }
+        textarea{
+            padding: 12px;
+            // @extend %scroll;
+            resize: vertical;
+        }
+        button.send{
+            &:not(.g-recaptcha){
+                width: 146px;
+                @extend %widehexagon;
+                @extend %animatedBG;
+                height: 58px;
             }
         }
     }
