@@ -79,7 +79,7 @@
         }
         textarea{
             padding: 12px;
-            // @extend %scroll;
+            @extend %scroll;
             resize: vertical;
         }
         .sendbuttoncon{
