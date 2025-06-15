@@ -49,8 +49,8 @@ export default function Requestform() {
         
             <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>
           
-            <Stack direction={'row'} justifyContent={'center'}>
-                <Box className="">
+            <Stack direction={'row'} justifyContent={'center'} className='sendbuttoncon'>
+                <Box>
                     <button type='submit' className='send'>Send</button>
                 </Box>
             </Stack>

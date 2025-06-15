@@ -81,12 +81,29 @@
             // @extend %scroll;
             resize: vertical;
         }
-        button.send{
-            &:not(.g-recaptcha){
+        .sendbuttoncon{
+            div{
+                margin-top: 10px;
+                @include center("flex");
                 width: 146px;
-                @extend %widehexagon;
+                height: 53px;
+                 @extend %widehexagon;
                 @extend %animatedBG;
-                height: 58px;
+                button{
+                    width: 97%;
+                    height: 90%;
+                    @extend %widehexagon;
+                    background-color: $secondcolor;
+                    border: none;
+                    outline: none;
+                    position: relative;
+                    z-index: 1;
+                    @extend %transition;
+                    &:hover{
+                        @extend %animatedBG;
+                        color:$secondcolor;
+                    }
+                }
             }
         }
     }
