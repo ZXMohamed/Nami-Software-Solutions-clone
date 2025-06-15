@@ -40,5 +40,20 @@
                 color: #ff0000;
             }
         }
+        div.MuiInputBase-root{
+            border-radius:10px;
+            >input{
+                padding: 0px 12px;
+                height: 46px;
+                background-color: $secondcolor;
+                border-radius:8px;
+                &::placeholder{
+                    font-size: 12px;
+                }
+            }
+            >textarea{
+                resize: both;
+            }
+        }
     }
 }
