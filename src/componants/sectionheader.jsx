@@ -29,11 +29,11 @@ export default function Sectionheader({ title, subtitle, showallurl }) {
             duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.2,
+            stagger: 0.15,
         });
         gsap.to(headersubtitlesplit.words, {
             scrollTrigger: {
-                trigger: headertitle.current,
+                trigger: headersubtitle.current,
                 // scrub: 1,
                 start: "top+=0 bottom",
                 end: "top+=20 bottom",
