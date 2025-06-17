@@ -33,7 +33,7 @@ export default function Careers() {
             duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.02,
+            stagger: 0.01,
         });
     },[]);
 
