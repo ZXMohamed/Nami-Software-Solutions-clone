@@ -26,14 +26,14 @@ export default function Careers() {
         gsap.to(careerparagraphsplit.words, {
             scrollTrigger: {
                 trigger: careersparagraph.current,
-                scrub: 1,
+                // scrub: 1,
                 start: "top+=0 bottom",
-                end: "top+=50 bottom",
+                end: "top+=20 bottom",
             },
-            duration:1,
+            duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.05,
+            stagger: 0.02,
         });
     },[]);
 

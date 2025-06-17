@@ -354,6 +354,9 @@ body{
         p{
             font-family: 'Plexnormal';
             text-wrap: balance;
+            div{
+                transform: translateY(10px);
+            }
         }
     }
     .formsec{
