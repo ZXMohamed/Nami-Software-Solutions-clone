@@ -39,13 +39,47 @@ export default function Contact() {
         message:""
     });
 
+    const headertitle = useRef();
+    const headersubtitle = useRef();
     const contactparagraph = useRef();
 
     gsap.registerPlugin(SplitText, ScrollTrigger);
     
     useEffect(() => {
+        const headertitlesplit = new SplitText(headertitle.current, {
+            type: "words"
+        });
+        const headersubtitlesplit = new SplitText(headersubtitle.current, {
+            type: "words"
+        });
         const contactparagraphsplit = new SplitText(contactparagraph.current, {
             type: "words"
+        });
+
+        gsap.to(headertitlesplit.words, {
+            scrollTrigger: {
+                trigger: headertitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.05,
+        });
+
+        gsap.to(headersubtitlesplit.words, {
+            scrollTrigger: {
+                trigger: headersubtitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.1,
         });
 
         gsap.to(contactparagraphsplit.words, {
@@ -108,8 +142,8 @@ export default function Contact() {
                 </Grid>
                 <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
                     <Stack direction="column" spacing={2} className='headersec'>
-                        <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
-                        <Typography variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
+                        <Typography ref={headersubtitle} variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
+                        <Typography ref={headertitle} variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
                         <Typography ref={contactparagraph} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                             Our team of professionals is committed to delivering exceptional results in
                             software development and technical project management. Share your project
