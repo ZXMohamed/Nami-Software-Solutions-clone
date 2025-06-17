@@ -51,14 +51,14 @@ export default function Contact() {
         gsap.to(contactparagraphsplit.words, {
             scrollTrigger: {
                 trigger: contactparagraph.current,
-                scrub: 1,
+                // scrub: 1,
                 start: "top+=0 bottom",
-                end: "top+=50 bottom",
+                end: "top+=20 bottom",
             },
-            duration:1,
+            duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.05,
+            stagger: 0.02,
         });
     },[]);
 
@@ -107,7 +107,7 @@ export default function Contact() {
                     </Stack>
                 </Grid>
                 <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
-                    <Stack direction="column" spacing={2} className='headsec'>
+                    <Stack direction="column" spacing={2} className='headersec'>
                         <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
                         <Typography variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
                         <Typography ref={contactparagraph} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
