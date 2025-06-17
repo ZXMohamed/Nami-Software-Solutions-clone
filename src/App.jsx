@@ -6,6 +6,7 @@ import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Socialbtns from "./componants/socialbtns";
 import Requestform from "./componants/requestform";
+import Sectionheader from "./componants/sectionheader";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
@@ -55,7 +56,6 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
-        <Requestform/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
