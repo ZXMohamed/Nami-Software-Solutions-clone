@@ -14,13 +14,47 @@ export default function Careers() {
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
+    const headertitle = useRef();
+    const headersubtitle = useRef();
     const careersparagraph = useRef();
 
     gsap.registerPlugin(SplitText, ScrollTrigger);
     
     useEffect(() => {
+        const headertitlesplit = new SplitText(headertitle.current, {
+            type: "words"
+        });
+        const headersubtitlesplit = new SplitText(headersubtitle.current, {
+            type: "words"
+        });
         const careerparagraphsplit = new SplitText(careersparagraph.current, {
             type: "words"
+        });
+
+        gsap.to(headertitlesplit.words, {
+            scrollTrigger: {
+                trigger: headertitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.05,
+        });
+
+        gsap.to(headersubtitlesplit.words, {
+            scrollTrigger: {
+                trigger: headersubtitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.1,
         });
 
         gsap.to(careerparagraphsplit.words, {
@@ -62,8 +96,8 @@ export default function Careers() {
             <Grid container>
                 <Grid size={{xs:12,md:7}}>
                     <Stack direction={'column'} spacing={1} className='headersec'>
-                        <Typography variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Careers</i></Typography>
-                        <Typography variant='h3' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Build your future with our company</Typography>
+                        <Typography ref={headertitle} variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Careers</i></Typography>
+                        <Typography ref={headersubtitle} variant='h3' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Build your future with our company</Typography>
                         <Typography ref={careersparagraph} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
                             At our company, we strive to create an environment focused on learning and striving to achieve
                             a person's fullest potential. We got itWe maintain a prominent presence in the industry thanks to

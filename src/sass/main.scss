@@ -345,11 +345,17 @@ body{
             text-transform: uppercase;
             max-width: 410px;
             line-height: 1.6;
+            div{
+                transform: translateY(10px);
+            }
         }
         h2{
             font-family: 'Plexbold';
             color: $secondtextcolor;
             font-size: 24px;
+            div{
+                transform: translateY(10px);
+            }
         }
         p{
             font-family: 'Plexnormal';
