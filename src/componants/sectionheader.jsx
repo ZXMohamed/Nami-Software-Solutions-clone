@@ -24,24 +24,24 @@ export default function Sectionheader({ title, subtitle, showallurl }) {
                 trigger: headertitle.current,
                 // scrub: 1,
                 start: "top+=0 bottom",
-                end: "top+=50 bottom",
+                end: "top+=20 bottom",
             },
-            duration:1,
+            duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.03,
+            stagger: 0.2,
         });
         gsap.to(headersubtitlesplit.words, {
             scrollTrigger: {
                 trigger: headertitle.current,
                 // scrub: 1,
                 start: "top+=0 bottom",
-                end: "top+=50 bottom",
+                end: "top+=20 bottom",
             },
-            duration:1,
+            duration:0.5,
             y: 0,
             opacity:1,
-            stagger: 0.03,
+            stagger: 0.1,
         });
     },[]);
     return (

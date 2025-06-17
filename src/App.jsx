@@ -56,6 +56,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Home />
+        <Sectionheader title={"sdad adasd asd"} subtitle={"asd asd asd"}/>
         <Socialbtns />
       </ThemeProvider>
     </Fragment>
