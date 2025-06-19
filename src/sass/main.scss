@@ -352,6 +352,7 @@ body{
                 height: 45px;
                 @extend %hexagonborder;
                 button{
+                    color: #000000;
                     width: 92%;
                     height: 90%;
                     @extend %hexagon;
