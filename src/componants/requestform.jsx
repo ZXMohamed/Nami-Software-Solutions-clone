@@ -76,7 +76,7 @@ export default function Requestform() {
             
             <Box>
                 <InputLabel htmlFor="formdescription">Description <span>*</span></InputLabel>  
-                <TextField multiline minRows={2} id='formdescription' name='description' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputssettings.description}/> 
+                <TextField multiline maxRows={6} minRows={2} id='formdescription' name='description' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputssettings.description}/> 
             </Box>
         
             <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>

@@ -12,21 +12,23 @@
 }
 
 html{
-    &::selection{
-        background-color: $primarycolor;
-    }
-    &::-webkit-scrollbar
-    {
-        width: 8px;
-        background-color: $secondcolor;
-    }
-    &::-webkit-scrollbar-thumb
-    {
-        background-color: $scrollcolor;
-        border-radius: 40vw;
-    }
+    // &::selection{
+    //     background-color: $primarycolor;
+    // }
+    // &::-webkit-scrollbar
+    // {
+    //     width: 8px;
+    //     background-color: $secondcolor;
+    // }
+    // &::-webkit-scrollbar-thumb
+    // {
+    //     background-color: $scrollcolor;
+    //     border-radius: 40vw;
+    // }
 }
 body{
+    overflow-x: hidden;
+    @extend %scroll;
     height: 1500px;
     background-image: url($sitebackground);
     background-repeat: repeat;
