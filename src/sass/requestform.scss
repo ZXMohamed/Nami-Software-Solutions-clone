@@ -88,9 +88,10 @@
                 @include center("flex");
                 width: 146px;
                 height: 53px;
-                 @extend %widehexagon;
+                @extend %widehexagon;
                 @extend %animatedBG;
                 button{
+                    color: #000000;
                     width: 97%;
                     height: 90%;
                     @extend %widehexagon;
