@@ -4,15 +4,41 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ReCAPTCHA from "react-google-recaptcha";
+import zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
 
 export default function Careers() {
 
     const [openposition, setopenposition] = useState(["PHP Developer"]);
     const [job, setjob] = useState("0");
 
-    const [helptext, sethelptext] = useState("");
+    const [lastinputchanged, setlastinputchanged] = useState("");
 
     const [captchaToken, setCaptchaToken] = useState(null);
+
+    const regex = {
+        name:(name)=>name.match(/^[A-Za-z]+([ '-][A-Za-z]+)*$/),
+        phone:(phone)=>phone.match(/^\+?[0-9]{1,4}[-\s.]?(\(?\d{2,4}\)?[-\s.]?)?\d{3,4}[-\s.]?\d{4}$/) || phone.match(/^01[0125][0-9]{8}$/) || phone.match(/^\d{10,15}$/),
+        email:()=>"",
+    }
+
+    const zodmsgs = {
+        required: "This is a required field",
+        length: { less: (num)=>`name less than ${num} chars`, more: (num)=>`name more than ${num} chars` },
+        valid: (input) => `this ${input} is not valid`,
+        unknow: (input)=>`unknow ${input}`,
+        filesize: (size)=>`file is bigger than ${size}MB`
+    }
+
+    const schema = zod.object({
+        name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less(3) }).max(100, { message: zodmsgs.length.more(100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
+        phone: zod.string().min(1, { message: zodmsgs.required }).refine((phone) => regex.phone(phone), { message: zodmsgs.valid("number") }),
+        job: zod.string().refine((selectedjob) => selectedjob != "0", { message: zodmsgs.required }).refine((selectedjob) => openposition.includes(selectedjob), { message: zodmsgs.unknow("job") }),
+        cvfile: zod.any().refine((files) => files.length > 0, { message: zodmsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodmsgs.filesize(5) })
+    });
+
+    const { register, handleSubmit, formState: { errors,isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
 
     const headertitle = useRef();
     const headersubtitle = useRef();
@@ -69,26 +95,51 @@ export default function Careers() {
             opacity:1,
             stagger: 0.01,
         });
-    },[]);
+    }, []);
+    
+    const inputssettings = {
+        name: register("name", { required: true, onChange: () => { setlastinputchanged("name"); }}),
+        phone: register("phone", { required: true, onChange: () => { setlastinputchanged("phone"); }}),
+        job: register("job", { required: true, onChange: (selected) => { setjob(selected.target.value); setlastinputchanged("job"); }}),
+        cvfile: register("cvfile", { required: true, onChange: () => { setlastinputchanged("cvfile"); }}),
+    }
 
     const handleCaptchaChange = (token) => {
         setCaptchaToken(token);
         console.log("Captcha token:", token);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!captchaToken) {
-            alert("Please complete the CAPTCHA.");
-            return;
+    const handlelasterrors = (lastinputchanged) => {        
+        
+        let errorinputs = Object.keys(errors);
+        let lasterrorinput = errorinputs[errorinputs.length - 1];
+        
+        if (errors?.[lastinputchanged]) {
+
+            return errors?.[lastinputchanged]?.message;
+        
+        } else if (errorinputs.length != 0) {
+        
+            return errors[lasterrorinput].message;
+        
+        } else { 
+            return "";
         }
-        // Proceed with form submission logic (e.g. send data to backend)
-        console.log("Form submitted with CAPTCHA:", captchaToken);
+        
     };
 
-    const showhelptext = (e)=> { 
-        sethelptext(e.target.value == "" || e.target.value == "0" || e.target.files[0].name == undefined ? "This is a required field" : "");
-    }
+    const onsubmit = (data) => {
+        if (!captchaToken) {
+            // alert("Please complete the CAPTCHA.");
+            return;
+        } else {
+            //$send recaptch to php
+            console.log(data);
+            // Proceed with form submission logic (e.g. send data to backend)
+            console.log("Form submitted with CAPTCHA:", captchaToken);
+        }
+
+    };
 
   return (
     <Box className='careerssec'>
@@ -106,18 +157,18 @@ export default function Careers() {
                     </Stack>
                 </Grid>
                 <Grid size={{xs:12,md:5}}>
-                    <Stack component={'form'} direction={'column'} spacing={2} className='formsec' onSubmit={handleSubmit} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
+                    <Stack component={'form'} direction={'column'} spacing={2} className='formsec' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
                         <Typography variant='h6' component={'h3'}><i>Upload your CV</i></Typography>
-                        <TextField variant="outlined" type='text' placeholder='Full name' onBlur={showhelptext} onChange={showhelptext}/>
-                        <TextField variant="outlined" type="number" placeholder='Phone number' onBlur={showhelptext} onChange={showhelptext}/>
-                        <Select variant='outlined' value={job} onChange={(selected)=>{setjob(selected.target.value);}} onBlur={showhelptext}>
+                        <TextField variant="outlined" type='text' color={errors?.name?"error":"primary"} className={errors?.name?"inputerror":""} placeholder='Full name' {...inputssettings.name} />
+                        <TextField variant="outlined" type="number"color={errors?.phone?"error":"primary"} className={errors?.phone?"inputerror":""} placeholder='Phone number' {...inputssettings.phone} />
+                        <Select variant='outlined'  color={errors?.job?"error":"primary"} className={errors?.job?"inputerror":""} { ...inputssettings.job} value={job}>
                             <MenuItem value={"0"}>Select the job</MenuItem>
                               { openposition.map((val,inx) => <MenuItem key={inx} value={val}>{val}</MenuItem>)}
                         </Select>
-                        <Fileinput onFocus={showhelptext} onBlur={showhelptext}/>
+                        <Fileinput color={errors?.cvfile?"error":"primary"} { ...inputssettings.cvfile} />
                         <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>
-                        <Button variant='contained' disableRipple type='submit'>Apply now</Button>
-                        <Typography>{helptext}</Typography>
+                        <Button variant='contained' disableRipple type='submit' disabled={isSubmitting}>Apply now</Button>
+                        <Typography>{handlelasterrors(lastinputchanged)}</Typography>
                     </Stack>
                 </Grid>
             </Grid>
@@ -128,16 +179,16 @@ export default function Careers() {
 
 
 
-function Fileinput(props) { 
+function Fileinput(props) {
 
     const filename = useRef();
 
-    const open = (e,shownametarget) => { 
+    const open = (e, shownametarget) => {
         shownametarget.current.textContent = e.target.files[0]?.name || "No file chosen";
     }
     return (
-        <Box className="fileinput">
-            <input type="file" id="cvupload" hidden { ...props } onChange={(e)=>open(e,filename)}/>
+        <Box className={ "fileinput " + (props.color=="error"?"fileinputerror": "")} >
+            <input type="file" id="cvupload" hidden { ...props } onChange={ (e) => {  props.onChange(e); open(e, filename); } } />
             <label htmlFor="cvupload">
                 <div variant='contained'>Choose File</div>
                 <Typography ref={filename} component={'span'}>No file chosen</Typography>

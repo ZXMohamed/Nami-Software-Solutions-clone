@@ -405,6 +405,8 @@ body{
         p{
             font-family: "Plexnormal";
             font-size: 16px;
+            text-transform: capitalize;
+            color: #ff0000;
         }
         @media screen and (max-width:992px) {
             width: 100%;
@@ -416,26 +418,32 @@ body{
         padding-right: 10px;
     }
 }
+
 .inputerror{
     position: relative;
     padding-right: 25px;
-    input{
-        border: 1px solid #ff0000;
+    .MuiInputBase-formControl,.MuiInputBase-input{
+        padding-right: 20px;
+        &::after{
+            content: "";
+            background: url('../assets/photo/global/formerror.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: block;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            z-index: 1;
+            right: 8px;
+            top: 32%;
+        }
+}
+.MuiInputBase-input{
+    &::after{
+        right: 30px;
     }
-    &::before{
-        content: "";
-        background: url('../assets/photo/global/formerror.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        display: block;
-        width: 18px;
-        height: 18px;
-        position: absolute;
-        z-index: 1;
-        right: 8px;
-        top: 32%;
-    }
+}
 }
 
 .fileinput{
