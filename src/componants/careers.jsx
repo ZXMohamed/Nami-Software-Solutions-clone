@@ -25,14 +25,14 @@ export default function Careers() {
 
     const zodmsgs = {
         required: "This is a required field",
-        length: { less: (num)=>`name less than ${num} chars`, more: (num)=>`name more than ${num} chars` },
+        length: { less: (input,num)=>`${input} less than ${num} chars`, more: (input,num)=>`${input} more than ${num} chars` },
         valid: (input) => `this ${input} is not valid`,
         unknow: (input)=>`unknow ${input}`,
         filesize: (size)=>`file is bigger than ${size}MB`
     }
 
     const schema = zod.object({
-        name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less(3) }).max(100, { message: zodmsgs.length.more(100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
+        name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less("name",3) }).max(100, { message: zodmsgs.length.more("name",100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
         phone: zod.string().min(1, { message: zodmsgs.required }).refine((phone) => regex.phone(phone), { message: zodmsgs.valid("number") }),
         job: zod.string().refine((selectedjob) => selectedjob != "0", { message: zodmsgs.required }).refine((selectedjob) => openposition.includes(selectedjob), { message: zodmsgs.unknow("job") }),
         cvfile: zod.any().refine((files) => files.length > 0, { message: zodmsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodmsgs.filesize(5) })
