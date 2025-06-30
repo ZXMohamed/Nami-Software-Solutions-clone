@@ -2,7 +2,8 @@
 
 .socialbtns {
     margin-top: 25px;
-    div{
+    a{
+        display: block;
         width: 40px;
         height: 40px;
         @extend %transition;
@@ -11,18 +12,18 @@
             background-color: $primarycolor;
             margin-top: -5px;
         }
-        &::after{
+        div{
             @extend %transition;
         }
-        &:hover::after{
+        &:hover>div{
             filter:brightness(0) invert(1);
         }
     }
-    $inx:0;
-    @each $iconURL in $socialiconurls {
-        $inx : $inx + 1;
-        div:nth-child(#{$inx})::after{
-            background-image: url($iconURL);
-        }
-    }
+    // $inx:0;
+    // @each $iconURL in $socialiconurls {
+    //     $inx : $inx + 1;
+    //     a:nth-child(#{$inx})::after{
+    //         background-image: url($iconURL);
+    //     }
+    // }
 }
