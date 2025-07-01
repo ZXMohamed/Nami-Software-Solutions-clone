@@ -8,19 +8,19 @@ export default function Socialbtns() {
     <Box className="Socialbtns">
         {
           isSuccess && <>
-                      <a href={social.facebook.link}>
+                      <a href={social.facebook.link} target='_blank'>
                           <div style={{backgroundImage:`url(${social.facebook.icon.fill})`}}></div>
                       </a>
-                      <a href={social.linkedin.link}>
+                      <a href={social.linkedin.link} target='_blank'>
                           <div style={{backgroundImage:`url(${social.linkedin.icon.fill})`}}></div>
                       </a>
-                      <a href={social.x.link}>
+                      <a href={social.x.link} target='_blank'>
                           <div style={{backgroundImage:`url(${social.x.icon.fill})`}}></div>
                       </a>
-                      <a href={social.instagram.link}>
+                      <a href={social.instagram.link} target='_blank'>
                           <div style={{backgroundImage:`url(${social.instagram.icon.fill})`}}></div>
                       </a>
-                      <a href={social.snapchat.link}>
+                      <a href={social.snapchat.link} target='_blank'>
                           <div style={{backgroundImage:`url(${social.snapchat.icon.fill})`}}></div>
                       </a>
                   </>

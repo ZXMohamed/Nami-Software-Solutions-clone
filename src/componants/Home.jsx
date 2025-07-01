@@ -6,7 +6,7 @@ export default function Home() {
     return (
         <Box sx={ { minHeight: { xs: "500px", sm: "660px" } } } className="homesec">
             <Typography variant="h2" component="h1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
-                <b>Nami <span>Software</span> Solutions</b>
+                Nami <span>Software</span> Solutions
             </Typography>
             
             <Typography data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">

@@ -6,10 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from 'gsap/SplitText';
 import TextPlugin from "gsap/TextPlugin";
 
+import { useGetCompanyFileQuery } from '../redux/server state/companyfile';
 
 import aboutsideimg from "../assets/photo/about/aboutsideimg.webp";
+import { data } from 'react-router';
 
 export default function About() {
+
+  const { isLoading, data: companyFile } = useGetCompanyFileQuery();
 
   const aboutimgcontainer = useRef();
   const aboutimg = useRef();
@@ -103,14 +107,14 @@ export default function About() {
                   development companies, and weWe know the path and we are walking on it
                   with great strides.
                 </Typography>
-                <Button variant='text' disableRipple="true" data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">
+                <a href={companyFile?.url} target='_blank' download="document.pdf" data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">
                   <div>
                     <IconButton component="div" disableRipple="false">
                       <SubdirectoryArrowRightIcon fontSize="medium" />
                     </IconButton>
                     <span> Download the company file </span>
                   </div>
-                </Button>
+                </a>
                 <Stack direction="row" justifyContent={"flex-end"} className='establishmentcounter' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
                   <span >Establishment</span>
                   <Typography ref={establishmentdate} variant='h1' component='h2' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">0</Typography>

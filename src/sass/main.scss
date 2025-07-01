@@ -353,7 +353,7 @@ body{
         color: $secondtextcolor;
         font-family: 'Plexnormal';
     }
-    button{
+    a{
         width: 260px;
         height: 50px;
         border-radius: 50px;
@@ -363,6 +363,7 @@ body{
         padding: 0px;
         
         >div{
+            font-size: 14px;
             border-radius: 50px;
             background-color: $secondcolor;
             width: 98.2%;
@@ -401,6 +402,12 @@ body{
                 text-transform: capitalize;
                 font-family: "Plexnormal";
             }
+        }
+        &:visited,
+        &:link,
+        &:active,
+        &:hover{
+            text-decoration: none;
         }
     }
 }
