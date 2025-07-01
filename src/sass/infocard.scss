@@ -1,0 +1,54 @@
+@use "_shared.scss" as *;
+
+.infocard{
+    >div{
+        overflow: hidden;
+        position: relative;
+        padding: 40px;
+        border-radius: 20px;
+        @extend %animatedBG;
+        >div{
+            h2{
+                font-family: "Plexbold";
+                text-align: center;
+                color: $secondcolor;
+                @media screen and (max-width:768px) {
+                    font-size: 18px;
+                }
+            }
+            h1{
+                font-family: "Plexbold";
+                text-align: center;
+                color: $secondcolor;
+                text-transform: uppercase;
+                font-size: 30px;
+                line-height: 1.6;
+                max-width: 700px;
+                @media screen and (max-width:768px) {
+                    max-width: 600px;
+                    font-size: 24px;
+                }
+            }
+            p{
+                max-width: 750px;
+                text-align: center;
+                font-family: "Plexnormal";
+                text-wrap: balance;
+                color: $secondcolor;
+            }
+            >div{
+                width: 100%;
+            }
+        }
+    }
+    &:hover{
+        .infocardwaveanimation{
+            scale: 1.3;
+        }
+    }
+}
+
+.infocardwaveanimation{
+    @include circlewave("left",430px);
+    @extend %transition;
+}

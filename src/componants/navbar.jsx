@@ -17,7 +17,7 @@ import logo from "../assets/photo/global/namilogo.svg";
 function Navbar() {
 
     return (
-        <AppBar position="fixed" color="transparent" elevation={ 0 } className="navbar" data-aos="navbarshrink" data-aos-duration="1000" data-aos-offset="930">
+        <AppBar position="fixed" color="transparent" elevation={ 0 } className="navbar" data-aos="navbarshrink" data-aos-duration="1000" data-aos-offset="930" data-aos-once="false">
             <Container maxWidth="lg" disableGutters={ true }>
                 <Toolbar className="navcontent" disableGutters={ true } sx={ { padding: { lg: "0px 10px 0px 15px", md: "0px 1% 0px 1.8%",xs: " 0px 3% 0px 3.3%" } } }>
                     <img src={ logo } className="navlogo" alt="Nami Software Solutions"/>

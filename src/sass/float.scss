@@ -34,7 +34,7 @@
             left: 10px;
         }
     }
-    div{
+    >div{
         z-index: 100;
         @extend %animatedBG;
         height: 44px;
