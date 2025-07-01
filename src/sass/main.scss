@@ -12,21 +12,13 @@
 }
 
 html{
-    &::selection{
-        background-color: $primarycolor;
-    }
-    &::-webkit-scrollbar
-    {
-        width: 8px;
-        background-color: $secondcolor;
-    }
-    &::-webkit-scrollbar-thumb
-    {
-        background-color: $scrollcolor;
-        border-radius: 40vw;
-    }
+
 }
 body{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    @extend %scroll;
+    height: 1500px;
     background-image: url($sitebackground);
     background-repeat: repeat;
 }
@@ -174,32 +166,6 @@ body{
         }
         p{
             font-size: 14px;
-        }
-    }
-}
-.homesocialbtns {
-    margin-top: 25px;
-    div{
-        width: 40px;
-        height: 40px;
-        @extend %transition;
-        @include socialbtnsstyle("sty1");
-        &:hover{
-            background-color: $primarycolor;
-            margin-top: -5px;
-        }
-        &::after{
-            @extend %transition;
-        }
-        &:hover::after{
-            filter:brightness(0) invert(1);
-        }
-    }
-    $inx:0;
-    @each $iconURL in $socialiconurls {
-        $inx : $inx + 1;
-        div:nth-child(#{$inx})::after{
-            background-image: url($iconURL);
         }
     }
 }
