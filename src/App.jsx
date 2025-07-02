@@ -4,12 +4,15 @@ import AOS from "aos";
 //*components
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
-import Socialbtns from "./componants/socialbtns";
+import Socialbtns from "./componants/floatsocialbuttons";
+import Requestform from "./componants/requestform";
+import Sectionheader from "./componants/sectionheader";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
 import "./sass/main.scss"
+import "./sass/socialbuttons.scss"
 import "./sass/float.scss"
 import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
