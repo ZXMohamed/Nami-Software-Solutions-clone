@@ -107,7 +107,7 @@ export default function About() {
                   development companies, and weWe know the path and we are walking on it
                   with great strides.
                 </Typography>
-                <Downloadnutton link={companyFile?.url} />
+                <Downloadnutton link={companyFile?.url} title={"Download the company file"}/>
                 <Stack direction="row" justifyContent={"flex-end"} className='establishmentcounter' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
                   <span >Establishment</span>
                   <Typography ref={establishmentdate} variant='h1' component='h2' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">0</Typography>
