@@ -23,7 +23,7 @@ export function Servicebadge({ data, size }) {
     }
 
     return (
-        <Stack direction="row" spacing={ 0.7 } className={"servicebadge " + size || servicebadgesize.small} >
+        <Stack component={"a"} href={data.link} target='_blank' direction="row" spacing={ 0.7 } className={"servicebadge " + size || servicebadgesize.small} >
             <img src={ data.image } alt={ data.title + " service form Nami"} loading='lazy' />
             <Typography variant='h6' component={'h4'}>{data.title}</Typography>
         </Stack>
