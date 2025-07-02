@@ -7,10 +7,12 @@ import ReCAPTCHA from "react-google-recaptcha";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
+import { useGetOpenJobsQuery } from '../redux/server state/openjobs';
 
 export default function Careers() {
 
-    const [openposition, setopenposition] = useState(["PHP Developer"]);
+    const { data: openJobs, isSuccess } = useGetOpenJobsQuery();
+    // const [openposition, setopenposition] = useState(["PHP Developer"]);
     const [job, setjob] = useState("0");
 
     const [lastinputchanged, setlastinputchanged] = useState("");
@@ -34,7 +36,7 @@ export default function Careers() {
     const schema = zod.object({
         name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less("name",3) }).max(100, { message: zodmsgs.length.more("name",100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
         phone: zod.string().min(1, { message: zodmsgs.required }).refine((phone) => regex.phone(phone), { message: zodmsgs.valid("number") }),
-        job: zod.string().refine((selectedjob) => selectedjob != "0", { message: zodmsgs.required }).refine((selectedjob) => openposition.includes(selectedjob), { message: zodmsgs.unknow("job") }),
+        job: zod.string().refine((selectedjob) => selectedjob != "0", { message: zodmsgs.required }),//.refine((selectedjob) => openposition.includes(selectedjob), { message: zodmsgs.unknow("job") }),
         cvfile: zod.any().refine((files) => files.length > 0, { message: zodmsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodmsgs.filesize(5) })
     });
 
@@ -163,7 +165,7 @@ export default function Careers() {
                         <TextField variant="outlined" type="number"color={errors?.phone?"error":"primary"} className={errors?.phone?"inputerror":""} placeholder='Phone number' {...inputssettings.phone} />
                         <Select variant='outlined'  color={errors?.job?"error":"primary"} className={errors?.job?"inputerror":""} { ...inputssettings.job} value={job}>
                             <MenuItem value={"0"}>Select the job</MenuItem>
-                              { openposition.map((val,inx) => <MenuItem key={inx} value={val}>{val}</MenuItem>)}
+                              {isSuccess && Object.values(openJobs).map((val,inx) => <MenuItem key={val.id} value={val.title}>{val.title}</MenuItem>)}
                         </Select>
                         <Fileinput color={errors?.cvfile?"error":"primary"} { ...inputssettings.cvfile} />
                         <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>
