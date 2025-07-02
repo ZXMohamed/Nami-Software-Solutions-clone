@@ -21,7 +21,7 @@ export default function Home() {
 
             <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homebtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <Button variant="outlined" disableRipple="false" className="homebtn homeportfoliobtn">Portfolio</Button>
-                <Requestbutton sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}} />
+                <Requestbutton title={"Request for Quotation"} sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}} />
                 <Button variant="outlined" disableRipple="false" className="homebtn homeproductsbtn">Our products</Button>
             </Stack>
             

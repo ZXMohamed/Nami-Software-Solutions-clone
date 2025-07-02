@@ -19,6 +19,7 @@ import "./sass/infocard.scss"
 import "./sass/statisricsbox.scss"
 import "./sass/Servicebadge.scss"
 import "./sass/requestform.scss"
+import "./sass/requestbutton.scss"
 
 
 AOS.init({ once: true, offset: 65 });

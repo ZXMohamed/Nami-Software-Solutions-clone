@@ -3,6 +3,6 @@ import React from 'react'
 
 export default function Requestbutton(props) {
   return (
-    <Button variant="contained" disableRipple="false" className="homequotationbtn" {...props}>Request for Quotation</Button>
+    <Button variant="contained" disableRipple="false" className="requestbutton" { ...props }>{ props.title }</Button>
   )
 }
