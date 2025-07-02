@@ -10,22 +10,22 @@ import iosapp from '../assets/photo/servicesbadges/iosapp.svg'
 export function Servicesbadgeslist({ children, type }) {
 
     return (
-        <Box className={"servicesbadges " + type || servicesbadgeslisttype.box} >
+    <Box className={"servicesbadges " + type || servicesbadgeslisttype.box} >
         {children}
     </Box>
   )
 }
 
-export function Servicebadge({ type, size }) {
+export function Servicebadge({ data, size }) {
 
-    if (!type) { 
+    if (!data.title) { 
         throw "Service badge type unset !"
     }
 
     return (
         <Stack direction="row" spacing={ 0.7 } className={"servicebadge " + size || servicebadgesize.small} >
-            <img src={type.icon} alt="" />
-            <Typography variant='h6' component={'h4'}>{type.title}</Typography>
+            <img src={ data.image } alt={ data.title + " service form Nami"} loading='lazy' />
+            <Typography variant='h6' component={'h4'}>{data.title}</Typography>
         </Stack>
     )
 }
@@ -35,24 +35,24 @@ export const servicesbadgeslisttype = {
     row : "servicesbadgesrow"
 }
 
-export const servicebadgetypes = {
-    applicationdesign: {
-        title: "Application design",
-        icon: applicationdesign
-    },
-    androidapplication: {
-        title: "Android application",
-        icon: androidapplication
-    },
-    website: {
-        title: "Website",
-        icon: website
-    },
-    iosapp:{ 
-        title: "IOS app",
-        icon: iosapp
-    }
-}
+// export const servicebadgetypes = {
+//     applicationdesign: {
+//         title: "Application design",
+//         icon: applicationdesign
+//     },
+//     androidapplication: {
+//         title: "Android application",
+//         icon: androidapplication
+//     },
+//     website: {
+//         title: "Website",
+//         icon: website
+//     },
+//     iosapp:{ 
+//         title: "IOS app",
+//         icon: iosapp
+//     }
+// }
 
 export const servicebadgesize = {
     big : "servicebadgebig",
