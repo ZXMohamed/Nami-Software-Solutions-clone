@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { Box, Container, Grid, Typography, Button, IconButton, Stack } from '@mui/material'
-import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from 'gsap/SplitText';
@@ -10,6 +9,7 @@ import { useGetCompanyFileQuery } from '../redux/server state/companyfile';
 
 import aboutsideimg from "../assets/photo/about/aboutsideimg.webp";
 import { data } from 'react-router';
+import Downloadnutton from './downloadbutton';
 
 export default function About() {
 
@@ -107,14 +107,7 @@ export default function About() {
                   development companies, and weWe know the path and we are walking on it
                   with great strides.
                 </Typography>
-                <a href={companyFile?.url} target='_blank' download="document.pdf" data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">
-                  <div>
-                    <IconButton component="div" disableRipple="false">
-                      <SubdirectoryArrowRightIcon fontSize="medium" />
-                    </IconButton>
-                    <span> Download the company file </span>
-                  </div>
-                </a>
+                <Downloadnutton link={companyFile?.url} />
                 <Stack direction="row" justifyContent={"flex-end"} className='establishmentcounter' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
                   <span >Establishment</span>
                   <Typography ref={establishmentdate} variant='h1' component='h2' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">0</Typography>
