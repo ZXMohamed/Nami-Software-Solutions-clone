@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Button, Container, Grid, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography } from '@mui/material'
 
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -15,25 +15,31 @@ import location from "../assets/photo/contact/location.svg"
 import call from "../assets/photo/contact/call.svg"
 import mail from "../assets/photo/contact/mail.svg"
 
+import { useGetlocationQuery } from '../redux/server state/location';
+import { useGetsocialQuery } from '../redux/server state/social';
+
 
 export default function Contact() {
 
-    const [contactinfo, setcontactinfo] = useState([{
-        icon:location,
-        title:"Visit us",
-        contactmethod: "Nasr city - MAKRM EBEED /Al-Khair Tower - Al-Najjar Street - Shebin Al-Koum - Menoufia",
-        route:""
-    },{
-        icon: mail,
-        title:"Message us",
-        contactmethod: "info@nami-tec.com",
-        route:""
-    },{
-        icon:call,
-        title:"Call us at",
-        contactmethod: "+201099347981",
-        route:""
-    }]);
+    const {isError : location_isError, isSuccess : location_isSuccess, isLoading : location_isLoading, data:location,error : location_error} = useGetlocationQuery()
+    const {isError : social_isError, isSuccess : social_isSuccess, isLoading : social_isLoading, data:social,error : social_error} = useGetsocialQuery()
+
+    // const [contactinfo, setcontactinfo] = useState([{
+    //     icon:location,
+    //     title:"Visit us",
+    //     contactmethod: "Nasr city - MAKRM EBEED /Al-Khair Tower - Al-Najjar Street - Shebin Al-Koum - Menoufia",
+    //     route:""
+    // },{
+    //     icon: mail,
+    //     title:"Message us",
+    //     contactmethod: "info@nami-tec.com",
+    //     route:""
+    // },{
+    //     icon:call,
+    //     title:"Call us at",
+    //     contactmethod: "+201099347981",
+    //     route:""
+    // }]);
     
     const zodmsgs = {
         required: "This is a required field",
@@ -176,7 +182,11 @@ export default function Contact() {
                     <br/>
                     <br/>
                     <Stack direction="column" spacing={2} className='contactinfosec'>
-                        {contactinfo.map((val,inx)=><Contactinfoitem key={inx} icon={val.icon} title={val.title} contactmethod={val.contactmethod} route={val.route} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":((inx+1)*50)}}/>)}
+                        {location_isLoading && waitProgress(1)}
+                        {social_isLoading && waitProgress(2)}
+                        {location_isSuccess && <Contactinfoitem icon={location.icon.outline} title={"Visit us"} contactmethod={location.address} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
+                        {social_isSuccess && <Contactinfoitem icon={social.email.icon.outline} title={"Message us"} contactmethod={social.email.title} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
+                        {social_isSuccess && <Contactinfoitem icon={social.phone.icon.outline} title={"Call us at"} contactmethod={social.phone.title} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
                     </Stack>
                 </Grid>
             </Grid>
@@ -194,7 +204,7 @@ function Contactinfoitem({icon,title,contactmethod,route,aosanimation}) {
         <Grid container {...aosanimation}>
             <Grid size={ { xs:2,xxs:1 } }>
                 <Box className="iconbox">
-                    <img src={icon} alt={ title } />
+                    <img src={icon} alt={ "Nami "+title } loading='lazy'/>
                 </Box>
             </Grid>
             <Grid size={ { xs:10,xxs:11 } }>
@@ -205,4 +215,12 @@ function Contactinfoitem({icon,title,contactmethod,route,aosanimation}) {
             </Grid>
         </Grid>
     )
+}
+
+function waitProgress(num) {
+    const progressarray = [];
+    for (let i = 0; i < num; i++){
+        progressarray.push( <CircularProgress variant="indeterminate" size={40} thickness={2} />)
+    }
+    return progressarray;
 }
