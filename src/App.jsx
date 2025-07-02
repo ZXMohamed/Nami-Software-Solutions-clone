@@ -5,7 +5,7 @@ import AOS from "aos";
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Services from "./componants/services"
-import Socialbtns from "./componants/socialbtns";
+import Socialbtns from "./componants/floatsocialbuttons";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
