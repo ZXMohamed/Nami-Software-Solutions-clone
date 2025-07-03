@@ -5,7 +5,12 @@ import logo from "../assets/photo/global/namilogo.svg";
 import mailbox from "../assets/photo/footer/mailbox.svg";
 import Socialbuttons from './socialbuttons';
 
+import { useGetsocialQuery } from '../redux/server state/social';
+
 export default function Footer() {
+
+    const { data:social } = useGetsocialQuery();
+
   return (
     <Box className='footer'>
         <Container maxWidth="lg">
@@ -39,9 +44,9 @@ export default function Footer() {
                 <Grid size={{xs:12,xxs:6,md:3}} className='contactemail'>
                     <Typography variant='h6' component={'h1'}>Contact email</Typography>
                       <ul type="none">
-                        <li><img src={mailbox} alt="contact email Support" />Support</li>
-                        <li><img src={mailbox} alt="contact email Human resources" />Human resources</li>
-                        <li><img src={mailbox} alt="contact email Sales and marketing" />Sales and marketing</li>
+                          <li><img src={ mailbox } alt="contact email Support" /><a href={ social.email.support.link }>{ social.email.support.title }</a></li>
+                        <li><img src={mailbox} alt="contact email Human resources" /><a href={ social.email.humanResources.link }>{ social.email.humanResources.title }</a></li>
+                        <li><img src={mailbox} alt="contact email Sales and marketing" /><a href={ social.email.sales.link }>{ social.email.sales.title }</a></li>
                     </ul>
                 </Grid>
             </Grid>

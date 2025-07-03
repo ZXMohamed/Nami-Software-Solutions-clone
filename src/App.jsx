@@ -4,7 +4,7 @@ import AOS from "aos";
 //*components
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
-import Socialbtns from "./componants/socialbtns";
+import Socialbtns from "./componants/floatsocialbuttons";
 import Footer from "./componants/footer";
 //*css
 import '../node_modules/aos/dist/aos.css';
