@@ -24,6 +24,23 @@ $gradientline: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
 // }
 
 //*global style*/
+
+%scroll{
+    &::selection{
+        background-color: $primarycolor;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: $secondcolor;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: $scrollcolor;
+        border-radius: 40vw;
+    }
+}
+
 %hexagonborder{
     position: relative;
     top: 0px;
@@ -192,8 +209,7 @@ $gradientline: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
         border-color: $secondcolor;
         background-color: $primarycolor;
     }
-    &::after{
-        content: "";
+    div{
         width: 100%;
         height: 100%;
         display: block;

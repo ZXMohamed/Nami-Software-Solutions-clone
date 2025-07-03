@@ -1,5 +1,6 @@
 import { Box, Typography, Stack, Button } from "@mui/material";
 import Socialbuttons from "./socialbuttons";
+import Requestbutton from "./requestbutton";
 
 export default function Home() { 
 
@@ -20,7 +21,7 @@ export default function Home() {
 
             <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homebtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                 <Button variant="outlined" disableRipple="false" className="homebtn homeportfoliobtn">Portfolio</Button>
-                <Button variant="contained" disableRipple="false" className="homequotationbtn" sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}}>Request for Quotation</Button>
+                <Requestbutton title={"Request for Quotation"} sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}} />
                 <Button variant="outlined" disableRipple="false" className="homebtn homeproductsbtn">Our products</Button>
             </Stack>
             
