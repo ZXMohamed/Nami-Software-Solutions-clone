@@ -403,12 +403,7 @@ body{
                 font-family: "Plexnormal";
             }
         }
-        &:visited,
-        &:link,
-        &:active,
-        &:hover{
-            text-decoration: none;
-        }
+        @extend %removeAdditionalLinkStyle;
     }
 }
 .establishmentcounter{
