@@ -184,9 +184,9 @@ export default function Contact() {
                     <Stack direction="column" spacing={2} className='contactinfosec'>
                         {location_isLoading && waitProgress(1)}
                         {social_isLoading && waitProgress(2)}
-                        {location_isSuccess && <Contactinfoitem icon={location.icon.outline} title={"Visit us"} contactmethod={location.address} link={location.link} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
-                        {social_isSuccess && <Contactinfoitem icon={social.email.icon.outline} title={"Message us"} contactmethod={social.email.email} link={social.email.link} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
-                        {social_isSuccess && <Contactinfoitem icon={social.phone.icon.outline} title={"Call us at"} contactmethod={social.phone.number} link={social.phone.link} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
+                        {location_isSuccess && <Contactinfoitem icon={location.icon.outline} title={"Visit us"} contactmethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
+                        {social_isSuccess && <Contactinfoitem icon={social.email.icon.outline} title={"Message us"} contactmethod={social.email.email} link={social.email.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
+                        {social_isSuccess && <Contactinfoitem icon={social.phone.icon.outline} title={"Call us at"} contactmethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
                     </Stack>
                 </Grid>
             </Grid>
@@ -198,7 +198,7 @@ export default function Contact() {
 
 
 
-function Contactinfoitem({icon,title,contactmethod,route,aosanimation}) { 
+function Contactinfoitem({icon,title,contactmethod,link,target,route,aosanimation}) { 
 
     return (
         <Grid container {...aosanimation}>
@@ -210,7 +210,7 @@ function Contactinfoitem({icon,title,contactmethod,route,aosanimation}) {
             <Grid size={ { xs:10,xxs:11 } }>
                 <Stack direction={ "column" } spacing={ 1 }>
                     <Typography variant='h6' component={ 'h3' }>{ title}</Typography>
-                    <Typography variant='h6' component={ 'a' } href=''>{ contactmethod}</Typography>
+                    <Typography variant='h6' component={ 'h4' } ><a href={link} target={target}>{ contactmethod}</a></Typography>
                 </Stack>
             </Grid>
         </Grid>
