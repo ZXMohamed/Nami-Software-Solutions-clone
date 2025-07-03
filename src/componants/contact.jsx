@@ -185,7 +185,7 @@ export default function Contact() {
                         {location_isLoading && waitProgress(1)}
                         {social_isLoading && waitProgress(2)}
                         {location_isSuccess && <Contactinfoitem icon={location.icon.outline} title={"Visit us"} contactmethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
-                        {social_isSuccess && <Contactinfoitem icon={social.email.icon.outline} title={"Message us"} contactmethod={social.email.email} link={social.email.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
+                        {social_isSuccess && <Contactinfoitem icon={social.email.support.icon.outline} title={"Message us"} contactmethod={social.email.support.email} link={social.email.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
                         {social_isSuccess && <Contactinfoitem icon={social.phone.icon.outline} title={"Call us at"} contactmethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
                     </Stack>
                 </Grid>
