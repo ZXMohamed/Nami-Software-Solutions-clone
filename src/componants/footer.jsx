@@ -9,7 +9,8 @@ import { useGetsocialQuery } from '../redux/server state/social';
 
 export default function Footer() {
 
-    const { data:social } = useGetsocialQuery();
+    const { data: social } = useGetsocialQuery();
+    console.log(social);
 
   return (
     <Box className='footer'>
@@ -44,9 +45,9 @@ export default function Footer() {
                 <Grid size={{xs:12,xxs:6,md:3}} className='contactemail'>
                     <Typography variant='h6' component={'h1'}>Contact email</Typography>
                       <ul type="none">
-                          <li><img src={ mailbox } alt="contact email Support" /><a href={ social.email.support.link }>{ social.email.support.title }</a></li>
-                        <li><img src={mailbox} alt="contact email Human resources" /><a href={ social.email.humanResources.link }>{ social.email.humanResources.title }</a></li>
-                        <li><img src={mailbox} alt="contact email Sales and marketing" /><a href={ social.email.sales.link }>{ social.email.sales.title }</a></li>
+                        <li><img src={ mailbox } alt="contact email Support" /><a href={ social?.email.support.link }>{ social?.email.support.title }</a></li>
+                        <li><img src={mailbox} alt="contact email Human resources" /><a href={ social?.email.humanResources.link }>{ social?.email.humanResources.title }</a></li>
+                        <li><img src={mailbox} alt="contact email Sales and marketing" /><a href={ social?.email.sales.link }>{ social?.email.sales.title }</a></li>
                     </ul>
                 </Grid>
             </Grid>

@@ -41,6 +41,16 @@ $gradientline: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     }
 }
 
+%removeAdditionalLinkStyle{
+    &:active,
+    &:hover,
+    &:link,
+    &:visited{
+        color: unset;
+        text-decoration: none;
+    }
+}
+
 %hexagonborder{
     position: relative;
     top: 0px;

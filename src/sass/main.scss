@@ -337,6 +337,9 @@ body{
                         align-self: center;
                         margin-right: 10px;
                     }
+                    a{
+                        @extend %removeAdditionalLinkStyle;
+                    }
                     &::before{
                         content: "";
                         @extend %transition;
