@@ -1,13 +1,13 @@
 import { Box, Typography, Stack, Button } from "@mui/material";
-import Socialbuttons from "./socialbuttons";
-import Requestbutton from "./requestbutton";
+import SocialButtons from "./socialbuttons";
+import RequestButton from "./requestbutton";
 
 export default function Home() { 
 
     return (
-        <Box sx={ { minHeight: { xs: "500px", sm: "660px" } } } className="homesec">
+        <Box sx={ { minHeight: { xs: "500px", sm: "660px" } } } className="homeSection">
             <Typography variant="h2" component="h1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
-                <b>Nami <span>Software</span> Solutions</b>
+                Nami <span>Software</span> Solutions
             </Typography>
             
             <Typography data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
@@ -17,23 +17,31 @@ export default function Home() {
                 countries of the world.
             </Typography>
 
-            <Socialbuttons aosanimation={ { ["data-aos"]: "fade-up",["data-aos-duration"] : "1000",["data-aos-delay"]: "150" } }/>
+            <SocialButtons aosAnimation={ { ["data-aos"]: "fade-up",["data-aos-duration"] : "1000",["data-aos-delay"]: "150" } }/>
 
-            <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homebtns" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <Button variant="outlined" disableRipple="false" className="homebtn homeportfoliobtn">Portfolio</Button>
-                <Requestbutton title={"Request for Quotation"} sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}} />
-                <Button variant="outlined" disableRipple="false" className="homebtn homeproductsbtn">Our products</Button>
+            <Stack direction="row" spacing={ { xs:0,xxs:2} } className="homeButtons" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <Button variant="outlined" disableRipple="false" className="homeButton homePortfolioButton">Portfolio</Button>
+                <RequestButton title={"Request for Quotation"} sx={ {order:{xs:"-1",xxs:"1",xxxs:"0"}}} />
+                <Button variant="outlined" disableRipple="false" className="homeButton homeProductsButton">Our products</Button>
             </Stack>
             
-            <Box className="homesecbg">
-                <div className="homebackanimatedBGdelay-5"></div>
-                <div className="homebackanimatedBGdelay-3"></div>
-                <div className="homebackanimatedBGdelay-2"></div>
-                <div className="homebackanimatedBGdelay-4"></div>
-                <div className="homebackanimatedBGdelay-3"></div>
-                <div className="homebackanimatedBGdelay-5"></div>
-                <div className="homebackanimatedBGdelay-4"></div>
-            </Box>
+            <FallingBackground/>
+        </Box>
+    )
+}
+
+
+
+function FallingBackground() {
+  return (
+        <Box className="fallingBackground">
+            <div className="homeBackAnimatedBGDelay-5"></div>
+            <div className="homeBackAnimatedBGDelay-3"></div>
+            <div className="homeBackAnimatedBGDelay-2"></div>
+            <div className="homeBackAnimatedBGDelay-4"></div>
+            <div className="homeBackAnimatedBGDelay-3"></div>
+            <div className="homeBackAnimatedBGDelay-5"></div>
+            <div className="homeBackAnimatedBGDelay-4"></div>
         </Box>
     )
 }

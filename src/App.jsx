@@ -2,24 +2,27 @@ import { Fragment } from "react"
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material"
 import AOS from "aos";
 //*components
-import Navbar from "./componants/navbar"
+import NavBar from "./componants/navbar"
 import Home from "./componants/Home";
-import Socialbtns from "./componants/floatsocialbuttons";
-import Requestform from "./componants/requestform";
-import Sectionheader from "./componants/sectionheader";
+import FloatSocialButtons from "./componants/floatsocialbuttons";
+import RequestForm from "./componants/requestform";
+import SectionHeader from "./componants/sectionheader";
+import InfoCard from "./componants/infocard";
+import DownloadButton from "./componants/downloadbutton";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
 import "./sass/main.scss"
 import "./sass/socialbuttons.scss"
-import "./sass/float.scss"
+import "./sass/floatsocialbuttons.scss"
 import "./sass/sectionheader.scss"
 import "./sass/infocard.scss"
-import "./sass/statisricsbox.scss"
+import "./sass/statisticsbox.scss"
 import "./sass/Servicebadge.scss"
 import "./sass/requestform.scss"
 import "./sass/requestbutton.scss"
+import "./sass/downloadbutton.scss"
 
 
 AOS.init({ once: true, offset: 65 });
@@ -55,10 +58,10 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
+        <NavBar />
         <Home />
-        {/* <Requestform/> */}
-        <Socialbtns />
+        {/* <RequestForm/> */ }
+        <FloatSocialButtons />
       </ThemeProvider>
     </Fragment>
   )

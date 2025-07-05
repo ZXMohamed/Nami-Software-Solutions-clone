@@ -1,6 +1,6 @@
 @use "_shared.scss" as *;
 
-.infocard{
+.infoCard{
     >div{
         overflow: hidden;
         position: relative;
@@ -9,17 +9,17 @@
         @extend %animatedBG;
         >div{
             h2{
-                font-family: "Plexbold";
+                font-family: "PlexBold";
                 text-align: center;
-                color: $secondcolor;
+                color: $secondColor;
                 @media screen and (max-width:768px) {
                     font-size: 18px;
                 }
             }
             h1{
-                font-family: "Plexbold";
+                font-family: "PlexBold";
                 text-align: center;
-                color: $secondcolor;
+                color: $secondColor;
                 text-transform: uppercase;
                 font-size: 30px;
                 line-height: 1.6;
@@ -32,9 +32,9 @@
             p{
                 max-width: 750px;
                 text-align: center;
-                font-family: "Plexnormal";
+                font-family: "PlexNormal";
                 text-wrap: balance;
-                color: $secondcolor;
+                color: $secondColor;
             }
             >div{
                 width: 100%;
@@ -42,13 +42,13 @@
         }
     }
     &:hover{
-        .infocardwaveanimation{
+        .infoCardWaveAnimation{
             scale: 1.3;
         }
     }
 }
 
-.infocardwaveanimation{
-    @include circlewave("left",430px);
+.infoCardWaveAnimation{
+    @include circleWave("left",430px);
     @extend %transition;
 }

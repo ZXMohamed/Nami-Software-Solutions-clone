@@ -1,6 +1,6 @@
 @use "_shared.scss" as *;
 
-.downloadbutton{
+.downloadButton{
     width: 260px;
     height: 50px;
     border-radius: 50px;
@@ -11,16 +11,16 @@
     >div{
         font-size: 14px;
         border-radius: 50px;
-        background-color: $secondcolor;
+        background-color: $secondColor;
         width: 98.2%;
         height: 90%;
-        @include center("yflex");
+        @include center("Y-flex");
 
         &:hover{
             background-color: transparent;
         }
         &:hover>span{
-            color: $secondcolor;
+            color: $secondColor;
             left: -35px;
         }
         &:hover>div{
@@ -32,7 +32,7 @@
             @extend %animatedBG;
             width: 40px;
             height: 40px;
-            color: $secondcolor;
+            color: $secondColor;
             margin: 2px;
             margin-right: 8px;
             font-weight: 900;
@@ -46,7 +46,7 @@
             @extend %transition;
             color: #000;
             text-transform: capitalize;
-            font-family: "Plexnormal";
+            font-family: "PlexNormal";
         }
     }
     &:visited,

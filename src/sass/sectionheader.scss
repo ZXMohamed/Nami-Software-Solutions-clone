@@ -1,10 +1,10 @@
 @use "_shared.scss" as *;
 
-.sectionheader{
+.sectionHeader{
     margin-bottom: 35px;
     h2{
-        font-family: "Plexbold";
-        color: $secondtextcolor;
+        font-family: "PlexBold";
+        color: $secondTextColor;
         font-size: 24px;
         margin-bottom: 15px;
         div{
@@ -15,7 +15,7 @@
         }
     }
     h1{
-        font-family: "Plexbold";
+        font-family: "PlexBold";
         text-transform: uppercase;
         font-size: 30px;
         text-align: center;
@@ -28,13 +28,13 @@
         }
     }
     a{
-        font-family: "Plexnormal";
-        @extend %widehexagon;
+        font-family: "PlexNormal";
+        @extend %wideHexagon;
         @extend %animatedBG;
         width: 90px;
         height: 52px;
         @include center("flex");
-        color: $secondcolor;
+        color: $secondColor;
         font-size: 14px;
         @extend %transition;
         div{

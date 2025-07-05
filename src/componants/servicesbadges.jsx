@@ -1,60 +1,60 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 
-import applicationdesign from '../assets/photo/servicesbadges/applicationdesign.svg'
-import androidapplication from '../assets/photo/servicesbadges/androidapplication.svg'
-import website from '../assets/photo/servicesbadges/website.svg'
-import iosapp from '../assets/photo/servicesbadges/iosapp.svg'
+// import applicationdesign from '../assets/photo/servicesbadges/applicationdesign.svg'
+// import androidapplication from '../assets/photo/servicesbadges/androidapplication.svg'
+// import website from '../assets/photo/servicesbadges/website.svg'
+// import iosapp from '../assets/photo/servicesbadges/iosapp.svg'
 
 
-export function Servicesbadgeslist({ children, type }) {
+export function ServicesBadgesList({ children, data }) {
 
     return (
-        <Box className={"servicesbadges " + type || servicesbadgeslisttype.box} >
-        {children}
-    </Box>
+        <Box className={"servicesBadges " + data || servicesBadgesListType.box} >
+            {children}
+        </Box>
   )
 }
 
-export function Servicebadge({ type, size }) {
+export function ServiceBadge({ data, size }) {
 
-    if (!type) { 
-        throw "Service badge type unset !"
+    if (!data) { 
+        throw "Service badge data unset !"
     }
 
     return (
-        <Stack direction="row" spacing={ 0.7 } className={"servicebadge " + size || servicebadgesize.small} >
-            <img src={type.icon} alt="" />
-            <Typography variant='h6' component={'h4'}>{type.title}</Typography>
+        <Stack direction="row" spacing={ 0.7 } className={"serviceBadge " + size || serviceBadgeSize.small} >
+            <img src={data.icon} alt="" />
+            <Typography variant='h6' component={'h4'}>{data.title}</Typography>
         </Stack>
     )
 }
 
-export const servicesbadgeslisttype = { 
-    box : "servicesbadgesbox",
-    row : "servicesbadgesrow"
+export const servicesBadgesListType = { 
+    box : "servicesBadgesBox",
+    row : "servicesBadgesRow"
 }
 
-export const servicebadgetypes = {
-    applicationdesign: {
-        title: "Application design",
-        icon: applicationdesign
-    },
-    androidapplication: {
-        title: "Android application",
-        icon: androidapplication
-    },
-    website: {
-        title: "Website",
-        icon: website
-    },
-    iosapp:{ 
-        title: "IOS app",
-        icon: iosapp
-    }
-}
+// export const ServiceBadgedatas = {
+//     applicationdesign: {
+//         title: "Application design",
+//         icon: applicationdesign
+//     },
+//     androidapplication: {
+//         title: "Android application",
+//         icon: androidapplication
+//     },
+//     website: {
+//         title: "Website",
+//         icon: website
+//     },
+//     iosapp:{ 
+//         title: "IOS app",
+//         icon: iosapp
+//     }
+// }
 
-export const servicebadgesize = {
-    big : "servicebadgebig",
-    small:"servicebadgesmall"
+export const serviceBadgeSize = {
+    big : "serviceBadgeBig",
+    small:"serviceBadgeSmall"
 }

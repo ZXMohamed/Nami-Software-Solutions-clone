@@ -1,15 +1,15 @@
 @use "_shared.scss" as *;
 
-.socialbtns {
+.socialButtons {
     margin-top: 25px;
     a{
         display: block;
         width: 40px;
         height: 40px;
         @extend %transition;
-        @include socialbtnsstyle("sty1");
+        @include socialButtonsStyle("sty1");
         &:hover{
-            background-color: $primarycolor;
+            background-color: $primaryColor;
             margin-top: -5px;
         }
         div{

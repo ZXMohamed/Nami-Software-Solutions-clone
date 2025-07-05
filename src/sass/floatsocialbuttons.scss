@@ -1,14 +1,13 @@
 @use "_shared.scss" as *;
 
-//*Socialbtns*/
-.Socialbtns{
+.floatSocialButtons{
     position: fixed;
     top: 40.4%;
     z-index: 1100;
     height: 180px;
     width: 120px;
     border-radius: 10px 50% 50% 10px;
-    @include center("yflex");
+    @include center("Y-flex");
     &:hover{
         a{
             opacity: 100%;
@@ -40,7 +39,7 @@
         height: 44px;
         width: 44px;
         border-radius: 0px 50% 50% 0px;
-        @include center("yflex");
+        @include center("Y-flex");
         justify-content: flex-end;
         padding-right: 10px;
         box-shadow: 1px 3px 10px #00000023;
@@ -59,7 +58,7 @@
         box-shadow: 1px 3px 5px #00000023;
         height: 40px;
         width: 40px;
-        @include socialbtnsstyle("sty2");
+        @include socialButtonsStyle("sty2");
         position: absolute;
         top: 50%;
         left: 0px;
@@ -69,13 +68,6 @@
     @for $i from 1 through 5{
         a:nth-child(#{$i}){
             transition-delay:#{($i / 10)}s;
-        }
-    }
-    $inx:0;
-    @each $iconURL in $socialiconurls {
-        $inx : $inx + 1;
-        a:nth-child(#{$inx})::after{
-            background-image: url($iconURL);
         }
     }
 }

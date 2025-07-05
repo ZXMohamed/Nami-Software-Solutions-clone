@@ -1,6 +1,6 @@
 @use "_shared.scss" as *;
 
-.requestform{
+.requestForm{
     overflow-y: scroll;
     overflow-x: hidden;
     @extend %scroll;
@@ -24,26 +24,26 @@
         padding: 8px 24px 24px 24px;
         width: min(500px,100%);
         // min-height: 100%;
-        background-color: $secondcolor;
+        background-color: $secondColor;
         button.close{
             font-size: 16px;
-            font-family: "Plexbold";
+            font-family: "PlexBold";
             position: absolute;
             top: -10px;
             right: -10px;
             z-index: 1000;
-            color: $secondcolor;
+            color: $secondColor;
             background-color: #000000;
             border-radius: 50%;
             width: 35px;
             height: 35px;
-            border: 2px solid $secondcolor;
+            border: 2px solid $secondColor;
         }
         label{
-            font-family: "Plexnormal";
+            font-family: "PlexNormal";
             font-weight: 600;
             font-size: 13px;
-            color: $secondtextcolor;
+            color: $secondTextColor;
             margin-bottom: 5px;
 
             span{
@@ -52,19 +52,19 @@
         }
         .MuiTextField-root{
             width: 100%;
-            font-family: "Plexnormal";
+            font-family: "PlexNormal";
         }
         .MuiInput-root {
             &:before {
-                border-bottom: 1px solid $secondcolor;
+                border-bottom: 1px solid $secondColor;
             }
             &:hover:not(.Mui-disabled):before {
-                border-bottom: 1px solid $secondcolor;
+                border-bottom: 1px solid $secondColor;
             }
         }
         .MuiFormHelperText-root{
             font-size: 16px;
-            font-family: "Plexnormal";
+            font-family: "PlexNormal";
             margin-left: 0;
             margin-bottom: 5px;
             color: #000000;
@@ -75,11 +75,11 @@
         input,textarea{
             padding: 0px 12px;
             height: 46px;
-            background-color: $secondcolor;
+            background-color: $secondColor;
             border-radius:8px;
-            caret-color: $secondcolor;
+            caret-color: $secondColor;
             &::selection{
-                background-color: $primary2color;
+                background-color: $primary2Color;
             }
         }
         input::-webkit-inner-spin-button{
@@ -90,20 +90,20 @@
             @extend %scroll;
             resize: vertical;
         }
-        .sendbuttoncon{
+        .sendButtonContainer{
             div{
                 margin-top: 10px;
                 @include center("flex");
                 width: 146px;
                 height: 53px;
-                @extend %widehexagon;
+                @extend %wideHexagon;
                 @extend %animatedBG;
                 button{
                     color: #000000;
                     width: 97%;
                     height: 90%;
-                    @extend %widehexagon;
-                    background-color: $secondcolor;
+                    @extend %wideHexagon;
+                    background-color: $secondColor;
                     border: none;
                     outline: none;
                     position: relative;
@@ -111,7 +111,7 @@
                     @extend %transition;
                     &:hover{
                         @extend %animatedBG;
-                        color:$secondcolor;
+                        color:$secondColor;
                     }
                 }
             }

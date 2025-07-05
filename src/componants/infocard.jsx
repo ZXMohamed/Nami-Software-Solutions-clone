@@ -1,11 +1,11 @@
 import React from 'react'
 import { Container, Typography, Box, Stack } from '@mui/material'
 
-export default function Infocard({title,subtitle,description,children,style}) {
+export default function InfoCard({title,subtitle,description,children,style}) {
   return (
-    <Box style={style} className="infocard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
+    <Box style={style} className="infoCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
         <Container maxWidth="lg">
-            <Box className="infocardwaveanimation">
+            <Box className="infoCardWaveAnimation">
                 <div></div>
                 <div></div>
                 <div></div>

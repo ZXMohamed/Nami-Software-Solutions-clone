@@ -1,13 +1,13 @@
 @use "_shared.scss" as *;
 
 @font-face {
-    font-family: "Plexnormal";
+    font-family: "PlexNormal";
     src: url("../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.ttf");
     font-size: 16px;
 }
 
 @font-face {
-    font-family: "Plexbold";
+    font-family: "PlexBold";
     src: url("../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.ttf");
 }
 
@@ -19,15 +19,15 @@ body{
     overflow-y: scroll;
     @extend %scroll;
     height: 1500px;
-    background-image: url($sitebackground);
+    background-image: url($siteBackground);
     background-repeat: repeat;
 }
 
-//*navbar*/
-.navbar.MuiAppBar-root{
+//*navBar*/
+.navBar.MuiAppBar-root{
     pointer-events: all;
     top: 10px; 
-    font-family: "Plexnormal";
+    font-family: "PlexNormal";
     >div{
         height:70px;
         border-radius: 40px;
@@ -35,36 +35,36 @@ body{
         @extend %transition;
     }
 }
-.navlogo{
+.navLogo{
     width: 126px;
 }
-.navcontent{
+.navContent{
     width: 100%;
     justify-content: space-between;
     box-shadow: none;
 }
-.navbaritems{
+.navBarItems{
     span{
         padding: 13px 15px;
-        @extend %semihexagon;
+        @extend %semiHexagon;
         @include center("flex");
     }
 }
-.navbaractiveitem{
-    color: $secondcolor;
+.navBarActiveItem{
+    color: $secondColor;
     @extend %animatedBG;
     border: 1px solid #ffffff;
 }
-.navbarlang{
-    @extend %hexagonborder;
+.navBarLang{
+    @extend %hexagonBorder;
     @include center("flex");
     width: 51px;
     height: 45px;
     align-self: center;
     button{
-        font-family: "Plexbold";
+        font-family: "PlexBold";
         font-size: 14px;
-        background-color: $secondcolor;
+        background-color: $secondColor;
         border: none;
         outline: none;
         line-height: 2;
@@ -79,9 +79,9 @@ body{
         }
     }
 }
-.navsidemenu{
+.navSideMenu{
     width: 250px;
-    font-family: "Plexnormal";
+    font-family: "PlexNormal";
     font-size: 14px;
     img{
         margin-bottom: 24px !important;
@@ -91,18 +91,18 @@ body{
         width: 100%;
         height: 43px;
         border-radius: 12px;
-        @include center("yflex");
+        @include center("Y-flex");
     }
 }
-[data-aos="navbarshrink"] {
+[data-aos="navBarShrink"] {
     >div{
         box-shadow: none;
         background-color: transparent;
     }
     &.aos-animate {
     >div{
-        box-shadow: 0px 0px 20vw $primarycolor;
-        background-color: $secondcolor;
+        box-shadow: 0px 0px 20vw $primaryColor;
+        background-color: $secondColor;
         width: min(1100px,97%);
         padding-right: 20px;
         padding-left: 20px;
@@ -119,8 +119,8 @@ body{
     }
   }
 }
-//*homesec*/
-.homesec{
+
+.homeSection{
     position: relative;
     @include center("flex");
     flex-direction: column;
@@ -128,13 +128,13 @@ body{
         position: absolute;
         top: 0px;
         right: 0px;
-        box-shadow: -100px 100px 15vw 20vw $primary3-2transparent;
+        box-shadow: -100px 100px 15vw 20vw $primary3-2Transparent;
     }
     &::before{
         position: absolute;
         left: 0px;
         bottom: 0px;
-        box-shadow: 100px 0px 15vw 22vw $primary3-2transparent;
+        box-shadow: 100px 0px 15vw 22vw $primary3-2Transparent;
     }
     &::after,&::before{
         content: "";
@@ -144,19 +144,19 @@ body{
     h1{
         margin-top: 105px;
         text-align: center;
-        font-family: "Plexbold";
+        font-family: "PlexBold";
         span{
-            color: $primarycolor;
+            color: $primaryColor;
         }
     }
     p{
         line-height: 1.6;
-        font-family: "Plexnormal";
+        font-family: "PlexNormal";
         margin-top: 27px;
         max-width: 790px;
         text-align: center;
         font-size: 20px;
-        color: $secondtextcolor;
+        color: $secondTextColor;
         text-wrap: balance;
     }
     @media screen and (max-width:768px) {
@@ -168,7 +168,7 @@ body{
         }
     }
 }
-.homesecbg{
+.fallingBackground{
     position: absolute;
     z-index: -1;
     display: flex;
@@ -177,16 +177,16 @@ body{
     height: 100%;
     div{
         height: 100%;
-        background: linear-gradient(180deg, $primarytransparent 0%,transparent 100%);
+        background: linear-gradient(180deg, $primaryTransparent 0%,transparent 100%);
         width: 1px;
-        @include center("xflex");
+        @include center("X-flex");
         &::after{
             content: "";
             flex-shrink: 0;
             position: relative;
             border-radius: 50%;
-            background-color: $primarytransparent;
-            @extend %homebackanimatedBG;
+            background-color: $primaryTransparent;
+            @extend %homeBackAnimatedBG;
             display: block;
             width: 10px;
             height: 10px;
@@ -194,17 +194,17 @@ body{
     }
 }
 @for $i from 2 through 5 {
-    .homebackanimatedBGdelay-#{$i}::after{
+    .homeBackAnimatedBGDelay-#{$i}::after{
         animation-duration: #{$i}s;
     }   
 }
-.homebtns{
+.homeButtons{
     margin-top: 30px;
     @include center("flex");
     flex-wrap: wrap;
     row-gap: 25px;
     .MuiButton-root{
-        font-family: "Plexnormal";
+        font-family: "PlexNormal";
         font-weight: bold;
         font-size: 16px;
         border-radius: 40px;
@@ -214,19 +214,19 @@ body{
         column-gap: 16px;
     }
 }
-.homebtn.MuiButton-outlined{
-    background-color: $primary1-2transparent;
-    color: $primarycolor;
+.homeButton.MuiButton-outlined{
+    background-color: $primary1-2Transparent;
+    color: $primaryColor;
     padding-left: 26px;
     padding-right: 26px;
     height: 44px;
-    border-color:$primarycolor; 
+    border-color:$primaryColor; 
     box-shadow: none;
     line-height: 0;
     @extend %transition;
     &:hover{
-        color: $secondcolor;
-        background-color: $primarycolor;
+        color: $secondColor;
+        background-color: $primaryColor;
     }
     &::before{
     content: "";
@@ -248,12 +248,12 @@ body{
         font-size: 14px;
     }
 }
-.homeportfoliobtn.MuiButton-outlined{
+.homePortfolioButton.MuiButton-outlined{
     &::before{
         background-image:url("../assets/photo/home/portofolio.svg");
     }
 }
-.homeproductsbtn.MuiButton-outlined{
+.homeProductsButton.MuiButton-outlined{
     &::before{
         background-image:url("../assets/photo/home/products.svg");
     }

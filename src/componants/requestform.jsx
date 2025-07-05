@@ -4,44 +4,36 @@ import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
+import { pattern, zodMsgs } from '../form/assets';
+import { sitekey } from '../form/recaptcha';
 
-export default function Requestform() {
+const schema = zod.object({
+    name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
+    phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
+    email: zod.string().nonempty(zodMsgs.required).email(zodMsgs.valid("email")),
+    description: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more("name",100) })
+});
+
+export default function RequestForm() {
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
-    const regex = {
-        name:(name)=>name.match(/^[A-Za-z]+([ '-][A-Za-z]+)*$/),
-        phone:(phone)=>phone.match(/^\+?[0-9]{1,4}[-\s.]?(\(?\d{2,4}\)?[-\s.]?)?\d{3,4}[-\s.]?\d{4}$/) || phone.match(/^01[0125][0-9]{8}$/) || phone.match(/^\d{10,15}$/),
-    }
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
-    const zodmsgs = {
-        required: "This is a required field",
-        length: { less: (input,num)=>`${input} less than ${num} chars`, more: (input,num)=>`${input} more than ${num} chars` },
-        valid: (input) => `this ${input} is not valid`,
-    }
-
-    const schema = zod.object({
-        name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less("name",3) }).max(100, { message: zodmsgs.length.more("name",100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
-        phone: zod.string().min(1, { message: zodmsgs.required }).refine((phone) => regex.phone(phone), { message: zodmsgs.valid("number") }),
-        email: zod.string().nonempty(zodmsgs.required).email(zodmsgs.valid("email")),
-        description: zod.string().nonempty(zodmsgs.required).max(500, { message: zodmsgs.length.more("name",100) })
-    });
-
-    const { register, handleSubmit, formState: { errors,isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
-    
-    const inputssettings = {
+    const inputsSettings = {
         name: register("name", { required: true}),
         phone: register("phone", { required: true}),
         email: register("email", { required: true}),
         description: register("description", { required: true}),
     }
-    
+
     const handleCaptchaChange = (token) => {
         setCaptchaToken(token);
         console.log("Captcha token:", token);
     };
-    
-    const onsubmit = (data) => {
+
+    const onSubmit = (data) => {
+        
         if (!captchaToken) {
             // alert("Please complete the CAPTCHA.");
             return;
@@ -54,34 +46,33 @@ export default function Requestform() {
 
     };
 
-
   return (
-    <Box className='requestform'>
-        <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onsubmit)} className='form'>
+    <Box className='requestForm'>
+        <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)} className='form'>
             <button className='close'>X</button>
             <Box>
-                <InputLabel htmlFor="formname">Name <span>*</span></InputLabel>  
-                <TextField type='text' id='formname' name='name' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputssettings.name}/>
+                <InputLabel htmlFor="formName">Name <span>*</span></InputLabel>  
+                <TextField type='text' id='formName' name='name' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputsSettings.name}/>
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formemail">Email <span>*</span></InputLabel>  
-                <TextField type='email' id='formemail' name='email' color={errors?.email?"error":"primary"} helperText={errors?.email?.message} {...inputssettings.email} />
+                <InputLabel htmlFor="formEmail">Email <span>*</span></InputLabel>  
+                <TextField type='email' id='formEmail' name='email' color={errors?.email?"error":"primary"} helperText={errors?.email?.message} {...inputsSettings.email} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formphone">Phone <span>*</span></InputLabel>  
-                <TextField type='phone' id='formphone' name='phone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputssettings.phone} />
+                <InputLabel htmlFor="formPhone">Phone <span>*</span></InputLabel>  
+                <TextField type='phone' id='formPhone' name='phone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputsSettings.phone} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formdescription">Description <span>*</span></InputLabel>  
-                <TextField multiline maxRows={6} minRows={2} id='formdescription' name='description' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputssettings.description}/> 
+                <InputLabel htmlFor="formDescription">Description <span>*</span></InputLabel>  
+                <TextField multiline maxRows={6} minRows={2} id='formDescription' name='description' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
-            <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange}/>
+            <ReCAPTCHA sitekey={sitekey} onChange={handleCaptchaChange}/>
           
-            <Stack direction={'row'} justifyContent={'center'} className='sendbuttoncon'>
+            <Stack direction={'row'} justifyContent={'center'} className='sendButtonContainer'>
                 <Box>
                     <Button type='submit' variant='contained' disableRipple disabled={isSubmitting} className='send'>Send</Button>
                 </Box>
