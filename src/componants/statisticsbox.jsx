@@ -5,8 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function StatisticsList({children}) {
   return (
-    <Stack direction={ 'row' } columnGap={ 2.5 } rowGap={2.5} justifyContent={ 'center' } flexWrap={ {xs:"wrap",md:"no-wrap"}} >
+    <Stack direction={ 'row' } className='statisticsList'>
         {React.Children.map(children, (child,inx) => {
+            
             if (React.isValidElement(child)) {
                 return React.cloneElement(child, {
                     aosAnimation: {
@@ -16,7 +17,9 @@ export function StatisticsList({children}) {
                     }
                 });
             }
+
             return child;
+
         })}
     </Stack>
     
@@ -30,30 +33,31 @@ export function StatisticsBox({ value, title, type, aosAnimation}) {
     if (!value || !title) { 
         throw "Statistics box value or title unset !"
     }
-
-    gsap.registerPlugin(ScrollTrigger);
     
     useEffect(() => { 
-        gsap.to(statisticValue.current, {
+        countUp(statisticValue,value);
+    }, [])
+    
+    return (
+        <Stack direction={ 'column' } { ...aosAnimation } className='statisticsBox'>
+            {value && <Typography variant='h4' component={'h4'} className='statisticsBoxValue'><span ref={statisticValue}>0</span> {type} </Typography>}
+            {title && <Typography variant='h6' component={'h3'} className='statisticsBoxTitle'>{ title }</Typography>}
+        </Stack>
+    )
+}
+
+function countUp(statisticValue,maxValue) { 
+    gsap.to(statisticValue.current, {
         scrollTrigger: {
             start: "top+=0 bottom",
             trigger: statisticValue.current,
         },
-        textContent: value,
+        textContent: maxValue,
         duration: 4,
         snap: { textContent: 1 },
         stagger: 1,
-        });
-    },[])
-  return (
-      <Stack direction={ 'column' } justifyContent={ 'space-around' } alignItems={ 'center' } { ...aosAnimation } className='statisticsBox'>
-        {value && <Typography variant='h4' component={'h4'}><span ref={statisticValue}>0</span> {type}</Typography>}
-        {title && <Typography variant='h6' component={'h3'}>{ title }</Typography>}
-    </Stack>
-  )
+    });
 }
-
-
 /*
 <Infocard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
     <Statisricslist>

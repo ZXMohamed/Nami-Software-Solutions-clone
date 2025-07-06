@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Box, Button, InputLabel, Stack, TextField } from '@mui/material'
+import React, { useState } from 'react';
+import { Box, Button, InputLabel, Stack, TextField } from '@mui/material';
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,7 @@ const schema = zod.object({
     description: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more("name",100) })
 });
 
-export default function RequestForm() {
+export default function RequestQuotationForm() {
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
@@ -48,31 +48,31 @@ export default function RequestForm() {
 
   return (
     <Box className='requestForm'>
-        <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)} className='form'>
-            <button className='close'>X</button>
+        <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)}>
+            <button className='closeForm'>X</button>
             <Box>
-                <InputLabel htmlFor="formName">Name <span>*</span></InputLabel>  
-                <TextField type='text' id='formName' name='name' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputsSettings.name}/>
+                <InputLabel htmlFor="formName" className='inputTitle'>Name <span className='requiredSymbol'>*</span></InputLabel>  
+                <TextField type='text' id='formName' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputsSettings.name}/>
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formEmail">Email <span>*</span></InputLabel>  
-                <TextField type='email' id='formEmail' name='email' color={errors?.email?"error":"primary"} helperText={errors?.email?.message} {...inputsSettings.email} />
+                <InputLabel htmlFor="formEmail" className='inputTitle'>Email <span  className='requiredSymbol'>*</span></InputLabel>  
+                <TextField type='email' id='formEmail' color={errors?.email?"error":"primary"} helperText={errors?.email?.message} {...inputsSettings.email} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formPhone">Phone <span>*</span></InputLabel>  
-                <TextField type='phone' id='formPhone' name='phone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputsSettings.phone} />
+                <InputLabel htmlFor="formPhone" className='inputTitle'>Phone <span  className='requiredSymbol'>*</span></InputLabel>  
+                <TextField type='number' id='formPhone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputsSettings.phone} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formDescription">Description <span>*</span></InputLabel>  
-                <TextField multiline maxRows={6} minRows={2} id='formDescription' name='description' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
+                <InputLabel htmlFor="formDescription" className='inputTitle'>Description <span  className='requiredSymbol'>*</span></InputLabel>  
+                <TextField multiline maxRows={6} minRows={2} id='formDescription' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
             <ReCAPTCHA sitekey={sitekey} onChange={handleCaptchaChange}/>
           
-            <Stack direction={'row'} justifyContent={'center'} className='sendButtonContainer'>
+            <Stack direction={'row'} className='sendButtonContainer'>
                 <Box>
                     <Button type='submit' variant='contained' disableRipple disabled={isSubmitting} className='send'>Send</Button>
                 </Box>

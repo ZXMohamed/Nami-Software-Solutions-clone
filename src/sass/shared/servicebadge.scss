@@ -1,4 +1,5 @@
 @use "_shared.scss" as *;
+@use "fonts.scss" as *;
 
 .servicesBadges{
     gap: 4px;
@@ -18,17 +19,6 @@
     @extend %transition;
     position: relative;
     overflow: hidden;
-
-    img{
-        width: 16px;
-        z-index: 1;
-    }
-    h4{
-        font-size: 'plexNormal';
-        font-size: 12px;
-        text-transform: capitalize;
-        z-index: 1;
-    }
 
     &::after,&::before{
         content: "";
@@ -61,19 +51,30 @@
             left: -28px;
             bottom: -28px;
         }
-        img{
+        img.serviceIcon{
             filter: brightness(0) invert(1);
         }
     }
 }
 
+img.serviceIcon{
+    width: 16px;
+    z-index: 1;
+}
+h4.serviceTitle{
+    font-size: 'plexNormal';
+    font-size: 12px;
+    text-transform: capitalize;
+    z-index: 1;
+}
+
 .serviceBadgeBig{
     padding: 8px 20px;
 
-    img{
+    img.serviceIcon{
         width: 24px;
     }
-    h4{
+    h4.serviceTitle{
         font-size: 14px;
     }
 }
@@ -81,10 +82,10 @@
 .serviceBadgeSmall{
     padding: 5px 15px;
 
-    img{
+    img.serviceIcon{
         width: 16px;
     }
-    h4{
+    h4.serviceTitle{
         font-size: 12px;
     }
 }

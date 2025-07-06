@@ -7,10 +7,10 @@ import { Box, Stack, Typography } from '@mui/material'
 // import iosapp from '../assets/photo/servicesbadges/iosapp.svg'
 
 
-export function ServicesBadgesList({ children, data }) {
+export function ServicesBadgesList({ children, type }) {
 
     return (
-        <Box className={"servicesBadges " + data || servicesBadgesListType.box} >
+        <Box className={"servicesBadges " + type || servicesBadgesListType.box} >
             {children}
         </Box>
   )
@@ -24,8 +24,8 @@ export function ServiceBadge({ data, size }) {
 
     return (
         <Stack direction="row" spacing={ 0.7 } className={"serviceBadge " + size || serviceBadgeSize.small} >
-            <img src={data.icon} alt="" />
-            <Typography variant='h6' component={'h4'}>{data.title}</Typography>
+            <img src={data.icon} alt={"Nami " + data.title + " service"} className='serviceIcon'/>
+            <Typography variant='h6' component={'h4'} className='serviceTitle'>{data.title}</Typography>
         </Stack>
     )
 }
@@ -33,6 +33,11 @@ export function ServiceBadge({ data, size }) {
 export const servicesBadgesListType = { 
     box : "servicesBadgesBox",
     row : "servicesBadgesRow"
+}
+
+export const serviceBadgeSize = {
+    big : "serviceBadgeBig",
+    small:"serviceBadgeSmall"
 }
 
 // export const ServiceBadgedatas = {
@@ -53,8 +58,3 @@ export const servicesBadgesListType = {
 //         icon: iosapp
 //     }
 // }
-
-export const serviceBadgeSize = {
-    big : "serviceBadgeBig",
-    small:"serviceBadgeSmall"
-}
