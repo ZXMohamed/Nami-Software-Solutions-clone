@@ -12,6 +12,7 @@ import FloatSocialButtons from "./componants/floatsocialbuttons";
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
+import "./sass/shared/pageinit.scss"
 import "./sass/pages/main.scss"
 import "./sass/shared/socialbuttons.scss"
 import "./sass/shared/floatsocialbuttons.scss"
