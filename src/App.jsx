@@ -1,9 +1,9 @@
 import { Fragment } from "react"
 import { createTheme, CssBaseline, Icon, ThemeProvider } from "@mui/material"
 //*init
-import "./aos/aosinit"
-import "./gsap/gsapinit"
-import { theme } from "./mui/muiinit"
+import "./aos/AOSinit"
+import "./gsap/GSAPinit"
+import { theme } from "./mui/MUIinit"
 //*components
 import NavBar from "./componants/navbar"
 import Home from "./componants/home";
