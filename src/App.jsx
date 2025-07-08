@@ -1,12 +1,18 @@
 import { Fragment } from "react"
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material"
-import AOS from "aos";
+import { createTheme, CssBaseline, Icon, ThemeProvider } from "@mui/material"
+//*init
+import "./aos/aosinit"
+import "./gsap/gsapinit"
+import { theme } from "./mui/muiinit"
 //*components
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import About from "./componants/about";
 import Socialbtns from "./componants/floatsocialbuttons";
 import Contactbtns from "./componants/contactbtns";
+import NavBar from "./componants/navbar"
+import Home from "./componants/home";
+import FloatSocialButtons from "./componants/floatsocialbuttons";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
@@ -47,19 +53,32 @@ const theme = createTheme({
     },//$color theme
   },
 });
+import "./sass/shared/pageinit.scss"
+import "./sass/pages/main.scss"
+import "./sass/shared/socialbuttons.scss"
+import "./sass/shared/floatsocialbuttons.scss"
+import "./sass/shared/sectionheader.scss"
+import "./sass/shared/infocard.scss"
+import "./sass/shared/statisticsbox.scss"
+import "./sass/shared/servicebadge.scss"
+import "./sass/shared/requestform.scss"
+import "./sass/shared/requestbutton.scss"
+import "./sass/shared/downloadbutton.scss"
+
+
 
 function App() {
-
 
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
+        <NavBar />
         <Home />
         <About/>
         <Socialbtns />
         <Contactbtns />
+        <FloatSocialButtons />
       </ThemeProvider>
     </Fragment>
   )
