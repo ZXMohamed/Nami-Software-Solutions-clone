@@ -1,0 +1,14 @@
+@use "_shared.scss" as *;
+@use "fonts.scss" as *;
+
+html{
+
+}
+body{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    @extend %scroll;
+    height: 1500px;
+    background-image: url($siteBackground);
+    background-repeat: repeat;
+}

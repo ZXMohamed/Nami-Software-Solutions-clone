@@ -1,0 +1,300 @@
+$siteBackground: "../../assets/photo/global/background.png";
+
+$primaryColor: #009f6f;
+$primary2Color: #38c684;
+$primary3Color: #11b14e;
+$primaryTransparent: #009f6f31;
+$primary1-2Transparent:#009f6f0d;
+$primary2Transparent: #38c68441;
+$primary3Transparent: #11b04e13;
+$primary3-2Transparent: #11b04e2c;
+$secondColor:#ffffff;
+$secondTransparent:#ffffff30;
+$second1-2Transparent:#ffffff0e;
+$thirdColor : #e1e1e1;
+$secondTextColor:#777;
+$scrollColor:#CACACA;
+
+$gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
+
+// *{
+//     border: 1px solid #000000;
+// }
+
+//*global style*/
+
+%scroll{
+    &::selection{
+        background-color: $primaryColor;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: $secondColor;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: $scrollColor;
+        border-radius: 40vw;
+    }
+}
+
+%removeAdditionalLinkStyle{
+    &:active,
+    &:hover,
+    &:link,
+    &:visited{
+        color: unset;
+        text-decoration: none;
+    }
+}
+
+%hexagonBorder{
+    position: relative;
+    top: 0px;
+    &::before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        background-color: $primaryColor;
+        @extend %hexagon;
+        @extend %animatedBG;
+    }
+}
+
+
+%semiHexagon{
+    clip-path: polygon(15% 12%, 83% 12%, 100% 50%, 85% 86%, 15% 87%, 2% 50%);
+    border-radius: 50%;
+}
+
+%wideHexagon{
+    clip-path: polygon(15% 15%, 85% 15%, 100% 50%, 85% 85%, 15% 85%, 0% 50%);
+    border-radius: 50%;
+}
+%hexagon{
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    border-radius: 50%;
+}
+
+%transition{
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+//*animation controls*/
+%animatedBG{
+    background: $gradientBG;
+    background-size: 300%;
+    animation-name: moveBG;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes moveBG {
+    0%{
+        background-position-y: 0%;
+        background-position-x: 100%;
+    }
+    25%{
+        background-position-y: 25%;
+        background-position-x: 75%;
+    }
+    50%{
+        background-position-y: 50%;
+        background-position-x: 50%;
+    }
+    75%{
+        background-position-y: 25%;
+        background-position-x: 75%;
+    }
+    100%{
+        background-position-y: 0%;
+        background-position-x: 100%;
+    }
+}
+
+%homeBackAnimatedBG{
+    animation-name: moveUpDown;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes moveUpDown {
+    0%{
+        top:0%;
+        filter: opacity(0%);
+    }
+    50%{
+        filter: opacity(100%);
+    }
+    100%{
+        top:100%;
+        filter: opacity(0%);
+    }
+}
+
+%shiningImage{
+    div.shine{
+        overflow: hidden;
+        position: relative;
+        &::before{
+            content: "";
+            position: absolute;
+            z-index: 100;
+            display: block;
+            width: 150%;
+            height: 150%;
+            animation-duration: 1.3s;
+            animation-fill-mode: forwards;
+            transform: translateX(15%) translateY(15%) rotate(110deg);
+            background: linear-gradient(0deg,transparent 0% 50%, #ffffff4f 52%, transparent 80% 100%);
+        }
+    }
+    &:hover{
+        div.shine{
+            &::before{
+                animation-name: shineMove;
+            }
+        }
+    }
+}
+
+@keyframes shineMove {
+    0%{
+        transform: translateX(15%) translateY(15%) rotate(110deg);
+    }
+    100%{
+        transform: translateX(-100%) translateY(-100%) rotate(130deg);
+    }
+}
+
+//*mixins*/
+@mixin socialButtonsStyle($type){
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+    @if $type=="sty1"{
+        border-color: $primaryColor;
+        background-color: transparent;
+    }
+    @else if $type=="sty2"{
+        border-color: $secondColor;
+        background-color: $primaryColor;
+    }
+    div{
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        @if $type=="sty2"{
+            filter:brightness(0) invert(1);
+        }
+    }
+}
+
+@mixin circleWave($side,$size){
+    z-index: 0;
+    width: $size;
+    height: $size;
+    position: absolute;
+    top: -1 * $size / 2;
+    animation-name: circleWaveRotate;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    @include center("flex");
+    @if $side == "right" {
+        right: -1 * $size / 2 ;
+    }
+    @else if $side == "left" {
+        left: -1 * $size / 2;
+    }
+    div{
+        position: absolute;
+        flex-shrink: 0;
+        border-style: solid;
+        border-radius: 50% 30% 40% 50% / 30% 40% 50% 50%;
+        border-color: $secondTransparent;
+    }
+    @for $i from 1 through 3{
+        div:nth-child(#{$i}){
+            border-width: (#{12px/$i}) ;
+            width: (#{$i * ($size / 4) + 100}) ;
+            height: (#{$i * ($size / 4) + 100}) ;
+            transform: rotate(#{$i * 85deg});
+        }
+    }
+}
+@keyframes circleWaveRotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+//*global mixin*/
+@mixin center ($type){
+    @if $type=="flex"{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    @else if $type=="X-flex"{
+        display: flex;
+        justify-content: center;
+    }
+    @else if $type=="Y-flex"{
+        display: flex;
+        align-items: center;
+    }
+    @else if $type=="grid"{
+        display: flex;
+        justify-items: center;
+        align-content: center;
+    }
+    @else if $type=="X-grid"{
+        display: flex;
+        justify-items: center;
+    }
+    @else if $type=="Y-grid"{
+        display: flex;
+        align-content: center;
+    }
+    @else if $type=="position"{
+        top:0px;
+        bottom:0px;
+        right:0px;
+        left:0px;
+    }
+    @else if $type=="block"{
+        display: block;
+        margin:auto;
+    }
+}
+
+@mixin textOverflow($line){
+    text-overflow: ellipsis;
+    line-clamp: #{$line};
+    display: block;
+    display: -moz-box;
+    display: -webkit-box;
+    -webkit-line-clamp:#{$line};
+    -webkit-box-orient:vertical;
+}
