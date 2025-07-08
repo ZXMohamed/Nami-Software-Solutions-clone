@@ -1,58 +1,20 @@
 import { Fragment } from "react"
 import { createTheme, CssBaseline, Icon, ThemeProvider } from "@mui/material"
 //*init
-import "./aos/aosinit"
-import "./gsap/gsapinit"
-import { theme } from "./mui/muiinit"
+import "./aos/AOSinit"
+import "./gsap/GSAPinit"
+import { theme } from "./mui/MUIinit"
 //*components
-import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import About from "./componants/about";
-import Socialbtns from "./componants/floatsocialbuttons";
-import Contactbtns from "./componants/contactbtns";
+import ContactButtons from "./componants/contactbuttons";
+import SocialButtons from "./componants/socialbuttons"
 import NavBar from "./componants/navbar"
-import Home from "./componants/home";
 import FloatSocialButtons from "./componants/floatsocialbuttons";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
-import "./sass/main.scss"
-import "./sass/socialbuttons.scss"
-import "./sass/float.scss"
-import "./sass/sectionheader.scss"
-import "./sass/infocard.scss"
-import "./sass/statisricsbox.scss"
-import "./sass/Servicebadge.scss"
-import "./sass/requestform.scss"
-import "./sass/downloadbutton.scss"
-
-
-AOS.init({ once: true, offset: 65 });
-
-const theme = createTheme({
-  palette: {
-    primary: {main: "#009f6f", contrastText: '#fff'},
-    secondary: { main: "#ffffff", contrastText: '#009f6f' },
-    third: { main: "#e1e1e1", contrastText: '#000000' },
-  },
-  typography: {
-    button: {
-      textTransform: 'none'
-    }
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      xxs: 500,
-      xxxs:600,
-      sm: 769,
-      md: 992,
-      lg: 1320,
-      xl: 1536,
-    },//$color theme
-  },
-});
 import "./sass/shared/pageinit.scss"
 import "./sass/pages/main.scss"
 import "./sass/shared/socialbuttons.scss"
@@ -64,6 +26,7 @@ import "./sass/shared/servicebadge.scss"
 import "./sass/shared/requestform.scss"
 import "./sass/shared/requestbutton.scss"
 import "./sass/shared/downloadbutton.scss"
+import "./sass/shared/contactbuttons.scss"
 
 
 
@@ -76,8 +39,7 @@ function App() {
         <NavBar />
         <Home />
         <About/>
-        <Socialbtns />
-        <Contactbtns />
+        <ContactButtons />
         <FloatSocialButtons />
       </ThemeProvider>
     </Fragment>

@@ -7,7 +7,7 @@ const store = configureStore({
         [socialSlice.reducerPath]: socialSlice.reducer,
         [companyFileSlice.reducerPath]: companyFileSlice.reducer,
     },
-    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(socialSlice.middleware)
+    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(socialSlice.middleware, companyFileSlice.middleware)
 })
 
 export default store;
