@@ -1,6 +1,5 @@
 $sitebackground:"../assets/photo/global/background.png";
 $socialiconurls: "../assets/photo/global/facebook.svg","../assets/photo/global/linkedin.svg","../assets/photo/global/x.svg","../assets/photo/global/instagram.svg","../assets/photo/global/snapchat.svg";
-$ourvaluesurl:"../assets/photo/our/Innovation.svg","../assets/photo/our/Quality.svg","../assets/photo/our/Focus On The Clint.svg","../assets/photo/our/Teamwork.svg","../assets/photo/our/quick Response.svg","../assets/photo/our/Continuous Learning.svg","../assets/photo/our/Sustainability.svg";
 
 $primarycolor: #009f6f;
 $primary2color: #38c684;
@@ -53,7 +52,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     transition-timing-function: ease-out;
 }
 
-%oursectioncard{
+%ourSectionCard{
     background-color: $secondcolor;
     box-shadow: 0px 0px 20px #0000001a;
     border-radius: 10px;

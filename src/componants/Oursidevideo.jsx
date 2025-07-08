@@ -1,10 +1,10 @@
-import oursidevideo from "../assets/video/our/our side video.mp4";
+import ourSideVideo from "../assets/video/our/our side video.mp4";
 
-export default function Oursidevideo() {
+export default function() {
 
     return (
-        <video loop autoPlay muted >
-            <source src={ oursidevideo } type='video/mp4' />
+        <video loop autoPlay muted className="sideVideo">
+            <source src={ ourSideVideo } type='video/mp4' />
         </video>
     )
 }
