@@ -8,10 +8,12 @@ import { theme } from "./mui/MUIinit"
 import NavBar from "./componants/navbar"
 import Home from "./componants/home";
 import FloatSocialButtons from "./componants/floatsocialbuttons";
+import Portfolio from "./componants/portfolio"
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 //*sass files
+import "./sass/shared/projectscard.scss"
 import "./sass/shared/pageinit.scss"
 import "./sass/pages/main.scss"
 import "./sass/shared/socialbuttons.scss"
@@ -34,6 +36,7 @@ function App() {
         <CssBaseline />
         <NavBar />
         <Home />
+        <Portfolio/>
         <FloatSocialButtons />
       </ThemeProvider>
     </Fragment>

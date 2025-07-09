@@ -283,3 +283,20 @@ p.homeDescription{
         background-image:url("../../assets/photo/home/products.svg");
     }
 }
+//*portfolio*/
+.portfolioSection{
+    background-color: $secondColor;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.projectsSlider{
+    width: 100%;
+}
+.projectsSlide{
+    height: unset;
+    max-width: 424px !important;
+    display: flex;
+    @media screen and (max-width:992px) {
+        max-width: 550px !important;
+    }
+}

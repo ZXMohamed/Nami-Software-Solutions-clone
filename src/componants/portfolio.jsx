@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Container, Stack, Typography, useMediaQuery } from '@mui/material';
-import Sectionheader from './sectionheader'
+import SectionHeader from './sectionHeader'
 import { Swiper,SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
@@ -13,14 +13,21 @@ import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
 
 export default function Portfolio() {
   return (
-    <Box className='portfoliosec'>
-        <Sectionheader title={'We bring your digital vision to life'} subtitle={'Newest portfolio'} showallurl={''}/>
-        <Portfolioslider/>
+    <Box className='portfolioSection'>
+        <SectionHeader title={'We bring your digital vision to life'} subtitle={'Newest portfolio'} showAllUrl={''}/>
+        <PortfolioSlider/>
     </Box>
   )
 }
 
-export function Portfolioslider() {
+const projectsSliderSettings = {
+    spaceBetween : 10,
+    loop : true,
+    autoplay : { delay: 2000, disableOnInteraction: false },
+    modules : [Autoplay]
+}
+
+export function PortfolioSlider() {
     const [projects, setprojects] = useState([{
         name: "Ebhar",
         description: "موقع الكترونى لمنصة ابهار لنشر وتوزيع الكتب.",
@@ -47,45 +54,58 @@ export function Portfolioslider() {
         image: Tameem,
     }]);
     
-    const ismdsize = useMediaQuery('(max-width:992px)');
-    const isxxxssize = useMediaQuery('(max-width:600px)');
+    const isMDsize = useMediaQuery('(max-width:992px)');
+    const isXXXSSize = useMediaQuery('(max-width:600px)');
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={ ismdsize ? (isxxxssize ? 1 : 2) : 3 } spaceBetween={ 10 } loop={ true } autoplay={ { delay: 2000,disableOnInteraction: false } } modules={[Autoplay]} className='slider'>
-                { projects.map((val, inx) => {
-                    return (<SwiperSlide key={inx} className='slide'>{/* data-aos="fade-up" data-aos-duration="1000" data-aos-delay={ (100 * inx).toString() } */}
-                                <Projectcard image={ val.image } name={ val.name } description={ val.description } badges={ val.badges } aosanimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
-                            </SwiperSlide>)
-                })}
+            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize,isMDsize)} {...projectsSliderSettings} className='projectsSlider'>
+                { projects.map((project, inx) => {
+                        return (
+                            <SwiperSlide key={ project.id } className='projectsSlide'>
+                                <ProjectCard image={ project.image } name={ project.name } description={ project.description } aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
+                            </SwiperSlide>
+                        )
+                    }
+                )}
             </Swiper>
         </Container>
   )
 }
 
-
-
-export function Projectcard({ image, name, description, aosanimation }) {
+export function ProjectCard({ image, name, description, aosAnimation }) {
     if (!image && !name) { 
         throw "project name or image unset !"
     }
   return (
-    <Box className='projectcard' {...aosanimation}>
+    <Box className='projectCard' {...aosAnimation}>
         <Stack direction={"column"} spacing={1}>
-            <Stack direction={'row'} className='header'>
-                <Typography variant='h6' component={'h3'}>{name}</Typography>
-                <Box>
+            <Stack direction={'row'} className='projectHeader'>
+                <Typography variant='h6' component={'h3'} className='projectTitle'>{name}</Typography>
+                <Box className="projectArrow">
                     <Box></Box>
                 </Box>
             </Stack>
-            <Typography>{description}</Typography>
-            <Box className="shine">
-                <img src={ image } alt={ name + " project from nami" } loading='lazy' />
+            <Typography className='projectDescription'>{description}</Typography>
+            <Box className="projectImageContainer shine">
+                <img src={ image } alt={ name + " project from Nami" } loading='lazy' />
             </Box>
         </Stack>
     </Box>
   )
 }
 
+function visibleSlidePerSize(isXXXSSize, isMDSize) {
+    //*from smaller size to bigger size
+    if (isXXXSSize) {
+        return 1;
+    } else if (isMDSize) {
+        return 2;
+    }else{
+        return 3;
+    }
+}
+
 { /*split project & product sass in separate files */ }
-{/*shipping */}
+{/*shipping */ }
+{/*skeleton */}

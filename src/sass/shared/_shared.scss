@@ -289,11 +289,7 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
 }
 
-<<<<<<< HEAD:src/sass/_shared.scss
-@mixin textoverflow($line){
-=======
-@mixin textOverflow($line){
->>>>>>> master:src/sass/shared/_shared.scss
+@mixin textOverFlow($line){
     text-overflow: ellipsis;
     line-clamp: #{$line};
     display: block;
