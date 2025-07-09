@@ -1,29 +1,55 @@
-$sitebackground: "../assets/photo/global/background.png";
-$socialiconurls: "../assets/photo/global/facebook.svg","../assets/photo/global/linkedin.svg","../assets/photo/global/x.svg","../assets/photo/global/instagram.svg","../assets/photo/global/snapchat.svg";
+$siteBackground: "../../assets/photo/global/background.png";
 
-$primarycolor: #009f6f;
-$primary2color: #38c684;
-$primary3color: #11b14e;
-$primarytransparent: #009f6f31;
-$primary1-2transparent:#009f6f0d;
-$primary2transparent: #38c68441;
-$primary3transparent: #11b04e13;
-$primary3-2transparent: #11b04e2c;
-$secondcolor:#ffffff;
-$secondtransparent:#ffffff30;
-$second1-2transparent:#ffffff0e;
-$thirdcolor : #e1e1e1;
-$secondtextcolor:#777;
-$scrollcolor:#CACACA;
+$primaryColor: #009f6f;
+$primary2Color: #38c684;
+$primary3Color: #11b14e;
+$primaryTransparent: #009f6f31;
+$primary1-2Transparent:#009f6f0d;
+$primary2Transparent: #38c68441;
+$primary3Transparent: #11b04e13;
+$primary3-2Transparent: #11b04e2c;
+$secondColor:#ffffff;
+$secondTransparent:#ffffff30;
+$second1-2Transparent:#ffffff0e;
+$thirdColor : #e1e1e1;
+$secondTextColor:#777;
+$scrollColor:#CACACA;
 
-$gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $primarycolor 100%);
+$gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
 
 // *{
 //     border: 1px solid #000000;
 // }
 
 //*global style*/
-%hexagonborder{
+
+%scroll{
+    &::selection{
+        background-color: $primaryColor;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: $secondColor;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: $scrollColor;
+        border-radius: 40vw;
+    }
+}
+
+%removeAdditionalLinkStyle{
+    &:active,
+    &:hover,
+    &:link,
+    &:visited{
+        color: unset;
+        text-decoration: none;
+    }
+}
+
+%hexagonBorder{
     position: relative;
     top: 0px;
     &::before{
@@ -32,19 +58,19 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         height: 100%;
         position: absolute;
         top: 0px;
-        background-color: $primarycolor;
+        background-color: $primaryColor;
         @extend %hexagon;
         @extend %animatedBG;
     }
 }
 
 
-%semihexagon{
+%semiHexagon{
     clip-path: polygon(15% 12%, 83% 12%, 100% 50%, 85% 86%, 15% 87%, 2% 50%);
     border-radius: 50%;
 }
 
-%widehexagon{
+%wideHexagon{
     clip-path: polygon(15% 15%, 85% 15%, 100% 50%, 85% 85%, 15% 85%, 0% 50%);
     border-radius: 50%;
 }
@@ -91,13 +117,13 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     }
 }
 
-%homebackanimatedBG{
-    animation-name: moveupdown;
+%homeBackAnimatedBG{
+    animation-name: moveUpDown;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-@keyframes moveupdown {
+@keyframes moveUpDown {
     0%{
         top:0%;
         filter: opacity(0%);
@@ -111,7 +137,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     }
 }
 
-%shiningimage{
+%shiningImage{
     div.shine{
         overflow: hidden;
         position: relative;
@@ -131,13 +157,13 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     &:hover{
         div.shine{
             &::before{
-                animation-name: shinemove;
+                animation-name: shineMove;
             }
         }
     }
 }
 
-@keyframes shinemove {
+@keyframes shineMove {
     0%{
         transform: translateX(15%) translateY(15%) rotate(110deg);
     }
@@ -147,20 +173,19 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
 }
 
 //*mixins*/
-@mixin socialbtnsstyle($type){
+@mixin socialButtonsStyle($type){
     border-radius: 50%;
     border-style: solid;
     border-width: 1px;
     @if $type=="sty1"{
-        border-color: $primarycolor;
+        border-color: $primaryColor;
         background-color: transparent;
     }
     @else if $type=="sty2"{
-        border-color: $secondcolor;
-        background-color: $primarycolor;
+        border-color: $secondColor;
+        background-color: $primaryColor;
     }
-    &::after{
-        content: "";
+    div{
         width: 100%;
         height: 100%;
         display: block;
@@ -173,13 +198,13 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     }
 }
 
-@mixin circlewave($side,$size){
+@mixin circleWave($side,$size){
     z-index: 0;
     width: $size;
     height: $size;
     position: absolute;
     top: -1 * $size / 2;
-    animation-name: circlewaverotate;
+    animation-name: circleWaveRotate;
     animation-duration: 7s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
@@ -195,7 +220,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         flex-shrink: 0;
         border-style: solid;
         border-radius: 50% 30% 40% 50% / 30% 40% 50% 50%;
-        border-color: $secondtransparent;
+        border-color: $secondTransparent;
     }
     @for $i from 1 through 3{
         div:nth-child(#{$i}){
@@ -206,7 +231,7 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         }
     }
 }
-@keyframes circlewaverotate {
+@keyframes circleWaveRotate {
     0%{
         transform: rotate(0deg);
     }
@@ -231,11 +256,11 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         justify-content: center;
         align-items: center;
     }
-    @else if $type=="xflex"{
+    @else if $type=="X-flex"{
         display: flex;
         justify-content: center;
     }
-    @else if $type=="yflex"{
+    @else if $type=="Y-flex"{
         display: flex;
         align-items: center;
     }
@@ -244,11 +269,11 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
         justify-items: center;
         align-content: center;
     }
-    @else if $type=="xgrid"{
+    @else if $type=="X-grid"{
         display: flex;
         justify-items: center;
     }
-    @else if $type=="ygrid"{
+    @else if $type=="Y-grid"{
         display: flex;
         align-content: center;
     }
@@ -264,7 +289,11 @@ $gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $prim
     }
 }
 
+<<<<<<< HEAD:src/sass/_shared.scss
 @mixin textoverflow($line){
+=======
+@mixin textOverflow($line){
+>>>>>>> master:src/sass/shared/_shared.scss
     text-overflow: ellipsis;
     line-clamp: #{$line};
     display: block;
