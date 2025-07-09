@@ -10,8 +10,8 @@ export default function SectionHeader({ title, subtitle, showAllUrl }) {
     const headerSubtitle = useRef();
 
     useEffect(() => {
-        headerTitleAnimation(headerTitle);
-        headerSubtitleAnimation(headerSubtitle);
+        titleWordsUP(headerTitle);
+        subtitleWordsUP(headerSubtitle);
     },[]);
 
     return (
@@ -31,7 +31,7 @@ export default function SectionHeader({ title, subtitle, showAllUrl }) {
     )
 }
 
-function headerTitleAnimation(headerTitle) {
+function titleWordsUP(headerTitle) {
 
     const headerTitleSplit = new SplitText(headerTitle.current, {
         type: "words"
@@ -51,7 +51,7 @@ function headerTitleAnimation(headerTitle) {
     });
    
 }
-function headerSubtitleAnimation(headerSubtitle) {
+function subtitleWordsUP(headerSubtitle) {
 
     const headerSubtitleSplit = new SplitText(headerSubtitle.current, {
         type: "words"
