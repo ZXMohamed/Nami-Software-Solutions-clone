@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Container, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
 import SectionHeader from './sectionHeader'
 import { Swiper,SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
@@ -60,6 +60,7 @@ export function PortfolioSlider() {
     return (
         <Container maxWidth="lg">
             <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize,isMDsize)} {...projectsSliderSettings} className='projectsSlider'>
+                {/* {WaitItemSkeleton(6)} */}
                 { projects.map((project, inx) => {
                         return (
                             <SwiperSlide key={ project.id } className='projectsSlide'>
@@ -106,6 +107,27 @@ function visibleSlidePerSize(isXXXSSize, isMDSize) {
     }
 }
 
-{ /*split project & product sass in separate files */ }
+function WaitItemSkeleton(num = 1) { 
+    const skeletonArray = [];
+    for (let i = 0; i < num; i++) { 
+        skeletonArray.push(
+            <SwiperSlide key={ i } className='slide'>
+                <Stack width={ "100%" }>
+                    <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
+                        <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
+                        <Skeleton width={40} height={40} variant='circular'/>
+                    </Stack>
+                    <br />
+                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+                    <br/>
+                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+                    <br />
+                    <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
+                </Stack>
+            </SwiperSlide>
+        )
+    }
+    return skeletonArray;
+}
+
 {/*shipping */ }
-{/*skeleton */}
