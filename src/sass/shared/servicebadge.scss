@@ -1,18 +1,19 @@
 @use "_shared.scss" as *;
+@use "fonts.scss" as *;
 
-.servicesbadges{
+.servicesBadges{
     gap: 4px;
     flex-wrap: wrap;
 }
-.servicesbadgesbox{
+.servicesBadgesBox{
     @include center("flex");
 }
-.servicesbadgesrow{
-    @include center("yflex");
+.servicesBadgesRow{
+    @include center("Y-flex");
 }
 
-.servicebadge{
-    background-color: $thirdcolor;
+.serviceBadge{
+    background-color: $thirdColor;
     border-radius: 20px;
     padding: 5px 15px;
     @extend %transition;
@@ -20,23 +21,12 @@
     overflow: hidden;
     @extend %removeAdditionalLinkStyle;
 
-    img{
-        width: 16px;
-        z-index: 1;
-    }
-    h4{
-        font-size: 'plexnormal';
-        font-size: 12px;
-        text-transform: capitalize;
-        z-index: 1;
-    }
-
     &::after,&::before{
         content: "";
         display: block;
         width: 50px;
         height: 50px;
-        background-color: $primarycolor;
+        background-color: $primaryColor;
         border-radius: 50%;
         position: absolute;
         z-index: 0;
@@ -52,8 +42,8 @@
     }
     
     &:hover{
-        background-color: $primary3color;
-        color: $secondcolor;
+        background-color: $primary3Color;
+        color: $secondColor;
         &::after{
             right: -28px;
             top: -28px;
@@ -62,30 +52,41 @@
             left: -28px;
             bottom: -28px;
         }
-        img{
+        img.serviceIcon{
             filter: brightness(0) invert(1);
         }
     }
 }
 
-.servicebadgebig{
+img.serviceIcon{
+    width: 16px;
+    z-index: 1;
+}
+h4.serviceTitle{
+    font-size: 'plexNormal';
+    font-size: 12px;
+    text-transform: capitalize;
+    z-index: 1;
+}
+
+.serviceBadgeBig{
     padding: 8px 20px;
 
-    img{
+    img.serviceIcon{
         width: 24px;
     }
-    h4{
+    h4.serviceTitle{
         font-size: 14px;
     }
 }
 
-.servicebadgesmall{
+.serviceBadgeSmall{
     padding: 5px 15px;
 
-    img{
+    img.serviceIcon{
         width: 16px;
     }
-    h4{
+    h4.serviceTitle{
         font-size: 12px;
     }
 }

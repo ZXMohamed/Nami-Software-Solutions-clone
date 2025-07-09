@@ -6,7 +6,7 @@ const socialSlice = createApi({
         baseUrl:"http://localhost/nami-clone-data-api/"
     }),
     endpoints: (builder) => ({
-        getsocial: builder.query({
+        getSocial: builder.query({
             query: () => "query/social.php"
         })
     })
@@ -14,4 +14,4 @@ const socialSlice = createApi({
 
 
 export default socialSlice;
-export const { useGetsocialQuery } = socialSlice;
+export const { useGetSocialQuery } = socialSlice;

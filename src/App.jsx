@@ -1,7 +1,13 @@
 import { Fragment } from "react"
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material"
-import AOS from "aos";
+import { createTheme, CssBaseline, Icon, ThemeProvider } from "@mui/material"
+//*init
+import "./aos/AOSinit"
+import "./gsap/GSAPinit"
+import { theme } from "./mui/MUIinit"
 //*components
+import NavBar from "./componants/navbar"
+import Home from "./componants/home";
+import FloatSocialButtons from "./componants/floatsocialbuttons";
 import Navbar from "./componants/navbar"
 import Home from "./componants/Home";
 import Socialbtns from "./componants/floatsocialbuttons";
@@ -11,6 +17,19 @@ import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 import 'swiper/css';
 //*sass files
+import "./sass/shared/pageinit.scss"
+import "./sass/pages/main.scss"
+import "./sass/shared/socialbuttons.scss"
+import "./sass/shared/floatsocialbuttons.scss"
+import "./sass/shared/sectionheader.scss"
+import "./sass/shared/infocard.scss"
+import "./sass/shared/statisticsbox.scss"
+import "./sass/shared/servicebadge.scss"
+import "./sass/shared/requestform.scss"
+import "./sass/shared/requestbutton.scss"
+import "./sass/shared/downloadbutton.scss"
+
+
 import "./sass/main.scss"
 import "./sass/socialbuttons.scss"
 import "./sass/float.scss"
@@ -48,13 +67,13 @@ const theme = createTheme({
 
 function App() {
 
-
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
+        <NavBar />
         <Home />
+        <FloatSocialButtons />
         <Ourproducts/>
         <Socialbtns />
       </ThemeProvider>
