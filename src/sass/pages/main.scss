@@ -283,3 +283,159 @@ p.homeDescription{
         background-image:url("../../assets/photo/home/products.svg");
     }
 }
+
+//*servicesSec*/
+.servicesSection{
+    position: relative;
+    @extend %animatedSectionBG;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    color: $secondColor;
+    @include center("flex");
+}
+.servicesHeader{
+    position: relative;
+    z-index: 2;
+    @include center("flex");
+}
+h1.servicesTitle{
+    text-align: center;
+    font-family: 'PlexBold';
+    @media screen and (max-width:768px) {
+        font-size: 18px;
+    }
+}
+h2.servicesSubtitle{
+    text-transform: uppercase;
+    font-family: 'PlexBold';
+    font-size: 40px;
+    text-align: center;
+}
+p.servicesDescription{
+    font-family: 'PlexNormal';
+    text-wrap: balance;
+    text-align: center;
+    div{
+        will-change: transform, opacity;
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
+}
+.servicesItems{
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    >div{
+        box-shadow: 0px 0px 0px 2px $primary1-3Transparent;
+        border-radius: 20px;
+        padding: 40px;
+        background-color: $primary2Transparent;
+        backdrop-filter:  brightness(0) opacity(20%);
+        position: relative;
+    }
+}
+div.itemFace{
+    overflow: hidden;
+}
+div.itemHeader{
+    @include center('Y-flex');
+    justify-content: space-between;
+    margin-bottom: 20px;
+    img.itemIcon{
+        width: 58px;
+    }
+    div.itemArrow{
+        border: 1px dashed $secondColor;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        &::before{
+            content: "";
+            width: 100%;
+            height: 100%;
+            display: block;
+            filter: brightness(0) invert(0.9) opacity(0.8);
+            background-image: url('../../assets/photo/services/arrow.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 45%;
+        }
+    }
+}
+h3.itemTitle{
+    font-family: 'PlexBold';
+    font-size: 28px;
+    @media screen and (max-width:768px) {
+        font-size: 20px;
+    }
+}
+p.itemDescription{
+    font-family: 'PlexNormal';
+    height: 68px;
+    overflow: hidden;
+    @include textOverFlow(3);
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
+}
+div.itemBack{
+    filter: opacity(0);
+    @include center("flex");
+    flex-wrap: wrap;
+    padding: 0px 20px;
+    border-radius: 20px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: $secondColor;
+    @extend %transition;
+    &:hover{
+        filter: opacity(100%);
+        button.itemReadMore{
+            bottom: -15px;
+        }
+    }
+}
+ul.itemObjectives{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 85px;
+    color: $PrimaryTextColor;
+    list-style-image:url("../../assets/photo/services/list arrow.svg");
+    li{
+        transform: translateX(-20px);
+        margin: 9px 0px;
+        font-family: 'PlexNormal';
+        filter: brightness(77%) opacity(0);
+        @media screen and (max-width:768px) {
+            font-size: 14px;
+        }
+    }
+}
+button.itemReadMore{
+    transition: 0.3s;
+    box-shadow: none;
+    position: absolute;
+    bottom: 20px;
+    border: 2px solid $secondColor;
+    border-radius: 20px;
+    width: 120px;
+    @include center("flex");
+    padding: 3px;
+    &::after{
+        content:"";
+        filter: brightness(0) invert(1);
+        background-image: url('../../assets/photo/services/list arrow.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 47%;
+        width: 25px;
+        height: 20px;
+    }
+}

@@ -5,10 +5,10 @@ import "./aos/AOSinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*components
-import Navbar from "./componants/navbar"
+import NavBar from "./componants/navbar"
 import Home from "./componants/Home";
 import Services from "./componants/services"
-import Socialbtns from "./componants/floatsocialbuttons";
+import SocialButtons from "./componants/floatsocialbuttons";
 //*css
 import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
@@ -36,7 +36,7 @@ function App() {
         <NavBar />
         <Home />
         <Services/>
-        <Socialbtns/>
+        <SocialButtons/>
       </ThemeProvider>
     </Fragment>
   )
