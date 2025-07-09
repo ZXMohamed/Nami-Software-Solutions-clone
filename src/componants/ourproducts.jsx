@@ -93,13 +93,10 @@ export function Statistics() {
 function visibleSlidesPerSize(isXXXSSize, isMDSize) {
     //*from smaller size to bigger size
     if (isXXXSSize) {
-        //$ 1
         return 1;
     } else if (isMDSize) {
-        //$ 2
         return 2;
     } else {
-        //$ 3
         return 3;
     }
 }

@@ -14,6 +14,7 @@ import '../node_modules/aos/dist/aos.css';
 import 'swiper/css';
 import 'swiper/css';
 //*sass files
+import "./sass/shared/productcard.scss"
 import "./sass/shared/pageinit.scss"
 import "./sass/pages/main.scss"
 import "./sass/shared/socialbuttons.scss"
