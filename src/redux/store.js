@@ -7,7 +7,7 @@ const store = configureStore({
         [socialSlice.reducerPath]: socialSlice.reducer,
         [servicesSlice.reducerPath]: servicesSlice.reducer
     },
-    middleware: (GDMW) => GDMW().concat(socialSlice.middleware,servicesSlice.middleware)
+    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(socialSlice.middleware)
 })
 
 export default store;
