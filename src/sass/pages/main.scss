@@ -244,7 +244,6 @@ p.homeDescription{
     }
     &::before{
     content: "";
-        background-image:url("../../assets/photo/home/portofolio.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -275,11 +274,11 @@ p.homeDescription{
 }
 .homePortfolioButton.MuiButton-outlined{
     &::before{
-        background-image:url("../../assets/photo/home/portofolio.svg");
+        background-image:url($portfolioIcon);
     }
 }
 .homeProductsButton.MuiButton-outlined{
     &::before{
-        background-image:url("../../assets/photo/home/products.svg");
+        background-image:url($projectsIcon);
     }
 }
