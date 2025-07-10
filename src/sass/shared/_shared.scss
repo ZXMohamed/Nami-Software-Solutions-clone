@@ -1,22 +1,7 @@
+$siteLogo:'../../assets/photo/global/Namiicon.svg';
 $siteBackground: "../../assets/photo/global/background.png";
+$formError : "../../assets/photo/global/formerror.svg";
 
-<<<<<<< HEAD:src/sass/_shared.scss
-$primarycolor: #009f6f;
-$primary2color: #38c684;
-$primary3color: #11b14e;
-$primarytransparent: #009f6f31;
-$primary1-2transparent:#009f6f0d;
-$primary2transparent: #38c68441;
-$primary3transparent: #11b04e13;
-$primary3-2transparent: #11b04e2c;
-$secondcolor:#ffffff;
-$secondtransparent:#ffffff30;
-$second1-2transparent:#ffffff0e;
-$thirdcolor : #e1e1e1;
-$third2color : #f5f5f5;
-$secondtextcolor:#777;
-$scrollcolor:#CACACA;
-=======
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
 $primary3Color: #11b14e;
@@ -29,9 +14,9 @@ $secondColor:#ffffff;
 $secondTransparent:#ffffff30;
 $second1-2Transparent:#ffffff0e;
 $thirdColor : #e1e1e1;
+$third2Color : #f5f5f5;
 $secondTextColor:#777;
 $scrollColor:#CACACA;
->>>>>>> master:src/sass/shared/_shared.scss
 
 $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
 

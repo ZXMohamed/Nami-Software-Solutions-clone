@@ -283,3 +283,209 @@ p.homeDescription{
         background-image:url("../../assets/photo/home/products.svg");
     }
 }
+//*careers*/
+.careersSection{
+    overflow: hidden;
+    position: relative;
+    top: 0px;
+    padding: 60px 40px;
+    background-color: $primaryTransparent;
+    &::after{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        background: url($siteLogo);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: opacity(5%);
+    }
+    >div.MuiContainer-root{
+        position: relative;
+        top: 0px;
+        z-index: 1;
+    }
+
+    
+    @media screen and (max-width:400px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+.infoSection{
+    height: 100%;
+    justify-content: center;
+}
+h1.careersTitle{
+    font-family: 'PlexBold';
+    color: $secondTextColor;
+    font-size: 24px;
+    div{
+        transform: translateY(10px);
+    }
+}
+h2.careersSubtitle{
+    font-family: 'PlexBold';
+    font-size: 40px;
+    color: $primaryColor;
+    text-transform: uppercase;
+    max-width: 410px;
+    line-height: 1.6;
+    div{
+        transform: translateY(10px);
+    }
+}
+p.careersDescription{
+    font-family: 'PlexNormal';
+    text-wrap: balance;
+    div{
+        transform: translateY(10px);
+    }
+}
+.careersFormSection{
+    margin-left: auto;
+    width: 416px;
+    background-color: $secondColor;
+    border-radius: 15px;
+    padding: 25px 25px 18px 25px;
+
+    div.MuiInputBase-root{
+        border-radius:10px;
+        >input{
+            padding: 0px 12px;
+            height: 46px;
+            background-color: $secondColor;
+            border-radius:8px;
+            &::placeholder{
+                font-size: 12px;
+            }
+        }
+        div.MuiSelect-select{
+            padding: 0;
+            border-radius:10px;
+            height: 48px;
+            padding-left: 12px;
+            font-size: 16px;
+            @include center("Y-flex")
+        }
+    }
+
+    @media screen and (max-width:992px) {
+        width: 100%;
+        margin-top: 20px;
+    }
+}
+
+h3.careersFormTitle{
+    color: $secondTextColor;
+    font-size: 15px;
+}
+
+button.formSubmit{
+    @extend %wideHexagon;
+    @extend %animatedBG;
+    height: 58px;
+}
+
+p.formErrorMsg{
+    font-family: "PlexNormal";
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ff0000;
+}
+
+.inputError{
+    position: relative;
+    padding-right: 25px;
+
+    .MuiInputBase-formControl,
+    .MuiInputBase-input{
+        padding-right: 20px;
+        &::after{
+            content: "";
+            background: url($formError);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: block;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            z-index: 1;
+            right: 8px;
+            top: 32%;
+        }
+    }
+    .MuiInputBase-input{
+        &::after{
+            right: 30px;
+        }
+    }
+}
+
+.fileInput{
+    background-color: $secondColor;
+    height: 48px;
+    overflow: hidden;
+    border: 1px solid $thirdColor;
+    border-radius:8px;
+    font-family: 'PlexNormal';
+    label.fileInputBody{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        div.fileInputTitle{
+            @include center("flex");
+            width: 110px;
+            font-size: 16px;
+            color: #000000;
+            height: 100%;
+            background-color: $third2Color;
+            border-radius: 8px 0px 0px 8px;
+            box-shadow: none;
+            &:hover{
+                box-shadow: none;
+                background-color: $thirdColor;
+            }
+        }
+
+        span.selectedFileName{
+            overflow: hidden;
+            width: 70%;
+            font-size: 14px;
+            text-transform: capitalize;
+            padding-left: 10px;
+            @include textOverflow(1);
+        }
+    }
+}
+.fileInputError{
+    border: 1px solid #ff0000;
+    label.fileInputBody{
+        div.fileInputTitle{
+            border-right: 1px solid #ff0000
+        }
+    }
+    position: relative;
+    padding-right: 25px;
+    &::before{
+        content: "";
+        background: url($formError);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: block;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        right: 8px;
+        top: 30%;
+    }
+}

@@ -7,4 +7,6 @@ export const zodMsgs = {
     required: "This is a required field",
     length: { less: (input,num)=>`${input} less than ${num} chars`, more: (input,num)=>`${input} more than ${num} chars` },
     valid: (input) => `this ${input} is not valid`,
+    unknown: (input) => `unknown ${input}`,
+    fileSize: (size) => `file is bigger than ${size}MB`
 }
