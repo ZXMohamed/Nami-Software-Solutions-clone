@@ -284,7 +284,7 @@ p.homeDescription{
     }
 }
 
-//*servicesSec*/
+//*servicesSection*/
 .servicesSection{
     position: relative;
     @extend %animatedSectionBG;
@@ -358,7 +358,7 @@ div.itemHeader{
             height: 100%;
             display: block;
             filter: brightness(0) invert(0.9) opacity(0.8);
-            background-image: url('../../assets/photo/services/arrow.svg');
+            background-image: url($cardArrow);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 45%;

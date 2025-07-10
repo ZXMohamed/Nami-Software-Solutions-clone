@@ -19,7 +19,7 @@ export default function Services() {
 
 
     function servicesItemsShow(cellInRow) { 
-        return Object.values(servicesItems).map((val, inx) => <Item data={ val } size={ 12 / cellInRow } aosAnimation={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
+        return Object.values(servicesItems).map((service, inx) => <ServiceCard data={ service } size={ 12 / cellInRow } aosAnimation={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
     }
 
   return (
@@ -45,7 +45,7 @@ export default function Services() {
   )
 }
 
-function Item({ data, size, aosAnimation }) { 
+function ServiceCard({ data, size, aosAnimation }) { 
     const itemObjectives = useRef();
 
     if (!data) { 
