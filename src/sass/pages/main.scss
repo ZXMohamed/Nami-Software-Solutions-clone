@@ -388,7 +388,7 @@ span.establishmentTitle{
 h3.establishmentDate{
     font-size: 100px;
     font-weight: 600;
-    background-image: url('../assets/photo/global/background.png');
+    background-image: url($siteBackground);
     background-clip: text;
     background-size: contain;
     color: transparent;
