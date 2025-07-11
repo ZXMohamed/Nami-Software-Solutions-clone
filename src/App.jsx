@@ -7,6 +7,7 @@ import { theme } from "./mui/MUIinit"
 //*components
 import NavBar from "./componants/navbar"
 import Home from "./componants/home";
+import Footer from "./componants/footer"
 import FloatSocialButtons from "./componants/floatsocialbuttons";
 //*css
 import '../node_modules/aos/dist/aos.css';
@@ -34,6 +35,7 @@ function App() {
         <CssBaseline />
         <NavBar />
         <Home />
+        <Footer/>
         <FloatSocialButtons />
       </ThemeProvider>
     </Fragment>

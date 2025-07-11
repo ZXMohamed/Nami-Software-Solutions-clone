@@ -17,12 +17,8 @@ $thirdColor : #e1e1e1;
 $secondTextColor:#777;
 $scrollColor:#CACACA;
 
-<<<<<<< HEAD:src/sass/_shared.scss
-$gradientBG: linear-gradient(45deg, $primary3color 0%, $primary2color 50%, $primarycolor 100%);
-$gradientline: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%, rgb(150, 223, 241) 50%, rgb(72, 246, 87) 75%);
-=======
 $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
->>>>>>> master:src/sass/shared/_shared.scss
+$gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%, rgb(150, 223, 241) 50%, rgb(72, 246, 87) 75%);
 
 // *{
 //     border: 1px solid #000000;
@@ -56,11 +52,7 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
 }
 
-<<<<<<< HEAD:src/sass/_shared.scss
-%hexagonborder{
-=======
 %hexagonBorder{
->>>>>>> master:src/sass/shared/_shared.scss
     position: relative;
     top: 0px;
     &::before{
@@ -183,8 +175,8 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
 }
 
-%animatedline{
-    background: $gradientline;
+%animatedLine{
+    background: $gradientLine;
     background-size: 300%;
     animation-name: moveBG;
     animation-duration: 4s;
