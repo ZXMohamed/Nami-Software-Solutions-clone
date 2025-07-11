@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography, useMediaQuery } from '@mui/material'
 
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -11,128 +11,60 @@ import { useForm } from 'react-hook-form';
 
 import ReCAPTCHA from "react-google-recaptcha";
 
-import location from "../assets/photo/contact/location.svg"
-import call from "../assets/photo/contact/call.svg"
-import mail from "../assets/photo/contact/mail.svg"
-
-import { useGetlocationQuery } from '../redux/server state/location';
-import { useGetsocialQuery } from '../redux/server state/social';
+import { useGetLocationQuery } from '../redux/server state/location';
+import { useGetSocialQuery } from '../redux/server state/social';
+import { pattern, zodMsgs } from '../form/assets';
+import { sitekey } from '../form/recaptcha';
 
 
 export default function Contact() {
 
-    const {isError : location_isError, isSuccess : location_isSuccess, isLoading : location_isLoading, data:location,error : location_error} = useGetlocationQuery()
-    const {isError : social_isError, isSuccess : social_isSuccess, isLoading : social_isLoading, data:social,error : social_error} = useGetsocialQuery()
+    const isXXSSize = useMediaQuery("(max-width:500px)");
 
-    // const [contactinfo, setcontactinfo] = useState([{
-    //     icon:location,
-    //     title:"Visit us",
-    //     contactmethod: "Nasr city - MAKRM EBEED /Al-Khair Tower - Al-Najjar Street - Shebin Al-Koum - Menoufia",
-    //     route:""
-    // },{
-    //     icon: mail,
-    //     title:"Message us",
-    //     contactmethod: "info@nami-tec.com",
-    //     route:""
-    // },{
-    //     icon:call,
-    //     title:"Call us at",
-    //     contactmethod: "+201099347981",
-    //     route:""
-    // }]);
-    
-    const zodmsgs = {
-        required: "This is a required field",
-        length: { less: (input, num)=>`${input} less than ${num} chars`, more: (input,num)=>`${input} more than ${num} chars` },
-        valid: (input) => `this ${input} is not valid`,
-    }
-    const regex = {
-        name:(name)=>name.match(/^[A-Za-z]+([ '-][A-Za-z]+)*$/),
-        phone:(phone)=>phone.match(/^\+?[0-9]{1,4}[-\s.]?(\(?\d{2,4}\)?[-\s.]?)?\d{3,4}[-\s.]?\d{4}$/) || phone.match(/^01[0125][0-9]{8}$/) || phone.match(/^\d{10,15}$/),
-    }
-    
-    const schema = zod.object({
-        name: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less("name",3) }).max(100, { message: zodmsgs.length.more("name",100) }).refine((name) => regex.name(name), { message: zodmsgs.valid("name") }),
-        subject: zod.string().nonempty(zodmsgs.required).min(3, { message: zodmsgs.length.less("subject",3) }).max(100, { message: zodmsgs.length.more("subject",100) }),
-        message: zod.string().nonempty(zodmsgs.required).max(500, { message: zodmsgs.length.more("message",500) }),
-        phone: zod.string().min(1, { message: zodmsgs.required }).refine((phone) => regex.phone(phone), { message: zodmsgs.valid("number") }),
-        email: zod.string().nonempty(zodmsgs.required).email(zodmsgs.valid)
-    });
+    return (
+        <Box className="contactSection">
+            <Container maxWidth="lg" disableGutters={isXXSSize}>
+                <Grid container rowSpacing={{xs:5,md:0}}>
+                    <Grid size={{xs:12,md:6}} order={{xs:1,md:0}} className="contactSide1">
+                        <FormSection/>
+                    </Grid>
+                    <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} className="contactSide2">
+                        <InfoSection/>
+                        <br/>
+                        <br/>
+                        <ContactMethodsSection/>
+                    </Grid>
+                </Grid>
+            </Container>
+        </Box>
+    )
+}
 
-    const { register, handleSubmit, formState:{errors, isSubmitting} } = useForm({resolver:zodResolver(schema),mode:"onChange"});
-    
-    const inputssettings = {
+const schema = zod.object({
+    name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
+    subject: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("subject",3) }).max(100, { message: zodMsgs.length.more("subject",100) }),
+    message: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more("message",500) }),
+    phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
+    email: zod.string().nonempty(zodMsgs.required).email(zodMsgs.valid)
+});
+
+function FormSection() {
+
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+
+    const inputsSettings = {
         name: register("name", { required: true }),
         subject: register("subject", { required: true }),
         phone: register("phone", { required: true }),
         email: register("email", { required: true }),
         message: register("message", { required: true }),
     }
-    
-
-
-    const headertitle = useRef();
-    const headersubtitle = useRef();
-    const contactparagraph = useRef();
-
-    gsap.registerPlugin(SplitText, ScrollTrigger);
-    
-    useEffect(() => {
-        const headertitlesplit = new SplitText(headertitle.current, {
-            type: "words"
-        });
-        const headersubtitlesplit = new SplitText(headersubtitle.current, {
-            type: "words"
-        });
-        const contactparagraphsplit = new SplitText(contactparagraph.current, {
-            type: "words"
-        });
-
-        gsap.to(headertitlesplit.words, {
-            scrollTrigger: {
-                trigger: headertitle.current,
-                // scrub: 1,
-                start: "top+=0 bottom",
-                end: "top+=20 bottom",
-            },
-            duration:0.5,
-            y: 0,
-            opacity:1,
-            stagger: 0.05,
-        });
-
-        gsap.to(headersubtitlesplit.words, {
-            scrollTrigger: {
-                trigger: headersubtitle.current,
-                // scrub: 1,
-                start: "top+=0 bottom",
-                end: "top+=20 bottom",
-            },
-            duration:0.5,
-            y: 0,
-            opacity:1,
-            stagger: 0.1,
-        });
-
-        gsap.to(contactparagraphsplit.words, {
-            scrollTrigger: {
-                trigger: contactparagraph.current,
-                // scrub: 1,
-                start: "top+=0 bottom",
-                end: "top+=20 bottom",
-            },
-            duration:0.5,
-            y: 0,
-            opacity:1,
-            stagger: 0.02,
-        });
-    },[]);
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
     const handleCaptchaChange = (token) => {
         setCaptchaToken(token);
-        console.log("Captcha token:", token);
+        // console.log("Captcha token:", token);
     };
 
     const onsubmit = (data) => {
@@ -147,80 +79,153 @@ export default function Contact() {
 
     };
 
-
-  return (
-    <Box className="contactsec">
-        <Container maxWidth="lg">
-            <Grid container rowSpacing={{xs:5,md:0}}>
-                <Grid size={{xs:12,md:6}} order={{xs:1,md:0}}>
-                    <Stack component={"form"} direction={"column"} spacing={6} className='contactformsec' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                        <Grid container rowSpacing={8} columnSpacing={4}>
-                            <Grid size={{xs:12,sm:6}}><TextField type={"text"}  color='secondary' label="Name" variant="standard" helperText={errors?.name?.message} {...inputssettings.name} /></Grid>
-                            <Grid size={{xs:12,sm:6}}><TextField type="email"  color='secondary'  label="Email" variant="standard" helperText={errors?.email?.message} {...inputssettings.email} /></Grid>
-                            <Grid size={{xs:12,sm:6}}><TextField type={"number"} color='secondary'   label="Phone" variant="standard" helperText={errors?.phone?.message} {...inputssettings.phone} /></Grid>
-                            <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={errors?.subject?.message} {...inputssettings.subject} /></Grid>
-                            <Grid size={ 12 }><TextField color='secondary'  label="Message" multiline rows={6} variant="standard" helperText={errors?.message?.message} {...inputssettings.message} /></Grid>
-                        </Grid>
-                        <ReCAPTCHA sitekey="6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e" onChange={handleCaptchaChange} />
-                        <Stack direction={"row"} className='sendbuttoncon'>
-                            <Box className="">
-                                <Button variant='contained' disableRipple type='submit' disabled={isSubmitting}>Send</Button>
-                            </Box>
-                        </Stack>
-                    </Stack>
-                </Grid>
-                <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} display={'flex'} flexDirection={'column'} justifyContent={'center'}>
-                    <Stack direction="column" spacing={2} className='headersec'>
-                        <Typography ref={headersubtitle} variant='h5' component={'h2'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
-                        <Typography ref={headertitle} variant='h4' component={'h1'} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
-                        <Typography ref={contactparagraph} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                            Our team of professionals is committed to delivering exceptional results in
-                            software development and technical project management. Share your project
-                            details with us so we can create a custom experience that meets your vision.
-                        </Typography>
-                    </Stack>
-                    <br/>
-                    <br/>
-                    <Stack direction="column" spacing={2} className='contactinfosec'>
-                        {location_isLoading && waitProgress(1)}
-                        {social_isLoading && waitProgress(2)}
-                        {location_isSuccess && <Contactinfoitem icon={location.icon.outline} title={"Visit us"} contactmethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
-                        {social_isSuccess && <Contactinfoitem icon={social.email.support.icon.outline} title={"Message us"} contactmethod={social.email.support.email} link={social.email.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
-                        {social_isSuccess && <Contactinfoitem icon={social.phone.icon.outline} title={"Call us at"} contactmethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosanimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
-                    </Stack>
-                </Grid>
+    return (
+        <Stack component={"form"} direction={"column"} spacing={6} className='contactFormSection' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+            
+            <Grid container rowSpacing={ 8 } columnSpacing={ 4 }>
+                
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "text" } color='secondary' label="Name" variant="standard" helperText={ errors?.name?.message } { ...inputsSettings.name } /></Grid>
+                
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type="email" color='secondary' label="Email" variant="standard" helperText={ errors?.email?.message } { ...inputsSettings.email } /></Grid>
+                
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "number" } color='secondary' label="Phone" variant="standard" helperText={ errors?.phone?.message } { ...inputsSettings.phone } /></Grid>
+                
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={ errors?.subject?.message } { ...inputsSettings.subject } /></Grid>
+                
+                <Grid size={ 12 }><TextField color='secondary' label="Message" multiline rows={ 6 } variant="standard" helperText={ errors?.message?.message } { ...inputsSettings.message } /></Grid>
+            
             </Grid>
-        </Container>
-    </Box>
-  )
+            
+            <ReCAPTCHA sitekey={ sitekey } onChange={ handleCaptchaChange } />
+            
+            <Stack direction={ "row" } className='contactFormSubmitContainer'>
+                <Box className="contactFormSubmitBorder">
+                    <Button variant='contained' disableRipple type='submit' disabled={isSubmitting} className='contactFormSubmit'>Send</Button>
+                </Box>
+            </Stack>
+        
+        </Stack>
+    )
+}
+function InfoSection() {
+
+    const contactTitle = useRef();
+    const contactSubtitle = useRef();
+    const contactDescription = useRef();
+    
+    useEffect(() => {
+        titleWordsUp(contactTitle);
+        subtitleWordsUp(contactSubtitle);
+        descriptionWordsUp(contactDescription);
+    }, []);
+    
+    return (
+        <Stack direction="column" spacing={2} className='contactInfoSection'>
+            <Typography ref={contactSubtitle} variant='h5' component={'h1'} className='contactInfoTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
+            <Typography ref={contactTitle} variant='h4' component={'h2'} className='contactInfoSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
+            <Typography ref={contactDescription} data-aos="fade-up" className='contactInfoDescription' data-aos-duration="1000" data-aos-delay="150">
+                Our team of professionals is committed to delivering exceptional results in
+                software development and technical project management. Share your project
+                details with us so we can create a custom experience that meets your vision.
+            </Typography>
+        </Stack>
+    )
+}
+function ContactMethodsSection() {
+
+    const { isSuccess: location_isSuccess, isLoading: location_isLoading, data: location } = useGetLocationQuery();
+    
+    const { isSuccess: social_isSuccess, isLoading: social_isLoading, data: social } = useGetSocialQuery();
+        
+    return (
+        <Stack direction="column" spacing={2} className='contactMethodsSection'>
+            {location_isLoading && waitContactMethodProgress(1)}
+            {social_isLoading && waitContactMethodProgress(2)}
+            {location_isSuccess && <ContactMethodItem icon={location.icon.outline} title={"Visit us"} contactMethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
+            {social_isSuccess && <ContactMethodItem icon={social.email.support.icon.outline} title={"Message us"} contactMethod={social.email.support.email} link={social.email.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
+            {social_isSuccess && <ContactMethodItem icon={social.phone.icon.outline} title={"Call us at"} contactMethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
+        </Stack> 
+    )
 }
 
-
-
-
-function Contactinfoitem({icon,title,contactmethod,link,target,route,aosanimation}) { 
+function ContactMethodItem({ icon, title, contactMethod, link, target, route, aosAnimation }) { 
 
     return (
-        <Grid container {...aosanimation}>
+        <Grid container {...aosAnimation}>
             <Grid size={ { xs:2,xxs:1 } }>
-                <Box className="iconbox">
-                    <img src={icon} alt={ "Nami "+title } loading='lazy'/>
+                <Box className="contactMethodIconCircle">
+                    <img src={icon} alt={ "Nami "+title } loading='lazy' className='contactMethodIcon'/>
                 </Box>
             </Grid>
             <Grid size={ { xs:10,xxs:11 } }>
                 <Stack direction={ "column" } spacing={ 1 }>
-                    <Typography variant='h6' component={ 'h3' }>{ title}</Typography>
-                    <Typography variant='h6' component={ 'h4' } ><a href={link} target={target}>{ contactmethod}</a></Typography>
+                    <Typography variant='h6' component={ 'h3' } className='contactMethodTitle'>{ title}</Typography>
+                    <Typography variant='h6' component={ 'h4' } className='contactMethodLink'><a href={link} target={target}>{contactMethod}</a></Typography>
                 </Stack>
             </Grid>
         </Grid>
     )
 }
 
-function waitProgress(num) {
-    const progressarray = [];
+function waitContactMethodProgress(num) {
+    const progressArray = [];
     for (let i = 0; i < num; i++){
-        progressarray.push( <CircularProgress variant="indeterminate" size={40} thickness={2} />)
+        progressArray.push( <CircularProgress key={i} variant="indeterminate" size={40} thickness={2} />)
     }
-    return progressarray;
+    return progressArray;
+}
+
+function titleWordsUp(contactTitle) {
+    const contactTitleSplit = new SplitText(contactTitle.current, {
+        type: "words"
+    });
+    gsap.to(contactTitleSplit.words, {
+            scrollTrigger: {
+                trigger: contactTitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.05,
+        }
+    );
+}
+function subtitleWordsUp(contactSubtitle) {
+    const contactSubtitleSplit = new SplitText(contactSubtitle.current, {
+        type: "words"
+    });
+    gsap.to(contactSubtitleSplit.words, {
+            scrollTrigger: {
+                trigger: contactSubtitle.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.1,
+        }
+    );
+}
+function descriptionWordsUp(contactDescription) {
+    const contactDescriptionSplit = new SplitText(contactDescription.current, {
+        type: "words"
+    });
+    gsap.to(contactDescriptionSplit.words, {
+            scrollTrigger: {
+                trigger: contactDescription.current,
+                // scrub: 1,
+                start: "top+=0 bottom",
+                end: "top+=20 bottom",
+            },
+            duration:0.5,
+            y: 0,
+            opacity:1,
+            stagger: 0.02,
+        }
+    );
 }

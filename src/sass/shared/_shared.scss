@@ -51,11 +51,7 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
 }
 
-<<<<<<< HEAD:src/sass/_shared.scss
-%hexagonborder{
-=======
 %hexagonBorder{
->>>>>>> master:src/sass/shared/_shared.scss
     position: relative;
     top: 0px;
     &::before{
@@ -70,12 +66,8 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
 }
 
-<<<<<<< HEAD:src/sass/_shared.scss
-%semihexagon{
-=======
 
 %semiHexagon{
->>>>>>> master:src/sass/shared/_shared.scss
     clip-path: polygon(15% 12%, 83% 12%, 100% 50%, 85% 86%, 15% 87%, 2% 50%);
     border-radius: 50%;
 }

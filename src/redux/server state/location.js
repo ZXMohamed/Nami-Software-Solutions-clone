@@ -6,11 +6,11 @@ const locationSlice = createApi({
         baseUrl:"http://localhost/nami-clone-data-api/"
     }),
     endpoints: (builder) => ({
-        getlocation: builder.query({
+        getLocation: builder.query({
             query: () => "query/location.php"
         })
     })
 })
 
 export default locationSlice;
-export const { useGetlocationQuery } = locationSlice;
+export const { useGetLocationQuery } = locationSlice;
