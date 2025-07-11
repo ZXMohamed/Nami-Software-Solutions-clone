@@ -2,6 +2,8 @@ import React from 'react'
 import { CircularProgress, Stack } from '@mui/material'
 import { useGetSocialQuery } from '../redux/server state/social'
 
+import "../sass/shared/socialbuttons.scss"
+
 export default function SocialButtons({ aosAnimation }) {
     const { isLoading, isSuccess, data : social } = useGetSocialQuery();
 
@@ -12,19 +14,19 @@ export default function SocialButtons({ aosAnimation }) {
                 isSuccess &&
                     <>
                         <a href={social.facebook.link} target='_blank' className='SocialButton'>
-                            <div style={{backgroundImage:`url(${social.facebook.icon.fill})`}}></div>
+                            <img src={social.facebook.icon.fill} alt={"Nami "+social.facebook.title+" account"} loading='lazy' width="16px" height="16px"/>
                         </a>
                         <a href={social.linkedin.link} target='_blank' className='SocialButton'>
-                            <div style={{backgroundImage:`url(${social.linkedin.icon.fill})`}}></div>
+                            <img src={social.linkedin.icon.fill} alt={"Nami "+social.linkedin.title+" account"} loading='lazy' width="16px" height="16px"/>
                         </a>
                         <a href={social.x.link} target='_blank' className='SocialButton'>
-                            <div style={{backgroundImage:`url(${social.x.icon.fill})`}}></div>
+                            <img src={social.x.icon.fill} alt={"Nami "+social.x.title+" account"} loading='lazy' width="16px" height="16px"/>
                         </a>
                         <a href={social.instagram.link} target='_blank' className='SocialButton'>
-                            <div style={{backgroundImage:`url(${social.instagram.icon.fill})`}}></div>
+                            <img src={social.instagram.icon.fill} alt={"Nami "+social.instagram.title+" account"} loading='lazy' width="16px" height="16px"/>
                         </a>
                         <a href={social.snapchat.link} target='_blank' className='SocialButton'>
-                            <div style={{backgroundImage:`url(${social.snapchat.icon.fill})`}}></div>
+                            <img src={social.snapchat.icon.fill} alt={"Nami "+social.snapchat.title+" account"} loading='lazy' width="16px" height="16px"/>
                         </a>
                     </>
             }
