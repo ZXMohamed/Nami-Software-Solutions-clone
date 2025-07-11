@@ -1,14 +1,14 @@
 @use "_shared.scss" as *;
 
-.requestbutton.MuiButton-contained{
+.requestButton.MuiButton-contained{
     padding-left: 46px;
     padding-right: 46px;
     height: 50px;
-    outline: 4px solid $primarytransparent;
-    box-shadow: 0px 0px 0px 8px $primary2transparent;
+    outline: 4px solid $primaryTransparent;
+    box-shadow: 0px 0px 0px 8px $primary2Transparent;
     @extend %animatedBG;
     &:hover{
-        box-shadow: 0px 0px 0px 8px $primary2transparent;
+        box-shadow: 0px 0px 0px 8px $primary2Transparent;
     }
     // @media screen and (max-width:500px) {
     //     // margin: auto 10%;

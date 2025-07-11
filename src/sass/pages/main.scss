@@ -1,33 +1,11 @@
-@use "_shared.scss" as *;
+@use "../shared/_shared.scss" as *;
+@use "../shared/fonts.scss" as *;
 
-@font-face {
-    font-family: "Plexnormal";
-    src: url("../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.ttf");
-    font-size: 16px;
-}
-
-@font-face {
-    font-family: "Plexbold";
-    src: url("../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.ttf");
-}
-
-html{
-
-}
-body{
-    overflow-x: hidden;
-    overflow-y: scroll;
-    @extend %scroll;
-    height: 1500px;
-    background-image: url($sitebackground);
-    background-repeat: repeat;
-}
-
-//*navbar*/
-.navbar.MuiAppBar-root{
+//*navBar*/
+.navBar.MuiAppBar-root{
     pointer-events: all;
     top: 10px; 
-    font-family: "Plexnormal";
+    font-family: "PlexNormal";
     >div{
         height:70px;
         border-radius: 40px;
@@ -35,36 +13,52 @@ body{
         @extend %transition;
     }
 }
-.navlogo{
+.navLogo{
     width: 126px;
 }
-.navcontent{
+.navContent{
     width: 100%;
     justify-content: space-between;
     box-shadow: none;
-}
-.navbaritems{
-    span{
-        padding: 13px 15px;
-        @extend %semihexagon;
-        @include center("flex");
+    @media screen and (min-width:0px) {
+        padding: 0px 3% 0px 3.3%;
+    }
+    @media screen and (min-width:992px) {
+        padding: 0px 1% 0px 1.8%;
+    }
+    @media screen and (min-width:1320px) {
+        padding: 0px 10px 0px 15px;
     }
 }
-.navbaractiveitem{
-    color: $secondcolor;
+.navBarItems{
+    span{
+        padding: 13px 15px;
+        @extend %semiHexagon;
+        @include center("flex");
+        @extend %transition;
+        @media screen and (max-width:1080px) and (min-width:992px) {
+            padding: 13px 10px;
+        }
+    }
+    @media screen and (max-width:992px) {
+        display: none !important;
+    }
+}
+.navBarActiveItem{
+    color: $secondColor;
     @extend %animatedBG;
     border: 1px solid #ffffff;
 }
-.navbarlang{
-    @extend %hexagonborder;
+.navBarLang{
+    @extend %hexagonBorder;
     @include center("flex");
     width: 51px;
     height: 45px;
     align-self: center;
     button{
-        font-family: "Plexbold";
+        font-family: "PlexBold";
         font-size: 14px;
-        background-color: $secondcolor;
+        background-color: $secondColor;
         border: none;
         outline: none;
         line-height: 2;
@@ -79,48 +73,62 @@ body{
         }
     }
 }
-.navsidemenu{
-    width: 250px;
-    font-family: "Plexnormal";
-    font-size: 14px;
-    img{
-        margin-bottom: 24px !important;
+.navSideMenuButton{
+    @media screen and (min-width:992px) {
+        display: none !important;
     }
-    div{
-        padding-left: 15px;
-        width: 100%;
-        height: 43px;
-        border-radius: 12px;
-        @include center("yflex");
+    @media screen and (max-width:992px) {
+        display: flex !important;
     }
 }
-[data-aos="navbarshrink"] {
-    >div{
+.navSideMenuContent{
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.navSideMenu{
+    padding-top: 32px;
+    width: 250px;
+    font-family: "PlexNormal";
+    font-size: 14px;
+    img.navLogo{
+        margin-bottom: 24px !important;
+    }
+}
+div.navSideMenuItem{
+    padding-left: 15px;
+    width: 100%;
+    height: 43px;
+    border-radius: 12px;
+    @include center("Y-flex");
+}
+[data-aos="navBarShrink"] {
+    >div.MuiContainer-root{
         box-shadow: none;
         background-color: transparent;
     }
     &.aos-animate {
-    >div{
-        box-shadow: 0px 0px 20vw $primarycolor;
-        background-color: $secondcolor;
+    >div.MuiContainer-root{
+        box-shadow: 0px 0px 20vw $primaryColor;
+        background-color: $secondColor;
         width: min(1100px,97%);
         padding-right: 20px;
         padding-left: 20px;
-        >div>img{
-            @media screen and (min-width:992px) and (max-width:1027px) {
+        >div.navContent>img.navLogo{
+            @media screen and (min-width:992px) and (max-width:1140px) {
                 width: 11%;
             }
         }
 
-        @media screen and (min-width:992px) and (max-width:1060px),(max-width:992px) {
+        @media screen and (min-width:992px) and (max-width:1140px),(max-width:992px) {
             padding-right: 0px;
             padding-left: 0px;
         }
     }
   }
 }
-//*homesec*/
-.homesec{
+
+//*home section*/
+.homeSection{
     position: relative;
     @include center("flex");
     flex-direction: column;
@@ -128,47 +136,53 @@ body{
         position: absolute;
         top: 0px;
         right: 0px;
-        box-shadow: -100px 100px 15vw 20vw $primary3-2transparent;
+        box-shadow: -100px 100px 15vw 20vw $primary3-2Transparent;
     }
     &::before{
         position: absolute;
         left: 0px;
         bottom: 0px;
-        box-shadow: 100px 0px 15vw 22vw $primary3-2transparent;
+        box-shadow: 100px 0px 15vw 22vw $primary3-2Transparent;
     }
     &::after,&::before{
         content: "";
         display: block;
         width: 0px;
     }
-    h1{
-        margin-top: 105px;
-        text-align: center;
-        font-family: "Plexbold";
-        span{
-            color: $primarycolor;
-        }
+    @media screen and (min-width:0px) {
+        min-height: 500px;
     }
-    p{
-        line-height: 1.6;
-        font-family: "Plexnormal";
-        margin-top: 27px;
-        max-width: 790px;
-        text-align: center;
-        font-size: 20px;
-        color: $secondtextcolor;
-        text-wrap: balance;
+    @media screen and (min-width: 768px) {
+        min-height: 660px;
     }
     @media screen and (max-width:768px) {
-        h1{
+        h1.homeTitle{
             font-size: 45px;
         }
-        p{
+        p.homeDescription{
             font-size: 14px;
         }
     }
 }
-.homesecbg{
+h1.homeTitle{
+    margin-top: 105px;
+    text-align: center;
+    font-family: "PlexBold";
+    span{
+        color: $primaryColor;
+    }
+}
+p.homeDescription{
+    line-height: 1.6;
+    font-family: "PlexNormal";
+    margin-top: 27px;
+    max-width: 790px;
+    text-align: center;
+    font-size: 20px;
+    color: $secondTextColor;
+    text-wrap: balance;
+}
+.fallingBackground{
     position: absolute;
     z-index: -1;
     display: flex;
@@ -177,16 +191,16 @@ body{
     height: 100%;
     div{
         height: 100%;
-        background: linear-gradient(180deg, $primarytransparent 0%,transparent 100%);
+        background: linear-gradient(180deg, $primaryTransparent 0%,transparent 100%);
         width: 1px;
-        @include center("xflex");
+        @include center("X-flex");
         &::after{
             content: "";
             flex-shrink: 0;
             position: relative;
             border-radius: 50%;
-            background-color: $primarytransparent;
-            @extend %homebackanimatedBG;
+            background-color: $primaryTransparent;
+            @extend %homeBackAnimatedBG;
             display: block;
             width: 10px;
             height: 10px;
@@ -194,17 +208,17 @@ body{
     }
 }
 @for $i from 2 through 5 {
-    .homebackanimatedBGdelay-#{$i}::after{
+    .fallingBackgroundDelay-#{$i}::after{
         animation-duration: #{$i}s;
     }   
 }
-.homebtns{
+.homeButtons{
     margin-top: 30px;
     @include center("flex");
     flex-wrap: wrap;
     row-gap: 25px;
     .MuiButton-root{
-        font-family: "Plexnormal";
+        font-family: "PlexNormal";
         font-weight: bold;
         font-size: 16px;
         border-radius: 40px;
@@ -214,23 +228,22 @@ body{
         column-gap: 16px;
     }
 }
-.homebtn.MuiButton-outlined{
-    background-color: $primary1-2transparent;
-    color: $primarycolor;
+.homeButton.MuiButton-outlined{
+    background-color: $primary1-2Transparent;
+    color: $primaryColor;
     padding-left: 26px;
     padding-right: 26px;
     height: 44px;
-    border-color:$primarycolor; 
+    border-color:$primaryColor; 
     box-shadow: none;
     line-height: 0;
     @extend %transition;
     &:hover{
-        color: $secondcolor;
-        background-color: $primarycolor;
+        color: $secondColor;
+        background-color: $primaryColor;
     }
     &::before{
     content: "";
-        background-image:url("../assets/photo/home/portofolio.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -248,14 +261,25 @@ body{
         font-size: 14px;
     }
 }
-.homeportfoliobtn.MuiButton-outlined{
-    &::before{
-        background-image:url("../assets/photo/home/portofolio.svg");
+.homeRequestButton{
+    @media screen and (min-width:0px) {
+        order: -1;
+    }
+    @media screen and (min-width:500px) {
+        order: 1;
+    }
+    @media screen and (min-width:600px) {
+        order: 0;
     }
 }
-.homeproductsbtn.MuiButton-outlined{
+.homePortfolioButton.MuiButton-outlined{
     &::before{
-        background-image:url("../assets/photo/home/products.svg");
+        background-image:url($portfolioIcon);
+    }
+}
+.homeProductsButton.MuiButton-outlined{
+    &::before{
+        background-image:url($projectsIcon);
     }
 }
 .homequotationbtn.MuiButton-contained{
