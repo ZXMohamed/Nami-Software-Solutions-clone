@@ -15,18 +15,20 @@
     "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.0.2",
-    "@reduxjs/toolkit": "^2.7.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.9.0",
     "gsap": "^3.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.57.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.5.3",
     "sass": "^1.87.0",
     "swiper": "^11.2.8",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
