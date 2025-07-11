@@ -282,3 +282,35 @@ p.homeDescription{
         background-image:url($projectsIcon);
     }
 }
+//*servicesticker*/
+.servicesTicker{
+    @extend %animatedBG;
+    height: 76px;
+    color: $secondColor;
+    @include center("flex");
+}
+div.tickerBar{
+    height: 100%;
+    padding: 14px 0;
+    width: 1920px;
+    @include center("Y-flex");
+    overflow: hidden;
+    position: relative;
+}
+p.tickerItem{
+    font-family: "PlexNormal";
+    font-size: 18px;
+    display: flex;
+    position: absolute;
+    left: 0px;
+    &::before{
+        content: "";
+        background-image: url($pointIcon);
+        background-position: left 60%;
+        background-repeat: no-repeat;
+        background-size: 40%;
+        filter: brightness(0) invert(1);
+        width: 50px;
+        display: block;
+    }
+}
