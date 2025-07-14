@@ -213,6 +213,10 @@ div.sideImgContainer {
     padding:55px;
     padding-right: 52px;
     display: flex;
+
+    // align-items: flex-start;
+    // justify-content: flex-start;
+
     flex-direction: column;
     row-gap: 15px;
     font-family: "PlexNormal";
@@ -244,8 +248,20 @@ p.aboutDescription{
 .establishmentCounter{
     justify-content:flex-end;
     position: relative;
+    padding-left: 45px;
     padding-right: 45px;
     margin-top: 30px;
+
+    &[dir=ltr]{
+        span.establishmentTitle{
+            right: -52px;
+        }
+    }
+    &[dir=rtl]{
+        span.establishmentTitle{
+            left: -10px;
+        }
+    }
 }
 span.establishmentTitle{
     text-transform: uppercase;
@@ -254,7 +270,7 @@ span.establishmentTitle{
     font-size: 16px;
     transform: rotate(90deg);
     position: absolute;
-    right: -52px;
+    // right: -52px;
     top: 40%;
     display: block;
 }

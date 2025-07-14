@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Box, Container, Grid, Typography, Button, IconButton, Stack } from '@mui/material'
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,11 +10,28 @@ import aboutSideImg from "../assets/photo/about/aboutsideimg.webp";
 
 import DownloadButton from './downloadbutton';
 
+import { Language } from '../languages/languagesContext';
 
 
 export default function About() {
 
   const { isSuccess: companyFile_isSuccess, data: companyFile } = useGetCompanyFileQuery();
+
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  
+  const defaultContent = {
+      direction: language_isSuccess ? language.page.direction : "ltr",
+      title : language_isSuccess ? language.about.title : "Know about us ..",
+      subtitle : language_isSuccess ? language.about.subtitle : "Nami is a company specialized in providing Integrated web services",
+      description : language_isSuccess ? language.about.description : "Starting from graphic design to programming and designing smart phone applications, Nami strivesAnd its work team from the day of its establishment until it became one of the most important Arab web development companies, and weWe know the path and we are walking on it with great strides.",
+      buttons:{
+          companyFile : language_isSuccess ? language.about.buttons.companyFile : "Download the company file",
+    },
+    establishment:{
+        title: language_isSuccess ? language.about.establishment.title : "Establishment",
+        establishmentDate: language_isSuccess ? language.about.establishment.establishmentDate : "2017"
+    }
+  }
 
   const sideImgContainer = useRef();
   const sideImg = useRef();
@@ -24,13 +41,14 @@ export default function About() {
 
   useEffect(() => {
     imgMoveWithScroll(sideImgContainer, sideImg);
-    subtitleBackGroundMoveWithScroll(subtitle);
+    subtitleBackgroundMoveWithScroll(subtitle);
     descriptionLinesUp(description);
-    establishmentDateCountUp(establishmentDate, description);
-  },[]);
+    establishmentDateCountUp(establishmentDate, description, defaultContent.establishment.establishmentDate);
+  });
+
   
   return (
-    <Box className="aboutSection">
+    <Box className="aboutSection" dir={defaultContent.direction}>
       <Container maxWidth="lg" disableGutters="true">
           <Grid container>
               <Grid size={ { md: 6, xs: 12 } } data-aos="fade-up" data-aos-duration="1000" className="movingImgSide">
@@ -39,20 +57,14 @@ export default function About() {
                   </Box>
               </Grid>
               <Grid size={ { md: 6, xs: 12 } } className="infoSide">
-                <Typography variant="h5" component="h1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50" className='aboutTitle'><i>Know about us ..</i></Typography>
-                <Typography ref={subtitle} variant="h4" component="h2" className='aboutSubtitle'>Nami is a company specialized in providing Integrated web services</Typography>
-                <Typography ref={description} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="60" className='aboutDescription'>
-                  Starting from graphic design to programming and designing smart phone
-                  applications, Nami strivesAnd its work team from the day of its
-                  establishment until it became one of the most important Arab web
-                  development companies, and weWe know the path and we are walking on it
-                  with great strides.
-                </Typography>
+                <Typography variant="h5" component="h1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50" className='aboutTitle'><i>{defaultContent.title}</i></Typography>
+                <Typography ref={subtitle} variant="h4" component="h2" className='aboutSubtitle'>{defaultContent.subtitle}</Typography>
+                <Typography ref={description} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="60" className='aboutDescription'>{defaultContent.description}</Typography>
                 
-                { companyFile_isSuccess && <DownloadButton link={ companyFile?.url } title={ "Download the company file" } /> }
+                { companyFile_isSuccess && <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } /> }
                 
-                <Stack direction="row" className='establishmentCounter' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
-                  <span className="establishmentTitle">Establishment</span>
+                <Stack direction="row" dir={defaultContent.direction} className='establishmentCounter' data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">
+                  <span className="establishmentTitle">{defaultContent.establishment.title}</span>
                   <Typography ref={establishmentDate} variant='h1' component='h3'  className="establishmentDate" data-aos="fade-up" data-aos-duration="600" data-aos-delay="50">0</Typography>
                 </Stack>
               </Grid>
@@ -74,7 +86,7 @@ function imgMoveWithScroll(sideImgContainer,sideImg) {
     yPercent: -16,
   });
 }
-function subtitleBackGroundMoveWithScroll(subtitle) {
+function subtitleBackgroundMoveWithScroll(subtitle) {
   const subtitleLineSplit = new SplitText(subtitle.current, {
     type: "lines"
   });
@@ -113,7 +125,7 @@ function descriptionLinesUp(description) {
     stagger: 0.05
   });
 }
-function establishmentDateCountUp(establishmentDate,description) {
+function establishmentDateCountUp(establishmentDate,description,finalValue) {
   gsap.to(establishmentDate.current, {
     scrollTrigger: {
       start: "top+=150 bottom",
@@ -122,7 +134,7 @@ function establishmentDateCountUp(establishmentDate,description) {
       // once: true,
       // markers:true
     },
-    textContent: 2017,
+    textContent: finalValue,
     duration: 4,
     ease: "power2.in",
     snap: { textContent: 1 },

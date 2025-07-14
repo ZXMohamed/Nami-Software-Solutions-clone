@@ -2,7 +2,7 @@ import { Fragment } from "react"
 import { CssBaseline, ThemeProvider } from "@mui/material"
 //*init
 import "./aos/aosinit"
-import "./gsap/GSAPinit"
+import "./gsap/gsapinit"
 import { theme } from "./mui/MUIinit"
 //*pages
 import Main from "./pages/main"
