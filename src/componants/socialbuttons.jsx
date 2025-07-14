@@ -8,7 +8,7 @@ export default function SocialButtons({ aosAnimation }) {
     const { isLoading, isSuccess, data : social } = useGetSocialQuery();
 
     return (
-        <Stack direction="row" spacing={ 1 } className="socialButtons" { ...aosAnimation } >
+        <Stack direction="row" columnGap={ 1 } className="socialButtons" { ...aosAnimation } >
             { isLoading && <WaiteProgress num={4} variant="indeterminate" size={40} thickness={1} value={70} /> }
             {
                 isSuccess &&
