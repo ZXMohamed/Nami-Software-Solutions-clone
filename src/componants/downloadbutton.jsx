@@ -2,6 +2,7 @@ import React from 'react'
 import { IconButton } from '@mui/material';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 
+import "../sass/shared/downloadbutton.scss"
 
 export default function DownloadButton({link,title}) {
   return (

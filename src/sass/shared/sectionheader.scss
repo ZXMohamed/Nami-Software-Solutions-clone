@@ -1,5 +1,5 @@
 @use "_shared.scss" as *;
-@use "fonts.scss" as *;
+// @use "fonts.scss" as *;
 
 .sectionHeader{
     margin-bottom: 35px;
@@ -75,7 +75,7 @@ a.ShowAllButton{
     @extend %transition;
     div{
         @extend %transition;
-        background-image: url('../../assets/photo/sectionheader/show all arrow.svg');
+        background-image: url($showAllArrow);
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
