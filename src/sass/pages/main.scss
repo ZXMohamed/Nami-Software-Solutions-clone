@@ -201,6 +201,7 @@ div.valueBox{
     position: relative;
     justify-content:space-around;
     align-items:center;
+
     &::before{
         border-radius: 10px;
         content: "";
@@ -209,7 +210,6 @@ div.valueBox{
         @extend %animatedBG;
         position: absolute;
         top: 0;
-        left: 130px;
         z-index: -1;
         filter: opacity(0%);
         @extend %transition;
@@ -223,6 +223,28 @@ div.valueBox{
         filter: brightness(0) invert(1);
         text-shadow: 0px 0px 1px $secondColor;
     }
+
+    &[dir=ltr]{
+        &::before{
+            // left: 130px;
+            transform: translateX(100%);
+        }
+        &:hover::before{
+            // left: 0px;
+            transform: translateX(0px);
+        }
+    }
+    &[dir=rtl]{
+        &::before{
+            // right: 130px;
+            transform: translateX(-100%);
+        }
+        &:hover::before{
+            // right: 0px;
+            transform: translateX(0px);
+        }
+    }
+
 }
 div.valueIcon{
     z-index: 2;

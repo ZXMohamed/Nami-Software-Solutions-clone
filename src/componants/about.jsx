@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import React, { lazy, Suspense, useContext, useEffect, useRef, useState } from 'react'
 import { Box, Container, Grid, Typography, Button, IconButton, Stack, Skeleton } from '@mui/material'
 
 import innovation from "../assets/photo/our/Innovation.svg"
@@ -8,11 +8,18 @@ import teamwork from "../assets/photo/our/Teamwork.svg"
 import quickResponse from "../assets/photo/our/quick Response.svg"
 import continuousLearning from "../assets/photo/our/Continuous Learning.svg"
 import Sustainability from "../assets/photo/our/Sustainability.svg"
+import { Language } from '../languages/languagesContext'
 
 export function Our() { 
 
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+  }
+
   return (
-    <Box className="ourSection">
+    <Box dir={defaultContent.direction} className="ourSection">
       <Container maxWidth={ "lg" }>
         <Grid container spacing={4}>
           <OurVision />
@@ -27,13 +34,24 @@ export function Our() {
 }
 
 function OurVision() {
+
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+    vision: {
+      title : language_isSuccess ? language.our.vision.title : "Our vision",
+      description: language_isSuccess ? language.our.vision.description : "We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way.", 
+    }
+  }
+    
   return (
     <Grid size={ { xs: 12, sm: 6 } } className="ourVision" container spacing={ 1 } data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="0">
       <SideVideo/>
       <Grid size={ { xxs: 10, xs: 12, sm: 12, md: 9 } }>
-        <Typography variant='h4' component='h2' className="cardTitle">Our vision</Typography>
+        <Typography variant='h4' component='h2' className="cardTitle">{ defaultContent.vision.title }</Typography>
         <Typography className="cardDescription">
-          We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way.
+          {defaultContent.vision.description}
         </Typography>
       </Grid>
     </Grid>
@@ -41,40 +59,59 @@ function OurVision() {
 }
 
 function OurMessage() {
-  
+
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+    message: {
+      title : language_isSuccess ? language.our.message.title : "Our message",
+      description: language_isSuccess ? language.our.message.description : "We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success.", 
+    }
+  }
+
   return (
     <Grid size={ { xs: 12, sm: 6 } } className="ourMessage" container spacing={ 1 } data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="50">
       <SideVideo/>
       <Grid size={ { xxs:10,xs: 12, sm:12,md: 9 } }>
-        <Typography variant='h4' component='h2' className='cardTitle'>Our message</Typography>
+        <Typography variant='h4' component='h2' className='cardTitle'>{ defaultContent.message.title }</Typography>
         <Typography className='cardDescription'>
-          We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success.
+          {defaultContent.message.description}
         </Typography>
       </Grid>
     </Grid>
   )
 }
 
-const values = [
-  { title: "Innovation", icon: innovation },
-  { title: "Quality", icon: quality },
-  { title: "Focus on the client", icon: focusOnTheClint },
-  { title: "Teamwork", icon: teamwork },
-  { title: "Quick response", icon: quickResponse },
-  { title: "Continuous learning", icon: continuousLearning },
-  { title: "Sustainability", icon: Sustainability }
-];
-
 function OurValues() {
+
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+    values: {
+      title : language_isSuccess ? language.our.values.title : "Our values",
+      description: language_isSuccess ? language.our.values.description : "We at Nami Corporation are proud of a set of core values ​​that drive our operations, build our relationships with our customers, and define our approach to providing integrated technology solutions.",
+      values : [
+        { title: language_isSuccess ? language.our.values.values[0].title : "Innovation", icon: innovation },
+        { title: language_isSuccess ? language.our.values.values[1].title : "Quality", icon: quality },
+        { title: language_isSuccess ? language.our.values.values[2].title : "Focus on the client", icon: focusOnTheClint },
+        { title: language_isSuccess ? language.our.values.values[3].title : "Teamwork", icon: teamwork },
+        { title: language_isSuccess ? language.our.values.values[4].title : "Quick response", icon: quickResponse },
+        { title: language_isSuccess ? language.our.values.values[5].title : "Continuous learning", icon: continuousLearning },
+        { title: language_isSuccess ? language.our.values.values[6].title : "Sustainability", icon: Sustainability }
+      ]
+    }
+  }
   
   return (
     <Grid size={ 12 } className="ourValues" data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay="0">
-      <Typography variant='h4' component='h2' className="cardTitle">Our values</Typography>
+      <Typography variant='h4' component='h2' className="cardTitle">{defaultContent.values.title}</Typography>
       <Typography className="cardDescription">
-        We at Nami Corporation are proud of a set of core values ​​that drive our operations, build our relationships with our customers, and define our approach to providing integrated technology solutions.
+        {defaultContent.values.description}
       </Typography>
       <Box className="valuesBox">
-        { values.map((value, inx) => (
+        { defaultContent.values.values.map((value, inx) => (
           <ValueBox inx={inx} data={ value } />
         )) }
       </Box>
@@ -82,9 +119,16 @@ function OurValues() {
   )
 }
 
-function ValueBox({inx,data}) {
+function ValueBox({ inx, data }) {
+
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+  }
+
   return (
-    <Stack key={inx} direction={ 'column' } className="valueBox" data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay={50*(inx+1)}>
+    <Stack key={inx} direction={ 'column' } dir={defaultContent.direction} className="valueBox" data-aos={ 'fade-up' } data-aos-duration="600" data-aos-delay={50*(inx+1)}>
       <Box sx={{backgroundImage:`url("${data.icon}")`}} className='valueIcon'></Box>
       <span  className='valueTitle'>{ data.title }</span>
     </Stack>
