@@ -1,29 +1,19 @@
 import { Fragment } from "react"
-import { createTheme, CssBaseline, Icon, ThemeProvider } from "@mui/material"
+import { CssBaseline, ThemeProvider } from "@mui/material"
 //*init
-import "./aos/AOSinit"
+import "./aos/aosinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
-//*components
-import NavBar from "./componants/navbar"
-import FloatSocialButtons from "./componants/floatsocialbuttons";
-import Home from "./componants/Home";
-import {Our} from "./componants/about";
+//*pages
+import Main from "./pages/main"
 //*css
 import '../node_modules/aos/dist/aos.css';
-import 'swiper/css';
+import 'swiper/css';//!use when needed
 //*sass files
 import "./sass/shared/pageinit.scss"
-import "./sass/pages/main.scss"
-import "./sass/shared/socialbuttons.scss"
-import "./sass/shared/floatsocialbuttons.scss"
-import "./sass/shared/sectionheader.scss"
-import "./sass/shared/infocard.scss"
-import "./sass/shared/statisticsbox.scss"
-import "./sass/shared/servicebadge.scss"
-import "./sass/shared/requestform.scss"
-import "./sass/shared/requestbutton.scss"
-import "./sass/shared/downloadbutton.scss"
+import "./sass/shared/fonts.scss"
+
+
 
 
 function App() {
@@ -32,10 +22,7 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar />
-        <Home />
-        <FloatSocialButtons />
-        <Our />
+        <Main/>
       </ThemeProvider>
     </Fragment>
   )
