@@ -188,6 +188,7 @@ p.servicesDescription{
     font-family: 'PlexNormal';
     text-wrap: balance;
     text-align: center;
+    width: 900px;
     div{
         will-change: transform, opacity;
         transform: translateY(30px);
@@ -212,6 +213,15 @@ p.servicesDescription{
 }
 div.itemFace{
     overflow: hidden;
+    &[dir=rtl]{
+        div.itemHeader{
+            div.itemArrow{
+                &::before{
+                    transform: rotateY(180deg)
+                }
+            }
+        }
+    }
 }
 div.itemHeader{
     @include center('Y-flex');
@@ -273,38 +283,59 @@ div.itemBack{
             bottom: -15px;
         }
     }
+    &[dir=rtl]{
+        ul.itemObjectives{
+            li::before {
+                transform: rotateY(180deg);
+            }
+        }
+        button.itemReadMore{
+            &::after{
+                transform: rotateY(180deg);
+            }
+        }
+    }
 }
 ul.itemObjectives{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 85px;
+    column-gap: 50px;
     color: $PrimaryTextColor;
-    list-style-image:url("../../assets/photo/services/list arrow.svg");
+    list-style-type:none;
+    padding: 0px;
     li{
         transform: translateX(-20px);
         margin: 9px 0px;
         font-family: 'PlexNormal';
         filter: brightness(77%) opacity(0);
+        @include center("Y-flex");
+        &::before{
+            content: url($listArrow);
+            margin: 0px 5px 0px 20px;
+            height: fit-content;
+        }
         @media screen and (max-width:768px) {
             font-size: 14px;
         }
     }
 }
 button.itemReadMore{
+    font-family: "PlexNormal";
+    font-size: 16px;
     transition: 0.3s;
     box-shadow: none;
     position: absolute;
     bottom: 20px;
     border: 2px solid $secondColor;
     border-radius: 20px;
-    width: 120px;
+    // width: 120px;
     @include center("flex");
-    padding: 3px;
+    padding: 3px 10px;
     &::after{
         content:"";
         filter: brightness(0) invert(1);
-        background-image: url('../../assets/photo/services/list arrow.svg');
+        background-image: url($listArrow);
         background-repeat: no-repeat;
         background-position: center;
         background-size: 47%;

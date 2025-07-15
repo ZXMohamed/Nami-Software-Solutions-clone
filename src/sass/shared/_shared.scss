@@ -1,9 +1,11 @@
-$siteBackground: "../../assets/photo/global/background.png";
-$portfolioIcon:"../../assets/photo/home/portofolio.svg";
-$projectsIcon:"../../assets/photo/home/products.svg";
-$floatSocialButtonsIcon:"../../assets/photo/global/social.svg";
-$showAllArrow:"../../assets/photo/sectionheader/show all arrow.svg";
+$siteBackground : "../../assets/photo/global/background.png";
+$portfolioIcon : "../../assets/photo/home/portofolio.svg";
+$projectsIcon : "../../assets/photo/home/products.svg";
+$floatSocialButtonsIcon : "../../assets/photo/global/social.svg";
+$showAllArrow : "../../assets/photo/sectionheader/show all arrow.svg";
 $cardArrow : "../../assets/photo/services/arrow.svg";
+$listArrow : "../../assets/photo/services/list arrow.svg";
+$sectionbackground : '../../assets/photo/global/sectionbackground.jpg';
 
 // $thirdColor:#000000;
 $primaryColor: #009f6f;
@@ -135,7 +137,7 @@ $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Tra
         width: 400%;
         height: 400%;
         position: absolute;
-        background: $gradientTransparentBG, url('../../assets/photo/services/servicesbg.jpg');
+        background: $gradientTransparentBG, url($sectionbackground);
         background-size: cover;
         background-position: center;
         animation-name: moveSectionBG;
@@ -147,7 +149,7 @@ $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Tra
     }
     &::before{
         content: "";
-        background-image: url('../../assets/photo/global/background.png');
+        background-image: url($siteBackground);
         background-size: cover;
         z-index: 1;
         position: absolute;

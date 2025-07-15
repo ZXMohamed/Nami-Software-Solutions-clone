@@ -1,13 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Grid, Stack, Typography, Container, Button, Skeleton } from '@mui/material';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { useGetServicesQuery } from '../redux/server state/services';
+import { Language } from '../languages/languagesContext';
 
 
 export default function Services() {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title : language_isSuccess ? language.services.title : "Our Services",
+        subtitle : language_isSuccess ? language.services.subtitle : "Where quality meets innovation",
+        description: language_isSuccess ? language.services.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
+    }
 
     const { isLoading: servicesItems_isLoading, isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError, error } = useGetServicesQuery();
 
@@ -23,15 +33,12 @@ export default function Services() {
     }
 
   return (
-    <Box className="servicesSection">
+    <Box dir={defaultContent.direction} className="servicesSection">
         <Container disableGutters="false">
             <Stack direction={'column'} spacing={2} className='servicesHeader'>
-                <Typography variant='h5' component='h1' className='servicesTitle'  data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>Our Services</i></Typography>
-                <Typography variant='h4' component='h2' className='servicesSubtitle' data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">Where quality meets innovation</Typography>
-                <Typography ref={description} className='servicesDescription' data-aos="fade-up" data-aos-duration="600" data-aos-delay="150">
-                    Nami Foundation provides integrated digital solutions for resale in website design And mobile
-                    applications. We resell upgraded products with the highest quality standards to meet your needs.
-                </Typography>
+                <Typography variant='h5' component='h1' className='servicesTitle'  data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>{defaultContent.title}</i></Typography>
+                <Typography variant='h4' component='h2' className='servicesSubtitle' data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">{defaultContent.subtitle}</Typography>
+                <Typography ref={description} className='servicesDescription' data-aos="fade-up" data-aos-duration="600" data-aos-delay="150">{defaultContent.description}</Typography>
             </Stack>
             <br/>
             <br/>
@@ -46,6 +53,16 @@ export default function Services() {
 }
 
 function ServiceCard({ data, size, aosAnimation }) { 
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        buttons:{
+            readMore : language_isSuccess ? language.services.buttons.readMore : "Read more",
+        }
+    }
+
     const itemObjectives = useRef();
 
     if (!data) { 
@@ -57,8 +74,8 @@ function ServiceCard({ data, size, aosAnimation }) {
     }, []);
 
     return (
-        <Grid key={ data.id }  size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
-            <Stack direction={ 'column' } spacing={ 1 } className='itemFace'>
+        <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
+            <Stack direction={ 'column' } spacing={ 1 } dir={defaultContent.direction} className='itemFace'>
                 <Stack direction={ 'row' } className='itemHeader'>
                     <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='itemIcon'/>
                     <div className='itemArrow'></div>
@@ -66,11 +83,11 @@ function ServiceCard({ data, size, aosAnimation }) {
                 <Typography variant='h5' component={ 'h3' } className='itemTitle'>{ data.title }</Typography>
                 <Typography className='itemDescription'>{ data.description }</Typography>
             </Stack>
-            <Stack direction={ 'column' } className='itemBack'>
+            <Stack direction={ 'column' } dir={defaultContent.direction} className='itemBack'>
                 <ul ref={ itemObjectives } className='itemObjectives'>
                     { data.objectives.map((val, inx) => <li key={ inx }>{ val }</li>) }
                 </ul>
-                <Button variant='contained' disableRipple={ true } className='itemReadMore'>Read more</Button>
+                <Button variant='contained' disableRipple={ true } className='itemReadMore'>{ defaultContent.buttons.readMore }</Button>
             </Stack>
         </Grid>
     )
