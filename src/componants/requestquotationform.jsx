@@ -7,6 +7,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
 
+import "../sass/shared/requestform.scss";
+
 const schema = zod.object({
     name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
     phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),

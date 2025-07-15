@@ -3,7 +3,7 @@
 .socialButtons {
     margin-top: 25px;
     a.SocialButton{
-        display: block;
+        @include center("flex");
         width: 40px;
         height: 40px;
         @extend %transition;
@@ -12,10 +12,11 @@
             background-color: $primaryColor;
             margin-top: -5px;
         }
-        div{
+        img{
+            width: 16px;
             @extend %transition;
         }
-        &:hover>div{
+        &:hover>img{
             filter:brightness(0) invert(1);
         }
     }

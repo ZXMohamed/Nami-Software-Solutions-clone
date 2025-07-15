@@ -1,6 +1,8 @@
 import React from 'react'
 import { Container, Typography, Box, Stack } from '@mui/material'
 
+import "../sass/shared/infocard.scss"
+
 export default function InfoCard({title,subtitle,description,children,sx}) {
   return (
     <Box sx={sx} className="infoCard" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">
