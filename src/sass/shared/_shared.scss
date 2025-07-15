@@ -1,4 +1,8 @@
 $siteBackground: "../../assets/photo/global/background.png";
+$portfolioIcon:"../../assets/photo/home/portofolio.svg";
+$projectsIcon:"../../assets/photo/home/products.svg";
+$floatSocialButtonsIcon:"../../assets/photo/global/social.svg";
+$showAllArrow:"../../assets/photo/sectionheader/show all arrow.svg";
 $cardArrow : "../../assets/photo/services/arrow.svg";
 
 // $thirdColor:#000000;
@@ -171,22 +175,22 @@ $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Tra
     }
 }
 
-%homeBackAnimatedBG{
-    animation-name: moveUpDown;
+%fallingDots{
+    animation-name: fallingDown;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
 
-@keyframes moveUpDown {
+@keyframes fallingDown {
     0%{
-        top:0%;
+        transform: translateY(0);
         filter: opacity(0%);
     }
     50%{
         filter: opacity(100%);
     }
     100%{
-        top:100%;
+        transform: translateY(60vh);
         filter: opacity(0%);
     }
 }
@@ -239,13 +243,7 @@ $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Tra
         border-color: $secondColor;
         background-color: $primaryColor;
     }
-    div{
-        width: 100%;
-        height: 100%;
-        display: block;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 16px;
+    img{
         @if $type=="sty2"{
             filter:brightness(0) invert(1);
         }
