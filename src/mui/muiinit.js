@@ -20,6 +20,6 @@ export const theme = createTheme({
       md: 992,
       lg: 1320,
       xl: 1536,
-    },//$color theme
+    },
   },
 });

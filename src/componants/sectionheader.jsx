@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
+import "../sass/shared/sectionheader.scss"
+
 export default function SectionHeader({ title, subtitle, showAllUrl }) { 
     
     const headerTitle = useRef();

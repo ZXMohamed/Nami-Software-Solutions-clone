@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 
+import "../sass/shared/servicebadge.scss"
+
 
 export function ServicesBadgesList({ children, type }) {
 
@@ -18,6 +20,8 @@ export function ServiceBadge({ data, size }) {
     }
 
     return (
+        <Stack direction="row" spacing={ 0.7 } className={"serviceBadge " + size || serviceBadgeSize.small} >
+            <img src={data.icon} alt={"Nami " + data.title + " service"} className='serviceIcon' loading='lazy' width={"16px"}/>
         <Stack direction="row" component={"a"} href={data.link} target={"_blank"} spacing={ 0.7 } className={"serviceBadge " + size || serviceBadgeSize.small} >
             <img src={data.image} alt={"Nami " + data.title + " service"} className='serviceIcon'/>
             <Typography variant='h6' component={'h4'} className='serviceTitle'>{data.title}</Typography>

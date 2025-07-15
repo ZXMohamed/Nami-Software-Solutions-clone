@@ -3,6 +3,8 @@ import { Stack, Typography } from '@mui/material'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import "../sass/shared/statisticsbox.scss"
+
 export function StatisticsList({children}) {
   return (
     <Stack direction={ 'row' } className='statisticsList'>
@@ -35,7 +37,10 @@ export function StatisticsBox({ value, title, type, aosAnimation}) {
     }
     
     useEffect(() => { 
-        countUp(statisticValue,value);
+        requestIdleCallback(() => {
+            
+            countUp(statisticValue,value);
+        })
     }, [])
     
     return (
