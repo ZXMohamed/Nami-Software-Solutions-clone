@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
 import SectionHeader from './sectionHeader'
 import { Swiper,SwiperSlide } from 'swiper/react';
@@ -10,11 +10,24 @@ import Rawafed from '../assets/photo/portfolio/Rawafed.webp'
 import Taraf from '../assets/photo/portfolio/Taraf.webp'
 import abr from '../assets/photo/portfolio/عبر الشرق للاستقدام.webp'
 import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
+import { Language } from '../languages/languagesContext';
 
 export default function Portfolio() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title : language_isSuccess ? language.projects.header.title : "Newest portfolio",
+        subtitle : language_isSuccess ? language.projects.header.subtitle : "We bring your digital vision to life",
+        buttons:{
+            headerButton: language_isSuccess ? language.projects.header.buttons.subtitle : "Show all"
+        }
+    }
+
   return (
-    <Box className='portfolioSection'>
-        <SectionHeader title={'We bring your digital vision to life'} subtitle={'Newest portfolio'} showAllUrl={''}/>
+    <Box dir={defaultContent.direction} className='portfolioSection'>
+        <SectionHeader title={defaultContent.title} subtitle={defaultContent.subtitle} showAllUrl={''}/>
         <PortfolioSlider/>
     </Box>
   )
