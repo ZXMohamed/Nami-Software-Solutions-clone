@@ -12,7 +12,7 @@ export function StatisticsList({children}) {
             
             if (React.isValidElement(child)) {
                 return React.cloneElement(child, {
-                    aosAnimation: {
+                    aosanimation: {
                         "data-aos": "fade-up",
                         "data-aos-duration": "1000",
                         "data-aos-delay": (100 * inx).toString()
@@ -28,7 +28,7 @@ export function StatisticsList({children}) {
   )
 }
 
-export function StatisticsBox({ value, title, type, aosAnimation}) {
+export function StatisticsBox({ value, title, type, aosanimation}) {
 
     const statisticValue = useRef();
 
@@ -44,7 +44,7 @@ export function StatisticsBox({ value, title, type, aosAnimation}) {
     }, [])
     
     return (
-        <Stack direction={ 'column' } { ...aosAnimation } className='statisticsBox'>
+        <Stack direction={ 'column' } { ...aosanimation } className='statisticsBox'>
             {value && <Typography variant='h4' component={'h4'} className='statisticsBoxValue'><span ref={statisticValue}>0</span> {type} </Typography>}
             {title && <Typography variant='h6' component={'h3'} className='statisticsBoxTitle'>{ title }</Typography>}
         </Stack>

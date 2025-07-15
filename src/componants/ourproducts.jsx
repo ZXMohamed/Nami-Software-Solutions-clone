@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, CircularProgress, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material'
 import SectionHeader from './sectionheader'
 import InfoCard from './infoCard'
@@ -9,6 +9,7 @@ import { Autoplay } from 'swiper/modules'
 
 import { useGetProductsQuery } from '../redux/server state/products'
 import { useGetStatisticsQuery } from '../redux/server state/statistics'
+import { Language } from '../languages/languagesContext'
 
 const productsSliderSettings = {
     loop: true,
@@ -19,10 +20,23 @@ const productsSliderSettings = {
 
 export default function OurProducts() {
 
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        header:{
+            title: language_isSuccess ? language.products.header.title : "Our products",
+            subtitle: language_isSuccess ? language.products.header.subtitle : "Where quality meets innovation",
+            buttons:{
+                headerButton: language_isSuccess ? language.products.header.buttons.headerButton : "Show all"
+            }
+        }
+    }
+    
     return (
         <>
-            <Box className={'ourProductsSection'}>
-                <SectionHeader title={ "Where quality meets innovation" } subtitle={ "Our products" } showAllUrl={ "" } />
+            <Box dir={defaultContent.direction} className={'ourProductsSection'}>
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ "" } />
                 <Products/>
             </Box>
             <Statistics/>
@@ -32,6 +46,12 @@ export default function OurProducts() {
 
 export function Products() {
 
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }
+
     const { isLoading: products_isLoading, isSuccess: products_isSuccess, data: products, isError: products_isError } = useGetProductsQuery();
     
     const isMDSize = useMediaQuery('(max-width:992px)');
@@ -39,11 +59,11 @@ export function Products() {
 
     return (
         <Container maxWidth="lg" disableGutters>
-            <Swiper slidesPerView={ visibleSlidesPerSize(isXXXSSize,isMDSize) } {...productsSliderSettings} className='productsSlider'>
+            <Swiper slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } dir={ defaultContent.direction } {...productsSliderSettings} className='productsSlider'>
                 { products_isLoading && WaitItemSkeleton(3) }
                 { products_isSuccess && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={product.id} className='productsSlide'>
-                                <ProductCard data={product} aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
+                                <ProductCard dir={defaultContent.direction} data={product} aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
                             </SwiperSlide>)
                 }) }
                 {products_isError && <Typography variant="h6" color='error'>Data Not Found !</Typography>}
@@ -52,13 +72,13 @@ export function Products() {
   )
 }
 
-function ProductCard({ data, aosAnimation }) {
+function ProductCard({ dir, data, aosAnimation }) {
     if (!data.image && !data.title) { 
         throw "product name or image unset !"
     }
   return (
     <Box className='productCard' {...aosAnimation}>
-        <Stack direction={"column"} >
+        <Stack dir={dir} direction={"column"} >
             <Box className="productImageContainer shine">
                 <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />
             </Box>
@@ -75,11 +95,20 @@ function ProductCard({ data, aosAnimation }) {
 }
 
 export function Statistics() {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title: language_isSuccess ? language.statistics.title : "Statistics",
+        subtitle: language_isSuccess ? language.statistics.subtitle : "Good planning is not enough Great callings require the extraordinary!",
+    }
+    
     const { isLoading:statistic_isLoading, isError:statistic_isError, isSuccess:statistic_isSuccess, data: statistics } = useGetStatisticsQuery();
     
     return (
         <Box className='infoCardSection'>
-            <InfoCard title={ "Good planning is not enough Great callings require the extraordinary!" } subtitle={ "Statistics" }>
+            <InfoCard dir={defaultContent.direction} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
                 <StatisticsList>
                     {statistic_isLoading && waitStatisticProgress(5)}
                     {statistic_isSuccess && Object.values(statistics).map((statistic, inx) => <StatisticsBox key={statistic.id} value={statistic.value} type={statistic.type} title={statistic.title} />) }
@@ -130,7 +159,7 @@ function WaitItemSkeleton(num = 1) {
 function waitStatisticProgress(num = 1) { 
     const progressArray = [];
     for (let i = 0; i < num; i++) { 
-        progressArray.push(<CircularProgress variant="indeterminate" color='secondary' size={40} thickness={2}/>)
+        progressArray.push(<CircularProgress key={i} variant="indeterminate" color='secondary' size={40} thickness={2}/>)
     }
     return progressArray;
 }

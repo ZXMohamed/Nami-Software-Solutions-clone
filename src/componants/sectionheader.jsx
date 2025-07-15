@@ -6,26 +6,28 @@ import { SplitText } from "gsap/SplitText";
 
 import "../sass/shared/sectionheader.scss"
 
-export default function SectionHeader({ title, subtitle, showAllUrl }) { 
+export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 
     
     const headerTitle = useRef();
     const headerSubtitle = useRef();
 
     useEffect(() => {
-        titleWordsUP(headerTitle);
-        subtitleWordsUP(headerSubtitle);
+        requestIdleCallback(() => {            
+            titleWordsUP(headerTitle);
+            subtitleWordsUP(headerSubtitle);
+        })
     },[]);
 
     return (
-        <Box className="sectionHeader">
+        <Box dir={dir} className="sectionHeader">
             <Container maxWidth="lg">
-                <Typography ref={headerSubtitle} variant="h5" component="h2" className="sectionHeaderTitle"  data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>{subtitle}</i></Typography>
+                <Typography ref={headerSubtitle} variant="h5" component="h2" className="sectionHeaderTitle"  data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>{title}</i></Typography>
                 <Grid container>
                     <Grid size={ { sm: 10, xs: 12 } } className="sectionHeaderSubtitleContainer" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-                        <Typography ref={headerTitle} variant="h4" component="h1" className="sectionHeaderSubtitle">{title}</Typography>
+                        <Typography ref={headerTitle} variant="h4" component="h1" className="sectionHeaderSubtitle">{subtitle}</Typography>
                     </Grid>
-                    <Grid size={ { sm: 2, xs: 12 } } className="ShowAllButtonContainer" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-                        <a href={ showAllUrl } className="ShowAllButton">Show all<Box></Box></a>
+                    <Grid size={ { sm: 2, xs: 12 } } className="sectionHeaderButtonContainer" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                        <a href={ headerButtonUrl } className="sectionHeaderButton">{ headerButtonTitle }<Box></Box></a>
                     </Grid>
                 </Grid>
             </Container>
