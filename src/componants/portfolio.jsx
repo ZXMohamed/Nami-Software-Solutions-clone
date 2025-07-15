@@ -10,6 +10,7 @@ import Rawafed from '../assets/photo/portfolio/Rawafed.webp'
 import Taraf from '../assets/photo/portfolio/Taraf.webp'
 import abr from '../assets/photo/portfolio/عبر الشرق للاستقدام.webp'
 import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
+
 import { Language } from '../languages/languagesContext';
 
 export default function Portfolio() {
@@ -21,13 +22,13 @@ export default function Portfolio() {
         title : language_isSuccess ? language.projects.header.title : "Newest portfolio",
         subtitle : language_isSuccess ? language.projects.header.subtitle : "We bring your digital vision to life",
         buttons:{
-            headerButton: language_isSuccess ? language.projects.header.buttons.subtitle : "Show all"
+            headerButton: language_isSuccess ? language.projects.header.buttons.headerButton : "Show all"
         }
     }
 
   return (
     <Box dir={defaultContent.direction} className='portfolioSection'>
-        <SectionHeader title={defaultContent.title} subtitle={defaultContent.subtitle} showAllUrl={''}/>
+        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
         <PortfolioSlider/>
     </Box>
   )
