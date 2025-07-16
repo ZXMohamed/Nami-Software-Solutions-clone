@@ -23,12 +23,12 @@ export default function Careers() {
     
   return (
     <Box dir={defaultContent.direction} className='careersSection'>
-        <Container>    
+        <Container disableGutters>    
             <Grid container>
-                <Grid size={{xs:12,md:7}}>
+                <Grid size={{xs:12,md:8}}>
                     <InfoSection/>
                 </Grid>
-                <Grid size={{xs:12,md:5}} className="careersFormContainer">
+                <Grid size={{xs:12,md:4}} className="careersFormContainer">
                    <FormSection/>
                 </Grid>
             </Grid>
