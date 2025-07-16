@@ -161,7 +161,7 @@ p.homeDescription{
     //     // padding-right: 10.045%;
     // }
 }
-
+//*contact */
 .contactSection{
     padding: 96px 10px 136px 10px;
     // background-color: $secondColor;
@@ -190,6 +190,8 @@ p.homeDescription{
     border-radius: 15px;
     
     .MuiFormLabel-root{
+        left: unset !important;
+        font-family: "PlexNormal";
         color: $secondColor;
         font-size: 14px;
     }
@@ -233,6 +235,7 @@ p.homeDescription{
             height: 45px;
             @extend %hexagonBorder;
             button.contactFormSubmit{
+                font-family: "PlexNormal";
                 color: #000000;
                 width: 92%;
                 height: 90%;
@@ -262,7 +265,12 @@ p.homeDescription{
     justify-content:center;
 }
 .contactInfoSection{
-    margin-left: 20px;
+    &[dir=ltr]{
+        margin-left: 20px;
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+    }
 }
 h1.contactInfoTitle{
     color: $secondTextColor;
@@ -272,8 +280,9 @@ h1.contactInfoTitle{
     }
 }
 h2.contactInfoSubtitle{
+    text-wrap: balance;
     font-family: "PlexBold";
-    max-width: 350px;
+    max-width: 450px;
     text-transform: uppercase;
     font-size: 30px;
     div{
@@ -289,7 +298,31 @@ p.contactInfoDescription{
     }
 }
 .contactMethodsSection{
-    margin-left: 20px;
+    &[dir=ltr]{
+        margin-left: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-left: 10px;
+            }
+            h4.contactMethodLink{
+                padding-left: 10px;
+            }
+        }
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-right: 10px;
+            }
+            h4.contactMethodLink{
+                padding-right: 10px;
+                a{
+                    @extend %removeAdditionalLinkStyle;
+                }
+            }
+        }
+    }
     >div{
         @include center("Y-flex");
         &:hover{
@@ -326,14 +359,14 @@ div.contactMethodIconCircle{
     }
 }
 h3.contactMethodTitle{
-    padding-left: 20px;
+    padding-left: 10px;
     width: 100%;
     font-family: "PlexBold";
     color: $secondTextColor;
     font-size: 13px;
 }
 h4.contactMethodLink{
-    padding-left: 20px;
+    padding-left: 10px;
     width: 100%;
     color: $primaryColor;
     font-family: "PlexNormal";

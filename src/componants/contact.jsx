@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography, useMediaQuery } from '@mui/material'
 
 import gsap from 'gsap';
@@ -15,14 +15,21 @@ import { useGetLocationQuery } from '../redux/server state/location';
 import { useGetSocialQuery } from '../redux/server state/social';
 import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
+import { Language } from '../languages/languagesContext';
 
 
 export default function Contact() {
 
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }
+
     const isXXSSize = useMediaQuery("(max-width:500px)");
 
     return (
-        <Box className="contactSection">
+        <Box dir={defaultContent.direction} className="contactSection">
             <Container maxWidth="lg" disableGutters={isXXSSize}>
                 <Grid container rowSpacing={{xs:5,md:0}}>
                     <Grid size={{xs:12,md:6}} order={{xs:1,md:0}} className="contactSide1">
@@ -49,6 +56,23 @@ const schema = zod.object({
 });
 
 function FormSection() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        form: {
+            title:language_isSuccess ? language.contact.form.title : "",
+            inputs:{
+                name: language_isSuccess ? language.contact.form.inputs.name : "name",
+                email:language_isSuccess ? language.contact.form.inputs.email : "email",
+                phone:language_isSuccess ? language.contact.form.inputs.phone : "phone",
+                subject:language_isSuccess ? language.contact.form.inputs.subject : "subject",
+                message:language_isSuccess ? language.contact.form.inputs.message : "message"
+            },
+            submit:language_isSuccess ? language.contact.form.submit : "Send"
+        }
+    }
 
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
@@ -80,19 +104,19 @@ function FormSection() {
     };
 
     return (
-        <Stack component={"form"} direction={"column"} spacing={6} className='contactFormSection' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
+        <Stack dir={defaultContent.direction} component={"form"} direction={"column"} spacing={6} className='contactFormSection' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
             
-            <Grid container rowSpacing={ 8 } columnSpacing={ 4 }>
+            <Grid container rowSpacing={ 5 } columnSpacing={ 4 }>
                 
-                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "text" } color='secondary' label="Name" variant="standard" helperText={ errors?.name?.message } { ...inputsSettings.name } /></Grid>
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "text" } color='secondary' label={defaultContent.form.inputs.name} variant="standard" helperText={ errors?.name?.message } { ...inputsSettings.name } /></Grid>
                 
-                <Grid size={ { xs: 12, sm: 6 } }><TextField type="email" color='secondary' label="Email" variant="standard" helperText={ errors?.email?.message } { ...inputsSettings.email } /></Grid>
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type="email" color='secondary' label={defaultContent.form.inputs.email} variant="standard" helperText={ errors?.email?.message } { ...inputsSettings.email } /></Grid>
                 
-                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "number" } color='secondary' label="Phone" variant="standard" helperText={ errors?.phone?.message } { ...inputsSettings.phone } /></Grid>
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "number" } color='secondary' label={defaultContent.form.inputs.phone} variant="standard" helperText={ errors?.phone?.message } { ...inputsSettings.phone } /></Grid>
                 
-                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label="Subject" variant="standard" helperText={ errors?.subject?.message } { ...inputsSettings.subject } /></Grid>
+                <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "Text" } color='secondary' label={defaultContent.form.inputs.subject} variant="standard" helperText={ errors?.subject?.message } { ...inputsSettings.subject } /></Grid>
                 
-                <Grid size={ 12 }><TextField color='secondary' label="Message" multiline rows={ 6 } variant="standard" helperText={ errors?.message?.message } { ...inputsSettings.message } /></Grid>
+                <Grid size={ 12 }><TextField color='secondary' label={defaultContent.form.inputs.message} multiline rows={ 4 } variant="standard" helperText={ errors?.message?.message } { ...inputsSettings.message } /></Grid>
             
             </Grid>
             
@@ -100,7 +124,7 @@ function FormSection() {
             
             <Stack direction={ "row" } className='contactFormSubmitContainer'>
                 <Box className="contactFormSubmitBorder">
-                    <Button variant='contained' disableRipple type='submit' disabled={isSubmitting} className='contactFormSubmit'>Send</Button>
+                    <Button variant='contained' disableRipple type='submit' disabled={isSubmitting} className='contactFormSubmit'>{defaultContent.form.submit}</Button>
                 </Box>
             </Stack>
         
@@ -109,41 +133,68 @@ function FormSection() {
 }
 function InfoSection() {
 
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title: language_isSuccess ? language.contact.title : "Contact with us",
+        subtitle: language_isSuccess ? language.contact.subtitle : "Let us help you build your next app.",
+        description: language_isSuccess ? language.contact.description : "Our team of professionals is committed to delivering exceptional results in software development and technical project management. Share your project details with us so we can create a custom experience that meets your vision.",
+    }
+
     const contactTitle = useRef();
     const contactSubtitle = useRef();
     const contactDescription = useRef();
     
     useEffect(() => {
-        titleWordsUp(contactTitle);
-        subtitleWordsUp(contactSubtitle);
-        descriptionWordsUp(contactDescription);
+        requestIdleCallback(() => {
+            titleWordsUp(contactTitle);
+            subtitleWordsUp(contactSubtitle);
+            descriptionWordsUp(contactDescription);
+        })
     }, []);
     
     return (
-        <Stack direction="column" spacing={2} className='contactInfoSection'>
-            <Typography ref={contactSubtitle} variant='h5' component={'h1'} className='contactInfoTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Contact with us</i></Typography>
-            <Typography ref={contactTitle} variant='h4' component={'h2'} className='contactInfoSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Let us help you build your next app.</Typography>
-            <Typography ref={contactDescription} data-aos="fade-up" className='contactInfoDescription' data-aos-duration="1000" data-aos-delay="150">
-                Our team of professionals is committed to delivering exceptional results in
-                software development and technical project management. Share your project
-                details with us so we can create a custom experience that meets your vision.
-            </Typography>
+        <Stack dir={defaultContent.direction} direction="column" spacing={2} className='contactInfoSection'>
+            <Typography ref={contactSubtitle} variant='h5' component={'h1'} className='contactInfoTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>{defaultContent.title}</i></Typography>
+            <Typography ref={contactTitle} variant='h4' component={'h2'} className='contactInfoSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">{defaultContent.subtitle}</Typography>
+            <Typography ref={contactDescription} data-aos="fade-up" className='contactInfoDescription' data-aos-duration="1000" data-aos-delay="150">{defaultContent.description}</Typography>
         </Stack>
     )
 }
 function ContactMethodsSection() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        form: {
+            title:"",
+            inputs:{
+                name:"name",
+                email:"email",
+                phone:"phone",
+                subject:"subject",
+                message:"message"
+            },
+            submit:"Send"
+        },
+        locationTitle:  language_isSuccess ? language.contact.locationTitle : "Visit us",
+        supportTitle:  language_isSuccess ? language.contact.supportTitle : "Message us",
+        callTitle:  language_isSuccess ? language.contact.callTitle : "Call us at"
+    }
 
     const { isSuccess: location_isSuccess, isLoading: location_isLoading, data: location } = useGetLocationQuery();
     
     const { isSuccess: social_isSuccess, isLoading: social_isLoading, data: social } = useGetSocialQuery();
         
     return (
-        <Stack direction="column" spacing={2} className='contactMethodsSection'>
+        <Stack dir={defaultContent.direction} direction="column" spacing={2} className='contactMethodsSection'>
             {location_isLoading && waitContactMethodProgress(1)}
             {social_isLoading && waitContactMethodProgress(2)}
-            {location_isSuccess && <ContactMethodItem icon={location.icon.outline} title={"Visit us"} contactMethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
-            {social_isSuccess && <ContactMethodItem icon={social.email.support.icon.outline} title={"Message us"} contactMethod={social.email.support.email} link={social.email.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
-            {social_isSuccess && <ContactMethodItem icon={social.phone.icon.outline} title={"Call us at"} contactMethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
+            {location_isSuccess && <ContactMethodItem icon={location.icon.outline} title={defaultContent.locationTitle} contactMethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
+            {social_isSuccess && <ContactMethodItem icon={social.email.support.icon.outline} title={defaultContent.supportTitle} contactMethod={social.email.support.email} link={social.email.support.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
+            {social_isSuccess && <ContactMethodItem icon={social.phone.icon.outline} title={defaultContent.callTitle} contactMethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
         </Stack> 
     )
 }
@@ -195,9 +246,9 @@ function titleWordsUp(contactTitle) {
 }
 function subtitleWordsUp(contactSubtitle) {
     const contactSubtitleSplit = new SplitText(contactSubtitle.current, {
-        type: "words"
+        type: "lines"
     });
-    gsap.to(contactSubtitleSplit.words, {
+    gsap.to(contactSubtitleSplit.lines, {
             scrollTrigger: {
                 trigger: contactSubtitle.current,
                 // scrub: 1,
