@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -10,18 +10,25 @@ import { useForm } from 'react-hook-form';
 import { useGetOpenJobsQuery } from '../redux/server state/openjobs';
 import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
+import { Language } from '../languages/languagesContext';
 
 
 export default function Careers() {
 
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }
+    
   return (
-    <Box className='careersSection'>
+    <Box dir={defaultContent.direction} className='careersSection'>
         <Container>    
             <Grid container>
                 <Grid size={{xs:12,md:7}}>
                     <InfoSection/>
                 </Grid>
-                <Grid size={{xs:12,md:5}}>
+                <Grid size={{xs:12,md:5}} className="careersFormContainer">
                    <FormSection/>
                 </Grid>
             </Grid>
@@ -32,25 +39,42 @@ export default function Careers() {
 
 function InfoSection() {
 
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title: language_isSuccess ? language.careers.title : "Careers",
+        subtitle: language_isSuccess ? language.careers.subtitle : "Build your future with our company",
+        description: language_isSuccess ? language.careers.description : "At our company, we strive to create an environment focused on learning and striving to achieve a person's fullest potential. We got itWe maintain a prominent presence in the industry thanks to our continuous efforts, and we invite you to be part of the story of our continuous development.",
+        form: {
+            title: "Upload your CV",
+            inputs: {
+                name: "Full name",
+                phone: "phone number",
+                job: "select the job",
+                cvFile: "choose file"
+            },
+            submit: "Apply now"
+        }
+    }
+
     const careersTitle = useRef();
     const careersSubtitle = useRef();
     const careersDescription = useRef();
 
     useEffect(() => {
-        titleWordsUp(careersTitle);
-        subtitleWordsUp(careersSubtitle);
-        descriptionWordsUp(careersDescription);
+        requestIdleCallback(() => {
+            titleWordsUp(careersTitle);
+            subtitleWordsUp(careersSubtitle);
+            descriptionWordsUp(careersDescription);
+        })
     }, []);
 
     return (
         <Stack direction={'column'} spacing={1} className='infoSection'>
-            <Typography ref={careersTitle} variant='h5' component={'h1'} className='careersTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>Careers</i></Typography>
-            <Typography ref={careersSubtitle} variant='h3' component={'h2'} className='careersSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">Build your future with our company</Typography>
-            <Typography ref={careersDescription} className='careersDescription' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
-                At our company, we strive to create an environment focused on learning and striving to achieve
-                a person's fullest potential. We got itWe maintain a prominent presence in the industry thanks to
-                our continuous efforts, and we invite you to be part of the story of our continuous development.
-            </Typography>
+            <Typography ref={careersTitle} variant='h5' component={'h1'} className='careersTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>{defaultContent.title}</i></Typography>
+            <Typography ref={careersSubtitle} variant='h3' component={'h2'} className='careersSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">{defaultContent.subtitle}</Typography>
+            <Typography ref={careersDescription} className='careersDescription' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">{defaultContent.description}</Typography>
         </Stack>
     )
 }
@@ -63,7 +87,22 @@ const schema = zod.object({
 });
 
 function FormSection() {
-   
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        form: {
+            title: language_isSuccess ? language.careers.form.title : "Upload your CV",
+            inputs: {
+                name: language_isSuccess ? language.careers.form.inputs.name : "Full name",
+                phone: language_isSuccess ? language.careers.form.inputs.phone : "phone number",
+                job: language_isSuccess ? language.careers.form.inputs.job : "select the job",
+                cvFile: language_isSuccess ? language.careers.form.inputs.cvFile : { title: "choose file", noFile: "No file chosen" }
+            },
+            submit: language_isSuccess ? language.careers.form.submit : "Apply now"
+        }
+    }
 
     const [lastInputChanged, setLastInputChanged] = useState("");
 
@@ -71,8 +110,6 @@ function FormSection() {
 
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
 
-
-    
     const inputsSettings = {
         name: register("name", { required: true, onChange: () => { setLastInputChanged("name"); }}),
         phone: register("phone", { required: true, onChange: () => { setLastInputChanged("phone"); }}),
@@ -121,21 +158,21 @@ function FormSection() {
     };
 
     return (
-        <Stack component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
+        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
             
-            <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>Upload your CV</i></Typography>
+            <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
             
-            <TextField variant="outlined" type='text' color={ errors?.name ? "error" : "primary" } className={ errors?.name ? "inputError" : "" } placeholder='Full name' { ...inputsSettings.name } />
+            <TextField variant="outlined" type='text' color={ errors?.name ? "error" : "primary" } className={ errors?.name ? "inputError" : "" } placeholder={defaultContent.form.inputs.name} { ...inputsSettings.name } />
             
-            <TextField variant="outlined" type="number" color={ errors?.phone ? "error" : "primary" } className={ errors?.phone ? "inputError" : "" } placeholder='Phone number' { ...inputsSettings.phone } />
+            <TextField variant="outlined" type="number" color={ errors?.phone ? "error" : "primary" } className={ errors?.phone ? "inputError" : "" } placeholder={defaultContent.form.inputs.phone} { ...inputsSettings.phone } />
             
-            <SelectInput color={ errors?.job ? "error" : "primary" } className={ errors?.job ? "inputError" : "" } { ...inputsSettings.job }/>
+            <SelectInput dir={defaultContent.direction} color={ errors?.job ? "error" : "primary" } className={ errors?.job ? "inputError" : "" } title={defaultContent.form.inputs.job} { ...inputsSettings.job }/>
 
-            <FileInput color={ errors?.cvFile ? "error" : "primary" } { ...inputsSettings.cvFile } />
+            <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} noFile={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
             
             <ReCAPTCHA sitekey={ sitekey } onChange={ handleCaptchaChange } />
             
-            <Button variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>Apply now</Button>
+            <Button variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
             
             <Typography className='formErrorMsg'>{ handleLastErrors(lastInputChanged, errors) }</Typography>
             
@@ -150,8 +187,8 @@ function SelectInput(props) {
 
     return (
         <Select variant='outlined' { ...props } defaultValue={ '0' } onChange={ (selectedItem,e) => { props.onChange();  e.target.value = selectedItem; /*setJob(selectedItem.target.value);*/}}>
-            <MenuItem value={"0"}>Select the job</MenuItem>
-                {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
+            <MenuItem value={"0"}>{props.title}</MenuItem>
+            {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
         </Select>
     )
 }
@@ -168,8 +205,8 @@ function FileInput(props) {
         <Box className={ "fileInput " + (props.color=="error"?"fileInputError": "")} >
             <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); open(e, fileName); } } />
             <label htmlFor="cvUpload" className='fileInputBody'>
-                <div variant='contained' className='fileInputTitle'>Choose File</div>
-                <Typography ref={fileName} component={'span'} className='selectedFileName'>No file chosen</Typography>
+                <div variant='contained' className='fileInputTitle'>{ props.title }</div>
+                <Typography ref={fileName} component={'span'} className='selectedFileName'>{props.noFile}</Typography>
             </label>
         </Box>
     )

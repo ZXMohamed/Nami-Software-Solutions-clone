@@ -183,6 +183,12 @@ p.homeDescription{
         z-index: 1;
     }
 
+    &[dir=rtl]{
+        .careersFormContainer{
+            display: flex;
+            align-items: flex-start;
+        }
+    }
     
     @media screen and (max-width:400px) {
         padding-left: 10px;
@@ -235,13 +241,15 @@ p.careersDescription{
             border-radius:8px;
             &::placeholder{
                 font-size: 12px;
+                font-family: "PlexNormal";
             }
         }
         div.MuiSelect-select{
+            font-family: "PlexNormal";
             padding: 0;
             border-radius:10px;
             height: 48px;
-            padding-left: 12px;
+            // padding-left: 12px;
             font-size: 16px;
             @include center("Y-flex")
         }
@@ -251,17 +259,112 @@ p.careersDescription{
         width: 100%;
         margin-top: 20px;
     }
+
+    &[dir=ltr]{
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-left: 12px;
+                &~svg.MuiSvgIcon-root{
+                    right: 7px;
+                }
+            }
+        }
+        div.inputError{
+            // padding-right: 25px;
+            div.MuiInputBase-formControl,
+            div.MuiInputBase-input{
+                padding-right: 20px;
+
+                &~svg.MuiSvgIcon-root{
+                    right: 30px;
+                }
+
+                &::after{
+                    right: 8px;
+                }
+            }
+        }
+        .fileInput{
+            div.fileInputTitle{
+                border-radius: 8px 0px 0px 8px;
+            }
+            span.selectedFileName{
+                padding-left: 10px;
+                text-align: left;
+            }
+        }
+        .fileInputError{
+            label.fileInputBody{
+                div.fileInputTitle{
+                    border-right: 1px solid #ff0000
+                }
+            }
+            padding-right: 25px;
+            &::before{
+                right: 8px;
+            }
+        }
+    }
+    &[dir=rtl]{
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-right: 12px;
+                &~svg.MuiSvgIcon-root{
+                    left: 7px;
+                    right: unset;
+                }
+            }
+        }
+        div.inputError{
+            // padding-left: 25px;
+            div.MuiInputBase-formControl,
+            div.MuiInputBase-input{
+                padding-left: 20px;
+                
+                &~svg.MuiSvgIcon-root{
+                    left: 30px;
+                    right: unset;
+                }
+
+                &::after{
+                    left: 8px;
+                }
+            }
+        }
+        .fileInput{
+            div.fileInputTitle{
+                border-radius: 0px 8px 8px 0px;
+            }
+            span.selectedFileName{
+                padding-right: 10px;
+                text-align: right;
+            }
+        }
+        .fileInputError{
+            label.fileInputBody{
+                div.fileInputTitle{
+                    border-left: 1px solid #ff0000
+                }
+            }
+            padding-left: 25px;
+            &::before{
+                left: 8px;
+            }
+        }
+    }
 }
 
 h3.careersFormTitle{
     color: $secondTextColor;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 button.formSubmit{
     @extend %wideHexagon;
     @extend %animatedBG;
     height: 58px;
+    font-size: 16px;
+    font-family: "PlexNormal";
 }
 
 p.formErrorMsg{
@@ -273,11 +376,11 @@ p.formErrorMsg{
 
 .inputError{
     position: relative;
-    padding-right: 25px;
+    // padding-right: 25px;
 
     .MuiInputBase-formControl,
     .MuiInputBase-input{
-        padding-right: 20px;
+        // padding-right: 20px;
         &::after{
             content: "";
             background: url($formError);
@@ -289,13 +392,13 @@ p.formErrorMsg{
             height: 18px;
             position: absolute;
             z-index: 1;
-            right: 8px;
+            // right: 8px;
             top: 32%;
         }
     }
     .MuiInputBase-input{
         &::after{
-            right: 30px;
+            // right: 30px;
         }
     }
 }
@@ -330,11 +433,12 @@ p.formErrorMsg{
         }
 
         span.selectedFileName{
+            font-family: 'PlexNormal';
             overflow: hidden;
             width: 70%;
             font-size: 14px;
             text-transform: capitalize;
-            padding-left: 10px;
+            // padding-left: 10px;
             @include textOverflow(1);
         }
     }
@@ -343,11 +447,11 @@ p.formErrorMsg{
     border: 1px solid #ff0000;
     label.fileInputBody{
         div.fileInputTitle{
-            border-right: 1px solid #ff0000
+            // border-right: 1px solid #ff0000;
         }
     }
     position: relative;
-    padding-right: 25px;
+    // padding-right: 25px;
     &::before{
         content: "";
         background: url($formError);
@@ -358,7 +462,7 @@ p.formErrorMsg{
         width: 18px;
         height: 18px;
         position: absolute;
-        right: 8px;
+        // right: 8px;
         top: 30%;
     }
 }
