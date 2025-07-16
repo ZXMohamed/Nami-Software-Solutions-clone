@@ -1,10 +1,12 @@
 @font-face {
     font-family: "PlexNormal";
-    src: url("../../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.ttf");
+    src: url("../../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.woff2"),format('woff2');
     font-size: 16px;
+    // font-display: swap;
 }
 
 @font-face {
     font-family: "PlexBold";
-    src: url("../../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.ttf");
+    src: url("../../assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.woff2"),format('woff2');
+    // font-display: swap;
 }
