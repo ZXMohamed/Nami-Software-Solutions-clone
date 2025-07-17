@@ -4,14 +4,19 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
+import "../sass/shared/sectionheader.scss"
+
 export default function SectionHeader({ title, subtitle, showAllUrl }) { 
     
     const headerTitle = useRef();
     const headerSubtitle = useRef();
 
     useEffect(() => {
-        headerTitleAnimation(headerTitle);
-        headerSubtitleAnimation(headerSubtitle);
+        requestIdleCallback(() => {
+            
+            headerTitleAnimation(headerTitle);
+            headerSubtitleAnimation(headerSubtitle);
+        })
     },[]);
 
     return (

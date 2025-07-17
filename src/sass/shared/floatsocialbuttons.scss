@@ -1,5 +1,5 @@
 @use "_shared.scss" as *;
-@use "fonts.scss" as *;
+// @use "fonts.scss" as *;
 
 .floatSocialButtons{
     position: fixed;
@@ -46,6 +46,11 @@ a.floatSocialButton{
     left: 0px;
     opacity: 0%;
     @extend %transition;
+    @include center("flex");
+
+    img{
+        width: 16px;
+    }
 }
 @for $i from 1 through 5{
     a.floatSocialButton:nth-child(#{$i}){
@@ -65,7 +70,7 @@ div.openFloatSocialButtons{
     box-shadow: 1px 3px 10px #00000023;
     &::before{
         content: "";
-        background-image: url("../../assets/photo/global/social.svg");
+        background-image: url($floatSocialButtonsIcon);
         background-repeat: no-repeat;
         background-size: 24px;
         filter: brightness(0) invert(1);

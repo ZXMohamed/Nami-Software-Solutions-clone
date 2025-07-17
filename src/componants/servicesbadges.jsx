@@ -1,11 +1,7 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 
-// import applicationdesign from '../assets/photo/servicesbadges/applicationdesign.svg'
-// import androidapplication from '../assets/photo/servicesbadges/androidapplication.svg'
-// import website from '../assets/photo/servicesbadges/website.svg'
-// import iosapp from '../assets/photo/servicesbadges/iosapp.svg'
-
+import "../sass/shared/servicebadge.scss"
 
 export function ServicesBadgesList({ children, type }) {
 
@@ -24,7 +20,7 @@ export function ServiceBadge({ data, size }) {
 
     return (
         <Stack direction="row" spacing={ 0.7 } className={"serviceBadge " + size || serviceBadgeSize.small} >
-            <img src={data.icon} alt={"Nami " + data.title + " service"} className='serviceIcon'/>
+            <img src={data.icon} alt={"Nami " + data.title + " service"} className='serviceIcon' loading='lazy' width={"16px"}/>
             <Typography variant='h6' component={'h4'} className='serviceTitle'>{data.title}</Typography>
         </Stack>
     )
