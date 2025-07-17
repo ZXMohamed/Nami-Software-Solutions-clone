@@ -1,16 +1,26 @@
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext } from 'react'
 
 import logo from "../assets/photo/global/namilogo.svg";
 import mailbox from "../assets/photo/footer/mailbox.svg";
 import SocialButtons from './socialbuttons';
 
 import { useGetSocialQuery } from '../redux/server state/social';
+import { Language } from '../languages/languagesContext';
 
 export default function Footer() {
 
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        downBar:{
+            copyRights:language_isSuccess ? language.footer.downBar.copyRights : "© 2025 All rights reserved for Nami Software Development Company."
+        }
+    }
+
   return (
-    <Box className='footer'>
+    <Box dir={defaultContent.direction} className='footer'>
         <Container maxWidth="lg">
             <Grid container className='footerTabs'>
                 <FooterAboutTab/>
@@ -19,7 +29,7 @@ export default function Footer() {
                 <FooterContactEmail/>
             </Grid>
             <Stack direction={'row'} spacing={0.5} className='footerDownBar'>
-                <Typography className='footerCopyRights'>© 2025 All rights reserved for Nami Software Development Company.</Typography>
+                <Typography className='footerCopyRights'>{defaultContent.downBar.copyRights}</Typography>
                 <SocialButtons/>
             </Stack>
         </Container>
@@ -29,29 +39,42 @@ export default function Footer() {
 
 
 function FooterAboutTab() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        footerLogo:language_isSuccess ? language.footer.footerLogo : logo,
+        description:language_isSuccess ? language.footer.description : "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
+    }
     
     return (
-        <Grid size={{xs:12,md:3}} className="footerAboutTab">
-            <img src={logo} alt="Nami Software Solutions" loading='lazy' className='footerLogo'/>
-            <Typography className='footerDescription'>
-                At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.
-            </Typography>
+        <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
+            <img src={defaultContent.footerLogo} alt="Nami Software Solutions" loading='lazy' className='footerLogo'/>
+            <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
     )
 }
 
 function FooterServicesTab() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        tabs:{
+            services:{
+                title:language_isSuccess ? language.footer.tabs.services.title : "Services",
+                items:language_isSuccess ? language.footer.tabs.services.items : ["Design services","Cloud services","Technical consulting","Digital marketing","Mobile application development","Website development"]
+            },
+        },
+    }
     
     return (
-        <Grid size={{xs:12,xxs:6,md:3}} className='footerServicesTab'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>Services</Typography>
+        <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerServicesTab'>
+            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
-                <li>Design services</li>
-                <li>Cloud services</li>
-                <li>Technical consulting</li>
-                <li>Digital marketing</li>
-                <li>Mobile application development</li>
-                <li>Website development</li>
+                { defaultContent.tabs.services.items.map((item, inx) => <li key={ inx } >{ item }</li>)}
             </ul>
         </Grid>
     )
@@ -59,14 +82,24 @@ function FooterServicesTab() {
 
 function FooterLinksTab() {
     
+    
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        tabs:{
+            links:{
+                title:language_isSuccess ? language.footer.tabs.links.title : "Links",
+                items:language_isSuccess ? language.footer.tabs.links.items : ["Home","About us","Services","Contact us"]
+            },
+        },
+    }
+
     return (
-        <Grid size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>Links</Typography>
+        <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
+            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
-                <li>Home</li>
-                <li>About us</li>
-                <li>Services</li>
-                <li>Contact us</li>
+                { defaultContent.tabs.links.items.map((item, inx) => <li key={ inx } >{ item }</li>)}
             </ul>
         </Grid>
     )
@@ -74,11 +107,23 @@ function FooterLinksTab() {
 
 function FooterContactEmail() {
 
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        tabs:{
+            contactEmail:{
+                title:language_isSuccess ? language.footer.tabs.contactEmail.title : "Contact email",
+                // items:language_isSuccess ? language.footer.tabs.contactEmail.items : ["Support","Human resources","Sales and marketing"]
+            }
+        },
+    }
+
     const { data: social } = useGetSocialQuery();
     
     return (
-        <Grid size={{xs:12,xxs:6,md:3}} className='footerContactEmail'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>Contact email</Typography>
+        <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerContactEmail'>
+            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.contactEmail.title}</Typography>
             <ul type="none" className='footerTabList'>
                 <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ social?.email.support.title }</a></li>
                 <li><img src={mailbox} alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ social?.email.humanResources.title }</a></li>

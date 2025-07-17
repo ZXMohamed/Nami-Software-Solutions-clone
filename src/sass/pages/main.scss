@@ -218,6 +218,34 @@ font-family: "PlexNormal";
 
 div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
     padding-left: 10px;
+
+    &[dir=ltr]{
+        ul.footerTabList{
+            padding-left: 0px;
+            li{
+                img.footerTabListItemsIcon{
+                    margin-right: 10px;
+                }
+                &::before{
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    &[dir=rtl]{
+        ul.footerTabList{
+            padding-right: 0px;
+            li{
+                img.footerTabListItemsIcon{
+                    margin-left: 10px;
+                }
+                &::before{
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
     
     @media screen and (max-width:768px) {
         h1{
