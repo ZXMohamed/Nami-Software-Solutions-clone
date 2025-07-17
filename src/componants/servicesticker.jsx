@@ -1,27 +1,29 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import gsap from 'gsap';
 import { Box, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Language } from '../languages/languagesContext';
 
 export default function ServicesTicker() {
+
+  const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+  const defaultContent = {
+    direction: language_isSuccess ? language.page.direction : "ltr",
+    items: language_isSuccess ? language.ticker.items : ["Software", "Graphic Design", "Information Security", "E-Commerce", "Search Engine Optimization (SEO)", "Digital marketing", "Project management", "Machine learning", "Web development"]
+  }
 
   const ticker = useRef();
 
   useEffect(() => {
-    tickerItemsMover(ticker)
-  },[]);
+    requestIdleCallback(() => {
+      tickerItemsMover(ticker)
+    })
+  },[defaultContent.direction]);
 
   return (
-    <Box className='servicesTicker'>
-      <Stack ref={ticker} direction={ 'row' } className='tickerBar'>
-        <Typography className='tickerItem'>Software</Typography>
-        <Typography className='tickerItem'>Graphic Design</Typography>
-        <Typography className='tickerItem'>Information Security</Typography>
-        <Typography className='tickerItem'>E-Commerce</Typography>
-        <Typography className='tickerItem'>Search Engine Optimization (SEO)</Typography>
-        <Typography className='tickerItem'>Digital marketing</Typography>
-        <Typography className='tickerItem'>Project management</Typography>
-        <Typography className='tickerItem'>Machine learning</Typography>
-        <Typography className='tickerItem'>Web development</Typography>
+    <Box dir={defaultContent.direction} className='servicesTicker'>
+      <Stack ref={ ticker } direction={ 'row' } className='tickerBar'>
+        { defaultContent.items.map((item,inx) => <Typography key={inx} className='tickerItem'>{ item }</Typography>)}
       </Stack>
     </Box>
   )
@@ -47,6 +49,7 @@ function tickerItemsMover(ticker) {
         x: tickerWidth, //*start position
       },
       {
+        // reversed:true,
         x: -1 * ((visibleArea - ticker.current.offsetWidth) + additionalArea), //*calculate end position
         duration: 28,
         ease: "none",

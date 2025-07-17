@@ -162,6 +162,21 @@ p.homeDescription{
     height: 76px;
     color: $secondColor;
     @include center("flex");
+
+    &[dir=ltr]{
+        p.tickerItem{
+            &::before{
+                background-position: left 60%;
+            }
+        }
+    }
+    &[dir=rtl]{        
+        p.tickerItem{
+            &::before{
+                background-position: right 60%;
+            }
+        }
+    }
 }
 div.tickerBar{
     height: 100%;
@@ -176,7 +191,6 @@ p.tickerItem{
     font-size: 18px;
     display: flex;
     position: absolute;
-    left: 0px;
     &::before{
         content: "";
         background-image: url($pointIcon);
