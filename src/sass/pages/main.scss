@@ -196,8 +196,13 @@ div.footerTabs{
     margin-bottom: 30px;
 }
 div.footerAboutTab{
-    padding-right: 10px;
-    padding-left: 10px;
+
+    &[dir=ltr]{
+        padding-left: 10px;
+    }
+    &[dir=rtl]{
+        padding-right: 10px;
+    }
     padding-bottom: 10px;
 
     @media screen and (max-width:768px) {
@@ -217,9 +222,9 @@ font-family: "PlexNormal";
 }
 
 div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
-    padding-left: 10px;
-
+    
     &[dir=ltr]{
+        padding-left: 10px;
         ul.footerTabList{
             padding-left: 0px;
             li{
@@ -232,8 +237,9 @@ div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
             }
         }
     }
-
+    
     &[dir=rtl]{
+        padding-right: 10px;
         ul.footerTabList{
             padding-right: 0px;
             li{
@@ -285,7 +291,7 @@ ul.footerTabList{
         img.footerTabListItemsIcon{
             width: 20px;
             align-self: center;
-            margin-right: 10px;
+            // margin-right: 10px;
         }
 
         a.footerTabListItemsLink{
@@ -295,7 +301,6 @@ ul.footerTabList{
         &::before{
             content: "";
             @extend %transition;
-            margin-right: 8px;
             height: 2px;
             width: 4px;
             display: block;
