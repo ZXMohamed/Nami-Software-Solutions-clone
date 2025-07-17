@@ -97,7 +97,7 @@ function WaitItemsSkelton({ cellInRow, num }) {
     const skeltonArray = [];
     for (let i = 0; i < num; i++) { 
         skeltonArray.push(
-            <Grid size={ 12 / cellInRow }>
+            <Grid key={i} size={ 12 / cellInRow }>
                 <Stack direction={"row"} justifyContent={ "space-between" } alignItems={"center"}>
                     <Skeleton variant="rounded" width={ 60 } height={ 60 } />
                     <Skeleton variant="circular" width={ 45 } height={ 45 } />
