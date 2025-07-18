@@ -2,10 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const servicesSlice = createApi({
     reducerPath: "services",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost/nami-clone-data-api/" }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost/nami-clone-data-api/",
+        credentials: 'include'
+    }),
+    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getServices: builder.query({
-            query: () =>"query/services.php"
+            query: () => { console.log("ddddd"); return "query/services.php" },
+            providesTags: ['ReQueryForMainPage']
         })
     })
 });

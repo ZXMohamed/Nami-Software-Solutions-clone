@@ -4,8 +4,9 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { useGetServicesQuery } from '../redux/server state/services';
 import { Language } from '../languages/languagesContext';
+
+import { useGetServicesQuery } from '../redux/server state/services';
 
 
 export default function Services() {
@@ -19,17 +20,19 @@ export default function Services() {
         description: language_isSuccess ? language.services.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
     }
 
-    const { isLoading: servicesItems_isLoading, isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError, error } = useGetServicesQuery();
-
+    const { isLoading: servicesItems_isLoading, isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery();
+console.log(servicesItems_isLoading,"kkkkkkkkkkkkkkkkkkkko");
     const description = useRef();
 
     useEffect(() => {
-        descriptionWordsUP(description);
-    },[]);
+        requestIdleCallback(() => {
+            descriptionWordsUP(description);
+        })
+    }, []);
 
 
     function servicesItemsShow(cellInRow) { 
-        return Object.values(servicesItems).map((service, inx) => <ServiceCard data={ service } size={ 12 / cellInRow } aosAnimation={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
+        return Object.values(servicesItems).map((service, inx) => <ServiceCard key={inx} data={ service } size={ 12 / cellInRow } aosAnimation={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
     }
 
   return (
