@@ -192,7 +192,7 @@ function ContactMethodsSection() {
         <Stack dir={defaultContent.direction} direction="column" spacing={2} className='contactMethodsSection'>
             {location_isLoading && waitContactMethodProgress(1)}
             {social_isLoading && waitContactMethodProgress(2)}
-            {location_isSuccess && <ContactMethodItem icon={location.icon.outline} title={defaultContent.locationTitle} contactMethod={location.address} link={location.link} target={"_blank"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
+            { location_isSuccess && <ContactMethodItem icon={ location.icon.outline } title={ defaultContent.locationTitle } contactMethod={ language_isSuccess ? location["address-" + language.page.language] : location.address} link={location.link} target={"_blank"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(50)}}/>}
             {social_isSuccess && <ContactMethodItem icon={social.email.support.icon.outline} title={defaultContent.supportTitle} contactMethod={social.email.support.email} link={social.email.support.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(100)}}/>}
             {social_isSuccess && <ContactMethodItem icon={social.phone.icon.outline} title={defaultContent.callTitle} contactMethod={social.phone.number} link={social.phone.link} target={"_self"} route={"val.route"} aosAnimation={{"data-aos":"fade-up", "data-aos-duration":"1000", "data-aos-delay":(150)}}/>}
         </Stack> 
