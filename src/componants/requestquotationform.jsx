@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Button, InputLabel, Stack, TextField } from '@mui/material';
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
 
 import "../sass/shared/requestform.scss";
+import { Language } from '../languages/languagesContext';
 
 const schema = zod.object({
     name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
@@ -17,6 +18,22 @@ const schema = zod.object({
 });
 
 export default function RequestQuotationForm() {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        form:{
+            title:"",
+            inputs:{
+                name:language_isSuccess ? language.requestQuotation.form.inputs.name: "Name",
+                email:language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
+                phone:language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
+                description:language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
+            },
+            submit:language_isSuccess ? language.requestQuotation.form.submit : "Send"
+        }
+    }
 
     const [captchaToken, setCaptchaToken] = useState(null);
 
@@ -49,26 +66,26 @@ export default function RequestQuotationForm() {
     };
 
   return (
-    <Box className='requestForm'>
+    <Box dir={defaultContent.direction} className='requestForm'>
         <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)}>
-            <button className='closeForm'>X</button>
+            <button type='button' className='closeForm'>X</button>
             <Box>
-                <InputLabel htmlFor="formName" className='inputTitle'>Name <span className='requiredSymbol'>*</span></InputLabel>  
+                <InputLabel htmlFor="formName" className='inputTitle'>{defaultContent.form.inputs.name} <span className='requiredSymbol'>*</span></InputLabel>  
                 <TextField type='text' id='formName' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputsSettings.name}/>
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formEmail" className='inputTitle'>Email <span  className='requiredSymbol'>*</span></InputLabel>  
+                <InputLabel htmlFor="formEmail" className='inputTitle'>{defaultContent.form.inputs.email} <span  className='requiredSymbol'>*</span></InputLabel>  
                 <TextField type='email' id='formEmail' color={errors?.email?"error":"primary"} helperText={errors?.email?.message} {...inputsSettings.email} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formPhone" className='inputTitle'>Phone <span  className='requiredSymbol'>*</span></InputLabel>  
+                <InputLabel htmlFor="formPhone" className='inputTitle'>{defaultContent.form.inputs.phone} <span  className='requiredSymbol'>*</span></InputLabel>  
                 <TextField type='number' id='formPhone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputsSettings.phone} />
             </Box>
             
             <Box>
-                <InputLabel htmlFor="formDescription" className='inputTitle'>Description <span  className='requiredSymbol'>*</span></InputLabel>  
+                <InputLabel htmlFor="formDescription" className='inputTitle'>{defaultContent.form.inputs.description} <span  className='requiredSymbol'>*</span></InputLabel>  
                 <TextField multiline maxRows={6} minRows={2} id='formDescription' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
@@ -76,7 +93,7 @@ export default function RequestQuotationForm() {
           
             <Stack direction={'row'} className='sendButtonContainer'>
                 <Box>
-                    <Button type='submit' variant='contained' disableRipple disabled={isSubmitting} className='send'>Send</Button>
+                    <Button type='submit' variant='contained' disableRipple disabled={isSubmitting} className='send'>{defaultContent.form.submit}</Button>
                 </Box>
             </Stack>
         </Stack>
