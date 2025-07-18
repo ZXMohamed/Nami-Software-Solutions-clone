@@ -125,9 +125,9 @@ function FooterContactEmail() {
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerContactEmail'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.contactEmail.title}</Typography>
             <ul type="none" className='footerTabList'>
-                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ social?.email.support.title }</a></li>
-                <li><img src={mailbox} alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ social?.email.humanResources.title }</a></li>
-                <li><img src={mailbox} alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ social?.email.sales.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.support["title-" + language.page.language] : social?.email.support.title }</a></li>
+                <li><img src={mailbox} alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.humanResources["title-" + language.page.language] : social?.email.humanResources.title }</a></li>
+                <li><img src={mailbox} alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon'/><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.sales["title-" + language.page.language] : social?.email.sales.title }</a></li>
             </ul>
         </Grid>
     )
