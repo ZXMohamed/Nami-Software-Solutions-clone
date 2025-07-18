@@ -5,9 +5,11 @@ const productsSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl:"http://localhost/nami-clone-data-api/"
     }),
+    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getProducts: builder.query({
-            query: () =>"query/products.php"
+            query: () => "query/products.php",
+            providesTags:['ReQueryForMainPage']
         })
     })
 

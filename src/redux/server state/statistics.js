@@ -5,9 +5,11 @@ const statisticsSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl:"http://localhost/nami-clone-data-api/"
     }),
+    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getStatistics: builder.query({
-            query: () =>"query/statistics.php"
+            query: () => "query/statistics.php",
+            providesTags: ['ReQueryForMainPage']
         })
     })
 })
