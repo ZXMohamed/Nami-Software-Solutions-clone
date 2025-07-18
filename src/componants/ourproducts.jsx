@@ -85,7 +85,7 @@ function ProductCard({ dir, data, aosAnimation }) {
             <Typography variant='h6' component={'h3'} className='productTitle'>{data.title}</Typography>
             <Typography className='productDescription'>{data.description}</Typography>
             <Box className="badgesContainer">            
-                <ServicesBadgesList type={servicesBadgesListType.box}>
+                <ServicesBadgesList dir={dir} type={servicesBadgesListType.box}>
                     {data.serviceBadges.map((badge,inx)=><ServiceBadge key={badge.id} data={badge} size={serviceBadgeSize.small}/>)}
                 </ServicesBadgesList>
             </Box>

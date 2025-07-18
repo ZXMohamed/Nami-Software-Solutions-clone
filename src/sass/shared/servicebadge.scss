@@ -4,6 +4,71 @@
 .servicesBadges{
     gap: 4px;
     flex-wrap: wrap;
+
+    .serviceBadge{
+        &::after{
+            right: -50px;
+            // top: -50px;
+        }
+        &::before{
+            left: -50px;
+            // bottom: -50px;
+        }
+        
+        &:hover{
+            background-color: $primary3Color;
+            color: $secondColor;
+            &::after{
+                right: -28px;
+                // top: -28px;
+            }
+            &::before{
+                left: -28px;
+                // bottom: -28px;
+            }
+            img.serviceIcon{
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+    &[dir=ltr]{
+        .serviceBadge{
+            &::after{
+                top: -50px;
+            }
+            &::before{
+                bottom: -50px;
+            }
+            
+            &:hover{
+                &::after{
+                    top: -28px;
+                }
+                &::before{
+                    bottom: -28px;
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        .serviceBadge{
+            &::after{
+                bottom: -50px;
+            }
+            &::before{
+                top: -50px;
+            }
+            
+            &:hover{
+                &::after{
+                    bottom: -28px;
+                }
+                &::before{
+                    top: -28px;
+                }
+            }
+        }
+    }
 }
 .servicesBadgesBox{
     @include center("flex");
@@ -31,30 +96,6 @@
         position: absolute;
         z-index: 0;
         @extend %transition;
-    }
-    &::after{
-        right: -50px;
-        top: -50px;
-    }
-    &::before{
-        left: -50px;
-        bottom: -50px;
-    }
-    
-    &:hover{
-        background-color: $primary3Color;
-        color: $secondColor;
-        &::after{
-            right: -28px;
-            top: -28px;
-        }
-        &::before{
-            left: -28px;
-            bottom: -28px;
-        }
-        img.serviceIcon{
-            filter: brightness(0) invert(1);
-        }
     }
 }
 
