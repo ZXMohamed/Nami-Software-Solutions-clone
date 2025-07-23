@@ -4,14 +4,15 @@ import SectionHeader from './sectionHeader'
 import { Swiper,SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
-import Ebhar from '../assets/photo/portfolio/Ebhar.webp'
-import Somu from '../assets/photo/portfolio/Somu.webp'
-import Rawafed from '../assets/photo/portfolio/Rawafed.webp'
-import Taraf from '../assets/photo/portfolio/Taraf.webp'
-import abr from '../assets/photo/portfolio/عبر الشرق للاستقدام.webp'
-import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
+// import Ebhar from '../assets/photo/portfolio/Ebhar.webp'
+// import Somu from '../assets/photo/portfolio/Somu.webp'
+// import Rawafed from '../assets/photo/portfolio/Rawafed.webp'
+// import Taraf from '../assets/photo/portfolio/Taraf.webp'
+// import abr from '../assets/photo/portfolio/عبر الشرق للاستقدام.webp'
+// import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
 
 import { Language } from '../languages/languagesContext';
+import { useGetProjectsByCatQuery } from '../redux/server state/projects';
 
 export default function Portfolio() {
 
@@ -27,9 +28,9 @@ export default function Portfolio() {
     }
 
   return (
-    <Box dir={defaultContent.direction} className='portfolioSection'>
+    <Box className='portfolioSection'>
         <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
-        <PortfolioSlider/>
+        <PortfolioSlider dir={defaultContent.direction}/>
     </Box>
   )
 }
@@ -42,58 +43,41 @@ const projectsSliderSettings = {
 }
 
 export function PortfolioSlider() {
-    const [projects, setprojects] = useState([{
-        name: "Ebhar",
-        description: "موقع الكترونى لمنصة ابهار لنشر وتوزيع الكتب.",
-        image: Ebhar,
-    },{
-        name: "Somu",
-        description: "موقع الكترونى لشركة سمو للتدريب فى المملكة العربية السعودية.",
-        image: Somu,
-    },{
-        name: "Rawafed",
-        description: "موقع الكترونى لمكتب روافد من اكبر مكاتب الاستقدام في المملكة العربية السعودية.",
-        image: Rawafed,
-    },{
-        name: "Taraf",
-        description: "موقع الكترونى لمكتب ترف الأعمال للاستقدام فى المملكة العربية السعودية.",
-        image: Taraf,
-    },{
-        name: "عبر الشرق للاستقدام",
-        description: "موقع الكترونى لمكتب عبر الشرق أفضل مكتب استقدام عمالة منزلية حاصل على ترخيص من منصة مساند الحكومية لتوفير خدمات استقدام عمالة منزلية بمعايير الجودة العالمية.",
-        image: abr,
-    },{
-        name: "Tameem Law",
-        description: "موقع الكترونى لشركة تميم الحسينــان للمحامـاة والاستشــارات القانونيـة فى المملكة العربية السعودية.",
-        image: Tameem,
-    }]);
+
+    const { isSuccess, isLoading, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 });
     
     const isMDsize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize,isMDsize)} {...projectsSliderSettings} className='projectsSlider'>
-                {/* {WaitItemSkeleton(6)} */}
-                { projects.map((project, inx) => {
-                        return (
-                            <SwiperSlide key={ project.id } className='projectsSlide'>
-                                <ProjectCard image={ project.image } name={ project.name } description={ project.description } aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } }/>
-                            </SwiperSlide>
-                        )
-                    }
-                )}
+            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings } className='projectsSlider'>
+                { isLoading && WaitItemSkeleton(6)}
+                { isSuccess && Object.values(data).map((project, inx) => {
+                    return (
+                        <SwiperSlide key={ project.id } className='projectsSlide'>
+                            <ProjectCard image={ "project.image" } name={ project.title } description={ project.description } aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } } />
+                        </SwiperSlide>
+                    )
+                }
+                ) }
+                { isError && <Typography component={"h1"} variant={"h5"} color='error'>Data Not Found!</Typography>}
             </Swiper>
         </Container>
   )
 }
 
 export function ProjectCard({ image, name, description, aosAnimation }) {
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }
     if (!image && !name) { 
         throw "project name or image unset !"
     }
   return (
-    <Box className='projectCard' {...aosAnimation}>
+    <Box dir={defaultContent.direction} className='projectCard' {...aosAnimation}>
         <Stack direction={"column"} spacing={1}>
             <Stack direction={'row'} className='projectHeader'>
                 <Typography variant='h6' component={'h3'} className='projectTitle'>{name}</Typography>
