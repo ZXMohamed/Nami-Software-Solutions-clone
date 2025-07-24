@@ -4,7 +4,7 @@ import projectsSlice from "./projects";
 const languageSlice = createApi({
     reducerPath: "language",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://192.168.1.100/nami-clone-data-api/",
+        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
     endpoints: (builder) => ({
@@ -13,7 +13,7 @@ const languageSlice = createApi({
         }),
         getLanguage: builder.mutation({
             query: ( language, page ) => ({
-                url: "query/language.php?lang=" + language + "&" + "page=" + page,
+                url: "/query/language.php?lang=" + language + "&" + "page=" + page,
                 method: "GET",
                 credentials: 'include'
             }),

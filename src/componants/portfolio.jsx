@@ -44,7 +44,7 @@ const projectsSliderSettings = {
 
 export function PortfolioSlider() {
 
-    const { isSuccess, isLoading, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 });
+    const { isSuccess, isLoading, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 50 });
     
     const isMDsize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
