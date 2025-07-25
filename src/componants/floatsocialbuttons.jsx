@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box } from '@mui/material'
 import { useGetSocialQuery } from '../redux/server state/social'
 import "../sass/shared/floatsocialbuttons.scss"
+import { Language } from '../languages/languagesContext';
 export default function FloatSocialButtons() {
 
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = {
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }
+    
     const { isSuccess, data: social } = useGetSocialQuery();
   
     return (
         isSuccess && 
-            <Box className="floatSocialButtons">
+            <Box dir={defaultContent.direction} className="floatSocialButtons">
                 <a href={social.facebook.link} target='_blank' className='floatSocialButton'>
                     <img src={social.facebook.icon.fill} alt={"Nami "+social.facebook.title+" account"} loading='lazy' width="16px" height="16px"/>
                 </a>

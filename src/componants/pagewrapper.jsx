@@ -3,7 +3,6 @@ import NavBar from './navbar'
 import { useGetLanguageMutation } from '../redux/server state/language';
 import { Language } from '../languages/languagesContext';
 import FloatSocialButtons from './floatsocialbuttons';
-import RequestQuotationForm from './requestquotationform';
 
 
 export default function PageWrapper({ children }) {
@@ -16,7 +15,6 @@ export default function PageWrapper({ children }) {
         <NavBar />
         {children}
         <FloatSocialButtons />
-        <RequestQuotationForm/>
         {/*footer*/}
       </Language.Provider>
   )

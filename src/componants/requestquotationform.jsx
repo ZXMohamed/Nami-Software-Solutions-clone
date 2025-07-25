@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Box, Button, InputLabel, Stack, TextField } from '@mui/material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Box, Button, InputLabel, Stack, TextField, Alert } from '@mui/material';
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
@@ -9,6 +9,7 @@ import { sitekey } from '../form/recaptcha';
 
 import "../sass/shared/requestform.scss";
 import { Language } from '../languages/languagesContext';
+import { useRequestQuotationMutation } from '../redux/server state/requestquotation';
 
 const schema = zod.object({
     name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
@@ -17,12 +18,17 @@ const schema = zod.object({
     description: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more("name",100) })
 });
 
-export default function RequestQuotationForm() {
+export default function RequestQuotationForm({ closeButton }) {
 
     const { isSuccess: language_isSuccess, data: language }=useContext(Language);
 
     const defaultContent = {
         direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : "en",
+        alert: {
+            success:language_isSuccess ? language.requestQuotation.alert.success:"Request Sent Successfully.",
+            error:language_isSuccess ? language.requestQuotation.alert.error:"Request Failed.",
+        },
         form:{
             title:"",
             inputs:{
@@ -35,9 +41,12 @@ export default function RequestQuotationForm() {
         }
     }
 
-    const [captchaToken, setCaptchaToken] = useState(null);
+    //const [captchaToken, setCaptchaToken] = useState(null);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+    const reCaptcha = useRef();
+    const reCaptchaToken = useRef();
+
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
     const inputsSettings = {
         name: register("name", { required: true}),
@@ -47,28 +56,49 @@ export default function RequestQuotationForm() {
     }
 
     const handleCaptchaChange = (token) => {
-        setCaptchaToken(token);
-        console.log("Captcha token:", token);
+        reCaptchaToken.current = token;
     };
+
+    useEffect(() => {
+        const subscription = watch((value,{ name, type }) => {
+            if (reCaptchaToken.current) {
+                if (name && type) {
+                    reCaptcha.current.reset();
+                    reCaptchaToken.current = undefined;
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    },[]);
+
+    const [requestQuotation, { isSuccess: requestQuotation_isSuccess, isLoading: requestQuotation_isLoading, isError: requestQuotation_isError }] = useRequestQuotationMutation();
 
     const onSubmit = (data) => {
         
-        if (!captchaToken) {
+        if (!reCaptchaToken.current) {
             // alert("Please complete the CAPTCHA.");
-            return;
+            // return;
         } else {
             //$send recaptch to php
-            console.log(data);
-            // Proceed with form submission logic (e.g. send data to backend)
-            console.log("Form submitted with CAPTCHA:", captchaToken);
+            data.reCaptchaToken = reCaptchaToken.current
+            requestQuotation(data);
+            reCaptcha.current.reset();
+            reCaptchaToken.current = undefined;
+            //Proceed with form submission logic (e.g. send data to backend);
+            //console.log("Form submitted with CAPTCHA:", reCaptchaToken.current);
         }
 
     };
 
   return (
-    <Box dir={defaultContent.direction} className='requestForm'>
+      <Box dir={ defaultContent.direction } className='requestForm'>
         <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)}>
-            <button type='button' className='closeForm'>X</button>
+            <button type='button' className='closeForm' onClick={closeButton}>X</button>
+            
+            {(requestQuotation_isSuccess && !requestQuotation_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{defaultContent.alert.success}</Alert>}
+            
+            {(requestQuotation_isError && !requestQuotation_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.alert.error}</Alert>}
+            
             <Box>
                 <InputLabel htmlFor="formName" className='inputTitle'>{defaultContent.form.inputs.name} <span className='requiredSymbol'>*</span></InputLabel>  
                 <TextField type='text' id='formName' color={errors?.name?"error":"primary"} helperText={errors?.name?.message} {...inputsSettings.name}/>
@@ -89,11 +119,13 @@ export default function RequestQuotationForm() {
                 <TextField multiline maxRows={6} minRows={2} id='formDescription' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
-            <ReCAPTCHA sitekey={sitekey} onChange={handleCaptchaChange}/>
+            <ReCAPTCHA ref={reCaptcha} sitekey={sitekey} onChange={handleCaptchaChange} hl={defaultContent.language}/>
           
             <Stack direction={'row'} className='sendButtonContainer'>
                 <Box>
-                    <Button type='submit' variant='contained' disableRipple disabled={isSubmitting} className='send'>{defaultContent.form.submit}</Button>
+                    <Button type='submit' loading={requestQuotation_isLoading} loadingPosition={"center"} variant='contained' disableRipple disabled={isSubmitting} className='send'>
+                        { defaultContent.form.submit }
+                    </Button>
                 </Box>
             </Stack>
         </Stack>

@@ -20,7 +20,7 @@ button.closeForm{
     overflow-y: scroll;
     overflow-x: hidden;
     @extend %scroll;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 1200;
@@ -33,10 +33,22 @@ button.closeForm{
         button.closeForm{
             right: -10px;
         }
+        div.formAlert{
+            div.MuiAlert-icon{
+                margin-left: 0px;
+                margin-right: 12px;
+            }
+        }
     }
     &[dir=rtl]{
         button.closeForm{
             left: -10px;
+        }
+        div.formAlert{
+            div.MuiAlert-icon{
+                margin-right: 0px;
+                margin-left: 12px;
+            }
         }
     }
     
@@ -48,6 +60,7 @@ button.closeForm{
         width: min(500px,100%);
         background-color: $secondColor;
         input,textarea{
+            caret-color: $primaryColor !important;
             padding: 0px 12px;
             height: 46px;
             background-color: $secondColor;
