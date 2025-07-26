@@ -261,6 +261,12 @@ p.careersDescription{
     }
 
     &[dir=ltr]{
+
+        div.MuiAlert-icon{
+            margin-left: 0px;
+            margin-right: 12px;
+        }
+        
         div.MuiInputBase-root{
             div.MuiSelect-select{
                 padding-left: 12px;
@@ -306,6 +312,12 @@ p.careersDescription{
         }
     }
     &[dir=rtl]{
+
+        div.MuiAlert-icon{
+            margin-right: 0px;
+            margin-left: 12px;
+        }
+
         div.MuiInputBase-root{
             div.MuiSelect-select{
                 padding-right: 12px;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,7 +7,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { useGetOpenJobsQuery } from '../redux/server state/openjobs';
+import { useGetOpenJobsQuery, useRequestJobMutation } from '../redux/server state/openjobs';
 import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
 import { Language } from '../languages/languagesContext';
@@ -92,6 +92,7 @@ function FormSection() {
 
     const defaultContent = {
         direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : "en",
         form: {
             title: language_isSuccess ? language.careers.form.title : "Upload your CV",
             inputs: {
@@ -100,15 +101,22 @@ function FormSection() {
                 job: language_isSuccess ? language.careers.form.inputs.job : "select the job",
                 cvFile: language_isSuccess ? language.careers.form.inputs.cvFile : { title: "choose file", noFile: "No file chosen" }
             },
+            alert:{
+                success:language_isSuccess ? language.careers.form.alert.success:"Request Sent Successfully.",
+                error:language_isSuccess ? language.careers.form.alert.error:"Request Failed.",
+            },
             submit: language_isSuccess ? language.careers.form.submit : "Apply now"
         }
     }
 
     const [lastInputChanged, setLastInputChanged] = useState("");
 
-    const [captchaToken, setCaptchaToken] = useState(null);
+    // const [captchaToken, setCaptchaToken] = useState(null);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
+    const reCaptcha = useRef();
+    const reCaptchaToken = useRef();
+
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
 
     const inputsSettings = {
         name: register("name", { required: true, onChange: () => { setLastInputChanged("name"); }}),
@@ -139,28 +147,48 @@ function FormSection() {
         
     };
     
+    const [requestJob,{isSuccess:requestJob_isSuccess,isError:requestJob_isError,isLoading:requestJob_isLoading}] = useRequestJobMutation();
+
     const handleCaptchaChange = (token) => {
-        setCaptchaToken(token);
+        reCaptchaToken.current = token;
         // console.log("Captcha token:", token);
     };
 
+    useEffect(() => {
+        const subscription = watch((value,{ name, type }) => {
+            if (reCaptchaToken.current) {
+                if (name && type) {
+                    reCaptcha.current.reset();
+                    reCaptchaToken.current = undefined;
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, []);
+    
     const onSubmit = (data) => {
-        if (!captchaToken) {
+        if (!reCaptchaToken.current) {
             // alert("Please complete the CAPTCHA.");
             return;
-        } else {
+        } else {console.log("lll");
             //$send recaptch to php
-            console.log(data);
+            data.reCaptchaToken = reCaptchaToken.current
+            requestJob(data);
+            reCaptcha.current.reset();
+            reCaptchaToken.current = undefined;
             // Proceed with form submission logic (e.g. send data to backend)
-            console.log("Form submitted with CAPTCHA:", captchaToken);
+            //console.log("Form submitted with CAPTCHA:", captchaToken);
         }
 
     };
 
     return (
-        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
+        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' enctype="multipart/form-data" onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
             
             <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
+
+            {(requestJob_isSuccess && !requestJob_isLoading) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
+            {(requestJob_isError && !requestJob_isLoading) && <Alert variant="filled" severity="error" color='error'> {defaultContent.form.alert.error} </Alert>}
             
             <TextField variant="outlined" type='text' color={ errors?.name ? "error" : "primary" } className={ errors?.name ? "inputError" : "" } placeholder={defaultContent.form.inputs.name} { ...inputsSettings.name } />
             
@@ -170,9 +198,9 @@ function FormSection() {
 
             <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} noFile={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
             
-            <ReCAPTCHA sitekey={ sitekey } onChange={ handleCaptchaChange } />
+            <ReCAPTCHA ref={reCaptcha} sitekey={ sitekey } onChange={ handleCaptchaChange } hl={ defaultContent.language } />
             
-            <Button variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
+            <Button loading={requestJob_isLoading} loadingPosition='center' variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
             
             <Typography className='formErrorMsg'>{ handleLastErrors(lastInputChanged, errors) }</Typography>
             
@@ -183,10 +211,10 @@ function FormSection() {
 function SelectInput(props) {
     const { data: openJobs, isSuccess: openJobs_isSuccess } = useGetOpenJobsQuery();
 
-    // const [job, setJob] = useState("0");
+    const [job, setJob] = useState("0");
 
     return (
-        <Select variant='outlined' { ...props } defaultValue={ '0' } onChange={ (selectedItem,e) => { props.onChange();  e.target.value = selectedItem; /*setJob(selectedItem.target.value);*/}}>
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={job} onChange={ (e) => { props.onChange(e); setJob(e.target.value);}}>
             <MenuItem value={"0"}>{props.title}</MenuItem>
             {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
         </Select>
