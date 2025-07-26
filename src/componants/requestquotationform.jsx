@@ -25,10 +25,6 @@ export default function RequestQuotationForm({ closeButton }) {
     const defaultContent = {
         direction: language_isSuccess ? language.page.direction : "ltr",
         language: language_isSuccess ? language.page.language : "en",
-        alert: {
-            success:language_isSuccess ? language.requestQuotation.alert.success:"Request Sent Successfully.",
-            error:language_isSuccess ? language.requestQuotation.alert.error:"Request Failed.",
-        },
         form:{
             title:"",
             inputs:{
@@ -36,6 +32,10 @@ export default function RequestQuotationForm({ closeButton }) {
                 email:language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
                 phone:language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
                 description:language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
+            },
+            alert: {
+                success:language_isSuccess ? language.requestQuotation.form.alert.success:"Request Sent Successfully.",
+                error:language_isSuccess ? language.requestQuotation.form.alert.error:"Request Failed.",
             },
             submit:language_isSuccess ? language.requestQuotation.form.submit : "Send"
         }
@@ -95,9 +95,8 @@ export default function RequestQuotationForm({ closeButton }) {
         <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)}>
             <button type='button' className='closeForm' onClick={closeButton}>X</button>
             
-            {(requestQuotation_isSuccess && !requestQuotation_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{defaultContent.alert.success}</Alert>}
-            
-            {(requestQuotation_isError && !requestQuotation_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.alert.error}</Alert>}
+            {(requestQuotation_isSuccess && !requestQuotation_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{defaultContent.form.alert.success}</Alert>}
+            {(requestQuotation_isError && !requestQuotation_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
             
             <Box>
                 <InputLabel htmlFor="formName" className='inputTitle'>{defaultContent.form.inputs.name} <span className='requiredSymbol'>*</span></InputLabel>  
