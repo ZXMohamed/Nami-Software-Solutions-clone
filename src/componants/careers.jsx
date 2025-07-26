@@ -166,13 +166,14 @@ function FormSection() {
         return () => subscription.unsubscribe();
     }, []);
     
-    const onSubmit = (data) => {
+    const onSubmit = (data) => {console.log(data.cvFile);
         if (!reCaptchaToken.current) {
             // alert("Please complete the CAPTCHA.");
             return;
         } else {console.log("lll");
             //$send recaptch to php
             data.reCaptchaToken = reCaptchaToken.current
+            data.cvFile = data.cvFile[0]
             requestJob(data);
             reCaptcha.current.reset();
             reCaptchaToken.current = undefined;
@@ -183,7 +184,7 @@ function FormSection() {
     };
 
     return (
-        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' enctype="multipart/form-data" onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
+        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
             
             <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
 
