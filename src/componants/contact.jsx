@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography, useMediaQuery } from '@mui/material'
+import { Alert, Box, Button, CircularProgress, Container, Grid, Stack, TextField, Typography, useMediaQuery } from '@mui/material'
 
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -16,6 +16,7 @@ import { useGetSocialQuery } from '../redux/server state/social';
 import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
 import { Language } from '../languages/languagesContext';
+import { useContactMutation } from '../redux/server state/contact';
 
 
 export default function Contact() {
@@ -61,6 +62,7 @@ function FormSection() {
 
     const defaultContent = {
         direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : "en",
         form: {
             title:language_isSuccess ? language.contact.form.title : "",
             inputs:{
@@ -70,11 +72,15 @@ function FormSection() {
                 subject:language_isSuccess ? language.contact.form.inputs.subject : "subject",
                 message:language_isSuccess ? language.contact.form.inputs.message : "message"
             },
+            alert: {
+                success:language_isSuccess ? language.contact.form.alert.success:"Request Sent Successfully.",
+                error:language_isSuccess ? language.contact.form.alert.error:"Request Failed.",
+            },
             submit:language_isSuccess ? language.contact.form.submit : "Send"
         }
     }
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
     const inputsSettings = {
         name: register("name", { required: true }),
@@ -84,21 +90,41 @@ function FormSection() {
         message: register("message", { required: true }),
     }
 
-    const [captchaToken, setCaptchaToken] = useState(null);
+    // const [captchaToken, setCaptchaToken] = useState(null);
+    const reCaptcha = useRef();
+    const reCaptchaToken = useRef();
 
     const handleCaptchaChange = (token) => {
-        setCaptchaToken(token);
+        reCaptchaToken.current = token;
         // console.log("Captcha token:", token);
     };
 
+    useEffect(() => {
+        const subscription = watch((value,{ name, type }) => {
+            if (reCaptchaToken.current) {
+                if (name && type) {
+                    reCaptcha.current.reset();
+                    reCaptchaToken.current = undefined;
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, []);
+    
+    const [contact, { isSuccess: contact_isSuccess, isLoading: contact_isLoading, isError: contact_isError }] = useContactMutation();
+
     const onsubmit = (data) => {
-        if (!captchaToken) {
-        // alert("Please complete the CAPTCHA.");
-        
-        } else {console.log(data);
-            
-            // Proceed with form submission logic (e.g. send data to backend)
-            console.log("Form submitted with CAPTCHA:", captchaToken);
+        if (!reCaptchaToken.current) {
+            // alert("Please complete the CAPTCHA.");
+            // return;
+        } else {
+            //$send recaptch to php
+            data.reCaptchaToken = reCaptchaToken.current
+            contact(data);
+            reCaptcha.current.reset();
+            reCaptchaToken.current = undefined;
+            //Proceed with form submission logic (e.g. send data to backend);
+            //console.log("Form submitted with CAPTCHA:", reCaptchaToken.current);
         }
 
     };
@@ -106,6 +132,8 @@ function FormSection() {
     return (
         <Stack dir={defaultContent.direction} component={"form"} direction={"column"} spacing={6} className='contactFormSection' onSubmit={handleSubmit(onsubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">
             
+            {(contact_isSuccess && !contact_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{ defaultContent.form.alert.success }</Alert> }
+
             <Grid container rowSpacing={ 5 } columnSpacing={ 4 }>
                 
                 <Grid size={ { xs: 12, sm: 6 } }><TextField type={ "text" } color='secondary' label={defaultContent.form.inputs.name} variant="standard" helperText={ errors?.name?.message } { ...inputsSettings.name } /></Grid>
@@ -120,11 +148,13 @@ function FormSection() {
             
             </Grid>
             
-            <ReCAPTCHA sitekey={ sitekey } onChange={ handleCaptchaChange } />
+            <ReCAPTCHA ref={reCaptcha} sitekey={ sitekey } onChange={ handleCaptchaChange } hl={ defaultContent.language } />
             
+            {(contact_isError && !contact_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
+
             <Stack direction={ "row" } className='contactFormSubmitContainer'>
                 <Box className="contactFormSubmitBorder">
-                    <Button variant='contained' disableRipple type='submit' disabled={isSubmitting} className='contactFormSubmit'>{defaultContent.form.submit}</Button>
+                    <Button loading={contact_isLoading} loadingPosition='center' variant='contained' disableRipple type='submit' disabled={isSubmitting} className='contactFormSubmit'>{defaultContent.form.submit}</Button>
                 </Box>
             </Stack>
         

@@ -189,6 +189,10 @@ p.homeDescription{
     padding: 40px 40px 20px 40px;
     border-radius: 15px;
     
+    .MuiAlert-root{
+        box-shadow: 0px 0px 10px #00000013;
+    }
+
     .MuiFormLabel-root{
         left: unset !important;
         font-family: "PlexNormal";
@@ -251,6 +255,19 @@ p.homeDescription{
                     color:$secondColor;
                 }
             }
+        }
+    }
+
+    &[dir=ltr]{
+        div.MuiAlert-icon{
+            margin-left: 0px;
+            margin-right: 12px;
+        }
+    }
+    &[dir=rtl]{
+        div.MuiAlert-icon{
+            margin-right: 0px;
+            margin-left: 12px;
         }
     }
 
