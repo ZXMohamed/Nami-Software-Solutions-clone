@@ -7,19 +7,18 @@
     @include center("flex");
     flex-direction: column;
     &::after{
-        position: absolute;
         top: 0px;
         right: 0px;
         box-shadow: -100px 100px 15vw 20vw $primary3-2Transparent;
     }
     &::before{
-        position: absolute;
         left: 0px;
         bottom: 0px;
         box-shadow: 100px 0px 15vw 22vw $primary3-2Transparent;
     }
     &::after,&::before{
         content: "";
+        position: absolute;
         display: block;
         width: 0px;
     }
@@ -69,6 +68,7 @@ p.homeDescription{
         background: linear-gradient(180deg, $primaryTransparent 0%,transparent 100%);
         width: 1px;
         @include center("X-flex");
+        
         &::after{
             content: "";
             flex-shrink: 0;
@@ -91,7 +91,9 @@ p.homeDescription{
     @include center("flex");
     flex-wrap: wrap;
     row-gap: 25px;
-    .MuiButton-root{
+
+    .homeButton.MuiButton-root,
+    .homeRequestButton.MuiButton-root{
         font-family: "PlexNormal";
         font-weight: bold;
         font-size: 16px;
@@ -112,12 +114,13 @@ p.homeDescription{
     box-shadow: none;
     line-height: 0;
     @extend %transition;
+
     &:hover{
         color: $secondColor;
         background-color: $primaryColor;
     }
     &::before{
-    content: "";
+        content: "";
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;

@@ -28,29 +28,7 @@ button.closeForm{
     height: 100%;
     background-color: #000000af;
     @include center("flex");
-
-    &[dir=ltr]{
-        button.closeForm{
-            right: -10px;
-        }
-        div.formAlert{
-            div.MuiAlert-icon{
-                margin-left: 0px;
-                margin-right: 12px;
-            }
-        }
-    }
-    &[dir=rtl]{
-        button.closeForm{
-            left: -10px;
-        }
-        div.formAlert{
-            div.MuiAlert-icon{
-                margin-right: 0px;
-                margin-left: 12px;
-            }
-        }
-    }
+    @extend %direction;
     
     form{
         margin: 10px;
@@ -59,6 +37,7 @@ button.closeForm{
         padding: 8px 24px 24px 24px;
         width: min(500px,100%);
         background-color: $secondColor;
+        
         input,textarea{
             caret-color: $primaryColor !important;
             padding: 0px 12px;
@@ -83,9 +62,7 @@ button.closeForm{
             font-family: "PlexNormal";
         }
         .MuiInput-root {
-            &:before {
-                border-bottom: 1px solid $secondColor;
-            }
+            &:before,
             &:hover:not(.Mui-disabled):before {
                 border-bottom: 1px solid $secondColor;
             }
@@ -93,7 +70,7 @@ button.closeForm{
         .MuiFormHelperText-root{
             font-size: 16px;
             font-family: "PlexNormal";
-            margin-left: 0;
+            // margin-left: 0;
             margin-bottom: 5px;
             color: #000000;
         }
@@ -122,6 +99,7 @@ label.inputTitle
 
 .sendButtonContainer{
     justify-content: center;
+
     div{
         margin-top: 10px;
         @include center("flex");
@@ -129,6 +107,7 @@ label.inputTitle
         height: 53px;
         @extend %wideHexagon;
         @extend %animatedBG;
+
         button{
             color: #000000;
             width: 97%;
@@ -145,5 +124,43 @@ label.inputTitle
                 color:$secondColor;
             }
         }
+    }
+}
+
+
+%direction{
+    &[dir=ltr]{
+        button.closeForm{
+            right: -10px;
+        }
+        div.formAlert{
+            div.MuiAlert-icon{
+                margin-left: 0px;
+                margin-right: 12px;
+            }
+        }
+        form{
+            .MuiFormHelperText-root{
+                text-align: left;
+            }
+        }
+        
+    }
+    &[dir=rtl]{
+        button.closeForm{
+            left: -10px;
+        }
+        div.formAlert{
+            div.MuiAlert-icon{
+                margin-right: 0px;
+                margin-left: 12px;
+            }
+        }
+        form{
+            .MuiFormHelperText-root{
+                text-align: right;
+            }
+        }
+        
     }
 }

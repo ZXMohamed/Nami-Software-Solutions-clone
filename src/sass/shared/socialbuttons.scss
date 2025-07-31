@@ -2,12 +2,14 @@
 
 .socialButtons {
     margin-top: 25px;
+    
     a.SocialButton{
         @include center("flex");
         width: 40px;
         height: 40px;
         @extend %transition;
         @include socialButtonsStyle("sty1");
+
         &:hover{
             background-color: $primaryColor;
             margin-top: -5px;

@@ -9,6 +9,55 @@
     width: 120px;
     // border-radius: 10px 50% 50% 10px;
     @include center("Y-flex");
+    @extend %direction;
+}
+
+a.floatSocialButton{
+    box-shadow: 1px 3px 5px #00000023;
+    height: 40px;
+    width: 40px;
+    @include socialButtonsStyle("sty2");
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    opacity: 0%;
+    @extend %transition;
+    @include center("flex");
+
+    img{
+        width: 16px;
+    }
+}
+@for $i from 1 through 5{
+    a.floatSocialButton:nth-child(#{$i}){
+        transition-delay:#{($i / 10)}s;
+    }
+}
+
+div.openFloatSocialButtons{
+    z-index: 100;
+    @extend %animatedBG;
+    height: 44px;
+    width: 44px;
+    // border-radius: 0px 50% 50% 0px;
+    @include center("Y-flex");
+    // justify-content: flex-end;
+    padding-right: 10px;
+    // box-shadow: 1px 3px 10px #00000023;
+    &::before{
+        content: "";
+        background-image: url($floatSocialButtonsIcon);
+        background-repeat: no-repeat;
+        background-size: 24px;
+        filter: brightness(0) invert(1);
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+%direction{
     &[dir = ltr]{
         left: 0px;
         border-radius: 10px 50% 50% 10px;
@@ -76,50 +125,5 @@
             justify-content: flex-start;
             box-shadow: -1px 3px 10px #00000023;
         }
-    }
-}
-
-a.floatSocialButton{
-    box-shadow: 1px 3px 5px #00000023;
-    height: 40px;
-    width: 40px;
-    @include socialButtonsStyle("sty2");
-    position: absolute;
-    top: 50%;
-    left: 0px;
-    right: 0px;
-    opacity: 0%;
-    @extend %transition;
-    @include center("flex");
-
-    img{
-        width: 16px;
-    }
-}
-@for $i from 1 through 5{
-    a.floatSocialButton:nth-child(#{$i}){
-        transition-delay:#{($i / 10)}s;
-    }
-}
-
-div.openFloatSocialButtons{
-    z-index: 100;
-    @extend %animatedBG;
-    height: 44px;
-    width: 44px;
-    // border-radius: 0px 50% 50% 0px;
-    @include center("Y-flex");
-    // justify-content: flex-end;
-    padding-right: 10px;
-    // box-shadow: 1px 3px 10px #00000023;
-    &::before{
-        content: "";
-        background-image: url($floatSocialButtonsIcon);
-        background-repeat: no-repeat;
-        background-size: 24px;
-        filter: brightness(0) invert(1);
-        display: block;
-        width: 24px;
-        height: 24px;
     }
 }

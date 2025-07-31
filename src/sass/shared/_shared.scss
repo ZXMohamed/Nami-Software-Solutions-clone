@@ -1,22 +1,30 @@
-$siteBackground: "../../assets/photo/global/background.png";
-$portfolioIcon:"../../assets/photo/home/portofolio.svg";
-$projectsIcon:"../../assets/photo/home/products.svg";
-$floatSocialButtonsIcon:"../../assets/photo/global/social.svg";
-$showAllArrow:"../../assets/photo/sectionheader/show all arrow.svg";
+$assets: "../../assets/photo";
+
+$siteBackground: "#{$assets}/global/background.png";
+$portfolioIcon: "#{$assets}/home/portofolio.svg";
+$projectsIcon: "#{$assets}/home/products.svg";
+$floatSocialButtonsIcon: "#{$assets}/global/social.svg";
+$showAllArrow: "#{$assets}/sectionheader/show all arrow.svg";
 
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
 $primary3Color: #11b14e;
-$primaryTransparent: #009f6f31;
-$primary1-2Transparent:#009f6f0d;
-$primary2Transparent: #38c68441;
-$primary3Transparent: #11b04e13;
-$primary3-2Transparent: #11b04e2c;
+
+$primaryTransparent: rgba($primaryColor, 0.19);
+$primary1-2Transparent: rgba($primaryColor, 0.05);
+$primary2Transparent: rgba($primary2Color, 0.25);
+$primary3Transparent: rgba($primary3Color, 0.07);
+$primary3-2Transparent: rgba($primary3Color, 0.17);
+
 $secondColor:#ffffff;
-$secondTransparent:#ffffff30;
-$second1-2Transparent:#ffffff0e;
+
+$secondTransparent: rgba($secondColor, 0.19);
+$second1-2Transparent: rgba($secondColor, 0.05);
+
 $thirdColor : #e1e1e1;
+
 $secondTextColor:#777;
+
 $scrollColor:#CACACA;
 
 $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);

@@ -1,21 +1,70 @@
-import React from 'react'
-import NavBar from './navbar'
+//*react
+import React, { useEffect } from 'react'
+//*mui
+import { Alert, AlertTitle, CircularProgress, LinearProgress, Snackbar } from '@mui/material';
+//*queries
 import { useGetLanguageMutation } from '../redux/server state/language';
-import { Language } from '../languages/languagesContext';
+//*component
+import NavBar from './navbar/navbar';
 import FloatSocialButtons from './floatsocialbuttons';
+//*scripts
+import { defaultLanguage, Language } from '../languages/languagesContext';
 
 
 export default function PageWrapper({ children }) {
-    
-    const [getLanguage, status] = useGetLanguageMutation();
-    
+  
+  const [getLanguage, languageStatus] = useGetLanguageMutation();
 
-    return (
-      <Language.Provider value={{getLanguage,...status}}>
-        <NavBar />
-        {children}
-        <FloatSocialButtons />
-        {/*footer*/}
-      </Language.Provider>
+  function languageRequest(language) {
+    //$get page from url
+    if (language) {
+      getLanguage(language, "main");
+    } else {
+      //$get language from url
+      // if (url_language != defaultLanguage) {
+      //   getLanguage(language, "main");
+      // }
+    }
+  }
+
+  // useEffect(() => {
+  //   languageRequest();
+  // },[])
+  
+  return (<>
+    <Language.Provider value={{languageRequest,...languageStatus}}>
+      <NavBar />
+      {children}
+      <FloatSocialButtons />
+      {/*footer*/}
+    </Language.Provider>
+
+    <Snackbar open={languageStatus.isError } autoHideDuration={5000}>
+      <Alert color='error' variant='filled' severity="error">
+        <AlertTitle><b>Error</b></AlertTitle>
+        Can't Load Language So Please Try Again <br />
+        Or Check Internet Connection.
+      </Alert>
+    </Snackbar>
+    <Snackbar open={languageStatus.isLoading } autoHideDuration={5000}>
+      <Alert color='primary' variant='filled' severity="info">
+        <AlertTitle>
+          <b>Change language </b> 
+          <LinearProgress color='primary' ></LinearProgress>
+        </AlertTitle>
+        Can't Load Language So Please Try Again <br />
+        Or Check Internet Connection.
+      </Alert>
+    </Snackbar>
+    <Snackbar open={languageStatus.isSuccess } autoHideDuration={2000}>
+      <Alert color='primary' variant='filled' severity="success">
+        <AlertTitle>
+          <b>Language changed</b> 
+        </AlertTitle>
+        Can't Load Language So Please Try Again <br />
+        Or Check Internet Connection.
+      </Alert>
+    </Snackbar>
+  </>
   )
 }

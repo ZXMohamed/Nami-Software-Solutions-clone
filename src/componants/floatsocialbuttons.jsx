@@ -1,37 +1,47 @@
-import React, { useContext } from 'react'
+//*react
+import React, { memo, useContext, useMemo } from 'react'
+//*mui
 import { Box } from '@mui/material'
-import { useGetSocialQuery } from '../redux/server state/social'
+//*styles
 import "../sass/shared/floatsocialbuttons.scss"
+//*query
+import { useGetSocialQuery } from '../redux/server state/social'
+//*scripts
 import { Language } from '../languages/languagesContext';
-export default function FloatSocialButtons() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+function FloatSocialButtons() {
 
-    const defaultContent = {
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }
-    
-    const { isSuccess, data: social } = useGetSocialQuery();
-  
-    return (
-        isSuccess && 
-            <Box dir={defaultContent.direction} className="floatSocialButtons">
-                <a href={social.facebook.link} target='_blank' className='floatSocialButton'>
-                    <img src={social.facebook.icon.fill} alt={"Nami "+social.facebook.title+" account"} loading='lazy' width="16px" height="16px"/>
-                </a>
-                <a href={social.linkedin.link} target='_blank' className='floatSocialButton'>
-                    <img src={social.linkedin.icon.fill} alt={"Nami "+social.linkedin.title+" account"} loading='lazy' width="16px" height="16px"/>
-                </a>
-                <a href={social.x.link} target='_blank' className='floatSocialButton'>
-                    <img src={social.x.icon.fill} alt={"Nami "+social.x.title+" account"} loading='lazy' width="16px" height="16px"/>
-                </a>
-                <a href={social.instagram.link} target='_blank' className='floatSocialButton'>
-                    <img src={social.instagram.icon.fill} alt={"Nami "+social.instagram.title+" account"} loading='lazy' width="16px" height="16px"/>
-                </a>
-                <a href={social.snapchat.link} target='_blank'  className='floatSocialButton'>
-                    <img src={social.snapchat.icon.fill} alt={"Nami "+social.snapchat.title+" account"} loading='lazy' width="16px" height="16px"/>
-                </a>
-                <div className='openFloatSocialButtons'></div>
-            </Box>
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = useMemo(() => ({
+    direction: language_isSuccess ? language.page.direction : "ltr",
+  }), [language, language_isSuccess]);
+
+  const { isSuccess: social_isSuccess, data: social } = useGetSocialQuery(undefined, {
+    selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+  });
+
+  return (
+    social_isSuccess &&
+    <Box dir={ defaultContent.direction } className="floatSocialButtons">
+      <FloatSocialButton link={ social.facebook.link } icon={ social.facebook.icon.fill } title={ social.facebook.title } />
+      <FloatSocialButton link={ social.linkedin.link } icon={ social.linkedin.icon.fill } title={ social.linkedin.title } />
+      <FloatSocialButton link={ social.x.link } icon={ social.x.icon.fill } title={ social.x.title } />
+      <FloatSocialButton link={ social.instagram.link } icon={ social.instagram.icon.fill } title={ social.instagram.title } />
+      <FloatSocialButton link={ social.snapchat.link } icon={ social.snapchat.icon.fill } title={ social.snapchat.title } />
+      <div className='openFloatSocialButtons'></div>
+    </Box>
   )
-}
+
+};
+
+export default FloatSocialButtons;
+
+const FloatSocialButton = memo(({ link, icon, title }) => {
+  if (!link && !icon) return <></>;
+  return (
+    <a href={ link } target='_blank' className='floatSocialButton'>
+      <img src={ icon } width="16px" height="16px" alt={ "Nami " + title + " account" } loading='lazy' />
+    </a>
+  )
+});

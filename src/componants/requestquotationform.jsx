@@ -1,63 +1,56 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+//*react
+import React, { useContext, useEffect, useMemo, useRef } from 'react';
+//*mui
 import { Box, Button, InputLabel, Stack, TextField, Alert } from '@mui/material';
+//*styles
+import "../sass/shared/requestform.scss";
+//*scripts
+import { Language } from '../languages/languagesContext';
+//*queries
+import { useRequestQuotationMutation } from '../redux/server state/requestquotation';
+//*form
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
+import { pattern, initZodMsgs } from '../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
-import { pattern, zodMsgs } from '../form/assets';
 import { sitekey } from '../form/recaptcha';
 
-import "../sass/shared/requestform.scss";
-import { Language } from '../languages/languagesContext';
-import { useRequestQuotationMutation } from '../redux/server state/requestquotation';
-
-const schema = zod.object({
-    name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
-    phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
-    email: zod.string().nonempty(zodMsgs.required).email(zodMsgs.valid("email")),
-    description: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more("name",100) })
-});
-
 export default function RequestQuotationForm({ closeButton }) {
+    
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
-
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         language: language_isSuccess ? language.page.language : "en",
-        form:{
-            title:"",
-            inputs:{
-                name:language_isSuccess ? language.requestQuotation.form.inputs.name: "Name",
-                email:language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
-                phone:language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
-                description:language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
+        form: {
+            title: "",
+            inputs: {
+                name: language_isSuccess ? language.requestQuotation.form.inputs.name : "Name",
+                email: language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
+                phone: language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
+                description: language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
             },
             alert: {
-                success:language_isSuccess ? language.requestQuotation.form.alert.success:"Request Sent Successfully.",
-                error:language_isSuccess ? language.requestQuotation.form.alert.error:"Request Failed.",
+                success: language_isSuccess ? language.requestQuotation.form.alert.success : "Request Sent Successfully.",
+                error: language_isSuccess ? language.requestQuotation.form.alert.error : "Request Failed.",
+                reCaptcha: language_isSuccess ? language.requestQuotation.form.alert.reCaptcha : "Please verify that you're not a robot."
             },
-            submit:language_isSuccess ? language.requestQuotation.form.submit : "Send"
+            submit: language_isSuccess ? language.requestQuotation.form.submit : "Send"
         }
-    }
-
-    //const [captchaToken, setCaptchaToken] = useState(null);
+    }), [language, language_isSuccess]);
 
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();
 
-    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+    const schema = useMemo(() => {
+        const zodMsgs = initZodMsgs(language);
+        return createZodObject(defaultContent, zodMsgs, pattern);
+    }, [language, language_isSuccess]);
 
-    const inputsSettings = {
-        name: register("name", { required: true}),
-        phone: register("phone", { required: true}),
-        email: register("email", { required: true}),
-        description: register("description", { required: true}),
-    }
-
-    const handleCaptchaChange = (token) => {
-        reCaptchaToken.current = token;
-    };
+    const { register, handleSubmit, watch, setError, clearErrors, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+    
+    const inputsSettings = useMemo(() => createInputsSettings(register), []);
 
     useEffect(() => {
         const subscription = watch((value,{ name, type }) => {
@@ -76,16 +69,17 @@ export default function RequestQuotationForm({ closeButton }) {
     const onSubmit = (data) => {
         
         if (!reCaptchaToken.current) {
-            // alert("Please complete the CAPTCHA.");
-            // return;
+            setError("recaptcha", {
+                type: "manual",
+                message: defaultContent.form.alert.reCaptcha
+            });
         } else {
+            clearErrors("recaptcha");
             //$send recaptch to php
             data.reCaptchaToken = reCaptchaToken.current
             requestQuotation(data);
             reCaptcha.current.reset();
             reCaptchaToken.current = undefined;
-            //Proceed with form submission logic (e.g. send data to backend);
-            //console.log("Form submitted with CAPTCHA:", reCaptchaToken.current);
         }
 
     };
@@ -95,8 +89,9 @@ export default function RequestQuotationForm({ closeButton }) {
         <Stack component={"form"} direction="column" spacing={2} onSubmit={handleSubmit(onSubmit)}>
             <button type='button' className='closeForm' onClick={closeButton}>X</button>
             
-            {(requestQuotation_isSuccess && !requestQuotation_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{defaultContent.form.alert.success}</Alert>}
-            {(requestQuotation_isError && !requestQuotation_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
+            {(requestQuotation_isSuccess && !requestQuotation_isLoading && !errors?.recaptcha) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{defaultContent.form.alert.success}</Alert>}
+            {(requestQuotation_isError && !requestQuotation_isLoading && !errors?.recaptcha) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
+            {errors?.recaptcha && <Alert variant="filled" color='warning' severity="warning" className='formAlert'>{errors.recaptcha.message}</Alert>}
             
             <Box>
                 <InputLabel htmlFor="formName" className='inputTitle'>{defaultContent.form.inputs.name} <span className='requiredSymbol'>*</span></InputLabel>  
@@ -118,7 +113,7 @@ export default function RequestQuotationForm({ closeButton }) {
                 <TextField multiline maxRows={6} minRows={2} id='formDescription' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
-            <ReCAPTCHA ref={reCaptcha} sitekey={sitekey} onChange={handleCaptchaChange} hl={defaultContent.language}/>
+            <ReCAPTCHA ref={reCaptcha} sitekey={sitekey} onChange={(token) => { reCaptchaToken.current = token; }} hl={defaultContent.language}/>
           
             <Stack direction={'row'} className='sendButtonContainer'>
                 <Box>
@@ -130,4 +125,23 @@ export default function RequestQuotationForm({ closeButton }) {
         </Stack>
     </Box>
   )
+}
+
+
+function createZodObject(defaultContent,zodMsgs,pattern) {
+    return zod.object({
+        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less(defaultContent.form.inputs.name,3) }).max(100, { message: zodMsgs.length.more(defaultContent.form.inputs.name,100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid(defaultContent.form.inputs.name) }),
+        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid(defaultContent.form.inputs.phone) }),
+        email: zod.string().nonempty(zodMsgs.required).email(zodMsgs.valid(defaultContent.form.inputs.email)),
+        description: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more(defaultContent.form.inputs.description,500) })
+    });
+}
+
+function createInputsSettings(register) { 
+    return {
+        name: register("name", { required: true }),
+        phone: register("phone", { required: true }),
+        email: register("email", { required: true }),
+        description: register("description", { required: true }),
+    }
 }
