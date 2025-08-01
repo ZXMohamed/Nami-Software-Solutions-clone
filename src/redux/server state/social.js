@@ -3,7 +3,7 @@ import { createApi,fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const socialSlice = createApi({
     reducerPath: "social",
     baseQuery: fetchBaseQuery({
-        baseUrl:"http://localhost/nami-clone-data-api/"
+        baseUrl:"https://192.168.1.100:443/nami-clone-data-api/"
     }),
     endpoints: (builder) => ({
         getSocial: builder.query({
