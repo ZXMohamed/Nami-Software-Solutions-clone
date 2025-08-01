@@ -257,7 +257,7 @@ h3.itemTitle{
 }
 p.itemDescription{
     font-family: 'PlexNormal';
-    height: 68px;
+    height: 70px;
     overflow: hidden;
     @include textOverFlow(3);
     @media screen and (max-width:768px) {

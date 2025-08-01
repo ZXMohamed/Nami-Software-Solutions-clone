@@ -1,27 +1,58 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+//*react
+import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
+//*mui
 import { Box, Grid, Stack, Typography, Container, Button, Skeleton } from '@mui/material';
+//*gsap
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+//*queries
+import { useGetServicesQuery } from '../redux/server state/services';
+//*scripts
 import { Language } from '../languages/languagesContext';
 
-import { useGetServicesQuery } from '../redux/server state/services';
-
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]:"600" 
+}
+const servicesTitleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"50"
+}
+const servicesSubtitleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"100"
+}
+const servicesDescriptionAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"150"
+}
+const serviceCardAosAnimation = (order) => ({
+    ...aosAnimation,
+    ["data-aos-delay"]:(order*100).toString()
+})
 
 export default function Services() {
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
-        title : language_isSuccess ? language.services.title : "Our Services",
-        subtitle : language_isSuccess ? language.services.subtitle : "Where quality meets innovation",
+        language: language_isSuccess ? language.page.language : "en",
+        title: language_isSuccess ? language.services.title : "Our Services",
+        subtitle: language_isSuccess ? language.services.subtitle : "Where quality meets innovation",
         description: language_isSuccess ? language.services.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
-    }
+    }), [language, language_isSuccess]);
 
-    const { isLoading: servicesItems_isLoading, isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery();
-console.log(servicesItems_isLoading,"kkkkkkkkkkkkkkkkkkkko");
+    const { isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
+    });
+//!
+    const servicesItemsGrid = useMemo(() => {
+        return (servicesItems, cellInRow) => Object.values(servicesItems).map((service, inx) => {
+            return <ServiceCard key={ inx } data={ service } size={ 12 / cellInRow } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
+        });
+    }, [servicesItems, servicesItems_isSuccess]);
+    
     const description = useRef();
 
     useEffect(() => {
@@ -30,24 +61,19 @@ console.log(servicesItems_isLoading,"kkkkkkkkkkkkkkkkkkkko");
         })
     }, []);
 
-
-    function servicesItemsShow(cellInRow) { 
-        return Object.values(servicesItems).map((service, inx) => <ServiceCard key={inx} data={ service } size={ 12 / cellInRow } aosAnimation={{ "data-aos":"fade-up", "data-aos-duration":"600", "data-aos-delay":((inx+1)*100).toString()}} />);
-    }
-
   return (
     <Box dir={defaultContent.direction} className="servicesSection">
-        <Container disableGutters="false">
+        <Container disableGutters>
             <Stack direction={'column'} spacing={2} className='servicesHeader'>
-                <Typography variant='h5' component='h1' className='servicesTitle'  data-aos="fade-up" data-aos-duration="600" data-aos-delay="50"><i>{defaultContent.title}</i></Typography>
-                <Typography variant='h4' component='h2' className='servicesSubtitle' data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">{defaultContent.subtitle}</Typography>
-                <Typography ref={description} className='servicesDescription' data-aos="fade-up" data-aos-duration="600" data-aos-delay="150">{defaultContent.description}</Typography>
+                <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
+                <Typography variant='h4' component='h2' className='servicesSubtitle' {...servicesSubtitleAosAnimation}>{defaultContent.subtitle}</Typography>
+                <Typography ref={description} className='servicesDescription' {...servicesDescriptionAosAnimation}>{defaultContent.description}</Typography>
             </Stack>
             <br/>
             <br/>
             <Grid container spacing={ 3 } className='servicesItems'>
-                { servicesItems_isLoading && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
-                { servicesItems_isSuccess && servicesItemsShow(3) }
+                { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
+                { servicesItems_isSuccess && servicesItemsGrid(servicesItems, 3) }
                 { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
             </Grid>
         </Container>
@@ -55,22 +81,23 @@ console.log(servicesItems_isLoading,"kkkkkkkkkkkkkkkkkkkko");
   )
 }
 
-function ServiceCard({ data, size, aosAnimation }) { 
+const ServiceCard = memo(({ data, size, aosAnimation }) => {
+// console.log("kkkx");
+
+    if (!data) {
+        return [];
+    }
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
-        buttons:{
-            readMore : language_isSuccess ? language.services.buttons.readMore : "Read more",
+        buttons: {
+            readMore: language_isSuccess ? language.services.buttons.readMore : "Read more",
         }
-    }
+    }), [language, language_isSuccess]);
 
     const itemObjectives = useRef();
-
-    if (!data) { 
-        throw "Service item data unset !"
-    }
 
     useEffect(() => {
         showObjectivesOnHover(itemObjectives);
@@ -78,23 +105,32 @@ function ServiceCard({ data, size, aosAnimation }) {
 
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
-            <Stack direction={ 'column' } spacing={ 1 } dir={defaultContent.direction} className='itemFace'>
+            
+            <Stack dir={ defaultContent.direction } direction={ 'column' } spacing={ 1 } className='itemFace'>
+            
                 <Stack direction={ 'row' } className='itemHeader'>
-                    <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='itemIcon'/>
+                    <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='itemIcon' />
                     <div className='itemArrow'></div>
                 </Stack>
+            
                 <Typography variant='h5' component={ 'h3' } className='itemTitle'>{ data.title }</Typography>
                 <Typography className='itemDescription'>{ data.description }</Typography>
+            
             </Stack>
-            <Stack direction={ 'column' } dir={defaultContent.direction} className='itemBack'>
+            
+            <Stack dir={ defaultContent.direction } direction={ 'column' } className='itemBack'>
+            
                 <ul ref={ itemObjectives } className='itemObjectives'>
-                    { data.objectives.map((val, inx) => <li key={ inx }>{ val }</li>) }
+                    { data.objectives.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
                 </ul>
-                <Button variant='contained' disableRipple={ true } className='itemReadMore'>{ defaultContent.buttons.readMore }</Button>
+            
+                <Button variant='contained' disableRipple className='itemReadMore'>{ defaultContent.buttons.readMore }</Button>
+            
             </Stack>
+        
         </Grid>
     )
-}
+});
 
 function WaitItemsSkelton({ cellInRow, num }) { 
     const skeltonArray = [];

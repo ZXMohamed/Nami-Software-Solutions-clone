@@ -4,7 +4,7 @@ import servicesSlice from "./services";
 const languageSlice = createApi({
     reducerPath: "language",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost/nami-clone-data-api/",
+        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
     endpoints: (builder) => ({
@@ -13,7 +13,6 @@ const languageSlice = createApi({
         }),
         getLanguage: builder.mutation({
             query: (language, page) => {
-                console.log(language,page,"fffff"); 
                 return({
                     url: "query/language.php?lang=" + language + "&" + "page=" + page,
                     method: "GET",
