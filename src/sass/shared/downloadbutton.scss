@@ -8,6 +8,7 @@
     @extend %animatedBG;
     @extend %transition;
     @extend %removeAdditionalLinkStyle;
+    @extend %direction;
     @include center("flex");
     padding: 0px;
     
@@ -25,26 +26,6 @@ div.downloadButtonContent{
     &:hover{
         background-color: transparent;
     }
-    &[dir=ltr]{
-        padding-right: 15px;
-        &:hover>span.downloadButtonTitle{
-            color: $secondColor;
-            left: -35px;
-        }
-        &:hover>div.arrowIconContainer{
-            left: 87%;
-        }
-    }
-    &[dir=rtl]{
-        padding-left: 15px;
-        &:hover>span.downloadButtonTitle{
-            color: $secondColor;
-            right: -35px;
-        }
-        &:hover>div.arrowIconContainer{
-            right: 83%;
-        }
-    }
 }
 div.arrowIconContainer{
     position: relative;
@@ -58,13 +39,6 @@ div.arrowIconContainer{
     font-weight: 900;
     transition: 0.3s;
     z-index: 2;
-
-    &[dir=ltr]{
-        margin-right: 8px;
-    }
-    &[dir=rtl]{
-        margin-left: 8px;
-    }
 }
 span.downloadButtonTitle
 {
@@ -76,4 +50,37 @@ span.downloadButtonTitle
     color: #000;
     text-transform: capitalize;
     font-family: "PlexNormal";
+}
+
+%direction{
+    &[dir=ltr]{
+        >div.downloadButtonContent{
+            padding-right: 15px;
+            &:hover>span.downloadButtonTitle{
+                color: $secondColor;
+                left: -35px;
+            }
+            >div.arrowIconContainer{
+                margin-right: 8px;
+            }
+            &:hover>div.arrowIconContainer{
+                left: 87%;
+            }
+        }
+    }
+    &[dir=rtl]{
+        >div.downloadButtonContent{
+            padding-left: 15px;
+            &:hover>span.downloadButtonTitle{
+                color: $secondColor;
+                right: -35px;
+            }
+            >div.arrowIconContainer{
+                margin-left: 8px;
+            }
+            &:hover>div.arrowIconContainer{
+                right: 81%;
+            }
+        }
+    }
 }

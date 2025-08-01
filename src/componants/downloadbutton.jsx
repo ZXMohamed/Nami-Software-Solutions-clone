@@ -1,15 +1,24 @@
-import React from 'react'
+//*react
+import React, { memo } from 'react'
+//*mui
 import { IconButton } from '@mui/material';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
-
+//*styles
 import "../sass/shared/downloadbutton.scss"
 
-export default function DownloadButton({link,title,direction}) {
+const aosAnimation = {
+  ["data-aos"]: "fade-up",
+  ["data-aos-duration"]: "600",
+  ["data-aos-delay"]:"0"
+}
+
+const DownloadButton = memo(({ link, title, direction })=> {
+
   return (
-    <a href={link} target='_blank' dir={direction} className={'downloadButton'} data-aos="fade-up" data-aos-duration="600" data-aos-delay="0">
-      <div dir={direction} className={"downloadButtonContent"}>
-        <IconButton component="div" disableRipple="false" dir={direction} className='arrowIconContainer'>
+    <a dir={ direction } href={ link } target='_blank' className={ 'downloadButton' } {...aosAnimation}>
+      <div dir={ direction } className={ "downloadButtonContent" }>
+        <IconButton component="div" dir={ direction } disableRipple="false" className='arrowIconContainer'>
           { direction == "ltr" ?
             <SubdirectoryArrowRightIcon fontSize="medium" /> :
             <SubdirectoryArrowLeftIcon fontSize="medium" />
@@ -19,4 +28,6 @@ export default function DownloadButton({link,title,direction}) {
       </div>
     </a>
   )
-}
+});
+
+export default DownloadButton;

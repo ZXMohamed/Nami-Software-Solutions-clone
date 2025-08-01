@@ -1,9 +1,9 @@
 @use "_shared.scss" as *;
 
-//*contact btns*/
+//*contact buttons*/
 .contactButtons{
     position: fixed;
-    right: 25px;
+    @extend %direction;
     bottom: 25px;
     z-index: 1100;
     border-radius: 100px;
@@ -19,4 +19,13 @@ a.contactButton{
 }
 img.contactIcon{
     width:85%;
+}
+
+%direction{
+    &[dir=ltr]{
+        right: 25px; 
+    }
+    &[dir=rtl]{
+        left: 25px;
+    }
 }

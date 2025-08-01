@@ -156,16 +156,17 @@ p.homeDescription{
         background-image:url($projectsIcon);
     }
 }
+
 //*about*/
 .aboutSection{
     padding-top: 40px;
 }
-.movingImgSide{
+.aboutMovingImgSide{
     display: flex;
     justify-content: flex-end;
     padding-left: 8px;
 }
-div.sideImgContainer {
+div.aboutSideImgContainer {
     border-radius: 40px;
     border-bottom: 10px solid $primaryColor;
     position: relative;
@@ -173,7 +174,7 @@ div.sideImgContainer {
     width: 644px;
     height: 648px;
 
-    img.movingImg {
+    img.aboutMovingImg {
         position: absolute;
         right: -100px;
         height: 130%;
@@ -209,14 +210,10 @@ div.sideImgContainer {
 
     }
 }
-.infoSide{
+.aboutInfoSide{
     padding:55px;
     padding-right: 52px;
     display: flex;
-
-    // align-items: flex-start;
-    // justify-content: flex-start;
-
     flex-direction: column;
     row-gap: 15px;
     font-family: "PlexNormal";
@@ -251,17 +248,8 @@ p.aboutDescription{
     padding-left: 45px;
     padding-right: 45px;
     margin-top: 30px;
+    @extend %direction;
 
-    &[dir=ltr]{
-        span.establishmentTitle{
-            right: -52px;
-        }
-    }
-    &[dir=rtl]{
-        span.establishmentTitle{
-            left: -10px;
-        }
-    }
 }
 span.establishmentTitle{
     text-transform: uppercase;
@@ -284,4 +272,17 @@ h3.establishmentDate{
     -webkit-text-stroke: 1px;
     -webkit-text-stroke-color: $secondTextColor;
     filter: opacity(70%);
+}
+
+%direction{
+    &[dir=ltr]{
+        span.establishmentTitle{
+            right: -52px;
+        }
+    }
+    &[dir=rtl]{
+        span.establishmentTitle{
+            left: -10px;
+        }
+    }
 }
