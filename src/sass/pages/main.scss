@@ -211,11 +211,11 @@ p.servicesDescription{
         position: relative;
     }
 }
-div.itemFace{
+div.serviceItemFace{
     overflow: hidden;
     &[dir=rtl]{
-        div.itemHeader{
-            div.itemArrow{
+        div.serviceItemHeader{
+            div.serviceItemArrow{
                 &::before{
                     transform: rotateY(180deg)
                 }
@@ -223,14 +223,14 @@ div.itemFace{
         }
     }
 }
-div.itemHeader{
+div.serviceItemHeader{
     @include center('Y-flex');
     justify-content: space-between;
     margin-bottom: 20px;
-    img.itemIcon{
+    img.serviceItemIcon{
         width: 58px;
     }
-    div.itemArrow{
+    div.serviceItemArrow{
         border: 1px dashed $secondColor;
         width: 40px;
         height: 40px;
@@ -248,14 +248,14 @@ div.itemHeader{
         }
     }
 }
-h3.itemTitle{
+h3.serviceItemTitle{
     font-family: 'PlexBold';
     font-size: 28px;
     @media screen and (max-width:768px) {
         font-size: 20px;
     }
 }
-p.itemDescription{
+p.serviceItemDescription{
     font-family: 'PlexNormal';
     height: 70px;
     overflow: hidden;
@@ -264,7 +264,7 @@ p.itemDescription{
         font-size: 14px;
     }
 }
-div.itemBack{
+div.serviceItemBack{
     filter: opacity(0);
     @include center("flex");
     flex-wrap: wrap;
@@ -279,24 +279,24 @@ div.itemBack{
     @extend %transition;
     &:hover{
         filter: opacity(100%);
-        button.itemReadMore{
+        button.serviceItemReadMore{
             bottom: -15px;
         }
     }
     &[dir=rtl]{
-        ul.itemObjectives{
+        ul.serviceItemObjectives{
             li::before {
                 transform: rotateY(180deg);
             }
         }
-        button.itemReadMore{
+        button.serviceItemReadMore{
             &::after{
                 transform: rotateY(180deg);
             }
         }
     }
 }
-ul.itemObjectives{
+ul.serviceItemObjectives{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -320,7 +320,7 @@ ul.itemObjectives{
         }
     }
 }
-button.itemReadMore{
+button.serviceItemReadMore{
     font-family: "PlexNormal";
     font-size: 16px;
     transition: 0.3s;

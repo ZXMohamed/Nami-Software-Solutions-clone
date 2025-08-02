@@ -10,26 +10,6 @@ import { useGetServicesQuery } from '../redux/server state/services';
 //*scripts
 import { Language } from '../languages/languagesContext';
 
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]:"600" 
-}
-const servicesTitleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"50"
-}
-const servicesSubtitleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"100"
-}
-const servicesDescriptionAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"150"
-}
-const serviceCardAosAnimation = (order) => ({
-    ...aosAnimation,
-    ["data-aos-delay"]:(order*100).toString()
-})
 
 export default function Services() {
 
@@ -46,12 +26,14 @@ export default function Services() {
     const { isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery(undefined, {
         selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
     });
-//!
+
+    const servicesItemsGridCellInRow = useRef(3);
+
     const servicesItemsGrid = useMemo(() => {
-        return (servicesItems, cellInRow) => Object.values(servicesItems).map((service, inx) => {
-            return <ServiceCard key={ inx } data={ service } size={ 12 / cellInRow } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
+        if (servicesItems) return Object.values(servicesItems).map((service, inx) => {
+            return <ServiceCard key={ inx } data={ service } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
         });
-    }, [servicesItems, servicesItems_isSuccess]);
+    }, [servicesItems, servicesItems_isSuccess, servicesItemsGridCellInRow.current]);
     
     const description = useRef();
 
@@ -61,32 +43,30 @@ export default function Services() {
         })
     }, []);
 
-  return (
-    <Box dir={defaultContent.direction} className="servicesSection">
-        <Container disableGutters>
-            <Stack direction={'column'} spacing={2} className='servicesHeader'>
-                <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
-                <Typography variant='h4' component='h2' className='servicesSubtitle' {...servicesSubtitleAosAnimation}>{defaultContent.subtitle}</Typography>
-                <Typography ref={description} className='servicesDescription' {...servicesDescriptionAosAnimation}>{defaultContent.description}</Typography>
-            </Stack>
-            <br/>
-            <br/>
-            <Grid container spacing={ 3 } className='servicesItems'>
-                { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
-                { servicesItems_isSuccess && servicesItemsGrid(servicesItems, 3) }
-                { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
-            </Grid>
-        </Container>
-    </Box>
-  )
+    return (
+        <Box dir={defaultContent.direction} className="servicesSection">
+            <Container disableGutters>
+                <Stack direction={'column'} spacing={2} className='servicesHeader'>
+                    <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
+                    <Typography variant='h4' component='h2' className='servicesSubtitle' {...servicesSubtitleAosAnimation}>{defaultContent.subtitle}</Typography>
+                    <Typography ref={description} className='servicesDescription' {...servicesDescriptionAosAnimation}>{defaultContent.description}</Typography>
+                </Stack>
+                <br/>
+                <br/>
+                <Grid container spacing={ 3 } className='servicesItems'>
+                    { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
+                    { servicesItems_isSuccess && servicesItemsGrid }
+                    { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
+                </Grid>
+            </Container>
+        </Box>
+    )
 }
 
 const ServiceCard = memo(({ data, size, aosAnimation }) => {
 // console.log("kkkx");
 
-    if (!data) {
-        return [];
-    }
+    if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -106,25 +86,25 @@ const ServiceCard = memo(({ data, size, aosAnimation }) => {
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
             
-            <Stack dir={ defaultContent.direction } direction={ 'column' } spacing={ 1 } className='itemFace'>
+            <Stack dir={ defaultContent.direction } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
             
-                <Stack direction={ 'row' } className='itemHeader'>
-                    <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='itemIcon' />
-                    <div className='itemArrow'></div>
+                <Stack direction={ 'row' } className='serviceItemHeader'>
+                    <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='serviceItemIcon' />
+                    <div className='serviceItemArrow'></div>
                 </Stack>
             
-                <Typography variant='h5' component={ 'h3' } className='itemTitle'>{ data.title }</Typography>
-                <Typography className='itemDescription'>{ data.description }</Typography>
+                <Typography variant='h5' component={ 'h3' } className='serviceItemTitle'>{ data.title }</Typography>
+                <Typography className='serviceItemDescription'>{ data.description }</Typography>
             
             </Stack>
             
-            <Stack dir={ defaultContent.direction } direction={ 'column' } className='itemBack'>
+            <Stack dir={ defaultContent.direction } direction={ 'column' } className='serviceItemBack'>
             
-                <ul ref={ itemObjectives } className='itemObjectives'>
+                <ul ref={ itemObjectives } className='serviceItemObjectives'>
                     { data.objectives.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
                 </ul>
             
-                <Button variant='contained' disableRipple className='itemReadMore'>{ defaultContent.buttons.readMore }</Button>
+                <Button variant='contained' disableRipple className='serviceItemReadMore'>{ defaultContent.buttons.readMore }</Button>
             
             </Stack>
         
@@ -184,3 +164,24 @@ function showObjectivesOnHover(itemObjectives) {
     itemObjectives.current.parentElement.onmouseover = ()=>itemObjectivesAnimate.restart();
     itemObjectives.current.parentElement.onmouseleave = ()=>itemObjectivesAnimate.kill();
 }
+
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]:"600" 
+}
+const servicesTitleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"50"
+}
+const servicesSubtitleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"100"
+}
+const servicesDescriptionAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"150"
+}
+const serviceCardAosAnimation = (order) => ({
+    ...aosAnimation,
+    ["data-aos-delay"]:(order*100).toString()
+})
