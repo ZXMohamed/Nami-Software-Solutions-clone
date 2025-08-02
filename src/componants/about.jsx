@@ -126,7 +126,7 @@ const OurValues = () => {
 
 const ValueBox = ({ data, aosAnimation }) => {
 
-  if (data && Object.keys(data).length != 0) return <></>;
+  if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
