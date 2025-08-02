@@ -1,5 +1,5 @@
 //*react
-import React, { useContext, useEffect, useRef } from "react";
+import React, { memo, useContext, useEffect, useRef } from "react";
 //*styles
 import "../../sass/shared/navbar.scss";
 //*queries
@@ -8,7 +8,8 @@ import { useGetAvailableLanguagesQuery } from "../../redux/server state/language
 import { Language } from "../../languages/languagesContext";
 
 
-export function LanguageButton() {
+const LanguageButton = () => {
+    console.log("LB");
 
     const LanguageButtonTitle = useRef();
     const languageIndex = useRef(1);
@@ -19,7 +20,7 @@ export function LanguageButton() {
     
     const { languageRequest } = useContext(Language);
 
-    function changeLanguage(languagesList, languageIndex) {      
+    function changeLanguage(languagesList, languageIndex) {
 
         languageRequest(languagesList[languageIndex.current].requestName);
         
@@ -33,7 +34,7 @@ export function LanguageButton() {
     }
 
     useEffect(() => {
-        if (AL_isSuccess)
+        if (AL_isSuccess && AL.languages?.length >= 1)
             LanguageButtonTitle.current.innerText = AL.languages[languageIndex.current].title
     }, [AL_isSuccess, AL])
 
@@ -41,11 +42,12 @@ export function LanguageButton() {
         <>
             {
                 AL_isSuccess && AL.languages?.length >= 2 &&
-                    <div className="navBarLang">
-                        <button ref={ LanguageButtonTitle } onClick={ () => changeLanguage(AL.languages, languageIndex) } ></button>
-                    </div>
+                <div className="navBarLang">
+                    <button ref={ LanguageButtonTitle } onClick={ () => changeLanguage(AL.languages, languageIndex) } ></button>
+                </div>
             }
         </>
     )
 
-}
+};
+export default LanguageButton;

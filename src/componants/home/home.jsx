@@ -3,35 +3,14 @@ import { useContext, useMemo } from "react";
 //*mui
 import { Box, Typography, Stack, Button } from "@mui/material";
 //*components
-import SocialButtons from "../socialbuttons";
+import SocialButtons from "../social&contacts/socialbuttons";
 import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
 import { Language } from "../../languages/languagesContext";
 
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const titleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "50"
-}
-const descriptionAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "100"
-}
-const socialButtonsAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "150"
-}
-const homeButtonsAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "200"
-}
-
 export default function Home() { 
-// console.log("home");
+console.log("home");
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
     
     const defaultContent = useMemo(() => ({
@@ -68,4 +47,27 @@ export default function Home() {
 
         </Box>
     )
+}
+
+
+
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]: "1000",
+}
+const titleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]: "50"
+}
+const descriptionAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]: "100"
+}
+const socialButtonsAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]: "150"
+}
+const homeButtonsAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]: "200"
 }

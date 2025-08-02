@@ -3,13 +3,14 @@ import React, { memo, useContext, useMemo } from 'react'
 //*mui
 import { Box } from '@mui/material'
 //*styles
-import "../sass/shared/floatsocialbuttons.scss"
+import "../../sass/shared/floatsocialbuttons.scss"
 //*query
-import { useGetSocialQuery } from '../redux/server state/social'
+import { useGetSocialQuery } from '../../redux/server state/social'
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 
-function FloatSocialButtons() {
+const FloatSocialButtons = memo(() => {
+  console.log("kkk");
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -33,15 +34,15 @@ function FloatSocialButtons() {
     </Box>
   )
 
-};
+});
 
 export default FloatSocialButtons;
 
-const FloatSocialButton = memo(({ link, icon, title }) => {
+const FloatSocialButton = ({ link, icon, title }) => {
   if (!link && !icon) return <></>;
   return (
     <a href={ link } target='_blank' className='floatSocialButton'>
       <img src={ icon } width="16px" height="16px" alt={ "Nami " + title + " account" } loading='lazy' />
     </a>
   )
-});
+};

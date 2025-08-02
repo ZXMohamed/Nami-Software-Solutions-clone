@@ -3,11 +3,11 @@ import React, { memo } from 'react'
 //*mui
 import { CircularProgress, Stack } from '@mui/material'
 //*queries
-import { useGetSocialQuery } from '../redux/server state/social'
+import { useGetSocialQuery } from '../../redux/server state/social'
 //*styles
-import "../sass/shared/socialbuttons.scss"
+import "../../sass/shared/socialbuttons.scss"
 
-const SocialButtons = memo(({ aosAnimation }) => {
+const SocialButtons = memo(({ aosAnimation }) => {console.log("j");
     const { isLoading, isSuccess, data: social } = useGetSocialQuery();
 
     return (
@@ -29,14 +29,14 @@ const SocialButtons = memo(({ aosAnimation }) => {
 
 export default SocialButtons;
 
-const SocialButton = memo(({ link, icon, title }) => {
+const SocialButton = ({ link, icon, title }) => {
   if (!link && !icon) return <></>;
   return (
     <a href={ link } target='_blank' className='SocialButton'>
       <img src={ icon } width="16px" height="16px" alt={ "Nami " + title + " account" } loading='lazy' />
     </a>
   )
-});
+};
 
 function WaiteProgress(props) {
     

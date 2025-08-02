@@ -1,14 +1,14 @@
 //*react
 import { memo, useContext, useMemo, useState } from "react";
 //*component
-import RequestButton from "../requestbutton";
-import RequestQuotationForm from "../requestquotationform";
+import RequestButton from "../buttons/requestbutton";
+import RequestQuotationForm from "./requestquotationform";
 //*scripts
 import { Language } from "../../languages/languagesContext";
 
 
-const RequestQuotation = memo(() => {
-    // console.log("homeRQ");
+const RequestQuotation = () => {
+    console.log("homeRQ");
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
     
@@ -27,6 +27,6 @@ const RequestQuotation = memo(() => {
             { requestFormOpen && <RequestQuotationForm closeButton={ () => setRequestFormOpen(false) } /> }
         </>
     );
-});
+};
 
 export default RequestQuotation

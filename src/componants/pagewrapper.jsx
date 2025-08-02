@@ -1,12 +1,12 @@
 //*react
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 //*mui
-import { Alert, AlertTitle, CircularProgress, LinearProgress, Snackbar } from '@mui/material';
+import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
 import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
-import FloatSocialButtons from './floatsocialbuttons';
+import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 
@@ -30,9 +30,16 @@ export default function PageWrapper({ children }) {
   // useEffect(() => {
   //   languageRequest();
   // },[])
-  
+
+  const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus });
+  const languageControls = useMemo(() => {
+    if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
+    prevAddress_languageControls.current = { languageRequest, ...languageStatus };
+    return prevAddress_languageControls.current;
+  }, [languageStatus.isSuccess]);
+
   return (<>
-    <Language.Provider value={{languageRequest,...languageStatus}}>
+    <Language.Provider value={languageControls}>
       <NavBar />
       {children}
       <FloatSocialButtons />

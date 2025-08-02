@@ -4,7 +4,8 @@ import { memo } from "react";
 import { Box } from "@mui/material";
 
 
-const FallingBackground = memo(() => {
+const FallingBackground = () => {
+    console.log("fB");
     return (
         <Box className="fallingBackground">
             <div className="fallingBackgroundDelay-5"></div>
@@ -16,6 +17,6 @@ const FallingBackground = memo(() => {
             <div className="fallingBackgroundDelay-4"></div>
         </Box>
     )
-});
+};
 
 export default FallingBackground;

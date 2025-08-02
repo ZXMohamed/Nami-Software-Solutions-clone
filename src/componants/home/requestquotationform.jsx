@@ -3,18 +3,18 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Box, Button, InputLabel, Stack, TextField, Alert } from '@mui/material';
 //*styles
-import "../sass/shared/requestform.scss";
+import "../../sass/shared/requestform.scss";
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 //*queries
-import { useRequestQuotationMutation } from '../redux/server state/requestquotation';
+import { useRequestQuotationMutation } from '../../redux/server state/requestquotation';
 //*form
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { pattern, initZodMsgs } from '../form/assets';
+import { pattern, initZodMsgs } from '../../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
-import { sitekey } from '../form/recaptcha';
+import { sitekey } from '../../form/recaptcha';
 
 export default function RequestQuotationForm({ closeButton }) {
     
