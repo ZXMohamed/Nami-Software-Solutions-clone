@@ -14,31 +14,6 @@ import { Language } from '../languages/languagesContext';
 //*assets
 import aboutSideImg from "../assets/photo/about/aboutsideimg.webp";
 
-const aosAnimation = {
-  ["data-aos"]:"fade-up",
-  ["data-aos-duration"]:"1000" 
-}
-const movingImgSideAosAnimation = {
-  ...aosAnimation
-}
-const aboutTitleAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"50"
-}
-const aboutDescriptionAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"80"
-}
-const establishmentCounterAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-duration"]:"600",
-  ["data-aos-delay"]:"80"
-}
-const establishmentDateAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-duration"]:"600",
-  ["data-aos-delay"]:"80"
-}
 
 export default function About() {
 
@@ -66,7 +41,7 @@ export default function About() {
   )
 }
 
-const SideImg = memo(() => {
+const SideImg = () => {
   
   const sideImgContainer = useRef();
   const sideImg = useRef();
@@ -82,9 +57,9 @@ const SideImg = memo(() => {
       <img ref={sideImg} src={aboutSideImg}  alt="Nami Software Solutions" loading='lazy' className="aboutMovingImg" />
     </Box>
   )
-})
+}
 
-const Info = memo(() => {
+const Info = () => {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
   
@@ -112,8 +87,8 @@ const Info = memo(() => {
     <Typography ref={description} className='aboutDescription' {...aboutDescriptionAosAnimation}>{defaultContent.description}</Typography>
   </>
   )
-})
-const CompanyFile = memo(() => {
+}
+const CompanyFile = () => {
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
   
   const defaultContent = useMemo(() => ({
@@ -131,8 +106,8 @@ const CompanyFile = memo(() => {
       { companyFile_isSuccess && <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } /> }
     </>
   );
-})
-const Establishment = memo(() => {
+}
+const Establishment = () => {console.log("ddddd");
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
   
@@ -159,8 +134,33 @@ const Establishment = memo(() => {
       <Typography ref={establishmentDate} variant='h1' component='h3' className="establishmentDate" {...establishmentDateAosAnimation}>0</Typography>
     </Stack>
   )
-}) 
+}
 
+const aosAnimation = {
+  ["data-aos"]:"fade-up",
+  ["data-aos-duration"]:"1000" 
+}
+const movingImgSideAosAnimation = {
+  ...aosAnimation
+}
+const aboutTitleAosAnimation = {
+  ...aosAnimation,
+  ["data-aos-delay"]:"50"
+}
+const aboutDescriptionAosAnimation = {
+  ...aosAnimation,
+  ["data-aos-delay"]:"80"
+}
+const establishmentCounterAosAnimation = {
+  ...aosAnimation,
+  ["data-aos-duration"]:"600",
+  ["data-aos-delay"]:"80"
+}
+const establishmentDateAosAnimation = {
+  ...aosAnimation,
+  ["data-aos-duration"]:"600",
+  ["data-aos-delay"]:"80"
+}
 
 function imgMoveWithScroll(sideImgContainer,sideImg) {
   gsap.timeline({
