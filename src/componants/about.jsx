@@ -13,25 +13,6 @@ import quickResponse from "../assets/photo/our/quick Response.svg"
 import continuousLearning from "../assets/photo/our/Continuous Learning.svg"
 import Sustainability from "../assets/photo/our/Sustainability.svg"
 
-const aosAnimation = {
-  ["data-aos"]: 'fade-up',
-  ["data-aos-duration"]:"600"
-}
-const ourVisionAosAnimation = {
-  ...aosAnimation
-}
-const ourMessageAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"50"
-}
-const ourValuesAosAnimation = {
-  ...aosAnimation,
-}
-const valueBoxAosAnimation = (order)=> ({
-  ...aosAnimation,
-  ["data-aos-delay"]: (50 * order).toString()
-})
-
 export function Our() {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
@@ -55,7 +36,7 @@ export function Our() {
   )
 }
 
-const OurVision = memo(() => {
+const OurVision = () => {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -78,9 +59,9 @@ const OurVision = memo(() => {
       </Grid>
     </Grid>
   )
-});
+};
 
-const OurMessage = memo(() => {
+const OurMessage = () => {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -103,7 +84,7 @@ const OurMessage = memo(() => {
       </Grid>
     </Grid>
   )
-});
+};
 
 const values = [
   { title: "Innovation", icon: innovation },
@@ -115,7 +96,7 @@ const values = [
   { title: "Sustainability", icon: Sustainability }
 ];
 
-const OurValues = memo(() => {
+const OurValues = () => {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -141,9 +122,11 @@ const OurValues = memo(() => {
       </Box>
     </Grid>
   )
-});
+};
 
-const ValueBox = memo(({ data, aosAnimation }) => {
+const ValueBox = ({ data, aosAnimation }) => {
+
+  if (data && Object.keys(data).length != 0) return <></>;
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -157,11 +140,11 @@ const ValueBox = memo(({ data, aosAnimation }) => {
       <span className='valueTitle'>{ data.title }</span>
     </Stack>
   )
-});
+};
 
 const OurLazySideVideo = lazy(() => import("./oursidevideo"));
 
-const SideVideo = memo(() => {
+const SideVideo = () => {
   return (
     <Suspense fallback={ <Skeleton variant="rounded" width={ 100 } height={ 100 } /> }>
       <Grid size={ { xxs: 2, xs: 12, sm: 12, md: 3 } }>
@@ -169,4 +152,23 @@ const SideVideo = memo(() => {
       </Grid>
     </Suspense>
   )
-});
+};
+
+const aosAnimation = {
+  ["data-aos"]: 'fade-up',
+  ["data-aos-duration"]:"600"
+}
+const ourVisionAosAnimation = {
+  ...aosAnimation
+}
+const ourMessageAosAnimation = {
+  ...aosAnimation,
+  ["data-aos-delay"]:"50"
+}
+const ourValuesAosAnimation = {
+  ...aosAnimation,
+}
+const valueBoxAosAnimation = (order)=> ({
+  ...aosAnimation,
+  ["data-aos-delay"]: (50 * order).toString()
+})
