@@ -1,5 +1,5 @@
 @use "_shared.scss" as *;
-@use "fonts.scss" as *;
+// @use "fonts.scss" as *;
 
 .productCard{
     width: 100%;
@@ -51,9 +51,4 @@ p.productDescription{
 }
 div.badgesContainer{
     width: 90%;
-}
-.infoCardSection{
-    background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
-    position: relative;
-    top: -60px;
 }

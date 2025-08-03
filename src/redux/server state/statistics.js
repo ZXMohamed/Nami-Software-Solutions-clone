@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 const statisticsSlice = createApi({
     reducerPath: "statistics",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost/nami-clone-data-api/",
+        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
     tagTypes: ['ReQueryForMainPage'],

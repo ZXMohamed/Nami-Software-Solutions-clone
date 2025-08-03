@@ -5,7 +5,7 @@ import statisticsSlice from "./statistics";
 const languageSlice = createApi({
     reducerPath: "language",
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost/nami-clone-data-api/",
+        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
     endpoints: (builder) => ({

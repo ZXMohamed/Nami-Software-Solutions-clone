@@ -163,6 +163,25 @@ p.homeDescription{
     >div.MuiContainer-root{
         padding: 0px 15px;
     }
+    @extend %productsDirection;
+}
+div.productsSlider{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 100%;
+    // overflow-y: visible;
+    overflow-x: hidden;
+    .productsSlide{
+        height: unset;
+        max-width: 424px !important;
+        display: flex;
+        @media screen and (max-width:992px) {
+            max-width: 550px !important;
+        }
+    }
+}
+
+%productsDirection{
     &[dir=ltr]{
         div.productsSlide{
             margin-right: 12px;
@@ -176,73 +195,7 @@ p.homeDescription{
         }
     }
 }
-div.productsSlider{
-    padding-top: 20px;
-    padding-bottom: 40px;
-    width: 100%;
-    overflow-y: visible;
-    overflow-x: hidden;
-    .productsSlide{
-        height: unset;
-        max-width: 424px !important;
-        display: flex;
-        @media screen and (max-width:992px) {
-            max-width: 550px !important;
-        }
-    }
-}
-.productCard{
-    width: 100%;
-    display: flex;
-    >div{
-        direction: inherit;
-        position: relative;
-        top:0px;
-        overflow: hidden;
-        background-color: $secondColor;
-        border-radius: 20px;
-        align-items: center;
-        padding-bottom: 20px;
-        @extend %transition;
-        @extend %shiningImage;
-        &:hover{
-            top: -10px;
-            box-shadow: 0px 30px 25px #0a0a0a10;
-        }
-    }
-}
-div.productImageContainer.shine{
-    overflow: hidden;
-    width: 100%;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    img{
-        width: 100%;
-        height: 100%;
-    }
-}
-h3.productTitle{
-    @extend %transition;
-    font-family: 'PlexBold';
-    margin: 0px 20px;
-    &:hover{
-        color: $primaryColor;
-    }
-}
-p.productDescription{
-    font-family: 'PlexNormal';
-    margin: 10px 25px;
-    text-wrap: balance;
-    font-size: 14px;
-    color: $secondTextColor;
-    height: 40px;
-    overflow: hidden;
-    @include textOverflow(2);
-    text-indent: 10px;
-}
-div.badgesContainer{
-    width: 90%;
-}
+
 .infoCardSection{
     background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
     position: relative;

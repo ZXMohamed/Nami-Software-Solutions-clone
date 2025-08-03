@@ -8,9 +8,7 @@ import { theme } from "./mui/MUIinit"
 import Main from "./pages/main"
 //*css
 import '../node_modules/aos/dist/aos.css';
-import 'swiper/css';//!use when needed
 //*sass files
-import "./sass/shared/productcard.scss"
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
 

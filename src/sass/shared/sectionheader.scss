@@ -3,31 +3,7 @@
 
 .sectionHeader{
     margin-bottom: 35px;
-
-    &[dir=ltr]{
-        a.sectionHeaderButton{
-            div{
-                transform: rotateY(0deg);
-            }
-            &:hover{
-                div{
-                    margin-left: 8px;
-                }
-            }
-        }
-    }
-    &[dir=rtl]{
-        a.sectionHeaderButton{
-            div{
-                transform: rotateY(180deg);
-            }
-            &:hover{
-                div{
-                    margin-right: 8px;   
-                }
-            }
-        }
-    }
+    @extend %direction;
 }
 
 h2.sectionHeaderTitle{
@@ -114,6 +90,33 @@ a.sectionHeaderButton{
         width: 110px;
         div{
             width: 15px;
+        }
+    }
+}
+
+%direction{
+    &[dir=ltr]{
+        a.sectionHeaderButton{
+            div{
+                transform: rotateY(0deg);
+            }
+            &:hover{
+                div{
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        a.sectionHeaderButton{
+            div{
+                transform: rotateY(180deg);
+            }
+            &:hover{
+                div{
+                    margin-right: 8px;   
+                }
+            }
         }
     }
 }

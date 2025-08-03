@@ -4,6 +4,7 @@
 .servicesBadges{
     gap: 4px;
     flex-wrap: wrap;
+    @extend %direction;
 
     .serviceBadge{
         &::after{
@@ -28,44 +29,6 @@
             }
             img.serviceIcon{
                 filter: brightness(0) invert(1);
-            }
-        }
-    }
-    &[dir=ltr]{
-        .serviceBadge{
-            &::after{
-                top: -50px;
-            }
-            &::before{
-                bottom: -50px;
-            }
-            
-            &:hover{
-                &::after{
-                    top: -28px;
-                }
-                &::before{
-                    bottom: -28px;
-                }
-            }
-        }
-    }
-    &[dir=rtl]{
-        .serviceBadge{
-            &::after{
-                bottom: -50px;
-            }
-            &::before{
-                top: -50px;
-            }
-            
-            &:hover{
-                &::after{
-                    bottom: -28px;
-                }
-                &::before{
-                    top: -28px;
-                }
             }
         }
     }
@@ -129,5 +92,46 @@ h4.serviceTitle{
     }
     h4.serviceTitle{
         font-size: 12px;
+    }
+}
+
+%direction{
+    &[dir=ltr]{
+        .serviceBadge{
+            &::after{
+                top: -50px;
+            }
+            &::before{
+                bottom: -50px;
+            }
+            
+            &:hover{
+                &::after{
+                    top: -28px;
+                }
+                &::before{
+                    bottom: -28px;
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        .serviceBadge{
+            &::after{
+                bottom: -50px;
+            }
+            &::before{
+                top: -50px;
+            }
+            
+            &:hover{
+                &::after{
+                    bottom: -28px;
+                }
+                &::before{
+                    top: -28px;
+                }
+            }
+        }
     }
 }
