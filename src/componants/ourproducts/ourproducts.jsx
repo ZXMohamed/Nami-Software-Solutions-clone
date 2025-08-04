@@ -59,7 +59,7 @@ const Products = memo(() => {
 
     return (
         <Container maxWidth="lg" disableGutters>
-            <Swiper dir={ defaultContent.direction } slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings } className='productsSlider'>
+            <Swiper slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( defaultContent.direction ) } className='productsSlider'>
                 { !products_isSuccess && waitItemSkeleton(3) }
                 { products_isSuccess && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
@@ -93,12 +93,12 @@ const ProductCard = memo(({ dir, data, aosAnimation })=> {
     )
 });
 
-const productsSliderSettings = {
+const productsSliderSettings = (direction) => ({
     loop: true,
     spaceBetween: 12,
-    autoplay: { delay: 2000, disableOnInteraction: false },
+    autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
     modules : [Autoplay] 
-}
+})
 
 const aosAnimation = {
     ["data-aos"] : "fade-up",
