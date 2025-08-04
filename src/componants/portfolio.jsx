@@ -1,31 +1,30 @@
-import React, { useContext, useState } from 'react'
+//*react
+import React, { useContext, useMemo, useState } from 'react'
+//*mui
 import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
-import SectionHeader from './sectionHeader'
-import { Swiper,SwiperSlide } from 'swiper/react';
+//*swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-
-// import Ebhar from '../assets/photo/portfolio/Ebhar.webp'
-// import Somu from '../assets/photo/portfolio/Somu.webp'
-// import Rawafed from '../assets/photo/portfolio/Rawafed.webp'
-// import Taraf from '../assets/photo/portfolio/Taraf.webp'
-// import abr from '../assets/photo/portfolio/عبر الشرق للاستقدام.webp'
-// import Tameem from '../assets/photo/portfolio/Tameem Law.webp'
-
-import { Language } from '../languages/languagesContext';
+//*component
+import SectionHeader from './sectionHeader'
+//*queries
 import { useGetProjectsByCatQuery } from '../redux/server state/projects';
+//*scripts
+import { Language } from '../languages/languagesContext';
+
 
 export default function Portfolio() {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         title : language_isSuccess ? language.projects.header.title : "Newest portfolio",
         subtitle : language_isSuccess ? language.projects.header.subtitle : "We bring your digital vision to life",
-        buttons:{
+        buttons: {
             headerButton: language_isSuccess ? language.projects.header.buttons.headerButton : "Show all"
         }
-    }
+    }), [language, language_isSuccess]);
 
   return (
     <Box className='portfolioSection'>
@@ -35,16 +34,11 @@ export default function Portfolio() {
   )
 }
 
-const projectsSliderSettings = {
-    spaceBetween : 10,
-    loop : true,
-    autoplay : { delay: 2000, disableOnInteraction: false },
-    modules : [Autoplay]
-}
-
 export function PortfolioSlider() {
 
-    const { isSuccess, isLoading, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 50 });
+    const { isSuccess, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
+        selectFromResult:({isSuccess,isError,data})=>({isSuccess,isError,data})
+    });
     
     const isMDsize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
@@ -52,11 +46,11 @@ export function PortfolioSlider() {
     return (
         <Container maxWidth="lg">
             <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings } className='projectsSlider'>
-                { isLoading && WaitItemSkeleton(6)}
+                { !isSuccess && WaitItemSkeleton(6)}
                 { isSuccess && Object.values(data).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
-                            <ProjectCard image={ "project.image" } name={ project.title } description={ project.description } aosAnimation={ { "data-aos": "fade-up", "data-aos-duration": "1000", "data-aos-delay": (100 * inx).toString() } } />
+                            <ProjectCard image={ project.image } name={ project.title } description={ project.description } aosAnimation={ projectCardAosAnimation(inx+1) } />
                         </SwiperSlide>
                     )
                 }
@@ -94,6 +88,22 @@ export function ProjectCard({ image, name, description, aosAnimation }) {
   )
 }
 
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]: "1000"
+} 
+const projectCardAosAnimation = (order)=>({
+    ...aosAnimation,
+    ["data-aos-delay"]: (100 * order).toString()
+})
+
+const projectsSliderSettings = {
+    spaceBetween : 10,
+    loop : true,
+    autoplay : { delay: 2000, disableOnInteraction: false },
+    modules : [Autoplay]
+}
+
 function visibleSlidePerSize(isXXXSSize, isMDSize) {
     //*from smaller size to bigger size
     if (isXXXSSize) {
@@ -109,7 +119,7 @@ function WaitItemSkeleton(num = 1) {
     const skeletonArray = [];
     for (let i = 0; i < num; i++) { 
         skeletonArray.push(
-            <SwiperSlide key={ i } className='slide'>
+            <SwiperSlide key={ i }>
                 <Stack width={ "100%" }>
                     <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
                         <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
