@@ -1,16 +1,17 @@
 //*react
-import React, { useContext, useMemo, useState } from 'react'
+import React, { memo, useContext, useMemo } from 'react'
 //*mui
 import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
 //*swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 //*component
-import SectionHeader from './sectionHeader'
+import SectionHeader from '../sectionHeader'
+import { ProjectCard } from './projectcard';
 //*queries
-import { useGetProjectsByCatQuery } from '../redux/server state/projects';
+import { useGetProjectsByCatQuery } from '../../redux/server state/projects';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 
 
 export default function Portfolio() {
@@ -27,17 +28,23 @@ export default function Portfolio() {
     }), [language, language_isSuccess]);
 
   return (
-    <Box className='portfolioSection'>
+    <Box dir={defaultContent.direction} className='portfolioSection'>
         <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
-        <PortfolioSlider dir={defaultContent.direction}/>
+        <Projects />
     </Box>
   )
 }
 
-export function PortfolioSlider() {
+const Projects = memo(() => {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }), [language, language_isSuccess]);
 
     const { isSuccess, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
-        selectFromResult:({isSuccess,isError,data})=>({isSuccess,isError,data})
+        selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
     });
     
     const isMDsize = useMediaQuery('(max-width:992px)');
@@ -45,48 +52,21 @@ export function PortfolioSlider() {
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings } className='projectsSlider'>
-                { !isSuccess && WaitItemSkeleton(6)}
+            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(defaultContent.direction) } className='projectsSlider'>
+                { !isSuccess && WaitItemSkeleton(6) }
                 { isSuccess && Object.values(data).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
-                            <ProjectCard image={ project.image } name={ project.title } description={ project.description } aosAnimation={ projectCardAosAnimation(inx+1) } />
+                            <ProjectCard dir={defaultContent.direction} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
                         </SwiperSlide>
                     )
                 }
                 ) }
-                { isError && <Typography component={"h1"} variant={"h5"} color='error'>Data Not Found!</Typography>}
+                { isError && <Typography component={ "h1" } variant={ "h5" } color='error'>Data Not Found!</Typography> }
             </Swiper>
         </Container>
-  )
-}
-
-export function ProjectCard({ image, name, description, aosAnimation }) {
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
-
-    const defaultContent = {
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }
-    if (!image && !name) { 
-        throw "project name or image unset !"
-    }
-  return (
-    <Box dir={defaultContent.direction} className='projectCard' {...aosAnimation}>
-        <Stack direction={"column"} spacing={1}>
-            <Stack direction={'row'} className='projectHeader'>
-                <Typography variant='h6' component={'h3'} className='projectTitle'>{name}</Typography>
-                <Box className="projectArrow">
-                    <Box></Box>
-                </Box>
-            </Stack>
-            <Typography className='projectDescription'>{description}</Typography>
-            <Box className="projectImageContainer shine">
-                <img src={ image } alt={ name + " project from Nami" } loading='lazy' />
-            </Box>
-        </Stack>
-    </Box>
-  )
-}
+    )
+});
 
 const aosAnimation = {
     ["data-aos"]: "fade-up",
@@ -97,12 +77,12 @@ const projectCardAosAnimation = (order)=>({
     ["data-aos-delay"]: (100 * order).toString()
 })
 
-const projectsSliderSettings = {
-    spaceBetween : 10,
-    loop : true,
-    autoplay : { delay: 2000, disableOnInteraction: false },
-    modules : [Autoplay]
-}
+const projectsSliderSettings = (direction) => ({
+    spaceBetween: 10,
+    loop: true,
+    autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
+    modules: [Autoplay]
+})
 
 function visibleSlidePerSize(isXXXSSize, isMDSize) {
     //*from smaller size to bigger size
