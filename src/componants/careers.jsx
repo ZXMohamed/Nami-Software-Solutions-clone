@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+//*react
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+//*mui
 import { Alert, Box, Button, Container, Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
+//*gsap
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ReCAPTCHA from "react-google-recaptcha";
+//*form
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { useGetOpenJobsQuery, useRequestJobMutation } from '../redux/server state/openjobs';
 import { pattern, zodMsgs } from '../form/assets';
+import ReCAPTCHA from "react-google-recaptcha";
 import { sitekey } from '../form/recaptcha';
+//*queries
+import { useGetOpenJobsQuery, useRequestJobMutation } from '../redux/server state/openjobs';
+//*scripts
 import { Language } from '../languages/languagesContext';
 
 
@@ -17,31 +23,31 @@ export default function Careers() {
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
-    }
+    }), [language, language_isSuccess]);
     
-  return (
-    <Box dir={defaultContent.direction} className='careersSection'>
-        <Container disableGutters>    
-            <Grid container>
-                <Grid size={{xs:12,md:8}}>
-                    <InfoSection/>
+    return (
+        <Box dir={defaultContent.direction} className='careersSection'>
+            <Container disableGutters>    
+                <Grid container>
+                    <Grid size={{xs:12,md:8}}>
+                        <InfoSection/>
+                    </Grid>
+                    <Grid size={{xs:12,md:4}} className="careersFormContainer">
+                        <FormSection/>
+                    </Grid>
                 </Grid>
-                <Grid size={{xs:12,md:4}} className="careersFormContainer">
-                   <FormSection/>
-                </Grid>
-            </Grid>
-        </Container>
-    </Box>
-  )
+            </Container>
+        </Box>
+    )
 }
 
 function InfoSection() {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         title: language_isSuccess ? language.careers.title : "Careers",
         subtitle: language_isSuccess ? language.careers.subtitle : "Build your future with our company",
@@ -56,7 +62,7 @@ function InfoSection() {
             },
             submit: "Apply now"
         }
-    }
+    }), [language, language_isSuccess]);
 
     const careersTitle = useRef();
     const careersSubtitle = useRef();
@@ -71,26 +77,19 @@ function InfoSection() {
     }, []);
 
     return (
-        <Stack direction={'column'} spacing={1} className='infoSection'>
-            <Typography ref={careersTitle} variant='h5' component={'h1'} className='careersTitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50"><i>{defaultContent.title}</i></Typography>
-            <Typography ref={careersSubtitle} variant='h3' component={'h2'} className='careersSubtitle' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">{defaultContent.subtitle}</Typography>
-            <Typography ref={careersDescription} className='careersDescription' data-aos="fade-up" data-aos-duration="1000" data-aos-delay="150">{defaultContent.description}</Typography>
+        <Stack direction={'column'} spacing={1} className='careersInfoSection'>
+            <Typography ref={careersTitle} variant='h5' component={'h1'} className='careersTitle'{...titleAosAnimation}><i>{defaultContent.title}</i></Typography>
+            <Typography ref={ careersSubtitle } variant='h3' component={ 'h2' } className='careersSubtitle'{ ...subtitleAosAnimation }>{defaultContent.subtitle}</Typography>
+            <Typography ref={careersDescription} className='careersDescription'{...descriptionAosAnimation}>{defaultContent.description}</Typography>
         </Stack>
     )
 }
 
-const schema = zod.object({
-    name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
-    phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
-    job: zod.string().refine((selectedJob) => selectedJob != "0", { message: zodMsgs.required }),
-    cvFile: zod.any().refine((files) => files.length > 0, { message: zodMsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodMsgs.fileSize(5) })
-});
-
 function FormSection() {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
-    const defaultContent = {
+    const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         language: language_isSuccess ? language.page.language : "en",
         form: {
@@ -101,30 +100,29 @@ function FormSection() {
                 job: language_isSuccess ? language.careers.form.inputs.job : "select the job",
                 cvFile: language_isSuccess ? language.careers.form.inputs.cvFile : { title: "choose file", noFile: "No file chosen" }
             },
-            alert:{
-                success:language_isSuccess ? language.careers.form.alert.success:"Request Sent Successfully.",
-                error:language_isSuccess ? language.careers.form.alert.error:"Request Failed.",
+            alert: {
+                success: language_isSuccess ? language.careers.form.alert.success : "Request Sent Successfully.",
+                error: language_isSuccess ? language.careers.form.alert.error : "Request Failed.",
+                reCaptcha: language_isSuccess ? language.requestQuotation.form.alert.reCaptcha : "Please verify that you're not a robot."
             },
             submit: language_isSuccess ? language.careers.form.submit : "Apply now"
         }
-    }
+    }), [language, language_isSuccess]);
 
     const [lastInputChanged, setLastInputChanged] = useState("");
-
-    // const [captchaToken, setCaptchaToken] = useState(null);
 
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();
 
+    const schema = useMemo(() => {
+        const zodMsgs = initZodMsgs(language);
+        return createZodObject(defaultContent, zodMsgs, pattern);
+    }, [language, language_isSuccess]);
+    
     const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
 
-    const inputsSettings = {
-        name: register("name", { required: true, onChange: () => { setLastInputChanged("name"); }}),
-        phone: register("phone", { required: true, onChange: () => { setLastInputChanged("phone"); }}),
-        job: register("job", { required: true, onChange: () => { setLastInputChanged("job"); }}),
-        cvFile: register("cvFile", { required: true, onChange: () => { setLastInputChanged("cvFile"); }}),
-    }
-    
+    const inputsSettings = useMemo(() => createInputsSettings(register), []);
+
     const handleLastErrors = (lastInputChanged, errors) => {
         
         let errorInputs = Object.keys(errors);
@@ -147,12 +145,7 @@ function FormSection() {
         
     };
     
-    const [requestJob,{isSuccess:requestJob_isSuccess,isError:requestJob_isError,isLoading:requestJob_isLoading}] = useRequestJobMutation();
-
-    const handleCaptchaChange = (token) => {
-        reCaptchaToken.current = token;
-        // console.log("Captcha token:", token);
-    };
+    const [requestJob, { isSuccess: requestJob_isSuccess, isError: requestJob_isError, isLoading: requestJob_isLoading }] = useRequestJobMutation();
 
     useEffect(() => {
         const subscription = watch((value,{ name, type }) => {
@@ -168,17 +161,18 @@ function FormSection() {
     
     const onSubmit = (data) => {console.log(data.cvFile);
         if (!reCaptchaToken.current) {
-            // alert("Please complete the CAPTCHA.");
-            return;
-        } else {console.log("lll");
+            setError("recaptcha", {
+                type: "manual",
+                message: defaultContent.form.alert.reCaptcha
+            });
+        } else {
+            clearErrors("recaptcha");
             //$send recaptch to php
             data.reCaptchaToken = reCaptchaToken.current
             data.cvFile = data.cvFile[0]
             requestJob(data);
             reCaptcha.current.reset();
             reCaptchaToken.current = undefined;
-            // Proceed with form submission logic (e.g. send data to backend)
-            //console.log("Form submitted with CAPTCHA:", captchaToken);
         }
 
     };
@@ -188,8 +182,9 @@ function FormSection() {
             
             <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
 
-            {(requestJob_isSuccess && !requestJob_isLoading) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
-            {(requestJob_isError && !requestJob_isLoading) && <Alert variant="filled" severity="error" color='error'> {defaultContent.form.alert.error} </Alert>}
+            {(requestJob_isSuccess && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
+            {(requestJob_isError && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="error" color='error'> {defaultContent.form.alert.error} </Alert>}
+            { errors?.recaptcha && <Alert variant="filled" color='warning' severity="warning" className='formAlert'>{ errors.recaptcha.message }</Alert> }
             
             <TextField variant="outlined" type='text' color={ errors?.name ? "error" : "primary" } className={ errors?.name ? "inputError" : "" } placeholder={defaultContent.form.inputs.name} { ...inputsSettings.name } />
             
@@ -199,7 +194,7 @@ function FormSection() {
 
             <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} noFile={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
             
-            <ReCAPTCHA ref={reCaptcha} sitekey={ sitekey } onChange={ handleCaptchaChange } hl={ defaultContent.language } />
+            <ReCAPTCHA ref={ reCaptcha } sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
             
             <Button loading={requestJob_isLoading} loadingPosition='center' variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
             
@@ -239,6 +234,39 @@ function FileInput(props) {
             </label>
         </Box>
     )
+}
+
+function createZodObject(defaultContent,zodMsgs,pattern) {
+    return zod.object({
+        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
+        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
+        job: zod.string().refine((selectedJob) => selectedJob != "0", { message: zodMsgs.required }),
+        cvFile: zod.any().refine((files) => files.length > 0, { message: zodMsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodMsgs.fileSize(5) })
+    });
+}
+
+const createInputsSettings = (register) => ({
+    name: register("name", { required: true, onChange: () => { setLastInputChanged("name"); } }),
+    phone: register("phone", { required: true, onChange: () => { setLastInputChanged("phone"); } }),
+    job: register("job", { required: true, onChange: () => { setLastInputChanged("job"); } }),
+    cvFile: register("cvFile", { required: true, onChange: () => { setLastInputChanged("cvFile"); } }),
+});
+
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]: "1000"
+}
+const titleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"50"
+}
+const subtitleAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"100"
+}
+const descriptionAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]:"150"
 }
 
 function titleWordsUp(careersTitle) {
