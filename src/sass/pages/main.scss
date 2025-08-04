@@ -163,7 +163,6 @@ p.homeDescription{
     >div.MuiContainer-root{
         padding: 0px 15px;
     }
-    @extend %productsDirection;
 }
 div.productsSlider{
     padding-top: 20px;
@@ -177,21 +176,6 @@ div.productsSlider{
         display: flex;
         @media screen and (max-width:992px) {
             max-width: 550px !important;
-        }
-    }
-}
-
-%productsDirection{
-    &[dir=ltr]{
-        div.productsSlide{
-            margin-right: 12px;
-            margin-left: 0px !important;
-        }
-    }
-    &[dir=rtl]{
-        div.productsSlide{
-            margin-left: 12px;
-            margin-right: 0px !important;
         }
     }
 }

@@ -59,7 +59,7 @@ const Products = memo(() => {
 
     return (
         <Container maxWidth="lg" disableGutters>
-            <Swiper slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( defaultContent.direction ) } className='productsSlider'>
+            <Swiper dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( defaultContent.direction ) } className='productsSlider'>
                 { !products_isSuccess && waitItemSkeleton(3) }
                 { products_isSuccess && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
