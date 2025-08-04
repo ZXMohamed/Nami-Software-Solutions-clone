@@ -52,7 +52,7 @@ const Projects = memo(() => {
 
     return (
         <Container maxWidth="lg">
-            <Swiper slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(defaultContent.direction) } className='projectsSlider'>
+            <Swiper dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(defaultContent.direction) } className='projectsSlider'>
                 { !isSuccess && WaitItemSkeleton(6) }
                 { isSuccess && Object.values(data).map((project, inx) => {
                     return (
