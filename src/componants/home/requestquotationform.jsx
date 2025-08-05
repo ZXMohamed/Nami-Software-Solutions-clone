@@ -62,7 +62,12 @@ export default function RequestQuotationForm({ closeButton }) {
             }
         });
         return () => subscription.unsubscribe();
-    },[]);
+    }, []);
+    
+    useEffect(() => {
+        if (Object.keys(errors).length > 0)
+            trigger();
+    }, [language, language_isSuccess]);
 
     const [requestQuotation, { isSuccess: requestQuotation_isSuccess, isLoading: requestQuotation_isLoading, isError: requestQuotation_isError }] = useRequestQuotationMutation();
 
@@ -113,7 +118,7 @@ export default function RequestQuotationForm({ closeButton }) {
                 <TextField multiline maxRows={6} minRows={2} id='formDescription' color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
             </Box>
         
-            <ReCAPTCHA ref={reCaptcha} sitekey={sitekey} onChange={(token) => { reCaptchaToken.current = token; }} hl={defaultContent.language}/>
+            <ReCAPTCHA ref={reCaptcha} key={defaultContent.language} sitekey={sitekey} onChange={(token) => { reCaptchaToken.current = token; }} hl={defaultContent.language}/>
           
             <Stack direction={'row'} className='sendButtonContainer'>
                 <Box>

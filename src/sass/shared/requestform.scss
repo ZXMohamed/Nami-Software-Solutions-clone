@@ -57,6 +57,9 @@ button.closeForm{
             @extend %scroll;
             resize: vertical;
         }
+        // .MuiBox-root{
+        //     max-height: 20%;
+        // }
         .MuiTextField-root{
             width: 100%;
             font-family: "PlexNormal";
