@@ -10,7 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { pattern, zodMsgs } from '../form/assets';
+import { initZodMsgs, pattern } from '../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
 import { sitekey } from '../form/recaptcha';
 //*queries
@@ -103,13 +103,14 @@ function FormSection() {
             alert: {
                 success: language_isSuccess ? language.careers.form.alert.success : "Request Sent Successfully.",
                 error: language_isSuccess ? language.careers.form.alert.error : "Request Failed.",
-                reCaptcha: language_isSuccess ? language.requestQuotation.form.alert.reCaptcha : "Please verify that you're not a robot."
+                reCaptcha: language_isSuccess ? language.careers.form.alert.reCaptcha : "Please verify that you're not a robot."
             },
             submit: language_isSuccess ? language.careers.form.submit : "Apply now"
         }
     }), [language, language_isSuccess]);
 
-    const [lastInputChanged, setLastInputChanged] = useState("");
+    // const [lastInputChanged, setLastInputChanged] = useState("");
+    const lastInputChanged = useRef("");
 
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();
@@ -118,35 +119,11 @@ function FormSection() {
         const zodMsgs = initZodMsgs(language);
         return createZodObject(defaultContent, zodMsgs, pattern);
     }, [language, language_isSuccess]);
+
+    const { register, handleSubmit, watch, setError, clearErrors, trigger, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+
+    const inputsSettings = useMemo(() => createInputsSettings(register, lastInputChanged), []);
     
-    const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({resolver:zodResolver(schema),mode:"onChange"});
-
-    const inputsSettings = useMemo(() => createInputsSettings(register), []);
-
-    const handleLastErrors = (lastInputChanged, errors) => {
-        
-        let errorInputs = Object.keys(errors);
-
-        let lastErrorInput = errorInputs[errorInputs.length - 1];
-        
-        if (errors?.[lastInputChanged]) {
-            
-            return errors?.[lastInputChanged]?.message;
-        
-        } else if (errorInputs.length != 0) {
-        
-            return errors[lastErrorInput].message;
-        
-        } else { 
-
-            return "";
-        
-        }
-        
-    };
-    
-    const [requestJob, { isSuccess: requestJob_isSuccess, isError: requestJob_isError, isLoading: requestJob_isLoading }] = useRequestJobMutation();
-
     useEffect(() => {
         const subscription = watch((value,{ name, type }) => {
             if (reCaptchaToken.current) {
@@ -158,8 +135,16 @@ function FormSection() {
         });
         return () => subscription.unsubscribe();
     }, []);
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0)
+            trigger();
+    }, [language, language_isSuccess])
     
-    const onSubmit = (data) => {console.log(data.cvFile);
+    const [requestJob, { isSuccess: requestJob_isSuccess, isError: requestJob_isError, isLoading: requestJob_isLoading }] = useRequestJobMutation();
+    
+    const onSubmit = (data) => {
+        console.log(data.cvFile);
         if (!reCaptchaToken.current) {
             setError("recaptcha", {
                 type: "manual",
@@ -178,8 +163,8 @@ function FormSection() {
     };
 
     return (
-        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
-            
+        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} {...formAosAnimation}>
+
             <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
 
             {(requestJob_isSuccess && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
@@ -205,12 +190,16 @@ function FormSection() {
 }
 
 function SelectInput(props) {
-    const { data: openJobs, isSuccess: openJobs_isSuccess } = useGetOpenJobsQuery();
 
-    const [job, setJob] = useState("0");
+    const { data: openJobs, isSuccess: openJobs_isSuccess } = useGetOpenJobsQuery(undefined, {
+        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+    });
+
+    // const [job, setJob] = useState("0");
+    const job = useRef(0);
 
     return (
-        <Select variant='outlined' { ...props } defaultValue={ '0' } value={job} onChange={ (e) => { props.onChange(e); setJob(e.target.value);}}>
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job.current } onChange={ (e) => { props.onChange(e); job.current = e.target.value }}>
             <MenuItem value={"0"}>{props.title}</MenuItem>
             {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
         </Select>
@@ -219,18 +208,23 @@ function SelectInput(props) {
 
 function FileInput(props) {
 
-    const fileName = useRef();
+    const fileName = useRef(props.noFile);
 
-    const open = (e, fileNameTarget) => {
-        fileNameTarget.current.textContent = e.target.files[0]?.name || "No file chosen";
+    const openBrowser = (e, fileNameTarget) => {
+        if (e.target.files.length > 0) {
+            fileNameTarget.current = e.target.files[0]?.name;
+        } else if (e.target.files.length == 0) {
+            fileNameTarget.current = props.noFile;
+        }
     }
+
 
     return (
         <Box className={ "fileInput " + (props.color=="error"?"fileInputError": "")} >
-            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); open(e, fileName); } } />
+            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); openBrowser(e, fileName); } } />
             <label htmlFor="cvUpload" className='fileInputBody'>
                 <div variant='contained' className='fileInputTitle'>{ props.title }</div>
-                <Typography ref={fileName} component={'span'} className='selectedFileName'>{props.noFile}</Typography>
+                <Typography component={'span'} className='selectedFileName'>{fileName.current}</Typography>
             </label>
         </Box>
     )
@@ -238,19 +232,41 @@ function FileInput(props) {
 
 function createZodObject(defaultContent,zodMsgs,pattern) {
     return zod.object({
-        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less("name",3) }).max(100, { message: zodMsgs.length.more("name",100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid("name") }),
-        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid("number") }),
+        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less(defaultContent.form.inputs.name,3) }).max(100, { message: zodMsgs.length.more(defaultContent.form.inputs.name,100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid(defaultContent.form.inputs.name) }),
+        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid(defaultContent.form.inputs.phone) }),
         job: zod.string().refine((selectedJob) => selectedJob != "0", { message: zodMsgs.required }),
         cvFile: zod.any().refine((files) => files.length > 0, { message: zodMsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodMsgs.fileSize(5) })
     });
 }
 
-const createInputsSettings = (register) => ({
-    name: register("name", { required: true, onChange: () => { setLastInputChanged("name"); } }),
-    phone: register("phone", { required: true, onChange: () => { setLastInputChanged("phone"); } }),
-    job: register("job", { required: true, onChange: () => { setLastInputChanged("job"); } }),
-    cvFile: register("cvFile", { required: true, onChange: () => { setLastInputChanged("cvFile"); } }),
+const createInputsSettings = (register, lastInputChanged) => ({
+    name: register("name", { required: true, onChange: () => { lastInputChanged.current = "name"; } }),
+    phone: register("phone", { required: true, onChange: () => { lastInputChanged.current = "phone"; } }),
+    job: register("job", { required: true, onChange: () => { lastInputChanged.current = "job"; } }),
+    cvFile: register("cvFile", { required: true, onChange: () => { lastInputChanged.current = "cvFile"; } }),
 });
+
+const handleLastErrors = (lastInputChanged, errors) => {
+    
+    let errorInputs = Object.keys(errors);
+
+    let lastErrorInput = errorInputs[errorInputs.length - 1];
+    
+    if (errors?.[lastInputChanged]) {
+        
+        return errors?.[lastInputChanged]?.message;
+    
+    } else if (errorInputs.length != 0) {
+    
+        return errors[lastErrorInput].message;
+    
+    } else { 
+
+        return "";
+    
+    }
+    
+};
 
 const aosAnimation = {
     ["data-aos"]: "fade-up",
@@ -267,6 +283,10 @@ const subtitleAosAnimation = {
 const descriptionAosAnimation = {
     ...aosAnimation,
     ["data-aos-delay"]:"150"
+}
+const formAosAnimation={
+    ...aosAnimation,
+    ["data-aos-delay"]:"250"
 }
 
 function titleWordsUp(careersTitle) {
