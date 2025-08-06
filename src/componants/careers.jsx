@@ -179,7 +179,7 @@ function FormSection() {
 
             <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} noFile={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
             
-            <ReCAPTCHA ref={ reCaptcha } sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
+            <ReCAPTCHA ref={ reCaptcha } key={defaultContent.language} sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
             
             <Button loading={requestJob_isLoading} loadingPosition='center' variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
             
