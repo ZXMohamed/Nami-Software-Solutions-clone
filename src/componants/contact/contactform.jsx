@@ -93,7 +93,7 @@ export function FormSection() {
     return (
         <Stack dir={defaultContent.direction} component={"form"} direction={"column"} spacing={6} className='contactFormSection' onSubmit={handleSubmit(onsubmit)} {...formAosAnimation}>
             
-            {(contact_isSuccess && !contact_isLoading) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{ defaultContent.form.alert.success }</Alert> }
+            {(contact_isSuccess && !contact_isLoading && !errors?.recaptcha) && <Alert variant="filled" color='primary' severity="success" className='formAlert'>{ defaultContent.form.alert.success }</Alert> }
 
             <Grid container rowSpacing={ 5 } columnSpacing={ 4 }>
                 
@@ -111,7 +111,7 @@ export function FormSection() {
             
             <ReCAPTCHA ref={reCaptcha} key={defaultContent.language} sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
             
-            {(contact_isError && !contact_isLoading) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
+            {(contact_isError && !contact_isLoading && !errors?.recaptcha) && <Alert variant="filled" color='error' severity="error" className='formAlert'>{defaultContent.form.alert.error}</Alert>}
             { errors?.recaptcha && <Alert variant="filled" color='warning' severity="warning" className='formAlert'>{ errors.recaptcha.message }</Alert> }
             
             <Stack direction={ "row" } className='contactFormSubmitContainer'>

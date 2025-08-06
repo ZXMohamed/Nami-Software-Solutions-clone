@@ -258,18 +258,7 @@ p.homeDescription{
         }
     }
 
-    &[dir=ltr]{
-        div.MuiAlert-icon{
-            margin-left: 0px;
-            margin-right: 12px;
-        }
-    }
-    &[dir=rtl]{
-        div.MuiAlert-icon{
-            margin-right: 0px;
-            margin-left: 12px;
-        }
-    }
+    @extend %contactFormDirection;
 
     @media screen and (max-width:400px) {
         padding-left: 10px;
@@ -282,12 +271,7 @@ p.homeDescription{
     justify-content:center;
 }
 .contactInfoSection{
-    &[dir=ltr]{
-        margin-left: 20px;
-    }
-    &[dir=rtl]{
-        margin-right: 20px;
-    }
+    @extend %contactInfoDirection;
 }
 h1.contactInfoTitle{
     color: $secondTextColor;
@@ -315,31 +299,8 @@ p.contactInfoDescription{
     }
 }
 .contactMethodsSection{
-    &[dir=ltr]{
-        margin-left: 20px;
-        >div{
-            h3.contactMethodTitle{
-                padding-left: 10px;
-            }
-            h4.contactMethodLink{
-                padding-left: 10px;
-            }
-        }
-    }
-    &[dir=rtl]{
-        margin-right: 20px;
-        >div{
-            h3.contactMethodTitle{
-                padding-right: 10px;
-            }
-            h4.contactMethodLink{
-                padding-right: 10px;
-                a{
-                    @extend %removeAdditionalLinkStyle;
-                }
-            }
-        }
-    }
+    @extend %contactMethodsDirection;
+
     >div{
         @include center("Y-flex");
         &:hover{
@@ -390,5 +351,63 @@ h4.contactMethodLink{
     font-size: 16px;
     a{
         @extend %removeAdditionalLinkStyle;
+    }
+}
+
+%contactFormDirection{
+    &[dir=ltr]{
+        .MuiFormHelperText-root{
+            text-align: left;
+        }
+        div.MuiAlert-icon{
+            margin-left: 0px;
+            margin-right: 12px;
+        }
+    }
+    &[dir=rtl]{
+        .MuiFormHelperText-root{
+            text-align: right;
+        }
+        div.MuiAlert-icon{
+            margin-right: 0px;
+            margin-left: 12px;
+        }
+    }
+}
+
+%contactInfoDirection{
+    &[dir=ltr]{
+        margin-left: 20px;
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+    }
+}
+
+%contactMethodsDirection{
+    &[dir=ltr]{
+        margin-left: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-left: 10px;
+            }
+            h4.contactMethodLink{
+                padding-left: 10px;
+            }
+        }
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-right: 10px;
+            }
+            h4.contactMethodLink{
+                padding-right: 10px;
+                a{
+                    @extend %removeAdditionalLinkStyle;
+                }
+            }
+        }
     }
 }
