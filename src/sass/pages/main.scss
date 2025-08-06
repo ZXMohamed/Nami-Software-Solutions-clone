@@ -162,21 +162,7 @@ p.homeDescription{
     height: 76px;
     color: $secondColor;
     @include center("flex");
-
-    &[dir=ltr]{
-        p.tickerItem{
-            &::before{
-                background-position: left 60%;
-            }
-        }
-    }
-    &[dir=rtl]{        
-        p.tickerItem{
-            &::before{
-                background-position: right 60%;
-            }
-        }
-    }
+    @extend %servicesTickerDirection;
 }
 div.tickerBar{
     height: 100%;
@@ -187,18 +173,34 @@ div.tickerBar{
     position: relative;
 }
 p.tickerItem{
+    width: fit-content;
     font-family: "PlexNormal";
     font-size: 18px;
     display: flex;
     position: absolute;
-    &::before{
-        content: "";
-        background-image: url($pointIcon);
-        background-position: left 60%;
-        background-repeat: no-repeat;
-        background-size: 40%;
-        filter: brightness(0) invert(1);
-        width: 50px;
-        display: block;
+}
+
+div.tickerItemSplitter{
+    position: absolute;
+    background-image: url($pointIcon);
+    // background-position: left 60%;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    filter: brightness(0) invert(1);
+    width: 20px;
+    height: 30px;
+    display: block;
+}
+
+%servicesTickerDirection{
+    &[dir=ltr]{
+        div.tickerItemSplitter{
+            background-position: left 60%;
+        }
+    }
+    &[dir=rtl]{        
+        div.tickerItemSplitter{
+            background-position: right 60%;
+        }
     }
 }
