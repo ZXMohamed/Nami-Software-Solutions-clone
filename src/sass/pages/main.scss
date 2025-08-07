@@ -174,7 +174,6 @@ p.homeDescription{
 }
 //*footer*/
 .footer{
-
     padding: 56px 0px 40px 0px ;
     background-color: $secondColor;
     position: relative;
@@ -196,13 +195,7 @@ div.footerTabs{
     margin-bottom: 30px;
 }
 div.footerAboutTab{
-
-    &[dir=ltr]{
-        padding-left: 10px;
-    }
-    &[dir=rtl]{
-        padding-right: 10px;
-    }
+    @extend %footerAboutTabDirection;
     padding-bottom: 10px;
 
     @media screen and (max-width:768px) {
@@ -213,45 +206,16 @@ div.footerAboutTab{
 }
 
 img.footerLogo{
-height: 60px;
+    height: 60px;
 }
 
 p.footerDescription{
-margin-top: 10px;
-font-family: "PlexNormal";
+    margin-top: 10px;
+    font-family: "PlexNormal";
 }
 
 div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
-    
-    &[dir=ltr]{
-        padding-left: 10px;
-        ul.footerTabList{
-            padding-left: 0px;
-            li{
-                img.footerTabListItemsIcon{
-                    margin-right: 10px;
-                }
-                &::before{
-                    margin-right: 8px;
-                }
-            }
-        }
-    }
-    
-    &[dir=rtl]{
-        padding-right: 10px;
-        ul.footerTabList{
-            padding-right: 0px;
-            li{
-                img.footerTabListItemsIcon{
-                    margin-left: 10px;
-                }
-                &::before{
-                    margin-left: 8px;
-                }
-            }
-        }
-    }
+    @extend %footerListDirection;
     
     @media screen and (max-width:768px) {
         h1{
@@ -335,4 +299,46 @@ div.footerDownBar{
 p.footerCopyRights{
     font-family: "PlexNormal";
     text-align: center;
+}
+
+
+%footerAboutTabDirection{
+    &[dir=ltr]{
+        padding-left: 10px;
+    }
+    &[dir=rtl]{
+        padding-right: 10px;
+    }
+}
+
+%footerListDirection{
+    &[dir=ltr]{
+        padding-left: 10px;
+        ul.footerTabList{
+            padding-left: 0px;
+            li{
+                img.footerTabListItemsIcon{
+                    margin-right: 10px;
+                }
+                &::before{
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+    
+    &[dir=rtl]{
+        padding-right: 10px;
+        ul.footerTabList{
+            padding-right: 0px;
+            li{
+                img.footerTabListItemsIcon{
+                    margin-left: 10px;
+                }
+                &::before{
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
 }
