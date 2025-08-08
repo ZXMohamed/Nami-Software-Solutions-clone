@@ -1,5 +1,5 @@
 //*react
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
@@ -9,11 +9,12 @@ import NavBar from './navbar/navbar';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
+import { initZodMsgs } from '../form/assets';
 
 
 export default function PageWrapper({ children }) {
   
-  const [getLanguage, languageStatus] = useGetLanguageMutation();
+  const [getLanguage, languageStatus] = useGetLanguageMutation(); 
 
   function languageRequest(language) {
     //$get page from url
@@ -31,10 +32,23 @@ export default function PageWrapper({ children }) {
   //   languageRequest();
   // },[])
 
-  const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus });
+  
+  const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
+  
   const languageControls = useMemo(() => {
+
     if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
-    prevAddress_languageControls.current = { languageRequest, ...languageStatus };
+    
+    let zodMsgs = {};
+    if (languageStatus.data) {
+      zodMsgs = initZodMsgs(languageStatus.data.page.form);
+    } else {
+      zodMsgs = initZodMsgs();
+    }
+
+    // console.log(languageStatus.data);
+    prevAddress_languageControls.current = { languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs } };console.log(prevAddress_languageControls.current);
+    
     return prevAddress_languageControls.current;
   }, [languageStatus.isSuccess]);
 
