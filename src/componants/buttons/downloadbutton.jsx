@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 //*styles
-import "../sass/shared/downloadbutton.scss"
+import "../../sass/shared/downloadbutton.scss"
 
 const aosAnimation = {
   ["data-aos"]: "fade-up",

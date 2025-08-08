@@ -6,7 +6,7 @@ import { Box, Container, Grid, Typography, Stack } from '@mui/material'
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 //*components
-import DownloadButton from './downloadbutton';
+import DownloadButton from './buttons/downloadbutton';
 //*queries
 import { useGetCompanyFileQuery } from '../redux/server state/companyfile';
 //*scripts
