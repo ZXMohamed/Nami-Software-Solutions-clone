@@ -5,9 +5,9 @@ export const pattern = {
 
 export function initZodMsgs(language) {
     if (language) {
-        const required = language.page.form.validationMsgs.required;
-        const length = language.page.form.validationMsgs.length;
-        const valid = language.page.form.validationMsgs.valid;
+        const required = language.validationMsgs.required;
+        const length = language.validationMsgs.length;
+        const valid = language.validationMsgs.valid;
         return {
             required: required,
             length: {

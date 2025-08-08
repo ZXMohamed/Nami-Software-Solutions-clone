@@ -22,6 +22,7 @@ export function FormSection() {
     const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         language: language_isSuccess ? language.page.language : "en",
+        zodMsgs: language.zodMsgs,
         form: {
             title: language_isSuccess ? language.contact.form.title : "",
             inputs: {
@@ -39,16 +40,12 @@ export function FormSection() {
             submit: language_isSuccess ? language.contact.form.submit : "Send"
         }
     }), [language, language_isSuccess]);
-
     
     // const [captchaToken, setCaptchaToken] = useState(null);
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();
     
-    const schema = useMemo(() => {
-        const zodMsgs = initZodMsgs(language);
-        return createZodObject(defaultContent, zodMsgs, pattern);
-    }, [language, language_isSuccess]);
+    const schema = useMemo(() => createZodObject(defaultContent, pattern), [language, language_isSuccess]);
     
     const { register, handleSubmit, watch, setError, clearErrors, trigger, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
     
@@ -124,13 +121,24 @@ export function FormSection() {
     )
 }
 
-function createZodObject(defaultContent,zodMsgs,pattern) {
+function createZodObject(defaultContent, pattern) {
+
+    const required = defaultContent.zodMsgs.required;
+    const length = defaultContent.zodMsgs.length;
+    const valid = defaultContent.zodMsgs.valid;
+
+    const name = defaultContent.form.inputs.name;
+    const subject = defaultContent.form.inputs.subject;
+    const message = defaultContent.form.inputs.message;
+    const phone = defaultContent.form.inputs.phone;
+    const email = defaultContent.form.inputs.email;
+
     return zod.object({
-        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less(defaultContent.form.inputs.name,3) }).max(100, { message: zodMsgs.length.more(defaultContent.form.inputs.name,100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid(defaultContent.form.inputs.name) }),
-        subject: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less(defaultContent.form.inputs.subject,3) }).max(100, { message: zodMsgs.length.more(defaultContent.form.inputs.subject,100) }),
-        message: zod.string().nonempty(zodMsgs.required).max(500, { message: zodMsgs.length.more(defaultContent.form.inputs.message,500) }),
-        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid(defaultContent.form.inputs.number) }),
-        email: zod.string().nonempty(zodMsgs.required).email(zodMsgs.valid)
+        name: zod.string().nonempty(required).min(3, { message: length.less(name,3) }).max(100, { message: length.more(name,100) }).refine((name) => pattern.name(name), { message: valid(name) }),
+        subject: zod.string().nonempty(required).min(3, { message: length.less(subject,3) }).max(100, { message: length.more(subject,100) }),
+        message: zod.string().nonempty(required).max(500, { message: length.more(message,500) }),
+        phone: zod.string().min(1, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
+        email: zod.string().nonempty(required).email(valid)
     });
 }
 
