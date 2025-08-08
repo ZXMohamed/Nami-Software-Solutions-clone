@@ -85,13 +85,14 @@ function InfoSection() {
     )
 }
 
-function FormSection() {
+function FormSection() {console.log("XXX");
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
     const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         language: language_isSuccess ? language.page.language : "en",
+        zodMsgs: language.zodMsgs,
         form: {
             title: language_isSuccess ? language.careers.form.title : "Upload your CV",
             inputs: {
@@ -115,10 +116,7 @@ function FormSection() {
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();
 
-    const schema = useMemo(() => {
-        const zodMsgs = initZodMsgs(language);
-        return createZodObject(defaultContent, zodMsgs, pattern);
-    }, [language, language_isSuccess]);
+    const schema = useMemo(() => createZodObject(defaultContent, pattern), [language, language_isSuccess]);
 
     const { register, handleSubmit, watch, setError, clearErrors, trigger, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
 
@@ -195,11 +193,10 @@ function SelectInput(props) {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    // const [job, setJob] = useState("0");
-    const job = useRef(0);
+    const [job, setJob] = useState("0");
 
     return (
-        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job.current } onChange={ (e) => { props.onChange(e); job.current = e.target.value }}>
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job } onChange={ (e) => { props.onChange(e); setJob(e.target.value); }}>
             <MenuItem value={"0"}>{props.title}</MenuItem>
             {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
         </Select>
@@ -208,34 +205,46 @@ function SelectInput(props) {
 
 function FileInput(props) {
 
-    const fileName = useRef(props.noFile);
+    const [fileName, setFileName] = useState(props.noFile);
 
-    const openBrowser = (e, fileNameTarget) => {
+    const fileNameChange = (e, setFileName) => {
         if (e.target.files.length > 0) {
-            fileNameTarget.current = e.target.files[0]?.name;
+            setFileName(e.target.files[0]?.name);
         } else if (e.target.files.length == 0) {
-            fileNameTarget.current = props.noFile;
+            setFileName(props.noFile);
         }
     }
 
 
     return (
         <Box className={ "fileInput " + (props.color=="error"?"fileInputError": "")} >
-            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); openBrowser(e, fileName); } } />
+            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); fileNameChange(e, setFileName); } } />
             <label htmlFor="cvUpload" className='fileInputBody'>
                 <div variant='contained' className='fileInputTitle'>{ props.title }</div>
-                <Typography component={'span'} className='selectedFileName'>{fileName.current}</Typography>
+                <Typography component={'span'} className='selectedFileName'>{fileName}</Typography>
             </label>
         </Box>
     )
 }
 
-function createZodObject(defaultContent,zodMsgs,pattern) {
+function createZodObject(defaultContent, pattern) {
+    
+    const required = defaultContent.zodMsgs.required;
+    const length = defaultContent.zodMsgs.length;
+    const valid = defaultContent.zodMsgs.valid;
+    const unknown = defaultContent.zodMsgs.unknown;
+    const fileSize = defaultContent.zodMsgs.fileSize;
+
+    const name = defaultContent.form.inputs.name;
+    const phone = defaultContent.form.inputs.phone;
+    const job = defaultContent.form.inputs.job;
+    const email = defaultContent.form.inputs.jop;
+    
     return zod.object({
-        name: zod.string().nonempty(zodMsgs.required).min(3, { message: zodMsgs.length.less(defaultContent.form.inputs.name,3) }).max(100, { message: zodMsgs.length.more(defaultContent.form.inputs.name,100) }).refine((name) => pattern.name(name), { message: zodMsgs.valid(defaultContent.form.inputs.name) }),
-        phone: zod.string().min(1, { message: zodMsgs.required }).refine((phone) => pattern.phone(phone), { message: zodMsgs.valid(defaultContent.form.inputs.phone) }),
-        job: zod.string().refine((selectedJob) => selectedJob != "0", { message: zodMsgs.required }),
-        cvFile: zod.any().refine((files) => files.length > 0, { message: zodMsgs.required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: zodMsgs.fileSize(5) })
+        name: zod.string().nonempty(required).min(3, { message: length.less(name,3) }).max(100, { message: length.more(name,100) }).refine((name) => pattern.name(name), { message: valid(name) }),
+        phone: zod.string().min(1, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
+        job: zod.string().refine((selectedJob) => selectedJob != "0", { message: required }),
+        cvFile: zod.any().refine((files) => files.length > 0, { message: required }).refine((files) => files[0]?.size < (5 * 1024 * 1024), { message: fileSize(5) })
     });
 }
 

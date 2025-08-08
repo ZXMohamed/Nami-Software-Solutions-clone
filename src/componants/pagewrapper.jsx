@@ -1,17 +1,36 @@
-import React from 'react'
+import React, { useMemo, useRef } from 'react'
 import NavBar from './navbar'
 import { useGetLanguageMutation } from '../redux/server state/language';
 import { Language } from '../languages/languagesContext';
 import FloatSocialButtons from './floatsocialbuttons';
+import { initZodMsgs } from '../form/assets';
 
 
 export default function PageWrapper({ children }) {
     
-    const [getLanguage, status] = useGetLanguageMutation();
+    const [getLanguage, languageStatus] = useGetLanguageMutation();
     
+  const prevAddress_languageControls = useRef({ getLanguage, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
+  
+  const languageControls = useMemo(() => {
+
+    if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
+    
+    let zodMsgs = {};
+    if (languageStatus.data) {
+      zodMsgs = initZodMsgs(languageStatus.data.page.form);
+    } else {
+      zodMsgs = initZodMsgs();
+    }
+
+    // console.log(languageStatus.data);
+    prevAddress_languageControls.current = { getLanguage, ...languageStatus, data: { ...languageStatus.data, zodMsgs } };console.log(prevAddress_languageControls.current);
+    
+    return prevAddress_languageControls.current;
+  }, [languageStatus.isSuccess]);
 
     return (
-      <Language.Provider value={{getLanguage,...status}}>
+      <Language.Provider value={languageControls}>
         <NavBar />
         {children}
         <FloatSocialButtons/>

@@ -3,13 +3,13 @@ export const pattern = {
     phone:(phone)=>phone.match(/^\+?[0-9]{1,4}[-\s.]?(\(?\d{2,4}\)?[-\s.]?)?\d{3,4}[-\s.]?\d{4}$/) || phone.match(/^01[0125][0-9]{8}$/) || phone.match(/^\d{10,15}$/),
 }
 
-export function initZodMsgs(language) {
+export function initZodMsgs(language) {console.log(language);
     if (language) {
-        const required = language.page.form.validationMsgs.required;
-        const length = language.page.form.validationMsgs.length;
-        const valid = language.page.form.validationMsgs.valid;
-        const unknown = language.page.form.validationMsgs.unknown;
-        const fileSize = language.page.form.validationMsgs.fileSize;
+        const required = language.validationMsgs.required;
+        const length = language.validationMsgs.length;
+        const valid = language.validationMsgs.valid;
+        const unknown = language.validationMsgs.unknown;
+        const fileSize = language.validationMsgs.fileSize;
         return {
             required: required,
             length: {
