@@ -1,8 +1,6 @@
 import React, { useMemo, useRef } from 'react'
-import NavBar from './navbar'
 import { useGetLanguageMutation } from '../redux/server state/language';
 import { Language } from '../languages/languagesContext';
-import FloatSocialButtons from './floatsocialbuttons';
 import { initZodMsgs } from '../form/assets';
 
 
@@ -31,9 +29,7 @@ export default function PageWrapper({ children }) {
 
     return (
       <Language.Provider value={languageControls}>
-        <NavBar />
         {children}
-        <FloatSocialButtons/>
         {/*footer*/}
       </Language.Provider>
   )
