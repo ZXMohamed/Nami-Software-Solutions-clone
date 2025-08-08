@@ -3,11 +3,11 @@ import React, { memo, useContext } from 'react'
 //*mui
 import { Stack } from '@mui/material'
 //*styles
-import "../sass/shared/contactbuttons.scss"
+import "../../sass/shared/contactbuttons.scss"
 //*queries
-import { useGetSocialQuery } from '../redux/server state/social'
+import { useGetSocialQuery } from '../../redux/server state/social'
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 
 const ContactButtons = memo(() => {
 

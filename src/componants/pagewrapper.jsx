@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGetLanguageMutation } from '../redux/server state/language';
 import { Language } from '../languages/languagesContext';
-import ContactButtons from './contactbuttons';
+import ContactButtons from './social&contacts/contactbuttons';
 
 
 export default function PageWrapper({ children }) {
