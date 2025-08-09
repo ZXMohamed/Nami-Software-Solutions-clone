@@ -4,7 +4,7 @@ import { memo, useContext, useMemo, useState } from "react";
 import { TextField } from "@mui/material";
 //*component
 import RequestButton from "../buttons/requestbutton";
-import RequestQuotationForm from "../requestform";
+import RequestForm from "../requestform";
 //*queries
 import { useRequestQuotationMutation } from '../../redux/server state/requestquotation';
 //*scripts
@@ -44,12 +44,12 @@ const RequestQuotation = () => {
 
     const [requestFormOpen, setRequestFormOpen] = useState(false);
 
-    const [requestQuotation, { isSuccess: requestQuotation_isSuccess, isLoading: requestQuotation_isLoading, isError: requestQuotation_isError }] = useRequestQuotationMutation();
+    const [requestQuotation, { isSuccess: requestQuotation_isSuccess, isLoading: requestQuotation_isLoading, isError: requestQuotation_isError, reset: requestQuotation_reset }] = useRequestQuotationMutation();
 
     return (
         <>
             <RequestButton title={ defaultContent.buttons.requestQuotation } className="homeRequestButton" onClick={ () => setRequestFormOpen(true) } />
-            { requestFormOpen && <RequestQuotationForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => setRequestFormOpen(false) } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } /> }
+            { requestFormOpen && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setRequestFormOpen(false); requestQuotation_reset(); } } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } /> }
         </>
     );
 };
