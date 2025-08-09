@@ -12,7 +12,7 @@ import { pattern, setFormAdditionalInputs } from '../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
 import { sitekey } from '../form/recaptcha';
 
-export default function RequestQuotationForm({ closeButton, defaultContent, formAdditionalInputs, form_isLoading, form_isSuccess, form_isError, submit }) {
+export default function RequestQuotationForm({ closeButton, defaultContent, formAdditionalInputs=[], form_isLoading, form_isSuccess, form_isError, submit }) {
 
     const reCaptcha = useRef();
     const reCaptchaToken = useRef();

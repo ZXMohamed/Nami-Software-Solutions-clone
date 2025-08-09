@@ -1,0 +1,122 @@
+@use "_shared.scss" as *;
+// @use "fonts.scss" as *;
+
+.sectionHeader{
+    margin-bottom: 35px;
+    @extend %direction;
+}
+
+h2.sectionHeaderTitle{
+    font-family: "PlexBold";
+    color: $secondTextColor;
+    font-size: 24px;
+    margin-bottom: 15px;
+    div{
+        transform: translateY(5px);
+    }
+    @media screen and (max-width:768px) {
+        text-align: center;
+        font-size: 18px;    
+    }
+    @media screen and (min-width:768px) {
+        // text-align: left;
+    }
+}
+.sectionHeaderSubtitleContainer{
+    display: flex;
+    
+    @media screen and (max-width:768px) {
+        justify-content: center;
+    } 
+    // @media screen and (min-width:768px) {
+    //     // justify-content: flex-start;
+    // } 
+}
+h1.sectionHeaderSubtitle{
+    font-family: "PlexBold";
+    text-transform: uppercase;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.5;
+    div{
+        transform: translateY(10px);
+    }
+    
+    @media screen and (max-width:768px) {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 15px;    
+    }
+    // @media screen and (min-width:768px) {
+    //     // text-align: left;
+    // }
+
+}
+
+.sectionHeaderButtonContainer{
+    display: flex !important;
+    
+    @media screen and (min-width:768px) {
+        justify-content: flex-end;
+    }
+    @media screen and (max-width:768px) {
+        justify-content: center;
+    }
+}
+
+a.sectionHeaderButton{
+    font-family: "PlexNormal";
+    @extend %wideHexagon;
+    @extend %animatedBG;
+    width: clamp(70px,90px,200px);
+    // padding-left: 10px;
+    // padding-right: 10px;
+    height: 52px;
+    @include center("flex");
+    color: $secondColor;
+    font-size: 14px;
+    @extend %transition;
+    div{
+        @extend %transition;
+        background-image: url($showAllArrow);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        filter: invert(1);
+        width: 0px;
+        height: 30px;
+    }
+    &:hover{
+        width: 110px;
+        div{
+            width: 15px;
+        }
+    }
+}
+
+%direction{
+    &[dir=ltr]{
+        a.sectionHeaderButton{
+            div{
+                transform: rotateY(0deg);
+            }
+            &:hover{
+                div{
+                    margin-left: 8px;
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        a.sectionHeaderButton{
+            div{
+                transform: rotateY(180deg);
+            }
+            &:hover{
+                div{
+                    margin-right: 8px;   
+                }
+            }
+        }
+    }
+}
