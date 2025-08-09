@@ -3,7 +3,7 @@ import React, { useContext, useMemo } from 'react'
 //*mui
 import { Box, CircularProgress, Typography } from '@mui/material'
 //*component
-import InfoCard from '../infoCard'
+import InfoCard, { infoCardEffects, typographyForm } from '../infoCard'
 import { StatisticsList, StatisticsBox } from './statisticsbox'
 //*queries
 import { useGetStatisticsQuery } from '../../redux/server state/statistics'
@@ -27,7 +27,7 @@ export function Statistics() {
     
     return (
         <Box className='infoCardSection'>
-            <InfoCard dir={defaultContent.direction} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
+            <InfoCard dir={defaultContent.direction} waveDir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
                 <StatisticsList>
                     {!statistic_isSuccess && <WaitStatisticProgress num={5} />}
                     {statistic_isSuccess && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
