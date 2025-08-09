@@ -6,8 +6,11 @@ import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
+import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
+import { initZodMsgs } from '../form/assets';
+import ContactButtons from './social&contacts/contactbuttons';
 
 
 export default function PageWrapper({ children }) {
@@ -31,7 +34,7 @@ export default function PageWrapper({ children }) {
   // },[])
 
   
-  const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus });
+  const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
   
   const languageControls = useMemo(() => {
 
@@ -45,7 +48,7 @@ export default function PageWrapper({ children }) {
     }
 
     // console.log(languageStatus.data);
-    prevAddress_languageControls.current = { languageRequest, ...languageStatus };
+    prevAddress_languageControls.current = { languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs } };
     
     return prevAddress_languageControls.current;
   }, [languageStatus.isSuccess]);
@@ -54,6 +57,8 @@ export default function PageWrapper({ children }) {
     <Language.Provider value={languageControls}>
       <NavBar />
       {children}
+      <FloatSocialButtons />
+      <ContactButtons/>
       {/*footer*/}
     </Language.Provider>
 
