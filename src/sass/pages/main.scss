@@ -27,5 +27,6 @@ div.productsSlider{
 .infoCardSection{
     background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
     position: relative;
-    top: -60px;
+    // top: -60px;
+    margin-top: -60px;
 }
