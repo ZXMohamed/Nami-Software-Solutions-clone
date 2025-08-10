@@ -10,7 +10,7 @@ import { SplitText } from "gsap/SplitText";
 import "../sass/shared/sectionheader.scss"
 
 export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 
-    
+
     const headerTitle = useRef();
     const headerSubtitle = useRef();
 

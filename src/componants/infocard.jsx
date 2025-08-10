@@ -1,33 +1,35 @@
 //*react
-import React from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Container, Typography, Box, Stack } from '@mui/material'
 //*styles
 import "../sass/shared/infocard.scss"
 
-export default function InfoCard({ dir = "ltr", title, subtitle, description, waveDir = "left", typographyForm, effects = [], children, sx }) {
+const InfoCard = memo(({ dir = "ltr", title, subtitle, description, waveDir = "left", typographyForm, effects = [], children, sx }) => {
   return (
-    <Box dir={dir} sx={sx} className="infoCard" {...infoCardAosAnimation}>
-        <Container maxWidth="lg" className={effects.join(" ")}>
-          <WaveAnimation waveDir={ waveDir }/>
-            <Stack className='infoCardContent' direction={'column'} spacing={2} alignItems={"center"}>
-              { title && <Typography variant='h5' component={'h1'} className="infoCardTitle"><i>{title}</i></Typography> }
-              { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
-              { description && <Typography className="infoCardDescription">{description}</Typography> }
-              <br/>
-              { children && 
-                <>
-                  <br/>
-                  <Box className="infoCardAttachment">
-                    {children}
-                  </Box>
-                </>
-              }
-          </Stack>
-        </Container>
+    <Box dir={ dir } sx={ sx } className="infoCard" { ...infoCardAosAnimation }>
+      <Container maxWidth="lg" className={ effects.join(" ") }>
+        <WaveAnimation waveDir={ waveDir } />
+        <Stack className='infoCardContent' direction={ 'column' } spacing={ 2 } alignItems={ "center" }>
+          { title && <Typography variant='h5' component={ 'h1' } className="infoCardTitle"><i>{ title }</i></Typography> }
+          { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle " + typographyForm.subtitle.join(" ") }>{ subtitle }</Typography> }
+          { description && <Typography className="infoCardDescription">{ description }</Typography> }
+          <br />
+          { children &&
+            <>
+              <br />
+              <Box className="infoCardAttachment">
+                { children }
+              </Box>
+            </>
+          }
+        </Stack>
+      </Container>
     </Box>
   )
-}
+});
+
+export default InfoCard;
 
 const WaveAnimation = ({ waveDir }) => {
   return (

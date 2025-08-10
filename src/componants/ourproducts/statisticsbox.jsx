@@ -12,31 +12,31 @@ import "../../sass/shared/statisticsbox.scss"
 export function StatisticsList({ children }) {
 
     //!fix when collect pages
-    // const editedChildren = useRef(children);
+    const editedChildren = useRef(children);
 
-    // useEffect(() => {
-    //     editedChildren.current = React.Children.map(children, (child, inx) => {
-    //         if (React.isValidElement(child)) {
-    //             return React.cloneElement(child, {
-    //                 aosAnimation: statisticsBoxAosAnimation(inx + 1)
-    //             });
-    //         }
-    //         return child;
-    //     });
-    // }, []);
+    useEffect(() => {
+        editedChildren.current = React.Children.map(children, (child, inx) => {
+            if (React.isValidElement(child)) {
+                return React.cloneElement(child, {
+                    aosAnimation: statisticsBoxAosAnimation(inx + 1)
+                });
+            }
+            return child;
+        });
+    }, []);
 
-    const editedChildren = React.Children.map(children, (child, inx) => {
-        if (React.isValidElement(child)) {
-            return React.cloneElement(child, {
-                aosAnimation: statisticsBoxAosAnimation(inx + 1)
-            });
-        }
-        return child;
-    });
+    // const editedChildren = React.Children.map(children, (child, inx) => {
+    //     if (React.isValidElement(child)) {
+    //         return React.cloneElement(child, {
+    //             aosAnimation: statisticsBoxAosAnimation(inx + 1)
+    //         });
+    //     }
+    //     return child;
+    // });
 
   return (
     <Stack direction={ 'row' } className='statisticsList'>
-       {editedChildren}
+       {editedChildren.current}
     </Stack>
   )
 }
