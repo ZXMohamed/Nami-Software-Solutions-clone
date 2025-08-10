@@ -9,7 +9,8 @@ $showAllArrow: "#{$assets}/sectionheader/show all arrow.svg";
 $cardArrow : "#{$assets}/services/arrow.svg";
 $listArrow : "#{$assets}/services/list arrow.svg";
 $sectionbackground : "#{$assets}/global/sectionbackground.jpg";
-$formError : "../../assets/photo/global/formerror.svg";
+$formError : "#{$assets}/global/formerror.svg";
+$pointIcon : "#{$assets}/servicesticker/split.png";
 
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
@@ -38,6 +39,7 @@ $scrollColor:#CACACA;
 
 $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
 $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Transparent 50%, $primaryColor 100%);
+$gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%, rgb(150, 223, 241) 50%, rgb(72, 246, 87) 75%);
 
 // *{
 //     border: 1px solid #000000;
@@ -296,6 +298,37 @@ $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Tra
     }
     100%{
         transform: translateX(100%) translateY(100%) rotate(290deg);
+    }
+}
+
+%animatedLine{
+    background: $gradientLine;
+    background-size: 300%;
+    animation-name: moveBG;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes moveBG {
+    0%{
+
+        background-position-x: 100%;
+    }
+    25%{
+
+        background-position-x: 75%;
+    }
+    50%{
+
+        background-position-x: 50%;
+    }
+    75%{
+
+        background-position-x: 75%;
+    }
+    100%{
+
+        background-position-x: 100%;
     }
 }
 

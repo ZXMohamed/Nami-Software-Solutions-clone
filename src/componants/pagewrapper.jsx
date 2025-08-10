@@ -7,6 +7,8 @@ import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
+import ServicesTicker from './servicesticker';
+import Footer from './footer';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
@@ -58,8 +60,9 @@ export default function PageWrapper({ children }) {
       <NavBar />
       {children}
       <FloatSocialButtons />
-      <ContactButtons/>
-      {/*footer*/}
+      <ContactButtons />
+      <ServicesTicker />
+      <Footer />
     </Language.Provider>
 
     <Snackbar open={languageStatus.isError } autoHideDuration={5000}>
