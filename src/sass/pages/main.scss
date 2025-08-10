@@ -581,3 +581,33 @@ button.serviceItemReadMore{
         height: 20px;
     }
 }
+
+//*our products*/
+.ourProductsSection{
+    background-color: $primaryTransparent;
+    padding: 60px 0px 120px 0px;
+    >div.MuiContainer-root{
+        padding: 0px 15px;
+    }
+}
+div.productsSlider{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 100%;
+    // overflow-y: visible;
+    overflow-x: hidden;
+    .productsSlide{
+        height: unset;
+        max-width: 424px !important;
+        display: flex;
+        @media screen and (max-width:992px) {
+            max-width: 550px !important;
+        }
+    }
+}
+
+.infoCardSection{
+    background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
+    position: relative;
+    top: -60px;
+}

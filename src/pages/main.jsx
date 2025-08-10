@@ -6,8 +6,10 @@ import Home from '../componants/home/home'
 import About from '../componants/about/about'
 import { Our } from '../componants/about/our'
 import Services from '../componants/services'
+import OurProducts from '../componants/ourproducts/ourproducts'
 //*styles
 import "../sass/pages/main.scss"
+import "swiper/css"
 
 export default function Main() {
   return (
@@ -15,7 +17,8 @@ export default function Main() {
       <Home />
       <About />
       <Our />
-      <Services/>
+      <Services />
+      <OurProducts/>
     </PageWrapper>
   )
 }
