@@ -11,7 +11,8 @@ import { Language } from '../languages/languagesContext';
 //*assets
 import logo from "../assets/photo/global/namilogo.svg";
 import mailbox from "../assets/photo/footer/mailbox.svg";
-
+//*styles
+import "../sass/shared/footer.scss";
 
 const Footer = memo(() => {
 
