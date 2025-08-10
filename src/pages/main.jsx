@@ -9,6 +9,7 @@ import Services from '../componants/services'
 import OurProducts from '../componants/ourproducts/ourproducts'
 import Portfolio from '../componants/portfolio/portfolio'
 import Careers from '../componants/careers'
+import Contact from '../componants/contact/contact'
 //*styles
 import "../sass/pages/main.scss"
 import "swiper/css"
@@ -23,6 +24,7 @@ export default function Main() {
       <OurProducts />
       <Portfolio />
       <Careers />
+      <Contact />
     </PageWrapper>
   )
 }

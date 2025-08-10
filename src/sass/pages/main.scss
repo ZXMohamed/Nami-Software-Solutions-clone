@@ -960,3 +960,254 @@ p.formErrorMsg{
         }
     }
 }
+
+//*contact */
+.contactSection{
+    padding: 96px 10px 136px 10px;
+    // background-color: $secondColor;
+    @media screen and (max-width:992px) {
+        .contactFormSection{
+            width: 100%;
+        }
+        .contactInfoSection{
+            margin-left: 0px;
+            h1{font-size: 24px;}
+            h2{font-size: 18px;}
+            p{font-size: 14px;}
+        }
+        .contactMethodSection{
+            margin-left: 0px;
+            h3{}
+            h4{font-size: 14px;}
+        }
+    }
+
+}
+.contactFormSection{
+    background-color: $primaryColor;
+    width: 98%;
+    padding: 40px 40px 20px 40px;
+    border-radius: 15px;
+    
+    .MuiAlert-root{
+        box-shadow: 0px 0px 10px #00000013;
+    }
+
+    .MuiFormLabel-root{
+        left: unset !important;
+        font-family: "PlexNormal";
+        color: $secondColor;
+        font-size: 14px;
+    }
+    .MuiTextField-root{
+        width: 100%;
+        font-family: "PlexNormal";
+    }
+    .MuiInput-root {
+        &:before {
+            border-bottom: 1px solid $secondColor;
+        }
+        &:hover:not(.Mui-disabled):before {
+            border-bottom: 1px solid $secondColor;
+        }
+    }
+    .MuiFormHelperText-root{
+        font-size: 16px;
+    }
+    input,textarea{
+        caret-color: $secondColor;
+        color: $secondColor;
+        &::selection{
+            background-color: $primary2Color;
+        }
+    }
+    input::-webkit-inner-spin-button{
+        display: none;
+    }
+    textarea{
+        @extend %scroll;
+        resize: vertical;
+    }
+
+    .contactFormSubmitContainer{
+        width: 100%;
+        justify-content: flex-end;
+        align-items: center;
+        div.contactFormSubmitBorder{
+            @include center("flex");
+            width: 80px;
+            height: 45px;
+            @extend %hexagonBorder;
+            button.contactFormSubmit{
+                font-family: "PlexNormal";
+                color: #000000;
+                width: 92%;
+                height: 90%;
+                @extend %hexagon;
+                background-color: $secondColor;
+                border: none;
+                outline: none;
+                position: relative;
+                z-index: 1;
+                @extend %transition;
+                &:hover{
+                    @extend %animatedBG;
+                    color:$secondColor;
+                }
+            }
+        }
+    }
+
+    @extend %contactFormDirection;
+
+    @media screen and (max-width:400px) {
+        padding-left: 10px;
+        padding-right: 15px;
+    }
+}
+.infoSide{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.contactInfoSection{
+    @extend %contactInfoDirection;
+}
+h1.contactInfoTitle{
+    color: $secondTextColor;
+    font-family: "PlexBold";
+    div{
+        transform: translateY(10px);
+    }
+}
+h2.contactInfoSubtitle{
+    text-wrap: balance;
+    font-family: "PlexBold";
+    max-width: 450px;
+    text-transform: uppercase;
+    font-size: 30px;
+    div{
+        transform: translateY(10px);
+    }
+}
+p.contactInfoDescription{
+    color: $secondTextColor;
+    font-family: "PlexNormal";
+    text-wrap: balance;
+    div{
+        transform: translateY(5px);
+    }
+}
+.contactMethodsSection{
+    @extend %contactMethodsDirection;
+
+    >div{
+        @include center("Y-flex");
+        &:hover{
+            div.contactMethodIconCircle{
+                background-color: $primaryColor;
+                img.contactMethodIcon{
+                    filter: brightness(0) invert(1);
+                }
+            }
+        }
+        @media screen and (max-width:500px) {
+            h3.contactMethodTitle{
+                padding-left: 0px;
+            }
+            h4.contactMethodLink{
+                padding-left: 0px;
+            }
+        }
+    }
+}
+div.contactMethodIconCircle{
+    @extend %transition;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    @include center("flex");
+    border: 1px solid $primaryColor;
+    &::selection{
+        background-color: transparent;
+        color: transparent;
+    }
+    img.contactMethodIcon{
+        width: 45%;
+    }
+}
+h3.contactMethodTitle{
+    padding-left: 10px;
+    width: 100%;
+    font-family: "PlexBold";
+    color: $secondTextColor;
+    font-size: 13px;
+}
+h4.contactMethodLink{
+    padding-left: 10px;
+    width: 100%;
+    color: $primaryColor;
+    font-family: "PlexNormal";
+    font-size: 16px;
+    a{
+        @extend %removeAdditionalLinkStyle;
+    }
+}
+
+%contactFormDirection{
+    &[dir=ltr]{
+        .MuiFormHelperText-root{
+            text-align: left;
+        }
+        div.MuiAlert-icon{
+            margin-left: 0px;
+            margin-right: 12px;
+        }
+    }
+    &[dir=rtl]{
+        .MuiFormHelperText-root{
+            text-align: right;
+        }
+        div.MuiAlert-icon{
+            margin-right: 0px;
+            margin-left: 12px;
+        }
+    }
+}
+
+%contactInfoDirection{
+    &[dir=ltr]{
+        margin-left: 20px;
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+    }
+}
+
+%contactMethodsDirection{
+    &[dir=ltr]{
+        margin-left: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-left: 10px;
+            }
+            h4.contactMethodLink{
+                padding-left: 10px;
+            }
+        }
+    }
+    &[dir=rtl]{
+        margin-right: 20px;
+        >div{
+            h3.contactMethodTitle{
+                padding-right: 10px;
+            }
+            h4.contactMethodLink{
+                padding-right: 10px;
+                a{
+                    @extend %removeAdditionalLinkStyle;
+                }
+            }
+        }
+    }
+}

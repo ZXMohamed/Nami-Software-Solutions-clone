@@ -8,6 +8,8 @@ import productsSlice from "./server state/products";
 import statisticsSlice from "./server state/statistics";
 import projectsSlice from "./server state/projects";
 import openJobsSlice from "./server state/openjobs";
+import contactSlice from "./server state/contact";
+import locationSlice from "./server state/location";
 
 const store = configureStore({
     reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
         [statisticsSlice.reducerPath]: statisticsSlice.reducer,
         [projectsSlice.reducerPath]: projectsSlice.reducer,
         [openJobsSlice.reducerPath]: openJobsSlice.reducer,
+        [contactSlice.reducerPath]: contactSlice.reducer,
+        [locationSlice.reducerPath]: locationSlice.reducer,
         
     },
     middleware: (reduxMiddleWare) => reduxMiddleWare().concat(
@@ -31,7 +35,9 @@ const store = configureStore({
         productsSlice.middleware,
         statisticsSlice.middleware,
         projectsSlice.middleware,
-        openJobsSlice.middleware
+        openJobsSlice.middleware,
+        contactSlice.middleware,
+        locationSlice.middleware
     )
 })
 
