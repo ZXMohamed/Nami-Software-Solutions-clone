@@ -63,10 +63,14 @@ p.careersDescription{
     div{
         transform: translateY(10px);
     }
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
 }
 .careersFormSection{
     margin-left: auto;
-    width: 416px;
+    // width: 416px;
+    width: 100%;
     background-color: $secondColor;
     border-radius: 15px;
     padding: 25px 25px 18px 25px;
