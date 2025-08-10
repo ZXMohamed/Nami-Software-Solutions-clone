@@ -35,20 +35,14 @@ export default function OurProducts() {
         <>
             <Box dir={defaultContent.direction} className={'ourProductsSection'}>
                 <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ "" } />
-                <Products/>
+                <Products dir={ defaultContent.direction } />
             </Box>
             <Statistics/>
         </>
   )
 }
 
-const Products = memo(() => {
-
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }), [language, language_isSuccess]);
+const Products = memo(({dir}) => {
 
     const { isSuccess: products_isSuccess, data: products, isError: products_isError } = useGetProductsQuery(undefined, {
         selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
@@ -59,11 +53,11 @@ const Products = memo(() => {
 
     return (
         <Container maxWidth="lg" disableGutters>
-            <Swiper dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( defaultContent.direction ) } className='productsSlider'>
+            <Swiper dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( dir ) } className='productsSlider'>
                 { !products_isSuccess && waitItemSkeleton(3) }
                 { products_isSuccess && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
-                                <ProductCard dir={ defaultContent.direction } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
+                                <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
                             </SwiperSlide>
                     )
                 }) }
@@ -73,7 +67,7 @@ const Products = memo(() => {
     )
 });
 
-const ProductCard = memo(({ dir, data, aosAnimation })=> {
+const ProductCard = memo(({ dir, data, aosAnimation })=> { 
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
     return (
         <Box className='productCard' { ...aosAnimation }>
