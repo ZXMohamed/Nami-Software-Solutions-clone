@@ -26,7 +26,7 @@ export default function Contact() {
                     <Grid size={{xs:12,md:6}} order={{xs:1,md:0}} className="contactSide">
                         <FormSection/>
                     </Grid>
-                    <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} className="infoSide">
+                    <Grid size={{xs:12,md:6}} order={{xs:0,md:1}} className="contactInfoSide">
                         <InfoSection/>
                         <br/>
                         <br/>

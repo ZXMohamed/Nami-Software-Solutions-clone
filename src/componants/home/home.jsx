@@ -37,7 +37,7 @@ console.log("home");
 
             <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
 
-            <Stack direction="row" gap={ { xs: 0, xxs: 2 } } className="homeButtons" {...homeButtonsAosAnimation}>
+            <Stack direction="row" gap={ 2 } className="homeButtons" {...homeButtonsAosAnimation}>
                 <Button variant="outlined" disableRipple className="homeButton homePortfolioButton">{defaultContent.buttons.portfolio}</Button>
                 <RequestQuotation/>
                 <Button variant="outlined" disableRipple className="homeButton homeProductsButton">{ defaultContent.buttons.ourProducts }</Button>
@@ -53,7 +53,7 @@ console.log("home");
 
 const aosAnimation = {
     ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
+    ["data-aos-duration"]: "600",
 }
 const titleAosAnimation = {
     ...aosAnimation,

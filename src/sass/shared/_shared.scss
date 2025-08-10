@@ -1,6 +1,6 @@
 $assets: "../../assets/photo";
 
-$siteLogo:'../../assets/photo/global/Namiicon.svg';
+$siteLogo:'#{$assets}/global/Namiicon.svg';
 $siteBackground: "#{$assets}/global/background.png";
 $portfolioIcon: "#{$assets}/home/portofolio.svg";
 $projectsIcon: "#{$assets}/home/products.svg";
@@ -120,11 +120,11 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     }
     @media screen and (max-width:768px) {
         padding: 16px;
-        h2{
+        h2.cardTitle{
             font-size: 20px;
             margin-bottom: 10px;
         }
-        p{
+        p.cardDescription{
             font-size: 14px;
         }
     }
@@ -181,6 +181,7 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
         background-position: center;
         animation-name: moveSectionBG;
         animation-duration: 50s;
+        animation-fill-mode: both;
         animation-iteration-count: infinite;
         filter: brightness(85%);
         will-change: transform;
