@@ -21,19 +21,10 @@ export default function Services() {
         title: language_isSuccess ? language.services.title : "Our Services",
         subtitle: language_isSuccess ? language.services.subtitle : "Where quality meets innovation",
         description: language_isSuccess ? language.services.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
+        buttons: {
+            readMore: language_isSuccess ? language.services.buttons.readMore : "Read more",
+        }
     }), [language, language_isSuccess]);
-
-    const { isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
-
-    const servicesItemsGridCellInRow = useRef(3);
-
-    const servicesItemsGrid = useMemo(() => {
-        if (servicesItems) return Object.values(servicesItems).map((service, inx) => {
-            return <ServiceCard key={ inx } data={ service } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
-        });
-    }, [servicesItems, servicesItems_isSuccess, servicesItemsGridCellInRow.current]);
     
     const description = useRef();
 
@@ -54,28 +45,40 @@ export default function Services() {
                 <br/>
                 <br/>
                 <Grid container spacing={ 3 } className='servicesItems'>
-                    { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
-                    { servicesItems_isSuccess && servicesItemsGrid }
-                    { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
+                    <ServiceCardGrid dir={ defaultContent.direction } readMoreButton={ defaultContent.buttons.readMore } />
                 </Grid>
             </Container>
         </Box>
     )
 }
 
-const ServiceCard = memo(({ data, size, aosAnimation }) => {
-// console.log("kkkx");
+const ServiceCardGrid = ({ dir, readMoreButton }) => {
+
+    const { isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError } = useGetServicesQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
+    });
+
+    const servicesItemsGridCellInRow = useRef(3);
+
+    const servicesItemsGrid = useMemo(() => {
+        // if (!servicesItems_isSuccess) return <></>;
+        if (servicesItems) return Object.values(servicesItems).map((service, inx) => {
+            return <ServiceCard key={ inx } dir={ dir } data={ service } readMoreButton={ readMoreButton } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
+        });
+    }, [servicesItems, servicesItems_isSuccess, servicesItemsGridCellInRow.current]);
+    
+    return (
+        <>
+            { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
+            { servicesItems_isSuccess && servicesItemsGrid }
+            { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
+        </>
+    );
+};
+
+const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => {
 
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
-
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        buttons: {
-            readMore: language_isSuccess ? language.services.buttons.readMore : "Read more",
-        }
-    }), [language, language_isSuccess]);
 
     const itemObjectives = useRef();
 
@@ -86,7 +89,7 @@ const ServiceCard = memo(({ data, size, aosAnimation }) => {
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
             
-            <Stack dir={ defaultContent.direction } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
+            <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
             
                 <Stack direction={ 'row' } className='serviceItemHeader'>
                     <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='serviceItemIcon' />
@@ -98,13 +101,13 @@ const ServiceCard = memo(({ data, size, aosAnimation }) => {
             
             </Stack>
             
-            <Stack dir={ defaultContent.direction } direction={ 'column' } className='serviceItemBack'>
+            <Stack dir={ dir } direction={ 'column' } className='serviceItemBack'>
             
                 <ul ref={ itemObjectives } className='serviceItemObjectives'>
                     { data.objectives.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
                 </ul>
             
-                <Button variant='contained' disableRipple className='serviceItemReadMore'>{ defaultContent.buttons.readMore }</Button>
+                <Button variant='contained' disableRipple className='serviceItemReadMore'>{ readMoreButton }</Button>
             
             </Stack>
         
