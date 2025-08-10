@@ -26,6 +26,10 @@ h2.servicesSubtitle{
     font-family: 'PlexBold';
     font-size: 40px;
     text-align: center;
+    text-wrap: balance;
+    @media screen and (max-width:768px) {
+        width: 600px;
+    }
 }
 p.servicesDescription{
     font-family: 'PlexNormal';
@@ -39,6 +43,7 @@ p.servicesDescription{
     }
     @media screen and (max-width:768px) {
         font-size: 14px;
+        width: 700px;
     }
 }
 .servicesItems{
@@ -100,7 +105,7 @@ h3.serviceItemTitle{
 }
 p.serviceItemDescription{
     font-family: 'PlexNormal';
-    height: 70px;
+    // height: 70px;
     overflow: hidden;
     @include textOverFlow(3);
     @media screen and (max-width:768px) {
