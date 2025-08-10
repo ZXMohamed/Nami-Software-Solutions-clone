@@ -21,22 +21,32 @@ export function Statistics() {
         subtitle: language_isSuccess ? language.statistics.subtitle : "Good planning is not enough Great callings require the extraordinary!",
     }), [language, language_isSuccess]);
     
-    const { isError: statistic_isError, isSuccess: statistic_isSuccess, data: statistics } = useGetStatisticsQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
-    
     return (
         <Box className='infoCardSection'>
             <InfoCard dir={defaultContent.direction} waveDir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
                 <StatisticsList>
-                    {!statistic_isSuccess && <WaitStatisticProgress num={5} />}
-                    {statistic_isSuccess && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
-                    {statistic_isError && <Typography variant='h6' color='error'>Data Not Found !</Typography>}
+                    <StatisticsBoxRow />
                 </StatisticsList>
             </InfoCard>
         </Box>
   )
 }
+
+export function StatisticsBoxRow() {
+
+    const { isError: statistic_isError, isSuccess: statistic_isSuccess, data: statistics } = useGetStatisticsQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
+    });
+
+    return (
+        <>
+            {!statistic_isSuccess && <WaitStatisticProgress num={5} />}
+            {statistic_isSuccess && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
+            {statistic_isError && <Typography variant='h6' color='error'>Data Not Found !</Typography>}
+        </>
+    )
+}
+
 
 function WaitStatisticProgress({ num = 1 }) { 
     const progressArray = [];
