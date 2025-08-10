@@ -4,29 +4,13 @@
 .contactSection{
     padding: 96px 10px 136px 10px;
     // background-color: $secondColor;
-    @media screen and (max-width:992px) {
-        .contactFormSection{
-            width: 100%;
-        }
-        .contactInfoSection{
-            margin-left: 0px;
-            h1{font-size: 24px;}
-            h2{font-size: 18px;}
-            p{font-size: 14px;}
-        }
-        .contactMethodSection{
-            margin-left: 0px;
-            h3{}
-            h4{font-size: 14px;}
-        }
-    }
-
 }
 .contactFormSection{
     background-color: $primaryColor;
     width: 98%;
     padding: 40px 40px 20px 40px;
     border-radius: 15px;
+    @extend %contactFormDirection;
     
     .MuiAlert-root{
         box-shadow: 0px 0px 10px #00000013;
@@ -97,26 +81,38 @@
         }
     }
 
-    @extend %contactFormDirection;
 
+    @media screen and (max-width:992px) {
+        width: 100%;
+    }
     @media screen and (max-width:400px) {
         padding-left: 10px;
         padding-right: 15px;
     }
 }
-.infoSide{
+.contactInfoSide{
     display:flex;
     flex-direction:column;
     justify-content:center;
 }
 .contactInfoSection{
     @extend %contactInfoDirection;
+
+    @media screen and (max-width:992px) {
+        margin-left: 0px;
+    }
 }
 h1.contactInfoTitle{
     color: $secondTextColor;
     font-family: "PlexBold";
     div{
         transform: translateY(10px);
+    }
+    @media screen and (max-width:992px) {
+        font-size: 24px;
+    }
+    @media screen and (max-width:768px) {
+        font-size: 18px ;
     }
 }
 h2.contactInfoSubtitle{
@@ -128,6 +124,12 @@ h2.contactInfoSubtitle{
     div{
         transform: translateY(10px);
     }
+    @media screen and (max-width:992px) {
+        font-size: 18px;
+    }
+    @media screen and (max-width:768px) {
+        font-size: 24px ;
+    }
 }
 p.contactInfoDescription{
     color: $secondTextColor;
@@ -135,6 +137,9 @@ p.contactInfoDescription{
     text-wrap: balance;
     div{
         transform: translateY(5px);
+    }
+    @media screen and (max-width:992px) {
+        font-size: 14px;
     }
 }
 .contactMethodsSection{
@@ -149,6 +154,9 @@ p.contactInfoDescription{
                     filter: brightness(0) invert(1);
                 }
             }
+        }
+        @media screen and (max-width:992px) {
+            margin-left: 0px;
         }
         @media screen and (max-width:500px) {
             h3.contactMethodTitle{
@@ -190,6 +198,9 @@ h4.contactMethodLink{
     font-size: 16px;
     a{
         @extend %removeAdditionalLinkStyle;
+    }
+    @media screen and (max-width:992px) {
+        font-size: 14px;
     }
 }
 
