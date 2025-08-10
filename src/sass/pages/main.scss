@@ -28,14 +28,14 @@ h2.servicesSubtitle{
     text-align: center;
     text-wrap: balance;
     @media screen and (max-width:768px) {
-        width: 600px;
+        max-width: 600px;
     }
 }
 p.servicesDescription{
     font-family: 'PlexNormal';
     text-wrap: balance;
     text-align: center;
-    width: 900px;
+    max-width: 900px;
     div{
         will-change: transform, opacity;
         transform: translateY(30px);
@@ -43,7 +43,7 @@ p.servicesDescription{
     }
     @media screen and (max-width:768px) {
         font-size: 14px;
-        width: 700px;
+        max-width: 700px;
     }
 }
 .servicesItems{
