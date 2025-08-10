@@ -41,23 +41,23 @@ export default function About() {
   )
 }
 
-const SideImg = () => {
+const SideImg = memo(() => {
   
   const sideImgContainer = useRef();
   const sideImg = useRef();
 
   useEffect(() => {
-    requestIdleCallback(() => { 
+    requestIdleCallback(() => {
       imgMoveWithScroll(sideImgContainer, sideImg);
     });
-  },[]);
+  }, []);
 
   return (
     <Box ref={ sideImgContainer } className="aboutSideImgContainer">
-      <img ref={sideImg} src={aboutSideImg}  alt="Nami Software Solutions" loading='lazy' className="aboutMovingImg" />
+      <img ref={ sideImg } src={ aboutSideImg } alt="Nami Software Solutions" loading='lazy' className="aboutMovingImg" />
     </Box>
   )
-}
+});
 
 const Info = () => {
 
@@ -107,7 +107,7 @@ const CompanyFile = () => {
     </>
   );
 }
-const Establishment = () => {console.log("ddddd");
+const Establishment = () => {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
   

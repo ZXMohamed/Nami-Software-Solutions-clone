@@ -10,7 +10,7 @@ import { useGetSocialQuery } from '../../redux/server state/social'
 import { Language } from '../../languages/languagesContext';
 
 const FloatSocialButtons = memo(() => {
-  console.log("kkk");
+  console.log("fsb");
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 

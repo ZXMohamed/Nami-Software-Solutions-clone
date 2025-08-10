@@ -35,7 +35,7 @@ console.log("home");
                 {defaultContent.description}
             </Typography>
 
-            <SocialButtons aosAnimation={ { ...socialButtonsAosAnimation } }/>
+            <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
 
             <Stack direction="row" gap={ { xs: 0, xxs: 2 } } className="homeButtons" {...homeButtonsAosAnimation}>
                 <Button variant="outlined" disableRipple className="homeButton homePortfolioButton">{defaultContent.buttons.portfolio}</Button>

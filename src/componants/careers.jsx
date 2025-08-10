@@ -85,7 +85,7 @@ function InfoSection() {
     )
 }
 
-function FormSection() {console.log("XXX");
+function FormSection() {
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 

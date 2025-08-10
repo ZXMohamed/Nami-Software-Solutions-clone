@@ -144,7 +144,8 @@ const ValueBox = ({ data, aosAnimation }) => {
 
 const OurLazySideVideo = lazy(() => import("./oursidevideo"));
 
-const SideVideo = () => {
+const SideVideo = memo(() => {
+
   return (
     <Suspense fallback={ <Skeleton variant="rounded" width={ 100 } height={ 100 } /> }>
       <Grid size={ { xxs: 2, xs: 12, sm: 12, md: 3 } }>
@@ -152,7 +153,7 @@ const SideVideo = () => {
       </Grid>
     </Suspense>
   )
-};
+});
 
 const aosAnimation = {
   ["data-aos"]: 'fade-up',
