@@ -100,11 +100,11 @@ $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $prim
     }
     @media screen and (max-width:768px) {
         padding: 16px;
-        h2{
+        h2.cardTitle{
             font-size: 20px;
             margin-bottom: 10px;
         }
-        p{
+        p.cardDescription{
             font-size: 14px;
         }
     }
