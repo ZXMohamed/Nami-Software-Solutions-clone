@@ -6,6 +6,7 @@ import companyFileSlice from "./server state/companyfile";
 import servicesSlice from "./server state/services";
 import productsSlice from "./server state/products";
 import statisticsSlice from "./server state/statistics";
+import projectsSlice from "./server state/projects";
 
 const store = configureStore({
     reducer: {
@@ -15,10 +16,11 @@ const store = configureStore({
         [companyFileSlice.reducerPath]: companyFileSlice.reducer,
         [servicesSlice.reducerPath]: servicesSlice.reducer,
         [productsSlice.reducerPath]: productsSlice.reducer,
-        [statisticsSlice.reducerPath]:statisticsSlice.reducer,
+        [statisticsSlice.reducerPath]: statisticsSlice.reducer,
+        [projectsSlice.reducerPath]:projectsSlice.reducer,
         
     },
-    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(languageSlice.middleware, requestQuotationSlice.middleware, socialSlice.middleware, companyFileSlice.middleware, servicesSlice.middleware, productsSlice.middleware, statisticsSlice.middleware )
+    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(languageSlice.middleware, requestQuotationSlice.middleware, socialSlice.middleware, companyFileSlice.middleware, servicesSlice.middleware, productsSlice.middleware, statisticsSlice.middleware, projectsSlice.middleware )
 })
 
 export default store;

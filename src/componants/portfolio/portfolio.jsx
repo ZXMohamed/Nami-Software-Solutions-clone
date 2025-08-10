@@ -1,0 +1,121 @@
+//*react
+import React, { memo, useContext, useMemo } from 'react'
+//*mui
+import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
+//*swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+//*component
+import SectionHeader from '../sectionheader';
+import { ProjectCard } from './projectcard';
+//*queries
+import { useGetProjectsByCatQuery } from '../../redux/server state/projects';
+//*scripts
+import { Language } from '../../languages/languagesContext';
+
+
+export default function Portfolio() {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        title : language_isSuccess ? language.projects.header.title : "Newest portfolio",
+        subtitle : language_isSuccess ? language.projects.header.subtitle : "We bring your digital vision to life",
+        buttons: {
+            headerButton: language_isSuccess ? language.projects.header.buttons.headerButton : "Show all"
+        }
+    }), [language, language_isSuccess]);
+
+  return (
+    <Box dir={defaultContent.direction} className='portfolioSection'>
+        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
+        <Projects />
+    </Box>
+  )
+}
+
+const Projects = memo(() => {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }), [language, language_isSuccess]);
+
+    const { isSuccess, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
+        selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
+    });
+    
+    const isMDsize = useMediaQuery('(max-width:992px)');
+    const isXXXSSize = useMediaQuery('(max-width:600px)');
+
+    return (
+        <Container maxWidth="lg">
+            <Swiper dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(defaultContent.direction) } className='projectsSlider'>
+                { !isSuccess && WaitItemSkeleton(6) }
+                { isSuccess && Object.values(data).map((project, inx) => {
+                    return (
+                        <SwiperSlide key={ project.id } className='projectsSlide'>
+                            <ProjectCard dir={defaultContent.direction} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
+                        </SwiperSlide>
+                    )
+                }
+                ) }
+                { isError && <Typography component={ "h1" } variant={ "h5" } color='error'>Data Not Found!</Typography> }
+            </Swiper>
+        </Container>
+    )
+});
+
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]: "1000"
+} 
+const projectCardAosAnimation = (order)=>({
+    ...aosAnimation,
+    ["data-aos-delay"]: (100 * order).toString()
+})
+
+const projectsSliderSettings = (direction) => ({
+    spaceBetween: 10,
+    loop: true,
+    autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
+    modules: [Autoplay]
+})
+
+function visibleSlidePerSize(isXXXSSize, isMDSize) {
+    //*from smaller size to bigger size
+    if (isXXXSSize) {
+        return 1;
+    } else if (isMDSize) {
+        return 2;
+    }else{
+        return 3;
+    }
+}
+
+function WaitItemSkeleton(num = 1) { 
+    const skeletonArray = [];
+    for (let i = 0; i < num; i++) { 
+        skeletonArray.push(
+            <SwiperSlide key={ i }>
+                <Stack width={ "100%" }>
+                    <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
+                        <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
+                        <Skeleton width={40} height={40} variant='circular'/>
+                    </Stack>
+                    <br />
+                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+                    <br/>
+                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+                    <br />
+                    <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
+                </Stack>
+            </SwiperSlide>
+        )
+    }
+    return skeletonArray;
+}
+
+{/*shipping */ }

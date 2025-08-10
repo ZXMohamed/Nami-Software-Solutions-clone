@@ -10,6 +10,7 @@ import OurProducts from '../componants/ourproducts/ourproducts'
 //*styles
 import "../sass/pages/main.scss"
 import "swiper/css"
+import Portfolio from '../componants/portfolio/portfolio'
 
 export default function Main() {
   return (
@@ -18,7 +19,8 @@ export default function Main() {
       <About />
       <Our />
       <Services />
-      <OurProducts/>
+      <OurProducts />
+      <Portfolio/>
     </PageWrapper>
   )
 }

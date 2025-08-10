@@ -609,5 +609,24 @@ div.productsSlider{
 .infoCardSection{
     background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
     position: relative;
-    top: -60px;
+    // top: -60px;
+    margin-top: -60px;
+}
+
+//*portfolio*/
+.portfolioSection{
+    background-color: $secondColor;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.projectsSlider{
+    width: 100%;
+}
+.projectsSlide{
+    height: unset;
+    max-width: 424px !important;
+    display: flex;
+    @media screen and (max-width:992px) {
+        max-width: 550px !important;
+    }
 }
