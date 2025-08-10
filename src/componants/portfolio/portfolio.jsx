@@ -6,7 +6,7 @@ import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 //*component
-import SectionHeader from '../sectionHeader'
+import SectionHeader from '../sectionheader';
 import { ProjectCard } from './projectcard';
 //*queries
 import { useGetProjectsByCatQuery } from '../../redux/server state/projects';
@@ -30,18 +30,12 @@ export default function Portfolio() {
   return (
     <Box dir={defaultContent.direction} className='portfolioSection'>
         <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
-        <Projects />
+          <Projects dir={ defaultContent.direction } />
     </Box>
   )
 }
 
-const Projects = memo(() => {
-
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }), [language, language_isSuccess]);
+const Projects = memo(({ dir }) => {
 
     const { isSuccess, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
         selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
@@ -52,12 +46,12 @@ const Projects = memo(() => {
 
     return (
         <Container maxWidth="lg">
-            <Swiper dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(defaultContent.direction) } className='projectsSlider'>
+            <Swiper dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(dir) } className='projectsSlider'>
                 { !isSuccess && WaitItemSkeleton(6) }
                 { isSuccess && Object.values(data).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
-                            <ProjectCard dir={defaultContent.direction} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
+                            <ProjectCard dir={dir} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
                         </SwiperSlide>
                     )
                 }
