@@ -1,5 +1,6 @@
 $assets: "../../assets/photo";
 
+$siteLogo:'../../assets/photo/global/Namiicon.svg';
 $siteBackground: "#{$assets}/global/background.png";
 $portfolioIcon: "#{$assets}/home/portofolio.svg";
 $projectsIcon: "#{$assets}/home/products.svg";
@@ -8,6 +9,7 @@ $showAllArrow: "#{$assets}/sectionheader/show all arrow.svg";
 $cardArrow : "#{$assets}/services/arrow.svg";
 $listArrow : "#{$assets}/services/list arrow.svg";
 $sectionbackground : "#{$assets}/global/sectionbackground.jpg";
+$formError : "../../assets/photo/global/formerror.svg";
 
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
@@ -27,6 +29,7 @@ $secondTransparent: rgba($secondColor, 0.19);
 $second1-2Transparent: rgba($secondColor, 0.05);
 
 $thirdColor : #e1e1e1;
+$third2Color : #f5f5f5;
 
 $PrimaryTextColor:#000000;
 $secondTextColor:#777;

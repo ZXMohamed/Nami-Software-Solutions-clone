@@ -7,10 +7,11 @@ import About from '../componants/about/about'
 import { Our } from '../componants/about/our'
 import Services from '../componants/services'
 import OurProducts from '../componants/ourproducts/ourproducts'
+import Portfolio from '../componants/portfolio/portfolio'
+import Careers from '../componants/careers'
 //*styles
 import "../sass/pages/main.scss"
 import "swiper/css"
-import Portfolio from '../componants/portfolio/portfolio'
 
 export default function Main() {
   return (
@@ -20,7 +21,8 @@ export default function Main() {
       <Our />
       <Services />
       <OurProducts />
-      <Portfolio/>
+      <Portfolio />
+      <Careers />
     </PageWrapper>
   )
 }
