@@ -51,17 +51,6 @@ export function ContactMethodsSection() {
 
     const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
-        form: {
-            title: "",
-            inputs: {
-                name: "name",
-                email: "email",
-                phone: "phone",
-                subject: "subject",
-                message: "message"
-            },
-            submit: "Send"
-        },
         locationTitle: language_isSuccess ? language.contact.locationTitle : "Visit us",
         supportTitle: language_isSuccess ? language.contact.supportTitle : "Message us",
         callTitle: language_isSuccess ? language.contact.callTitle : "Call us at"
@@ -74,7 +63,7 @@ export function ContactMethodsSection() {
     const { isSuccess: social_isSuccess, data: social } = useGetSocialQuery(undefined,{
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
-        
+    
     return (
         <Stack dir={defaultContent.direction} direction="column" spacing={2} className='contactMethodsSection'>
             { !location_isSuccess && <WaitContactMethodProgress num={ 1 }/>}

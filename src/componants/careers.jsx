@@ -52,16 +52,6 @@ function InfoSection() {
         title: language_isSuccess ? language.careers.title : "Careers",
         subtitle: language_isSuccess ? language.careers.subtitle : "Build your future with our company",
         description: language_isSuccess ? language.careers.description : "At our company, we strive to create an environment focused on learning and striving to achieve a person's fullest potential. We got itWe maintain a prominent presence in the industry thanks to our continuous efforts, and we invite you to be part of the story of our continuous development.",
-        form: {
-            title: "Upload your CV",
-            inputs: {
-                name: "Full name",
-                phone: "phone number",
-                job: "select the job",
-                cvFile: "choose file"
-            },
-            submit: "Apply now"
-        }
     }), [language, language_isSuccess]);
 
     const careersTitle = useRef();

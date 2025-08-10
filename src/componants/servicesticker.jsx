@@ -1,5 +1,5 @@
 //*react
-import React, { Fragment, useContext, useEffect, useMemo, useRef } from 'react'
+import React, { Fragment, memo, useContext, useEffect, useMemo, useRef } from 'react'
 //*mui
 import { Box, Stack, Typography } from '@mui/material';
 //*gsap
@@ -7,9 +7,9 @@ import gsap from 'gsap';
 //*scripts
 import { Language } from '../languages/languagesContext';
 
-export default function ServicesTicker() {
+const ServicesTicker = memo(() => {
 
-  const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
   const defaultContent = useMemo(() => ({
     direction: language_isSuccess ? language.page.direction : "ltr",
@@ -29,21 +29,22 @@ export default function ServicesTicker() {
       });
       tickerMovies.current = tickerItemsMover(ticker, defaultContent.direction, defaultContent.delay);
     })
-  },[defaultContent.direction]);
+  }, [defaultContent.direction]);
 
   return (
-    <Box dir={defaultContent.direction} className='servicesTicker'>
+    <Box dir={ defaultContent.direction } className='servicesTicker'>
       <Stack ref={ ticker } direction={ 'row' } className='tickerBar'>
         {
-          defaultContent.items.map((item, inx) => <Fragment key={inx}>
-            <div  className='tickerItemSplitter'></div>
+          defaultContent.items.map((item, inx) => <Fragment key={ inx }>
+            <div className='tickerItemSplitter'></div>
             <Typography className='tickerItem'>{ item }</Typography>
           </Fragment>)
         }
       </Stack>
     </Box>
   )
-}
+});
+export default ServicesTicker;
 
 
 function tickerItemsMover(ticker, direction, delay) {
