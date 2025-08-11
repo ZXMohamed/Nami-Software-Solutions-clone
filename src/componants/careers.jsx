@@ -165,7 +165,7 @@ function FormSection() {
             
             <SelectInput dir={defaultContent.direction} color={ errors?.job ? "error" : "primary" } className={ errors?.job ? "inputError" : "" } title={defaultContent.form.inputs.job} { ...inputsSettings.job }/>
 
-            <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} noFile={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
+            <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} no_file={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
             
             <ReCAPTCHA ref={ reCaptcha } key={defaultContent.language} sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
             
@@ -195,13 +195,13 @@ function SelectInput(props) {
 
 function FileInput(props) {
 
-    const [fileName, setFileName] = useState(props.noFile);
+    const [fileName, setFileName] = useState(props.no_file);
 
     const fileNameChange = (e, setFileName) => {
         if (e.target.files.length > 0) {
             setFileName(e.target.files[0]?.name);
         } else if (e.target.files.length == 0) {
-            setFileName(props.noFile);
+            setFileName(props.no_file);
         }
     }
 

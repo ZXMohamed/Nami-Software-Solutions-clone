@@ -51,9 +51,16 @@ const Products = memo(({dir}) => {
     const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
 
+    const sliderLoopCase = useMemo(() => {
+        if (products_isSuccess)
+            return Object.values(products).length > visibleSlidesPerSize(isXXXSSize, isMDSize);
+        else
+            return false;
+    }, [isMDSize, isXXXSSize]);
+
     return (
-        <Container maxWidth="lg" disableGutters>
-            <Swiper dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( dir ) } className='productsSlider'>
+        <Container maxWidth="lg" disableGutters>{console.log("sda")}
+            <Swiper key={"new-"+sliderLoopCase} dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( dir, sliderLoopCase ) } className='productsSlider'>
                 { !products_isSuccess && waitItemSkeleton(3) }
                 { products_isSuccess && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
@@ -87,8 +94,8 @@ const ProductCard = memo(({ dir, data, aosAnimation })=> {
     )
 });
 
-const productsSliderSettings = (direction) => ({
-    loop: true,
+const productsSliderSettings = (direction, loop) => ({
+    loop: loop,
     spaceBetween: 12,
     autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
     modules : [Autoplay] 

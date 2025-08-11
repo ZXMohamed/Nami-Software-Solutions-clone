@@ -23,7 +23,7 @@ export function Statistics() {
     
     return (
         <Box className='infoCardSection'>
-            <InfoCard dir={defaultContent.direction} waveDir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
+            <InfoCard dir={defaultContent.direction} wave_dir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
                 <StatisticsList>
                     <StatisticsBoxRow />
                 </StatisticsList>
