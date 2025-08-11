@@ -27,4 +27,8 @@ p.introCardDescription{
     font-family: "PlexNormal";
     font-size: 16px;
     color: $secondTextColor;
+
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
 }
