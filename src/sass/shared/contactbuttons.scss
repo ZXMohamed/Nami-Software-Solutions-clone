@@ -1,0 +1,31 @@
+@use "_shared.scss" as *;
+
+//*contact buttons*/
+.contactButtons{
+    position: fixed;
+    @extend %direction;
+    bottom: 25px;
+    z-index: 1100;
+    border-radius: 100px;
+    background-color: $secondTransparent;
+    width: 55px;
+    height: 112px;
+    @include center("Y-flex");
+    justify-content: space-around;
+    backdrop-filter: blur(100px);
+}
+a.contactButton{
+    @include center("flex");
+}
+img.contactIcon{
+    width:85%;
+}
+
+%direction{
+    &[dir=ltr]{
+        right: 25px; 
+    }
+    &[dir=rtl]{
+        left: 25px;
+    }
+}
