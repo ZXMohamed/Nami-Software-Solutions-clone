@@ -37,18 +37,25 @@ export default function Portfolio() {
 
 const Projects = memo(({ dir }) => {
 
-    const { isSuccess, data, isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
+    const { isSuccess: projects_isSuccess, data: projects, isError: projects_isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
         selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
     });
     
-    const isMDsize = useMediaQuery('(max-width:992px)');
+    const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
+
+    const sliderLoopCase = useMemo(() => {
+        if (projects_isSuccess)
+            return Object.values(projects).length > visibleSlidePerSize(isXXXSSize, isMDSize);
+        else
+            return false;
+    }, [isMDSize, isXXXSSize]);
 
     return (
         <Container maxWidth="lg">
-            <Swiper dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDsize) } { ...projectsSliderSettings(dir) } className='projectsSlider'>
-                { !isSuccess && WaitItemSkeleton(6) }
-                { isSuccess && Object.values(data).map((project, inx) => {
+            <Swiper key={"new-"+sliderLoopCase} dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDSize) } { ...projectsSliderSettings(dir, sliderLoopCase) } className='projectsSlider'>
+                { !projects_isSuccess && WaitItemSkeleton(6) }
+                { projects_isSuccess && Object.values(projects).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
                             <ProjectCard dir={dir} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
@@ -56,7 +63,7 @@ const Projects = memo(({ dir }) => {
                     )
                 }
                 ) }
-                { isError && <Typography component={ "h1" } variant={ "h5" } color='error'>Data Not Found!</Typography> }
+                { projects_isError && <Typography component={ "h1" } variant={ "h5" } color='error'>Data Not Found!</Typography> }
             </Swiper>
         </Container>
     )
@@ -71,9 +78,9 @@ const projectCardAosAnimation = (order)=>({
     ["data-aos-delay"]: (100 * order).toString()
 })
 
-const projectsSliderSettings = (direction) => ({
+const projectsSliderSettings = (direction, loop) => ({
     spaceBetween: 10,
-    loop: true,
+    loop: loop,
     autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
     modules: [Autoplay]
 })
