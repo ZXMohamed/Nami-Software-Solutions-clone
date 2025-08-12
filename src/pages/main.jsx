@@ -2,14 +2,14 @@
 import React from 'react'
 //*component
 import PageWrapper from '../componants/pagewrapper'
-import WhyUs from '../componants/whyus'
+import QA from '../componants/QA'
 //*styles
 import "../sass/pages/main.scss"
 
 export default function Main() {
   return (
     <PageWrapper>
-      <WhyUs/>
+      <QA/>
     </PageWrapper>
   )
 }
