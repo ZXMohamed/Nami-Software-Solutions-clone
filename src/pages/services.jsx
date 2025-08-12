@@ -6,10 +6,10 @@ import RoutesBar from '../componants/routesbar'
 import IntroCard from '../componants/introcard'
 import ListCard from '../componants/listcard'
 import ObjectivesList from '../componants/objectiveslist'
-import WhyUs from '../componants/whyus'
 //*styles
 
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
+import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
 
 export default function Services() {
   return (
@@ -21,6 +21,13 @@ export default function Services() {
         <ObjectivesList data={ ["Graphic Design","Brand identity design","Logos design","Marketing materials design","User interface (UI) design"] } />
       </ListCard>
       <br />
+      <ListCard title={ "Programming languages used" }>
+        <TechBadgesList dir={"rtl"} type={techBadgesListType.row}>
+          <TechBadge data={{title:"PHP"}} size={techBadgeSize.big}/>
+          <TechBadge data={{title:"Laravel"}} size={techBadgeSize.big}/>
+          <TechBadge data={{title:"Flutter"}} size={techBadgeSize.big}/>
+        </TechBadgesList>
+      </ListCard>
       
     </PageWrapper>
   )
