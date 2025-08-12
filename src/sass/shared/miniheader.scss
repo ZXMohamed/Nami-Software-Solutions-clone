@@ -1,0 +1,15 @@
+@use "../shared/_shared.scss" as *;
+
+.miniHeaderCon{
+
+}
+.miniHeaderTitle{
+    color: $primaryColor;
+    font-family: "PlexNormal";
+    font-size: 16px;
+}
+.miniHeaderSubtitle{
+    font-family: "PlexNormal";
+    font-size: 32px;
+    font-weight: 600;
+}

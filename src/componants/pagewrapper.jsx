@@ -6,7 +6,6 @@ import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
-import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
@@ -54,9 +53,8 @@ export default function PageWrapper({ children }) {
 
   return (<>
     <Language.Provider value={languageControls}>
-      <NavBar />
+      {/* <NavBar /> */}
       {children}
-      <FloatSocialButtons />
       {/*footer*/}
     </Language.Provider>
 
