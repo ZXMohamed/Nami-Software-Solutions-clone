@@ -1,15 +1,22 @@
-@use "../shared/_shared.scss" as *;
+@use "_shared.scss" as *;
 
 .miniHeaderCon{
-
+    margin-bottom: 30px;
 }
-.miniHeaderTitle{
+h3.miniHeaderTitle{
     color: $primaryColor;
     font-family: "PlexNormal";
     font-size: 16px;
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
 }
-.miniHeaderSubtitle{
+h4.miniHeaderSubtitle{
     font-family: "PlexNormal";
     font-size: 32px;
     font-weight: 600;
+
+    @media screen and (max-width:768px) {
+        font-size: 22px;
+    }
 }
