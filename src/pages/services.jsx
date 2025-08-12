@@ -10,6 +10,7 @@ import ObjectivesList from '../componants/objectiveslist'
 
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
+import PointsList from '../componants/pointslist'
 
 export default function Services() {
   return (
@@ -28,7 +29,10 @@ export default function Services() {
           <TechBadge data={{title:"Flutter"}} size={techBadgeSize.big}/>
         </TechBadgesList>
       </ListCard>
-      
+      <br />
+      <ListCard title={ "System features" }>
+        <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
+      </ListCard>
     </PageWrapper>
   )
 }
