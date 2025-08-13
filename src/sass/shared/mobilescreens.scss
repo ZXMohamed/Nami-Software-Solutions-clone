@@ -1,0 +1,38 @@
+@use "_shared.scss" as *;
+
+.mobileScreensCon{
+    border-radius: 15px;
+    background-color: $secondColor;
+    width: 100%;
+    // height: 600px;
+    padding: 40px 0px;
+    @include center("flex");
+}
+
+.mobileScreensSlider.swiper{
+    max-width: 992px !important;
+    position: relative;
+    &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        background-image: url($mobileFrame);
+        background-repeat: no-repeat;
+        background-position: top;
+        background-size: contain;
+        z-index: 100;
+        max-width: 292px;
+        height: 100%;
+        display: block;
+    }
+}
+
+.mobileScreensSlide.swiper-slide{
+    max-width: 300px;
+    .mobileScreensImage{
+        width: 100%;
+    }
+}

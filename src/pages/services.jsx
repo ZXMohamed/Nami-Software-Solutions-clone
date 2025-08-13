@@ -11,6 +11,7 @@ import ObjectivesList from '../componants/objectiveslist'
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
 import PointsList from '../componants/pointslist'
+import MobileScreens from '../componants/mobilescreens'
 
 export default function Services() {
   return (
@@ -33,6 +34,8 @@ export default function Services() {
       <ListCard title={ "System features" }>
         <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
       </ListCard>
+      <br />
+      <MobileScreens/>
     </PageWrapper>
   )
 }
