@@ -11,25 +11,14 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
 
-const images = [
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',
-  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg'
-];
 
-
-export default function MobileScreens({ dir }) {
+export default function MobileScreens({ dir, data }) {
   return (
-    <Box className="mobileScreensCon">
-        <Swiper dir={dir}
-            {...sliderSettings}
-            className='mobileScreensSlider'>
-            {images.map((src, inx) => (
-            <SwiperSlide key={inx} className='mobileScreensSlide'>
-                <img src={src} alt={""} className='mobileScreensImage'/>
+    <Box dir={dir} className="mobileScreensCon">
+        <Swiper dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
+            {data.map((image, inx) => (
+            <SwiperSlide key={image.id} className='mobileScreensSlide'>
+                <img src={image.image} className='mobileScreensImage'/>
             </SwiperSlide>
             ))}
         </Swiper>
@@ -37,24 +26,25 @@ export default function MobileScreens({ dir }) {
   )
 }
 
-const sliderSettings = {
-    modules: [EffectCoverflow, Navigation, Autoplay],
-    effect:"coverflow",
-    grabCursor:true,
-    centeredSlides:true,
-    slidesPerView:"auto",
-    loop: true,
-    loopedSlides:images.length,
-    watchSlidesProgress:true,
-    autoplay:{
-        delay: 3000,
-        disableOnInteraction: false
-    },
-    coverflowEffect:{
-        rotate: 10,
-        stretch: 100,
-        depth: 200,
-        modifier: 1,
-        slideShadows: true
-    }
-};
+const sliderSettings = (slidesNum)=>({
+  modules: [EffectCoverflow, Navigation, Autoplay],
+  effect:"coverflow",
+  grabCursor:true,
+  centeredSlides:true,
+  slidesPerView: "auto",
+  centeredSlidesBounds: true,
+  loop: true,
+  loopedSlides:slidesNum,
+  watchSlidesProgress:true,
+  autoplay:{
+      delay: 3000,
+      disableOnInteraction: false
+  },
+  coverflowEffect:{
+      rotate: 10,
+      stretch: 100,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+  }
+});

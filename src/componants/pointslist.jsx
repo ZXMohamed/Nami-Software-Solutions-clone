@@ -5,7 +5,7 @@ import "../sass/shared/pointslist.scss"
 export default function PointsList({ dir, data=[] }) {
   return (
     <Box dir={dir}>
-        {data.map((point)=><Point title={point.title}/>)}
+        {data.map((point)=><Point key={point.id} title={point.title}/>)}
     </Box>
   )
 }

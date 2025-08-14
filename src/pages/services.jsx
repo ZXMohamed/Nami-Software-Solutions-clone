@@ -6,12 +6,30 @@ import RoutesBar from '../componants/routesbar'
 import IntroCard from '../componants/introcard'
 import ListCard from '../componants/listcard'
 import ObjectivesList from '../componants/objectiveslist'
+import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
+import PointsList from '../componants/pointslist'
+import Gallery from '../componants/gallery'
+import MobileScreens from '../componants/mobilescreens'
 //*styles
 
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
-import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
-import PointsList from '../componants/pointslist'
-import MobileScreens from '../componants/mobilescreens'
+const imagesMS = [
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1},
+  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1}
+];
+const images = [
+  {image:"https://picsum.photos/id/1018/800/600",id:1},
+  {image:"https://picsum.photos/id/1015/800/600",id:1},
+  {image:"https://picsum.photos/id/1018/800/600",id:1},
+  {image:"https://picsum.photos/id/1015/800/600",id:1},
+  {image:"https://picsum.photos/id/1019/800/600",id:1},
+  {image:"https://picsum.photos/id/1020/800/600",id:1}
+];
 
 export default function Services() {
   return (
@@ -35,7 +53,9 @@ export default function Services() {
         <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
       </ListCard>
       <br />
-      <MobileScreens/>
+      <MobileScreens dir={ "rtl" } data={ imagesMS }/>
+      <br />
+      <Gallery dir={ "rtl" } data={ images } />
     </PageWrapper>
   )
 }
