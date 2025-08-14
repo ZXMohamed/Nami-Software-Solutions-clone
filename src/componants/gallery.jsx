@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs } from "swiper/modules";
 import "swiper/css";
@@ -11,36 +11,39 @@ export default function Gallery({ dir, data }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const muiTheme = useTheme();
+  const isMDSize = useMediaQuery(muiTheme.breakpoints.down('md'));
+
   return (
     <Box dir={dir} className="galleryCon">
-          {/* Thumbnails */}
-          <Swiper dir={dir} onSwiper={ setThumbsSwiper } {...thumbnailsSliderSettings} className="galleryThumbnailsSlider" >
-            {data.map((image, inx) => (
-              <SwiperSlide key={image.id} className="galleryThumbnailsSlide">
-                <img src={ image.image } className="galleryThumbnailsImage" style={{ filter: activeIndex !== inx ? "grayscale(100%)" : "none" }} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          {/* Main images */}
-          <Swiper dir={dir} thumbs={ { swiper: thumbsSwiper } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
-            {data.map((image) => (
-              <SwiperSlide key={image.id} className="galleryMainSlide">
-                <img src={ image.image } className="galleryMainImage" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+      {/* Thumbnails */}
+      <Swiper dir={dir} onSwiper={ setThumbsSwiper } {...thumbnailsSliderSettings(isMDSize?"horizontal":"vertical")} className="galleryThumbnailsSlider" >
+        {data.map((image, inx) => (
+          <SwiperSlide key={image.id} className="galleryThumbnailsSlide">
+            <img src={ image.image } className="galleryThumbnailsImage" style={{ filter: activeIndex !== inx ? "grayscale(100%)" : "none" }} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {/* Main images */}
+      <Swiper dir={dir} thumbs={ { swiper: thumbsSwiper } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
+        {data.map((image) => (
+          <SwiperSlide key={image.id} className="galleryMainSlide shine">
+            <img src={ image.image } className="galleryMainImage" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Box>
   );
 }
 
 
-const thumbnailsSliderSettings = {
-  direction: "vertical",
+const thumbnailsSliderSettings = (direction) => ({
+  direction: direction,
   slidesPerView: 5,
   spaceBetween: 10,
   watchSlidesProgress: true,
   modules: [Thumbs]
-}
+})
 
 const galleryMainSliderSettings = {
   spaceBetween : 10,
