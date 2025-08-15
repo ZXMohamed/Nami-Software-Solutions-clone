@@ -18,10 +18,10 @@ export default function ListCard({ dir, title, children = [] }) {
 }
 
 const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
+  ["data-aos"]: "fade-up",
+  ["data-aos-duration"]: "1000",
 }
 const cardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "100"
+  ...aosAnimation,
+  ["data-aos-delay"]: "100"
 }

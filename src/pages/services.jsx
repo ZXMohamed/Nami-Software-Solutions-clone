@@ -13,6 +13,7 @@ import MobileScreens from '../componants/mobilescreens'
 //*styles
 
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
+import MiniHeader from '../componants/miniheader'
 const imagesMS = [
   {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
   {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
@@ -52,6 +53,8 @@ export default function Services() {
       <ListCard title={ "System features" }>
         <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
       </ListCard>
+      <br />
+      <MiniHeader title={"Why us"} subtitle={"Why to choose work with us"}/>
       <br />
       <MobileScreens dir={ "rtl" } data={ imagesMS }/>
       <br />
