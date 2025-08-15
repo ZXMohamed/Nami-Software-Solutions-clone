@@ -19,10 +19,11 @@ ul.serviceItemObjectives{
 
     li{
         font-family: 'PlexNormal';
+        color: $thirdTextColor;
         @include center("Y-flex");
 
         &::before{
-            content: url($listArrow);
+            content:url($listArrow);
             height: fit-content;
         }
         @media screen and (max-width:768px) {

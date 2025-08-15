@@ -38,7 +38,7 @@ export default function Services() {
       <IntroCard icon={ x } title={ "Design services" } description={ (" We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience.") }></IntroCard>
       <br />
       <ListCard title={ "Service objectives" }>
-        <ObjectivesList data={ ["Graphic Design","Brand identity design","Logos design","Marketing materials design","User interface (UI) design"] } />
+        <ObjectivesList dir={"ltr"} data={ ["Graphic Design","Brand identity design","Logos design","Marketing materials design","User interface (UI) design"] } />
       </ListCard>
       <br />
       <ListCard title={ "Programming languages used" }>
