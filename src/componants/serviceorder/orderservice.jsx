@@ -47,7 +47,7 @@ const OrderService = () => {
 
     return (
         <>{ /*defaultContent.buttons.requestQuotation */}
-            <RequestButton title={"Order The Service now"} className="serviceRequestButton" onClick={ () => setOrderService(true) } />
+            <RequestButton title={ "Order The Service now" } className="serviceRequestButton" onClick={ () => setOrderService(true) } { ...requestButtonAosAnimation } />
             { orderService && <RequestForm /> }
             {/*defaultContent={ defaultContent } */}
             {/* formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setOrderService(false); requestQuotation_reset(); } } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } */}
@@ -73,7 +73,17 @@ export default OrderService
 
 //             return zod.string().nonempty(required).max(500, { message: length.more(description, 500) })
 //         },
-//         input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } /> 
+//         input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } />
         
 //     }
 // ]
+
+
+const aosAnimation = {
+    ["data-aos"]: "fade-up",
+    ["data-aos-duration"]: "1000",
+}
+const requestButtonAosAnimation = {
+    ...aosAnimation,
+    ["data-aos-delay"]: "200"
+}
