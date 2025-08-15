@@ -55,7 +55,7 @@ export default function Services() {
       <br />
       <MobileScreens dir={ "rtl" } data={ imagesMS }/>
       <br />
-      <Gallery dir={ "rtl" } data={ images } />
+      <Gallery dir={ "rtl" } sideThumbs data={ images } />
       <br />
     </PageWrapper>
   )

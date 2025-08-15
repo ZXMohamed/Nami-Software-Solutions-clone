@@ -7,8 +7,8 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "../sass/shared/gallery.scss"
 
-export default function Gallery({ dir, data }) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+export default function Gallery({ dir, data, sideThumbs }) {
+  const [thumbs, setThumbs] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const muiTheme = useTheme();
@@ -17,15 +17,15 @@ export default function Gallery({ dir, data }) {
   return (
     <Box dir={dir} className="galleryCon">
       {/* Thumbnails */}
-      <Swiper dir={dir} onSwiper={ setThumbsSwiper } {...thumbnailsSliderSettings(isMDSize?"horizontal":"vertical")} className="galleryThumbnailsSlider" >
-        {data.map((image, inx) => (
-          <SwiperSlide key={image.id} className="galleryThumbnailsSlide">
-            <img src={ image.image } className="galleryThumbnailsImage" style={{ filter: activeIndex !== inx ? "grayscale(100%)" : "none" }} />
+      { sideThumbs && <Swiper dir={ dir } onSwiper={ setThumbs } { ...thumbnailsSliderSettings(isMDSize ? "horizontal" : "vertical") } className="galleryThumbnailsSlider" >
+        { data.map((image, inx) => (
+          <SwiperSlide key={ image.id } className="galleryThumbnailsSlide">
+            <img src={ image.image } className="galleryThumbnailsImage" style={ { filter: activeIndex !== inx ? "grayscale(100%)" : "none" } } />
           </SwiperSlide>
-        ))}
-      </Swiper>
+        )) }
+      </Swiper> }
       {/* Main images */}
-      <Swiper dir={dir} thumbs={ { swiper: thumbsSwiper } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
+      <Swiper dir={dir} thumbs={ { swiper: thumbs } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
         {data.map((image) => (
           <SwiperSlide key={image.id} className="galleryMainSlide shine">
             <img src={ image.image } className="galleryMainImage" />
