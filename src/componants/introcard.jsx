@@ -10,7 +10,7 @@ export default function IntroCard({ dir, icon, title, description, children = []
     if (!title) return <></>;
 
     return (
-        <Stack dir={dir} direction={"column"} className='introCardCon' {...cardAosAnimation}>
+        <Stack dir={dir} direction={"column"} className='introCardCon'>
             { icon && <img src={ icon } width={ 40 } height={ 40 } alt={ title + " service form nami" } className='introCardIcon' /> }
             <Typography component={ "h1" } variant='h4' className='introCardTitle' {...titleAosAnimation} >{ title }</Typography>
             { description && <Typography className='introCardDescription' {...descriptionAosAnimation} >{ description }</Typography> }
@@ -23,10 +23,10 @@ const aosAnimation = {
     ["data-aos"]: "fade-up",
     ["data-aos-duration"]: "1000",
 }
-const cardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "50"
-}
+// const cardAosAnimation = {
+//     ...aosAnimation,
+//     ["data-aos-delay"]: "50"
+// }
 const titleAosAnimation = {
     ...aosAnimation,
     ["data-aos-delay"]: "100"
