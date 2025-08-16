@@ -53,7 +53,7 @@ export default function PageWrapper({ children }) {
 
   return (<>
     <Language.Provider value={languageControls}>
-      {/* <NavBar /> */}
+      <NavBar />
       {children}
       {/*footer*/}
     </Language.Provider>
