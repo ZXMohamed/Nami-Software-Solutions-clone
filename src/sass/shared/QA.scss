@@ -5,8 +5,7 @@
 }
 
 
-div.QABox{
-    box-shadow: none;
+div.QABoxCon{
     &:first-child
     {
         button.QABox-Q{
@@ -20,9 +19,16 @@ div.QABox{
         }
     }
 }
+div.QABox{
+    box-shadow: none;
+}
 div.QABox.Mui-expanded{
     border-radius: 20px;
-    
+    &:first-of-type,
+    &:last-of-type{
+        margin-top: 16px;
+        margin-bottom:16px;
+    }
     button.QABox-Q{
         border-radius: 20px;
         @extend %animatedBG;
