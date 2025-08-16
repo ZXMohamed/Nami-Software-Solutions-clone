@@ -1,12 +1,12 @@
 //*react
 import { memo, useContext, useMemo, useState } from "react";
 //*mui
-import { TextField } from "@mui/material";
+import { Select, TextField } from "@mui/material";
 //*component
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-import { useOrderServiceMutation } from '../../redux/server state/services';
+import { useGetServicesQuery, useOrderServiceMutation } from '../../redux/server state/services';
 //*scripts
 import { Language } from "../../languages/languagesContext";
 //*form
@@ -71,12 +71,26 @@ const formAdditionalInputs = [
 
             return zod.string().nonempty(required).max(500, { message: length.more(service, 500) })
         },
-        input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } />
+        input: (props) => <SelectInput { ...props }  />
         
     }
 ]
 
+function SelectInput(props) {
 
+    const { data: services, isSuccess: services_isSuccess } = useGetServicesQuery(undefined, {
+        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+    });
+
+    const [service, setService] = useState("0");
+
+    return (
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ service } onChange={ (e) => { props.onChange(e); setService(e.target.value); }}>
+            {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
+            { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ { id: services.id, service : services.title } }>{services.title}</MenuItem>)}
+        </Select>
+    )
+}
 
 const aosAnimation = {
     ["data-aos"]: "fade-up",
