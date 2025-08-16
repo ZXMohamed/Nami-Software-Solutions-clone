@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-// import { useRequestQuotationMutation } from '../../redux/server state/requestquotation';
+import { useOrderServiceMutation } from '../../redux/server state/services';
 //*scripts
 import { Language } from "../../languages/languagesContext";
 //*form
@@ -30,7 +30,7 @@ const OrderService = () => {
                 name: language_isSuccess ? language.orderService.form.inputs.name : "Name",
                 email: language_isSuccess ? language.orderService.form.inputs.email : "Email",
                 phone: language_isSuccess ? language.orderService.form.inputs.phone : "Phone",
-                description: language_isSuccess ? language.orderService.form.inputs.service : "Service"
+                service: language_isSuccess ? language.orderService.form.inputs.service : "Service"
             },
             alert: {
                 success: language_isSuccess ? language.orderService.form.alert.success : "Order Sent Successfully.",
@@ -41,16 +41,14 @@ const OrderService = () => {
         }
     }), [language, language_isSuccess]);
 
-    const [orderService, setOrderService] = useState(false);
+    const [serviceForm, setServiceForm] = useState(false);
 
-    // const [requestQuotation, { isSuccess: requestQuotation_isSuccess, isLoading: requestQuotation_isLoading, isError: requestQuotation_isError, reset: requestQuotation_reset }] = useRequestQuotationMutation();
+    const [orderService, { isSuccess: orderService_isSuccess, isLoading: orderService_isLoading, isError: orderService_isError, reset: orderService_reset }] = useOrderServiceMutation();
 
     return (
-        <>{ /*defaultContent.buttons.requestQuotation */}
-            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setOrderService(true) } { ...requestButtonAosAnimation } />
-            { orderService && <RequestForm /> }
-            {/*defaultContent={ defaultContent } */}
-            {/* formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setOrderService(false); requestQuotation_reset(); } } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } */}
+        <>
+            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setServiceForm(true) } { ...requestButtonAosAnimation } />
+            { serviceForm && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setServiceForm(false); orderService_reset(); } } form_isLoading={ orderService_isLoading } form_isSuccess={ orderService_isSuccess } form_isError={ orderService_isError } submit={ orderService }/> }
         </>
     );
 };
@@ -58,25 +56,26 @@ const OrderService = () => {
 export default OrderService
 
 
-// const formAdditionalInputs = [
-//     {
-//         name: "description",
-//         inputSettings: {
-//             required: true
-//         },
-//         schema: (defaultContent) => {
+const formAdditionalInputs = [
+    {
+        name: "service",
+        inputSettings: {
+            required: true
+        },
+        schema: (defaultContent) => {
 
-//             const required = defaultContent.zodMsgs.required;
-//             const length = defaultContent.zodMsgs.length;
+            const required = defaultContent.zodMsgs.required;
+            const length = defaultContent.zodMsgs.length;
 
-//             const description = defaultContent.form.inputs.description;
+            const service = defaultContent.form.inputs.service;
 
-//             return zod.string().nonempty(required).max(500, { message: length.more(description, 500) })
-//         },
-//         input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } />
+            return zod.string().nonempty(required).max(500, { message: length.more(service, 500) })
+        },
+        input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } />
         
-//     }
-// ]
+    }
+]
+
 
 
 const aosAnimation = {

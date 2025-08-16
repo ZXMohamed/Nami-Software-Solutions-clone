@@ -11,9 +11,25 @@ const servicesSlice = createApi({
         getServices: builder.query({
             query: ({ id }) => { return "query/services.php" + (id ? "?id=" + id : "")  },
             providesTags: ['ReQueryForMainPage']
+        }),
+        orderService: builder.mutation({
+            query: (data) => {
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+                return {
+                    url: "query/orderservice.php",
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params,
+                }
+            }
         })
     })
 });
 
 export default servicesSlice;
-export const { useGetServicesQuery} = servicesSlice;
+export const { useGetServicesQuery, useOrderServiceMutation} = servicesSlice;
