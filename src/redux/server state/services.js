@@ -13,7 +13,7 @@ const servicesSlice = createApi({
             providesTags: ['ReQueryForMainPage']
         }),
         getServicesQuestion: builder.query({
-            query: () => { return "query/servicesquestion.php" },
+            query: () => { return "query/servicesquestions.php" },
             providesTags: ['ReQueryForMainPage']
         }),
     })
