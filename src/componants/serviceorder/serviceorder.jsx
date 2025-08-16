@@ -1,33 +1,44 @@
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext, useMemo } from 'react'
 import IntroCard from '../introcard'
 import ListCard from '../listcard'
 import ObjectivesList from '../objectiveslist'
 import OrderService from './orderservice'
 import { useGetServicesQuery } from '../../redux/server state/services'
+import { Language } from '../../languages/languagesContext'
 
 
 export default function ServiceOrder() {
 
+  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+  const defaultContent = useMemo(() => ({
+    direction: language_isSuccess ? language.page.direction : "ltr",
+    language: language_isSuccess ? language.page.language : "en",
+    objectivesList: {
+      title: language_isSuccess ? language.serviceOrder.objectivesList.title : "Service objectives"
+    }
+  }), [language, language_isSuccess]);
+
   const { isSuccess: service_isSuccess, isError: service_isError, data: service } = useGetServicesQuery({ id: 1 });
   console.log(service);
   return (
-    <Box>
+    <Box dir={defaultContent.direction}>
       <Container maxWidth="lg">
-        { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
         <Grid container spacing={2}>
           <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            { service_isSuccess && <IntroCard dir={ "ltr" } icon={ service["id-1"].image } title={ service["id-1"].title } description={ service["id-1"].description } /> }
+            { service_isSuccess && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } title={ service["id-1"].title } description={ service["id-1"].description } /> }
             { !service_isSuccess && <IntroCardWaitItemsSkelton/>}
           </Grid>
           <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
-            <ListCard dir={ "ltr" } title={ "Service objectives" }>
-              { service_isSuccess && <ObjectivesList dir={ "ltr" } data={ service["id-1"].objectives } />}
+            <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
+              { service_isSuccess && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
               { !service_isSuccess && <ListCardWaitItemsSkelton/>}
               { service_isSuccess && < OrderService />}
             </ListCard>
           </Grid>
         </Grid>
+        { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
       </Container>
     </Box>
   )

@@ -15,31 +15,31 @@ import zod from "zod";
 
 const OrderService = () => {
 
-    // const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-    // // console.log(language);
-    // const defaultContent = useMemo(() => ({
-    //     direction: language_isSuccess ? language.page.direction : "ltr",
-    //     language: language_isSuccess ? language.page.language : "en",
-    //     zodMsgs: language.zodMsgs,
-    //     buttons: {
-    //         requestQuotation: language_isSuccess ? language.home.buttons.requestQuotation : "Request for Quotation"
-    //     },
-    //     form: {
-    //         title: "",
-    //         inputs: {
-    //             name: language_isSuccess ? language.requestQuotation.form.inputs.name : "Name",
-    //             email: language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
-    //             phone: language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
-    //             description: language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
-    //         },
-    //         alert: {
-    //             success: language_isSuccess ? language.requestQuotation.form.alert.success : "Request Sent Successfully.",
-    //             error: language_isSuccess ? language.requestQuotation.form.alert.error : "Request Failed.",
-    //             reCaptcha: language_isSuccess ? language.requestQuotation.form.alert.reCaptcha : "Please verify that you're not a robot."
-    //         },
-    //         submit: language_isSuccess ? language.requestQuotation.form.submit : "Send"
-    //     }
-    // }), [language, language_isSuccess]);
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    // console.log(language);
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : "en",
+        zodMsgs: language.zodMsgs,
+        buttons: {
+            orderService: language_isSuccess ? language.serviceOrder.buttons.orderService : "Order The Service now"
+        },
+        form: {
+            title: "",
+            inputs: {
+                name: language_isSuccess ? language.orderService.form.inputs.name : "Name",
+                email: language_isSuccess ? language.orderService.form.inputs.email : "Email",
+                phone: language_isSuccess ? language.orderService.form.inputs.phone : "Phone",
+                description: language_isSuccess ? language.orderService.form.inputs.service : "Service"
+            },
+            alert: {
+                success: language_isSuccess ? language.orderService.form.alert.success : "Order Sent Successfully.",
+                error: language_isSuccess ? language.orderService.form.alert.error : "Order Failed.",
+                reCaptcha: language_isSuccess ? language.orderService.form.alert.reCaptcha : "Please verify that you're not a robot."
+            },
+            submit: language_isSuccess ? language.orderService.form.submit : "Send"
+        }
+    }), [language, language_isSuccess]);
 
     const [orderService, setOrderService] = useState(false);
 
@@ -47,7 +47,7 @@ const OrderService = () => {
 
     return (
         <>{ /*defaultContent.buttons.requestQuotation */}
-            <RequestButton title={ "Order The Service now" } className="serviceRequestButton" onClick={ () => setOrderService(true) } { ...requestButtonAosAnimation } />
+            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setOrderService(true) } { ...requestButtonAosAnimation } />
             { orderService && <RequestForm /> }
             {/*defaultContent={ defaultContent } */}
             {/* formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setOrderService(false); requestQuotation_reset(); } } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } */}
