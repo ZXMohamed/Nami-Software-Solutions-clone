@@ -1,25 +1,30 @@
-import { Box, Container, Grid } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
 import IntroCard from '../introcard'
 import ListCard from '../listcard'
 import ObjectivesList from '../objectiveslist'
 import OrderService from './orderservice'
+import { useGetServicesQuery } from '../../redux/server state/services'
 
 import x from "../../assets/photo/global/facebook.svg"
 
 export default function ServiceOrder() {
+
+  const { isSuccess: service_isSuccess, isError: service_isError, data: service } = useGetServicesQuery({ id: 1 });
+  console.log(service);
   return (
     <Box>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            <IntroCard dir={"ltr"} icon={x} title={"Design services"} description={"We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience."}/>
+            { service_isSuccess && <IntroCard dir={ "ltr" } loading={!service_isSuccess} icon={ service["id-1"].image } title={ service["id-1"].title } description={ service["id-1"].description } /> }
+            { service_isError && <Typography component={"h1"} variant='h4' color={"error"}>data not found !</Typography>}
           </Grid>
           <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
-            <ListCard dir={"ltr"} title={"Service objectives"}>
-              <ObjectivesList dir={ "ltr" } data={ ["Graphic Design", "Brand identity design", "Logos design", "Marketing materials design", "User interface (UI) design"] } />
+            { service_isSuccess && <ListCard dir={ "ltr" } loading={!service_isSuccess} title={ "Service objectives" }>
+              <ObjectivesList dir={ "ltr" } data={ service["id-1"].objectives } />
               <OrderService />
-            </ListCard>
+            </ListCard> }
           </Grid>
         </Grid>
       </Container>
