@@ -38,8 +38,10 @@ console.log(servicesQuestion);
     )
 }
 
-function AnswerBox({dir, data, aosAnimation}) {console.log(data.image);
-   
+function AnswerBox({ dir, data, aosAnimation }) {
+
+    if (!data || (data && Object.keys(data).length == 0)) return <></>;
+    
     return (
         <Stack dir={dir} direction={"column"} className='answerBox' {...aosAnimation}>
             <img src={ data.image } width={ 60 } height={ 60 } alt={ data.title + " service form nami" } className='answerBoxIcon' />
