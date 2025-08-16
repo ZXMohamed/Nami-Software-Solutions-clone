@@ -1,16 +1,17 @@
 //*react
 import React from 'react'
 //*mui
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Skeleton, Stack, Typography } from '@mui/material'
 //*styles
 import "../sass/shared/techbadge.scss"
 
 
-export function TechBadgesList({ dir, children, type }) {
+export function TechBadgesList({ dir, loading, children, type }) {
 
     return (
         <Box dir={ dir } className={ "techBadges " + (type || techBadgesListType.box)} >
-            {children}
+            { children }
+            {loading && <WaitItemsSkelton/>}
         </Box>
   )
 }
@@ -34,4 +35,15 @@ export const techBadgesListType = {
 export const techBadgeSize = {
     big : "techBadgeBig",
     small:"techBadgeSmall"
+}
+
+function WaitItemsSkelton() { 
+    return (
+      <Stack direction={"row"} flexWrap={"wrap"} gap={2}>
+        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
+        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
+        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
+        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
+      </Stack>
+    );
 }

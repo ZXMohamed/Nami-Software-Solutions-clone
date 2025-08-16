@@ -1,7 +1,7 @@
 //*react
 import React from 'react'
 //*mui
-import { Divider, Stack, Typography } from '@mui/material'
+import { Divider, Skeleton, Stack, Typography } from '@mui/material'
 //*styles
 import "../sass/shared/listcard.scss"
 
