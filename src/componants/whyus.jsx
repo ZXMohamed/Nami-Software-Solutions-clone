@@ -16,17 +16,19 @@ export default function WhyUs() {
         subtitle: language_isSuccess ? language.whyUs.subtitle : "Why to choose work with us"
     }), [language, language_isSuccess]);
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion} = useGetServicesQuestionQuery()
-
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery()
+console.log(servicesQuestion);
     return (
         <>
             <Box dir={defaultContent.direction} className="whyUsSection">
                 <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
                 <Container maxWidth="lg">
                     <Grid container spacing={3}>
-                        { servicesQuestion_isSuccess && <Grid size={ { sm: 4, xs: 12 } }>
-                            <AnswerBox dir={defaultContent.direction} data={ { icon: "", title: "Strong frame", description: "At Nami, we excel at using the latest technologies and advanced frameworks to develop high-performance and flexible websites." } } aosAnimation={ boxAosAnimation } />
-                        </Grid> }
+                        { servicesQuestion_isSuccess && Object.values(servicesQuestion.whySec).map((answer) =>
+                            <Grid key={answer.id} size={ { sm: 4, xs: 12 } }>
+                                <AnswerBox dir={defaultContent.direction} data={ answer } aosAnimation={ boxAosAnimation } />
+                            </Grid>  
+                        )}
                         { !servicesQuestion_isSuccess && <Grid size={ { sm: 4, xs: 12 } }> <AnswerBoxWaitItemsSkelton /> </Grid> }
                     </Grid>
                     {servicesQuestion_isError && <Typography component={"p"} variant='h5' color='error'>data not found !</Typography>}
@@ -36,13 +38,13 @@ export default function WhyUs() {
     )
 }
 
-function AnswerBox({dir, data, aosAnimation}) {
+function AnswerBox({dir, data, aosAnimation}) {console.log(data.image);
    
     return (
         <Stack dir={dir} direction={"column"} className='answerBox' {...aosAnimation}>
-            { data.icon && <img src={ data.icon } width={ 60 } height={ 60 } alt={ data.title + " service form nami" } className='answerBoxIcon' /> }
+            <img src={ data.image } width={ 60 } height={ 60 } alt={ data.title + " service form nami" } className='answerBoxIcon' />
             <Typography component={ "h5" } variant='h6' className='answerBoxTitle'>{ data.title }</Typography>
-            { data.description && <Typography className='answerBoxDescription'>{ data.description }</Typography> }
+            <Typography className='answerBoxDescription'>{ data.description }</Typography>
         </Stack>
     )
 }
