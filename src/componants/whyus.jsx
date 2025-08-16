@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
 import MiniHeader from './miniheader'
 import "../sass/shared/whyus.scss"
-import x from "../assets/photo/global/instagram.svg"
 import { useGetServicesQuestionQuery } from '../redux/server state/services'
+import { Language } from '../languages/languagesContext'
 
 export default function WhyUs() {
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : "en",
+        title: language_isSuccess ? language.whyUs.title : "Why us",
+        subtitle: language_isSuccess ? language.whyUs.subtitle : "Why to choose work with us"
+    }), [language, language_isSuccess]);
 
     const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion} = useGetServicesQuestionQuery()
 
     return (
         <>
-            <Box dir={"ltr"} className="whyUsSection">
-                <MiniHeader dir={"ltr"} title={"Why us"} subtitle={"Why to choose work with us"}/>
+            <Box dir={defaultContent.direction} className="whyUsSection">
+                <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
                 <Container maxWidth="lg">
                     <Grid container spacing={3}>
                         { servicesQuestion_isSuccess && <Grid size={ { sm: 4, xs: 12 } }>
-                            <AnswerBox dir={ "ltr" } data={ { icon: x, title: "Strong frame", description: "At Nami, we excel at using the latest technologies and advanced frameworks to develop high-performance and flexible websites." } } aosAnimation={ boxAosAnimation } />
+                            <AnswerBox dir={defaultContent.direction} data={ { icon: "", title: "Strong frame", description: "At Nami, we excel at using the latest technologies and advanced frameworks to develop high-performance and flexible websites." } } aosAnimation={ boxAosAnimation } />
                         </Grid> }
                         { !servicesQuestion_isSuccess && <Grid size={ { sm: 4, xs: 12 } }> <AnswerBoxWaitItemsSkelton /> </Grid> }
                     </Grid>
@@ -28,7 +37,7 @@ export default function WhyUs() {
 }
 
 function AnswerBox({dir, data, aosAnimation}) {
-    
+   
     return (
         <Stack dir={dir} direction={"column"} className='answerBox' {...aosAnimation}>
             { data.icon && <img src={ data.icon } width={ 60 } height={ 60 } alt={ data.title + " service form nami" } className='answerBoxIcon' /> }
