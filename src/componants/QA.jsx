@@ -7,16 +7,18 @@ import { useGetServicesQuestionQuery } from '../redux/server state/services';
 
 export default function QA() {
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery();
 
+
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery();
+console.log(servicesQuestion);
     return (
         <>
             <Box dir={"ltr"} className="QASection">
                 <MiniHeader dir={"ltr"} title={"FAQS"} subtitle={"The most common questions that clients ask about website development"}/>
                 <Container maxWidth="lg">
-                    { servicesQuestion_isSuccess && <><QABox dir={ "ltr" } data={ { Q: "What services does Nami provide?", A: "Nami offers a variety of services including website design and development, application development, cybersecurity services, and data analysis, in addition to digital marketing solutions and software support and maintenance." } } aosAnimation={ boxAosAnimation } />
-                        <QABox dir={ "ltr" } data={ { Q: "What services does Nami provide?", A: "Nami offers a variety of services including website design and development, application development, cybersecurity services, and data analysis, in addition to digital marketing solutions and software support and maintenance." } } aosAnimation={ boxAosAnimation } />
-                        <QABox dir={ "ltr" } data={ { Q: "What services does Nami provide?", A: "Nami offers a variety of services including website design and development, application development, cybersecurity services, and data analysis, in addition to digital marketing solutions and software support and maintenance." } } aosAnimation={ boxAosAnimation } /></> }
+                    { servicesQuestion_isSuccess && Object.values(servicesQuestion.QA).map((QA) => 
+                        <QABox key={QA.id} dir={ "ltr" } data={ QA } aosAnimation={ boxAosAnimation } />
+                    )}
                     { !servicesQuestion_isSuccess && <QABoxWaitItemsSkelton/>}
                     { servicesQuestion_isError && <Typography variant='h5' color='error'>data not found !</Typography>}
                 </Container>
@@ -25,7 +27,9 @@ export default function QA() {
     )
 }
 
-function QABox({dir, data, aosAnimation}) {
+function QABox({ dir, data, aosAnimation }) {
+    
+    if (!data || (data && Object.keys(data).length == 0)) return <></>;
     
     return (
         <Box className='QABoxCon' {...aosAnimation}>
