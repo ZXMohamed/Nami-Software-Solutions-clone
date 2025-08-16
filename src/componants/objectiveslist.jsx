@@ -7,12 +7,16 @@ export default function ObjectivesList({ dir, loading, data }) {
     if (!data || !Array.isArray(data)) return <></>;
 
     return (
-        <Stack dir={ dir } direction={ 'column' } className='objectivesList'>
-            <ul className='serviceItemObjectives'>
-                { data.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
-            </ul>
+        <>
+            { !loading &&
+                <Stack dir={ dir } direction={ 'column' } className='objectivesList'>
+                    <ul className='serviceItemObjectives'>
+                        { data.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
+                    </ul>
+                </Stack>
+            }
             {loading && <WaitItemsSkelton/>}
-        </Stack>    
+        </>
     )
 }
 

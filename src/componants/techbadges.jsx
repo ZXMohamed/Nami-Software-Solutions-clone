@@ -10,7 +10,7 @@ export function TechBadgesList({ dir, loading, children, type }) {
 
     return (
         <Box dir={ dir } className={ "techBadges " + (type || techBadgesListType.box)} >
-            { children }
+            { !loading && children }
             {loading && <WaitItemsSkelton/>}
         </Box>
   )

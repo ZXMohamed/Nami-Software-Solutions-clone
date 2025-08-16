@@ -10,13 +10,17 @@ export default function IntroCard({ dir, loading, icon, title, description, chil
     if (!title) return <></>;
 
     return (
-        <Stack dir={dir} direction={"column"} className='introCardCon'>
-            { icon && <img src={ icon } width={ 40 } height={ 40 } alt={ title + " service form nami" } className='introCardIcon' /> }
-            <Typography component={ "h1" } variant='h4' className='introCardTitle' {...titleAosAnimation} >{ title }</Typography>
-            { description && <Typography className='introCardDescription' {...descriptionAosAnimation} >{ description }</Typography> }
-            { children }
-            { loading && <WaitItemsSkelton/>}
-        </Stack>
+        <>
+            { !loading &&
+                <Stack dir={ dir } direction={ "column" } className='introCardCon'>
+                    { icon && <img src={ icon } width={ 40 } height={ 40 } alt={ title + " service form nami" } className='introCardIcon' /> }
+                    <Typography component={ "h1" } variant='h4' className='introCardTitle' { ...titleAosAnimation } >{ title }</Typography>
+                    { description && <Typography className='introCardDescription' { ...descriptionAosAnimation } >{ description }</Typography> }
+                    { children }
+                </Stack>
+            }
+            { loading && <WaitItemsSkelton /> }
+        </>
     )
 }
 

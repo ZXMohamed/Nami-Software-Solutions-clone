@@ -5,7 +5,7 @@ import "../sass/shared/pointslist.scss"
 export default function PointsList({ dir, loading, data=[] }) {
   return (
     <Box dir={dir}>
-      { data.map((point) => <Point key={ point.id } title={ point.title } />) }
+      {!loading && data.map((point) => <Point key={ point.id } title={ point.title } />) }
       {loading && <WaitItemsSkelton/>}
     </Box>
   )
