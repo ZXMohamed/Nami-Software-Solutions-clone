@@ -10,6 +10,7 @@ import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
+import ContactButtons from './social&contacts/contactbuttons';
 
 
 export default function PageWrapper({ children }) {
@@ -57,6 +58,7 @@ export default function PageWrapper({ children }) {
       <NavBar />
       {children}
       <FloatSocialButtons />
+      <ContactButtons/>
       {/*footer*/}
     </Language.Provider>
 
