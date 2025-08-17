@@ -90,7 +90,7 @@ function SelectInput(props) {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    const [service, setService] = useState(null);
+    const [service, setService] = useState("0");
 
     return (
         <>
