@@ -76,7 +76,13 @@ const formAdditionalInputs = [
 
 function SelectInput(props) {
     console.log(props);
-    
+
+    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+    }), [language, language_isSuccess]);
+
     const selectInputProps = { ...props };
     delete selectInputProps?.helperText;
 
@@ -84,13 +90,13 @@ function SelectInput(props) {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    const [service, setService] = useState(services_isSuccess ? services.id : "");
+    const [service, setService] = useState(null);
 
     return (
         <>
-            <Select variant='outlined' { ...selectInputProps } defaultValue={"0"} value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
+            <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
                 {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
-                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
+                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem dir={defaultContent.direction} key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
             </Select>
             { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
         </>

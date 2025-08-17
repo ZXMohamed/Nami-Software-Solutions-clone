@@ -82,6 +82,9 @@ button.closeForm{
         .MuiInputBase-multiline{
             padding: 0;
         }
+        div.MuiSelect-select{
+            @include center("Y-flex")
+        }
     }
 
     @media screen and (max-height:600px) {
@@ -153,7 +156,8 @@ label.inputTitle
             }
         }
         li.MuiMenuItem-root{
-            // justify-content: flex-end !important;
+            justify-content: flex-start;
+            -webkit-justify-content:flex-start;
         }
         form{
             .MuiFormHelperText-root{
@@ -182,7 +186,8 @@ label.inputTitle
             }
         }
         li.MuiMenuItem-root{
-            justify-content: end !important;
+            justify-content: flex-start;
+            -webkit-justify-content:flex-start;
         }
         form{
             .MuiFormHelperText-root{
