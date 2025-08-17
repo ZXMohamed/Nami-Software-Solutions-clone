@@ -13,7 +13,7 @@ const languageSlice = createApi({
             query: () =>"/query/availableLanguage.php"
         }),
         getLanguage: builder.mutation({
-            query: ( language, page ) => ({
+            query: ({language, page }) => ({
                 url: "query/language.php?lang=" + language + "&" + "page=" + page,
                 method: "GET",
             }),
