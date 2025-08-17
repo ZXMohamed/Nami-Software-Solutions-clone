@@ -16,7 +16,9 @@ export default function WhyUs() {
         subtitle: language_isSuccess ? language.whyUs.subtitle : "Why to choose work with us"
     }), [language, language_isSuccess]);
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery()
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
+    })
 console.log(servicesQuestion);
     return (
         <>
