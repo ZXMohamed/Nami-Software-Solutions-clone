@@ -1,6 +1,7 @@
 $assets: "../../assets/photo";
 
 $siteLogo:'#{$assets}/global/Namiicon.svg';
+$siteLogo:'#{$assets}/global/Namiicon.svg';
 $siteBackground: "#{$assets}/global/background.png";
 $portfolioIcon: "#{$assets}/home/portofolio.svg";
 $projectsIcon: "#{$assets}/home/products.svg";
@@ -20,7 +21,9 @@ $primary3Color: #11b14e;
 $primaryTransparent: rgba($primaryColor, 0.19);
 $primary1-2Transparent: rgba($primaryColor, 0.05);
 $primary1-3Transparent:rgba($primaryColor, 0.369);
+$primary1-3Transparent:rgba($primaryColor, 0.369);
 $primary2Transparent: rgba($primary2Color, 0.25);
+$primary2-2Transparent: rgba($primary2Color, 0.733);
 $primary2-2Transparent: rgba($primary2Color, 0.733);
 $primary3Transparent: rgba($primary3Color, 0.07);
 $primary3-2Transparent: rgba($primary3Color, 0.17);
@@ -32,7 +35,9 @@ $second1-2Transparent: rgba($secondColor, 0.05);
 
 $thirdColor : #e1e1e1;
 $third2Color : #f5f5f5;
+$third2Color : #f5f5f5;
 
+$PrimaryTextColor:#000000;
 $PrimaryTextColor:#000000;
 $secondTextColor:#777;
 $thirdTextColor : #191919;
@@ -40,6 +45,8 @@ $thirdTextColor : #191919;
 $scrollColor:#CACACA;
 
 $gradientBG: linear-gradient(45deg, $primary3Color 0%, $primary2Color 50%, $primaryColor 100%);
+$gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Transparent 50%, $primaryColor 100%);
+$gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%, rgb(150, 223, 241) 50%, rgb(72, 246, 87) 75%);
 $gradientTransparentBG: linear-gradient(45deg, $primary3Color 0%, $primary2-2Transparent 50%, $primaryColor 100%);
 $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%, rgb(150, 223, 241) 50%, rgb(72, 246, 87) 75%);
 
@@ -103,6 +110,33 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
 %hexagon{
     clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
     border-radius: 50%;
+}
+
+%sectionCard{
+    background-color: $secondColor;
+    box-shadow: 0px 0px 20px #0000001a;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 35px;
+    h2.cardTitle{
+        font-family: 'PlexBold';
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    p.cardDescription{
+        font-family: 'PlexNormal';
+        color: $secondTextColor;
+    }
+    @media screen and (max-width:768px) {
+        padding: 16px;
+        h2.cardTitle{
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        p.cardDescription{
+            font-size: 14px;
+        }
+    }
 }
 
 %sectionCard{
@@ -285,7 +319,39 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
             }
         }
     }
+    &[dir = ltr]{
+        div.shine{
+            &::before{
+                transform: translateX(15%) translateY(15%) rotate(110deg);
+                background: linear-gradient(0deg,transparent 0% 50%, #ffffff4f 52%, transparent 80% 100%);
+            }
+        }
+        &:hover{
+            div.shine{
+                &::before{
+                    animation-name: shineMove-ltr;
+                }
+            }
+        }
+    }
+    &[dir = rtl]{
+        div.shine{
+            &::before{
+                bottom: 50px;
+                transform: translateX(-35%) translateY(-35%) rotate(310deg);
+                background: linear-gradient(0deg,transparent 0% 50%, #ffffff4f 52%, transparent 80% 100%);
+            }
+        }
+        &:hover{
+            div.shine{
+                &::before{
+                    animation-name: shineMove-rtl;
+                }
+            }
+        }
+    }
 }
+
 
 @keyframes shineMove-ltr {
     0%{
@@ -293,6 +359,45 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     }
     100%{
         transform: translateX(-100%) translateY(-100%) rotate(130deg);
+    }
+}
+@keyframes shineMove-rtl {
+    0%{
+        transform: translateX(-35%) translateY(-35%) rotate(310deg);
+    }
+    100%{
+        transform: translateX(100%) translateY(100%) rotate(290deg);
+    }
+}
+
+%animatedLine{
+    background: $gradientLine;
+    background-size: 300%;
+    animation-name: moveBG;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes moveBG {
+    0%{
+
+        background-position-x: 100%;
+    }
+    25%{
+
+        background-position-x: 75%;
+    }
+    50%{
+
+        background-position-x: 50%;
+    }
+    75%{
+
+        background-position-x: 75%;
+    }
+    100%{
+
+        background-position-x: 100%;
     }
 }
 @keyframes shineMove-rtl {
@@ -445,7 +550,6 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
         margin:auto;
     }
 }
-
 @mixin textOverFlow($line){
     text-overflow: ellipsis;
     line-clamp: #{$line};

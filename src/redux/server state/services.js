@@ -27,9 +27,13 @@ const servicesSlice = createApi({
                     body: params,
                 }
             }
-        })
+        }),
+        getServicesQuestion: builder.query({
+            query: () => { return "query/servicesquestions.php" },
+            providesTags: ['ReQueryForMainPage']
+        }),
     })
 });
 
 export default servicesSlice;
-export const { useGetServicesQuery, useOrderServiceMutation} = servicesSlice;
+export const { useGetServicesQuery, useOrderServiceMutation, useGetServicesQuestionQuery} = servicesSlice;
