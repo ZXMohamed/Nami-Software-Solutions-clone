@@ -13,6 +13,7 @@ import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 import ContactButtons from './social&contacts/contactbuttons';
+import RoutesBar from './routesbar';
 
 
 export default function PageWrapper({ children }) {
@@ -58,6 +59,7 @@ export default function PageWrapper({ children }) {
   return (<>{console.log("sasd")}
     <Language.Provider value={languageControls}>
       <NavBar />
+      <RoutesBar/>
       { children }
       <FloatSocialButtons />
       <ContactButtons/>

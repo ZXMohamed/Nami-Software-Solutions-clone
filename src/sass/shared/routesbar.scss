@@ -1,0 +1,12 @@
+@use "_shared.scss" as *;
+
+nav.routesBarContainer{
+    color: $primaryColor;
+    font-family: "PlexNormal";
+}
+.routBarTab{
+    text-transform: capitalize;
+}
+.activeRoutTab{
+    color: $secondTextColor;
+}
