@@ -17,7 +17,9 @@ export default function QA() {
         subtitle: language_isSuccess ? language.QA.subtitle : "The most common questions that clients ask about website development"
     }), [language, language_isSuccess]);
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery();
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
+    });
 console.log(servicesQuestion);
     return (
         <>
