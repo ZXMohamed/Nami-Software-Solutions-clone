@@ -42,7 +42,7 @@ export default function OurProducts() {
   )
 }
 
-const Products = memo(({dir}) => {
+export const Products = memo(({dir}) => {
 
     const { isSuccess: products_isSuccess, data: products, isError: products_isError } = useGetProductsQuery(undefined, {
         selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
@@ -74,7 +74,7 @@ const Products = memo(({dir}) => {
     )
 });
 
-const ProductCard = memo(({ dir, data, aosAnimation })=> { 
+export const ProductCard = memo(({ dir, data, aosAnimation }) => {
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
     return (
         <Box className='productCard' { ...aosAnimation }>
