@@ -1,7 +1,7 @@
 //*react
 import { memo, useContext, useMemo, useState } from "react";
 //*mui
-import { Select, TextField } from "@mui/material";
+import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
 //*component
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
@@ -69,7 +69,7 @@ const formAdditionalInputs = [
 
             const service = defaultContent.form.inputs.service;
 
-            return zod.string().nonempty(required).max(500, { message: length.more(service, 500) })
+            return zod.string().refine((selectedService) => selectedService != "0", { message: required })
         },
         input: (props) => <SelectInput { ...props }  />
         
@@ -77,6 +77,10 @@ const formAdditionalInputs = [
 ]
 
 function SelectInput(props) {
+    console.log(props);
+    
+    const selectInputProps = { ...props };
+    delete selectInputProps?.helperText;
 
     const { data: services, isSuccess: services_isSuccess } = useGetServicesQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
@@ -85,10 +89,13 @@ function SelectInput(props) {
     const [service, setService] = useState("0");
 
     return (
-        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ service } onChange={ (e) => { props.onChange(e); setService(e.target.value); }}>
-            {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
-            { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ { id: services.id, service : services.title } }>{services.title}</MenuItem>)}
-        </Select>
+        <>
+            <Select variant='outlined' color="error" { ...selectInputProps } defaultValue={ '0' } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
+                {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
+                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ { id: services.id, service : services.title } }>{services.title}</MenuItem>)}
+            </Select>
+            { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
+        </>
     )
 }
 
