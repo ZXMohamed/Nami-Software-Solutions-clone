@@ -11,7 +11,8 @@ import AllProducts from '../componants/ourproducts/allproducts';
 export default function Products() {
   return (
     <PageWrapper>
-      <AllProducts/>
+      <AllProducts />
+      <br />
     </PageWrapper>
   )
 }

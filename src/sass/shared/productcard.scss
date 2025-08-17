@@ -46,7 +46,7 @@ p.productDescription{
     color: $secondTextColor;
     height: 40px;
     overflow: hidden;
-    @include textOverflow(2);
+    @include textOverFlow(2);
     text-indent: 10px;
 }
 div.badgesContainer{
