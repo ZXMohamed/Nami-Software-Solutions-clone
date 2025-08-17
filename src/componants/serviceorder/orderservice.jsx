@@ -65,8 +65,6 @@ const formAdditionalInputs = [
         schema: (defaultContent) => {
 
             const required = defaultContent.zodMsgs.required;
-            const length = defaultContent.zodMsgs.length;
-
             const service = defaultContent.form.inputs.service;
 
             return zod.string().refine((selectedService) => selectedService != "0", { message: required })
@@ -90,7 +88,7 @@ function SelectInput(props) {
 
     return (
         <>
-            <Select variant='outlined' color="error" { ...selectInputProps } defaultValue={ '0' } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
+            <Select dir="rtl" variant='outlined' color="error" { ...selectInputProps } defaultValue={ '0' } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
                 {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
                 { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ { id: services.id, service : services.title } }>{services.title}</MenuItem>)}
             </Select>
