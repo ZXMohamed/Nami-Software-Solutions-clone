@@ -11,6 +11,7 @@ import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
+import Footer from './footer';
 
 
 export default function PageWrapper({ children }) {
@@ -59,7 +60,7 @@ export default function PageWrapper({ children }) {
       {children}
       <FloatSocialButtons />
       <ContactButtons/>
-      {/*footer*/}
+      <Footer/>
     </Language.Provider>
 
     <Snackbar open={languageStatus.isError } autoHideDuration={5000}>

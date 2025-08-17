@@ -8,7 +8,7 @@ import "../sass/pages/main.scss"
 
 import AllProducts from '../componants/ourproducts/allproducts';
 
-export default function OurProducts() {
+export default function Products() {
   return (
     <PageWrapper>
       <AllProducts/>
