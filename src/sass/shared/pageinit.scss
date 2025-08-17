@@ -9,6 +9,7 @@ body{
     overflow-y: scroll;
     @extend %scroll;
     height: 1500px;
+    padding-top: 140px;
     background-image: url($siteBackground);
     background-repeat: repeat;
 }
