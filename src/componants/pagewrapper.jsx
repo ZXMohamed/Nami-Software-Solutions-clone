@@ -6,6 +6,7 @@ import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
+import ServicesTicker from './servicesticker';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
@@ -54,7 +55,8 @@ export default function PageWrapper({ children }) {
   return (<>{console.log("sasd")}
     <Language.Provider value={languageControls}>
       <NavBar />
-      {children}
+      { children }
+      <ServicesTicker/>
       {/*footer*/}
     </Language.Provider>
 
