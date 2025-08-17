@@ -45,6 +45,7 @@ button.closeForm{
             border-radius:10px;
             caret-color: $secondColor;
             height: 46px;
+            
             &::selection{
                 background-color: $primary2Color;
             }
@@ -143,6 +144,17 @@ label.inputTitle
                 margin-right: 12px;
             }
         }
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-left: 12px;
+                &~svg.MuiSvgIcon-root{
+                    right: 7px;
+                }
+            }
+        }
+        li.MuiMenuItem-root{
+            // justify-content: flex-end !important;
+        }
         form{
             .MuiFormHelperText-root{
                 text-align: left;
@@ -159,6 +171,18 @@ label.inputTitle
                 margin-right: 0px;
                 margin-left: 12px;
             }
+        }
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-right: 12px;
+                &~svg.MuiSvgIcon-root{
+                    left: 7px;
+                    right: unset;
+                }
+            }
+        }
+        li.MuiMenuItem-root{
+            justify-content: end !important;
         }
         form{
             .MuiFormHelperText-root{

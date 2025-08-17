@@ -84,13 +84,13 @@ function SelectInput(props) {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    const [service, setService] = useState("0");
+    const [service, setService] = useState(services_isSuccess ? services.id : "");
 
     return (
         <>
-            <Select dir="rtl" variant='outlined' color="error" { ...selectInputProps } defaultValue={ '0' } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
+            <Select variant='outlined' { ...selectInputProps } defaultValue={"0"} value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
                 {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
-                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ { id: services.id, service : services.title } }>{services.title}</MenuItem>)}
+                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
             </Select>
             { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
         </>
