@@ -17,8 +17,8 @@ export default function MobileScreens({ dir, data }) {
     <Box dir={dir} className="mobileScreensCon">
         <Swiper dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
             {data.map((image, inx) => (
-            <SwiperSlide key={image.id} className='mobileScreensSlide'>
-                <img src={image.image} className='mobileScreensImage'/>
+            <SwiperSlide key={inx} className='mobileScreensSlide'>
+                <img src={image} className='mobileScreensImage'/>
             </SwiperSlide>
             ))}
         </Swiper>

@@ -16,21 +16,21 @@ import x from "../assets/photo/servicesbadges/androidapplication.svg"
 import MiniHeader from '../componants/miniheader'
 import InfoCard, { infoCardEffects, typographyForm } from '../componants/infocard'
 const imagesMS = [
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1},
-  {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',id:1}
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg',
+  'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/12.jpg'
 ];
 const images = [
-  {image:"https://picsum.photos/id/1018/800/600",id:1},
-  {image:"https://picsum.photos/id/1015/800/600",id:1},
-  {image:"https://picsum.photos/id/1018/800/600",id:1},
-  {image:"https://picsum.photos/id/1015/800/600",id:1},
-  {image:"https://picsum.photos/id/1019/800/600",id:1},
-  {image:"https://picsum.photos/id/1020/800/600",id:1}
+  "https://picsum.photos/id/1018/800/600.jpg",
+  "https://picsum.photos/id/1015/800/600.jpg",
+  "https://picsum.photos/id/1018/800/600.jpg",
+  "https://picsum.photos/id/1015/800/600.jpg",
+  "https://picsum.photos/id/1019/800/600.jpg",
+  "https://picsum.photos/id/1020/800/600.jpg"
 ];
 
 export default function Services() {
@@ -55,7 +55,7 @@ export default function Services() {
       </InfoCard>
       <br/>
       <ListCard title={ "System features" }>
-        <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
+        <PointsList dir={"ltr"} data={["Efficiently Manage Care Schedules","Record Health Data for Each Livestock"]}/>
       </ListCard>
       <br />
       <MiniHeader title={"Why us"} subtitle={"Why to choose work with us"}/>
