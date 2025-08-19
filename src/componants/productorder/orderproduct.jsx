@@ -6,7 +6,7 @@ import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-import { useGetProductsQuery, useOrderServiceMutation } from '../../redux/server state/services';
+import { useGetProductsQuery, useOrderServiceMutation } from '../../redux/server state/products';
 //*scripts
 import { Language } from "../../languages/languagesContext";
 //*form
@@ -22,33 +22,33 @@ const OrderProduct = () => {
         language: language_isSuccess ? language.page.language : "en",
         zodMsgs: language.zodMsgs,
         buttons: {
-            orderService: language_isSuccess ? language.serviceOrder.buttons.orderService : "Order The Service now"
+            orderProduct: language_isSuccess ? language.buttons.orderProduct : "Request a trial version",
         },
         form: {
             title: "",
             inputs: {
-                name: language_isSuccess ? language.orderService.form.inputs.name : "Name",
-                email: language_isSuccess ? language.orderService.form.inputs.email : "Email",
-                phone: language_isSuccess ? language.orderService.form.inputs.phone : "Phone",
-                service: language_isSuccess ? language.orderService.form.inputs.service : "Service"
+                name: language_isSuccess ? language.orderProduct.form.inputs.name : "Name",
+                email: language_isSuccess ? language.orderProduct.form.inputs.email : "Email",
+                phone: language_isSuccess ? language.orderProduct.form.inputs.phone : "Phone",
+                product: language_isSuccess ? language.orderProduct.form.inputs.product : "Product"
             },
             alert: {
-                success: language_isSuccess ? language.orderService.form.alert.success : "Order Sent Successfully.",
-                error: language_isSuccess ? language.orderService.form.alert.error : "Order Failed.",
-                reCaptcha: language_isSuccess ? language.orderService.form.alert.reCaptcha : "Please verify that you're not a robot."
+                success: language_isSuccess ? language.orderProduct.form.alert.success : "Order Sent Successfully.",
+                error: language_isSuccess ? language.orderProduct.form.alert.error : "Order Failed.",
+                reCaptcha: language_isSuccess ? language.orderProduct.form.alert.reCaptcha : "Please verify that you're not a robot."
             },
-            submit: language_isSuccess ? language.orderService.form.submit : "Send"
+            submit: language_isSuccess ? language.orderProduct.form.submit : "Send"
         }
     }), [language, language_isSuccess]);
 
-    const [serviceForm, setServiceForm] = useState(false);
+    const [productForm, setProductForm] = useState(false);
 
-    const [orderService, { isSuccess: orderService_isSuccess, isLoading: orderService_isLoading, isError: orderService_isError, reset: orderService_reset }] = useOrderServiceMutation();
+    const [orderProduct, { isSuccess: orderProduct_isSuccess, isLoading: orderProduct_isLoading, isError: orderProduct_isError, reset: orderProduct_reset }] = useOrderProductMutation();
 
     return (
         <>
-            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setServiceForm(true) } { ...requestButtonAosAnimation } />
-            { serviceForm && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setServiceForm(false); orderService_reset(); } } form_isLoading={ orderService_isLoading } form_isSuccess={ orderService_isSuccess } form_isError={ orderService_isError } submit={ orderService }/> }
+            <RequestButton title={ defaultContent.buttons.orderProduct } className="productRequestButton" onClick={ () => setProductForm(true) } { ...requestButtonAosAnimation } />
+            { productForm && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setProductForm(false); orderProduct_reset(); } } form_isLoading={ orderProduct_isLoading } form_isSuccess={ orderProduct_isSuccess } form_isError={ orderProduct_isError } submit={ orderProduct }/> }
         </>
     );
 };
@@ -65,9 +65,9 @@ const formAdditionalInputs = [
         schema: (defaultContent) => {
 
             const required = defaultContent.zodMsgs.required;
-            const service = defaultContent.form.inputs.service;
+            const product = defaultContent.form.inputs.product;
 
-            return zod.string().refine((selectedService) => selectedService != "0", { message: required })
+            return zod.string().refine((selectedProduct) => selectedProduct != "0", { message: required })
         },
         input: (props) => <SelectInput { ...props }  />
         
@@ -86,17 +86,17 @@ function SelectInput(props) {
     const selectInputProps = { ...props };
     delete selectInputProps?.helperText;
 
-    const { data: services, isSuccess: services_isSuccess } = useGetProductsQuery(undefined, {
+    const { data: products, isSuccess: products_isSuccess } = useGetProductsQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    const [service, setService] = useState("0");
+    const [product, setProduct] = useState("0");
 
     return (
         <>
-            <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
+            <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setProduct(e.target.value); }}>
                 {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
-                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem dir={defaultContent.direction} key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
+                { products_isSuccess && Object.values(products).map((product, inx) => <MenuItem dir={defaultContent.direction} key={ product.id } value={ product.id }>{product.title}</MenuItem>)}
             </Select>
             { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
         </>

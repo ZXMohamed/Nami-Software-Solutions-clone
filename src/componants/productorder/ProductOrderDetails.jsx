@@ -2,7 +2,6 @@ import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material
 import React, { useContext, useMemo } from 'react'
 import IntroCard from '../introcard'
 import ListCard from '../listcard'
-// import OrderProduct from './orderproduct'
 import { Language } from '../../languages/languagesContext'
 import { useGetProductsQuery } from '../../redux/server state/products'
 import Gallery from '../gallery'
@@ -10,6 +9,7 @@ import PointsList from '../pointslist'
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../techbadges'
 import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../servicesbadges'
 import DownloadButton from '../buttons/downloadbutton'
+import OrderProduct from './orderproduct'
 
 
 export default function ProductOrderDetails() {
@@ -81,7 +81,7 @@ export default function ProductOrderDetails() {
 
           </Grid>
         </Grid>
-        {/* { product_isSuccess && <OrderProduct />} */}
+        { product_isSuccess && <OrderProduct />}
         { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
       </Container>
     </Box>
