@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import socialSlice from "./server state/social";
 import languageSlice from "./server state/language";
 import requestQuotationSlice from "./server state/requestquotation";
+import socialSlice from "./server state/social";
 
 const store = configureStore({
     reducer: {

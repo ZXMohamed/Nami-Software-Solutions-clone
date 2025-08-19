@@ -11,6 +11,7 @@ import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
+import ServicesTicker from './servicesticker';
 
 
 export default function PageWrapper({ children }) {
@@ -59,6 +60,7 @@ export default function PageWrapper({ children }) {
       {children}
       <FloatSocialButtons />
       <ContactButtons />
+      <ServicesTicker />
       {/*footer*/}
     </Language.Provider>
 
