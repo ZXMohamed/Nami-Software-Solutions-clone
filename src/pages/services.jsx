@@ -14,6 +14,7 @@ import MobileScreens from '../componants/mobilescreens'
 
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
 import MiniHeader from '../componants/miniheader'
+import InfoCard, { infoCardEffects, typographyForm } from '../componants/infocard'
 const imagesMS = [
   {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',id:1},
   {image:'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',id:1},
@@ -50,6 +51,9 @@ export default function Services() {
         </TechBadgesList>
       </ListCard>
       <br />
+      <InfoCard dir={ "ltr" } waveDir={ "left" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} animateDescription={true} description={"Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs."} subtitle={ "Good planning is not enough Great callings require the extraordinary!" } title={"ss"}>
+      </InfoCard>
+      <br/>
       <ListCard title={ "System features" }>
         <PointsList dir={"ltr"} data={[{title:"Efficiently Manage Care Schedules"},{title:"Record Health Data for Each Livestock"}]}/>
       </ListCard>
