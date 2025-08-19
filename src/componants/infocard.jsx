@@ -9,11 +9,11 @@ import gsap from 'gsap';
 
 export default function InfoCard({ dir = "ltr", title, subtitle, description, animateDescription = false, waveDir = "left", typographyForm, effects = [], children, sx }) {
   
-  const descriptionx = useRef();
+  const descriptionItem = useRef();
 
   useEffect(() => {
     requestIdleCallback(() => {
-      animateDescription && descriptionWordsUP(descriptionx)
+      animateDescription && descriptionWordsUP(descriptionItem)
     })
   },[]);
   return (
@@ -23,7 +23,7 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
             <Stack className='infoCardContent' direction={'column'} spacing={2} alignItems={"center"}>
               { title && <Typography variant='h5' component={'h1'} className="infoCardTitle"><i>{title}</i></Typography> }
               { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
-              { description && <Typography ref={descriptionx} className="infoCardDescription">{description}</Typography> }
+              { description && <Typography ref={descriptionItem} className="infoCardDescription">{description}</Typography> }
               <br/>
               { children && 
                 <>
