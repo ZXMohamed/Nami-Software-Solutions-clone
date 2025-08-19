@@ -14,6 +14,7 @@ import '../node_modules/aos/dist/aos.css';
 //*sass files
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
+import ProductDetails from "./pages/product-details"
 
 
 
@@ -24,7 +25,7 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main/>
+        <ProductDetails />
       </ThemeProvider>
     </Fragment>
   )
