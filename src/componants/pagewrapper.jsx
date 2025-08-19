@@ -12,6 +12,7 @@ import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
 import ServicesTicker from './servicesticker';
+import Footer from './footer';
 
 
 export default function PageWrapper({ children }) {
@@ -61,7 +62,7 @@ export default function PageWrapper({ children }) {
       <FloatSocialButtons />
       <ContactButtons />
       <ServicesTicker />
-      {/*footer*/}
+      <Footer/>
     </Language.Provider>
 
     <Snackbar open={languageStatus.isError } autoHideDuration={5000}>

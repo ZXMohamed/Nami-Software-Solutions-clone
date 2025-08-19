@@ -335,6 +335,38 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     }
 }
 
+%animatedLine{
+    background: $gradientLine;
+    background-size: 300%;
+    animation-name: moveBG;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes moveBG {
+    0%{
+
+        background-position-x: 100%;
+    }
+    25%{
+
+        background-position-x: 75%;
+    }
+    50%{
+
+        background-position-x: 50%;
+    }
+    75%{
+
+        background-position-x: 75%;
+    }
+    100%{
+
+        background-position-x: 100%;
+    }
+}
+
+
 //*mixins*/
 @mixin socialButtonsStyle($type){
     border-radius: 50%;
