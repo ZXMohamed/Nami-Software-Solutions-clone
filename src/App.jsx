@@ -7,14 +7,13 @@ import "./aos/aosinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
-import Main from "./pages/main"
+import ProductDetails from "./pages/productdetails"
 //*css
 import '../node_modules/aos/dist/aos.css';
 // import 'swiper/css';//!use when needed
 //*sass files
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
-import ProductDetails from "./pages/product-details"
 
 
 

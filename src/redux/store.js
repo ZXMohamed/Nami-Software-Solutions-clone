@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import languageSlice from "./server state/language";
-import requestQuotationSlice from "./server state/requestquotation";
 import socialSlice from "./server state/social";
+import productsSlice from "./server state/products";
 
 const store = configureStore({
     reducer: {
-        [socialSlice.reducerPath] : socialSlice.reducer,
-        [languageSlice.reducerPath] : languageSlice.reducer,
-        [requestQuotationSlice.reducerPath] : requestQuotationSlice.reducer,
+        [languageSlice.reducerPath]: languageSlice.reducer,
+        [productsSlice.reducerPath]: productsSlice.reducer,
+        [socialSlice.reducerPath]: socialSlice.reducer
     },
-    middleware: (reduxMiddleWare) => reduxMiddleWare().concat(socialSlice.middleware, languageSlice.middleware, requestQuotationSlice.middleware)
+    middleware: (reduxMiddleWare) => reduxMiddleWare().concat( languageSlice.middleware, productsSlice.middleware, socialSlice.middleware )
 })
 
 export default store;

@@ -6,13 +6,13 @@ import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 import { useGetLanguageMutation } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
-import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
 import ServicesTicker from './servicesticker';
 import Footer from './footer';
+import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 
 
 export default function PageWrapper({ children }) {
@@ -22,7 +22,7 @@ export default function PageWrapper({ children }) {
   function languageRequest(language) {
     //$get page from url
     if (language) {
-      getLanguage(language, "main");
+      getLanguage({language:language, page:"productdetails"});
     } else {
       //$get language from url
       // if (url_language != defaultLanguage) {
@@ -55,7 +55,7 @@ export default function PageWrapper({ children }) {
     return prevAddress_languageControls.current;
   }, [languageStatus.isSuccess]);
 
-  return (<>
+  return (<>{console.log("sasd")}
     <Language.Provider value={languageControls}>
       <NavBar />
       {children}

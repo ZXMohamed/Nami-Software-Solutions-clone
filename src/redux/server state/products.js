@@ -1,19 +1,25 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const requestQuotationSlice = createApi({
-    reducerPath: "requestQuotation",
+const productsSlice = createApi({
+    reducerPath: "products",
     baseQuery: fetchBaseQuery({
         baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
+        credentials: 'include'
     }),
+    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
-        requestQuotation: builder.mutation({
+        getProducts: builder.query({
+            query: (params) => "query/products.php" + (params?.id ? "?id=" + params.id : ""),
+            providesTags:['ReQueryForMainPage']
+        }),
+        orderProduct: builder.mutation({
             query: (data) => {
                 const params = new URLSearchParams();
                 for (const key in data) {
                     params.append(key, data[key]);
                 }
                 return {
-                    url: "query/requestquotation.php",
+                    url: "query/orderproduct.php",
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -23,8 +29,8 @@ const requestQuotationSlice = createApi({
             }
         })
     })
-})
 
+});
 
-export default requestQuotationSlice;
-export const { useRequestQuotationMutation } = requestQuotationSlice;
+export default productsSlice;
+export const { useGetProductsQuery, useOrderProductMutation } = productsSlice;
