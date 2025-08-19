@@ -12,9 +12,9 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
   const descriptionx = useRef();
 
   useEffect(() => {
-    // requestIdleCallback(() => {
-      descriptionWordsUP(descriptionx)
-    // })/
+    requestIdleCallback(() => {
+      animateDescription && descriptionWordsUP(descriptionx)
+    })
   },[]);
   return (
     <Box dir={dir} sx={sx} className="infoCard" {...infoCardAosAnimation}>
@@ -78,9 +78,9 @@ function descriptionWordsUP(description) {
     gsap.to(descriptionSplit.words, {
         scrollTrigger: {
             trigger: description.current,
-            scrub: 1,
+            scrub: 5,
             start: "top+=0 bottom",
-            // end: "top+=20 bottom",
+            end: "top+=20 bottom",
         },
         duration:1,
         y: 0,
