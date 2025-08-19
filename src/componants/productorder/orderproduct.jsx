@@ -6,7 +6,7 @@ import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-import { useGetProductsQuery, useOrderServiceMutation } from '../../redux/server state/products';
+import { useGetProductsQuery, useOrderProductMutation } from '../../redux/server state/products';
 //*scripts
 import { Language } from "../../languages/languagesContext";
 //*form
@@ -39,7 +39,7 @@ const OrderProduct = () => {
             },
             submit: language_isSuccess ? language.orderProduct.form.submit : "Send"
         }
-    }), [language, language_isSuccess]);
+    }), [language, language_isSuccess]);console.log(defaultContent);
 
     const [productForm, setProductForm] = useState(false);
 
@@ -58,7 +58,7 @@ export default OrderProduct;
 
 const formAdditionalInputs = [
     {
-        name: "service",
+        name: "product",
         inputSettings: {
             required: true
         },
@@ -94,7 +94,7 @@ function SelectInput(props) {
 
     return (
         <>
-            <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setProduct(e.target.value); }}>
+            <Select variant='outlined' { ...selectInputProps } value={ product } onChange={ (e) => { selectInputProps.onChange(e); setProduct(e.target.value); }}>
                 {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
                 { products_isSuccess && Object.values(products).map((product, inx) => <MenuItem dir={defaultContent.direction} key={ product.id } value={ product.id }>{product.title}</MenuItem>)}
             </Select>

@@ -11,10 +11,26 @@ const productsSlice = createApi({
         getProducts: builder.query({
             query: (params) => "query/products.php" + (params?.id ? "?id=" + params.id : ""),
             providesTags:['ReQueryForMainPage']
+        }),
+        orderProduct: builder.mutation({
+            query: (data) => {
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+                return {
+                    url: "query/orderproduct.php",
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params,
+                }
+            }
         })
     })
 
 });
 
 export default productsSlice;
-export const { useGetProductsQuery } = productsSlice;
+export const { useGetProductsQuery, useOrderProductMutation } = productsSlice;

@@ -36,7 +36,7 @@ export default function ProductOrderDetails() {
 
   const { isSuccess: product_isSuccess, isError: product_isError, data: product } = useGetProductsQuery({ id: 2 });
   console.log(product);
-  return (
+  return (<>
     <Box dir={defaultContent.direction}>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -81,10 +81,18 @@ export default function ProductOrderDetails() {
 
           </Grid>
         </Grid>
-        { product_isSuccess && <OrderProduct />}
+        
+        <br />
+        <br />
+
+        <Box className="orderProductCon">
+          { product_isSuccess && <OrderProduct />}
+        </Box>
+
         { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
       </Container>
     </Box>
+    </>
   )
 }
 
