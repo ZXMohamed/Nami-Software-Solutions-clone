@@ -44,6 +44,11 @@ p.infoCardDescription{
     font-family: "PlexNormal";
     text-wrap: balance;
     color: $secondColor;
+    div{
+        will-change: transform, opacity;
+        transform: translateY(30px);
+        opacity: 0;
+    }
 }
 div.infoCardAttachment{
     width: 100%;
