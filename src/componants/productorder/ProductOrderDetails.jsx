@@ -44,6 +44,8 @@ export default function ProductOrderDetails() {
 
             { product_isSuccess && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
             
+            { !product_isSuccess && <GalleryWaitItemsSkelton /> }
+            
             { product_isSuccess &&
               <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
                 { product_isSuccess &&
@@ -96,12 +98,17 @@ export default function ProductOrderDetails() {
   )
 }
 
+function GalleryWaitItemsSkelton() { 
+    return (
+        <>
+          <Skeleton variant="rounded" width={ "100%" } height={ 500 } />
+        </>
+    );
+}
+
 function IntroCardWaitItemsSkelton() { 
     return (
         <>
-            <Stack direction={ "row" } justifyContent={ "space-between" } alignItems={ "center" }>
-                <Skeleton variant="rounded" width={ 60 } height={ 60 } />
-            </Stack>
             <br/>
             <Skeleton variant="rounded" width={ 200 } height={ 20 } />
             <br/>
@@ -110,6 +117,14 @@ function IntroCardWaitItemsSkelton() {
             <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
             <br/>
             <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
+            <br />
+            <Stack direction={"row"} columnGap={2}>
+              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
+              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
+              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
+            </Stack>
+            <br />
+            <Skeleton variant="rounded" width={ "50%" } height={ 60 } />
         </>
     );
 }
@@ -126,10 +141,6 @@ function ListCardWaitItemsSkelton() {
         <Skeleton variant="rounded" width={ "60%" } height={ 15 } />
         <br/>
         <Skeleton variant="rounded" width={ "80%" } height={ 15 } />
-        <br/>
-        <br />
-        <Skeleton variant="rounded" width={ "100%" } height={ 50 } />
-        
       </Box>
     );
 }
