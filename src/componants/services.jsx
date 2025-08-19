@@ -146,7 +146,7 @@ function descriptionWordsUP(description) {
     gsap.to(descriptionSplit.words, {
         scrollTrigger: {
             trigger: description.current,
-            scrub: 1,
+            scrub: 5,
             start: "top+=0 bottom",
             end: "top+=20 bottom",
         },
