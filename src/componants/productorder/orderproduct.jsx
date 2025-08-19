@@ -6,14 +6,14 @@ import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
 import RequestButton from "../buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-import { useGetServicesQuery, useOrderServiceMutation } from '../../redux/server state/services';
+import { useGetProductsQuery, useOrderServiceMutation } from '../../redux/server state/services';
 //*scripts
 import { Language } from "../../languages/languagesContext";
 //*form
 import zod from "zod";
 
 
-const OrderService = () => {
+const OrderProduct = () => {
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
     // console.log(language);
@@ -53,7 +53,7 @@ const OrderService = () => {
     );
 };
 
-export default OrderService
+export default OrderProduct;
 
 
 const formAdditionalInputs = [
@@ -86,7 +86,7 @@ function SelectInput(props) {
     const selectInputProps = { ...props };
     delete selectInputProps?.helperText;
 
-    const { data: services, isSuccess: services_isSuccess } = useGetServicesQuery(undefined, {
+    const { data: services, isSuccess: services_isSuccess } = useGetProductsQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 

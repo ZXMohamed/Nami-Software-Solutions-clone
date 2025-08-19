@@ -3,11 +3,18 @@
 body{
     padding-top: 130px;
 }
-.serviceRequestButton.MuiButton-root{
+.productRequestButton.MuiButton-root{
     width: clamp(0px, 300px, 100%);
     font-family: "PlexNormal";
     font-weight: bold;
     font-size: 16px;
     border-radius: 40px;
     margin: 32px auto 26px auto;
+}
+
+.productDetailsSide,
+.productListsSide{
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
 }

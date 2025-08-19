@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import servicesSlice from "./services";
+import productsSlice from "./products";
 
 const languageSlice = createApi({
     reducerPath: "language",
@@ -20,7 +20,7 @@ const languageSlice = createApi({
                 try {
                     await queryFulfilled.then(() => {
                         //Manually invalidate services query
-                        dispatch(servicesSlice.util.invalidateTags(['ReQueryForMainPage']));
+                        dispatch(productsSlice.util.invalidateTags(['ReQueryForMainPage']));
                     });
                 } catch (error) {
                     console.error('Language change failed:', error);
