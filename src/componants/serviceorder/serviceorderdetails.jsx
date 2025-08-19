@@ -8,7 +8,7 @@ import { useGetServicesQuery } from '../../redux/server state/services'
 import { Language } from '../../languages/languagesContext'
 
 
-export default function ServiceOrder() {
+export default function ServiceOrderDetails() {
 
   const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -27,7 +27,7 @@ export default function ServiceOrder() {
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            { service_isSuccess && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } title={ service["id-1"].title } description={ service["id-1"].description } /> }
+            { service_isSuccess && <IntroCard dir={defaultContent.direction} gutters icon={ service["id-1"].image } title={ service["id-1"].title } description={ service["id-1"].description } /> }
             { !service_isSuccess && <IntroCardWaitItemsSkelton/>}
           </Grid>
           <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
