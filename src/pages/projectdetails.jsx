@@ -10,6 +10,8 @@ export default function ProjectDetails() {
     <PageWrapper>
       <ProjectShowDetails />
       <br/>
+      <br/>
+      <br/>
     </PageWrapper>
   )
 }
