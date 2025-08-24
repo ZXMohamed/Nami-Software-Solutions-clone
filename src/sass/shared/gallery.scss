@@ -35,7 +35,7 @@
 
 .galleryThumbnailsSlide.swiper-slide{
   // max-width: 135px;
-  height: fit-content;
+  height: fit-content !important;
 
   .galleryThumbnailsImage{
     width: 100%;

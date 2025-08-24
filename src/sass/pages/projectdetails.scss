@@ -3,14 +3,14 @@
 body{
     padding-top: 130px;
 }
-.orderProductCon{
+.orderProjectCon{
     display: flex;
     position: sticky;
     bottom: 40px;
     z-index:1100;
 }
 
-.productRequestButton.MuiButton-root{
+.projectRequestButton.MuiButton-root{
     width: clamp(0px, 300px, 100%);
     font-family: "PlexNormal";
     font-weight: bold;
@@ -19,8 +19,8 @@ body{
     margin: auto;
 }
 
-.productDetailsSide,
-.productListsSide{
+.projectDetailsSide,
+.projectListsSide{
     display: flex;
     flex-direction: column;
     row-gap: 16px;
