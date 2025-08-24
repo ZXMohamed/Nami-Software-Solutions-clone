@@ -4,12 +4,16 @@
     border-radius: 15px;
     background-color: $secondColor;
     width: 100%;
-    // height: 632px;
+    height: 632px;
     padding: 40px 0px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
     @include center("flex");
 }
 
 .mobileScreensSlider.swiper{
+    height: 100%;
     max-width: 992px !important;
     position: relative;
     &:after{
@@ -22,9 +26,9 @@
         background-image: url($mobileFrame);
         background-repeat: no-repeat;
         background-position: top;
-        background-size: contain;
+        background-size: 100% 97%;
         z-index: 100;
-        max-width: 300px;
+        max-width: 275px;
         height: 100%;
         display: block;
     }
@@ -35,7 +39,9 @@
 }
 
 .mobileScreensSlide.swiper-slide{
-    max-width: 300px;
+    overflow: hidden;
+    border-radius: 50px;
+    max-width: 240px;
     .mobileScreensImage{
         width: 100%;
     }

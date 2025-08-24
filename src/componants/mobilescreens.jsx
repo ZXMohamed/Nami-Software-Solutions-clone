@@ -15,7 +15,7 @@ import 'swiper/css/navigation';
 export default function MobileScreens({ dir, data }) {
   return (
     <Box dir={dir} className="mobileScreensCon">
-        <Swiper dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
+        <Swiper key={dir} dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
             {data.map((image, inx) => (
             <SwiperSlide key={inx} className='mobileScreensSlide'>
                 <img src={image} className='mobileScreensImage'/>
