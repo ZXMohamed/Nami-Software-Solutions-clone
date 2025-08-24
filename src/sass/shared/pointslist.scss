@@ -1,0 +1,33 @@
+@use "_shared.scss" as *;
+
+.pointCon{
+    padding: 8px;
+    border-radius: 8px;
+    background-color: $secondColor;
+    
+    &:before{
+        content: "";
+        background-image: url($pointIcon);
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        display: block;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        margin: 2.5px 2.5px;
+    }
+    &:nth-child(even) {
+        background-color: $thirdColor;
+    }
+}
+
+span.pointTitle{
+    font-size: 16px;
+    font-family: "PlexNormal";
+    color: $secondTextColor;
+
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
+}

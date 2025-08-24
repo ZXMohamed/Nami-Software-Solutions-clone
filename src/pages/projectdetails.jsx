@@ -1,14 +1,14 @@
-//*react
 import React from 'react'
-//*component
 import PageWrapper from '../componants/pagewrapper'
-//*styles
-import "../sass/pages/main.scss"
+
+import "../sass/pages/projectdetails.scss"
+import 'swiper/css';
+import ProjectShowDetails from '../componants/projectshowdetails/projectshowdetails';
 
 export default function ProjectDetails() {
   return (
     <PageWrapper>
-
+      <ProjectShowDetails/>
     </PageWrapper>
   )
 }

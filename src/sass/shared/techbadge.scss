@@ -1,0 +1,40 @@
+@use "_shared.scss" as *;
+// @use "fonts.scss" as *;
+
+.techBadges{
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.techBadgesBox{
+    @include center("flex");
+}
+.techBadgesRow{
+    @include center("Y-flex");
+}
+
+.techBadge{
+    border: 1px solid $thirdColor;
+    border-radius: 20px;
+}
+
+span.techTitle{
+    font-family: 'PlexNormal';
+    text-transform: capitalize;
+    z-index: 1;
+}
+
+.techBadgeBig{
+    padding: 8px 16px;
+
+    span.techTitle{
+        font-size: 16px;
+    }
+}
+
+.techBadgeSmall{
+    padding: 5px 10px;
+
+    span.techTitle{
+        font-size: 12px;
+    }
+}
