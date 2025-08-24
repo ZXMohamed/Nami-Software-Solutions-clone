@@ -8,7 +8,8 @@ import ProjectShowDetails from '../componants/projectshowdetails/projectshowdeta
 export default function ProjectDetails() {
   return (
     <PageWrapper>
-      <ProjectShowDetails/>
+      <ProjectShowDetails />
+      <br/>
     </PageWrapper>
   )
 }
