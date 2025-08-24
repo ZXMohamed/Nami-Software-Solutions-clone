@@ -20,13 +20,6 @@ export default function ProjectShowDetails() {
   const defaultContent = useMemo(() => ({
     direction: language_isSuccess ? language.page.direction : "ltr",
     language: language_isSuccess ? language.page.language : "en",
-    buttons:{
-      // orderproject: language_isSuccess ? language.projectOrder.buttons.orderproject : "Request a trial version",
-      downloadSystemFile: language_isSuccess ? language.buttons.downloadSystemFile : "Download the system file"
-    },
-    objectivesList: {
-      title: language_isSuccess ? language.objectivesList.title : "System objectives"
-    },
     featuresList:{
       title: language_isSuccess ? language.featuresList.title : "System features"
     },

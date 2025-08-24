@@ -18,7 +18,7 @@ export default function PageWrapper({ children }) {
   function languageRequest(language) {
     //$get page from url
     if (language) {
-      getLanguage({language:language, page:"productdetails"});
+      getLanguage({language:language, page:"projectdetails"});
     } else {
       //$get language from url
       // if (url_language != defaultLanguage) {
