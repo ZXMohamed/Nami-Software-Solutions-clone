@@ -7,7 +7,12 @@ import BlogsView from '../componants/blogsview'
 export default function BlogsPages() {
   return (
     <PageWrapper>
-      <BlogsView/>
+      <BlogsView />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </PageWrapper>
   )
 }
