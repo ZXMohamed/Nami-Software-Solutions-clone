@@ -2,14 +2,12 @@
 import React from 'react'
 //*component
 import PageWrapper from '../componants/pagewrapper'
-import Home from '../componants/Home/Home'
-//*styles
-import "../sass/pages/main.scss"
+import BlogsView from '../componants/blogsview'
 
-export default function Main() {
+export default function Blogs() {
   return (
     <PageWrapper>
-      <Home/>
+      <BlogsView/>
     </PageWrapper>
   )
 }
