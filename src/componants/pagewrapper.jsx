@@ -12,6 +12,7 @@ import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ServicesTicker from './servicesticker';
 import Footer from './footer';
+import ContactButtons from './social&contacts/contactbuttons';
 
 
 export default function PageWrapper({ children }) {
@@ -21,7 +22,7 @@ export default function PageWrapper({ children }) {
   function languageRequest(language) {
     //$get page from url
     if (language) {
-      getLanguage({ language:language, page : "blogs"});
+      getLanguage({ language:language, page : "marketing"});
     } else {
       //$get language from url
       // if (url_language != defaultLanguage) {
@@ -59,6 +60,7 @@ export default function PageWrapper({ children }) {
       <NavBar />
       {children}
       <FloatSocialButtons />
+      <ContactButtons/>
       <ServicesTicker/>
       <Footer/>
     </Language.Provider>

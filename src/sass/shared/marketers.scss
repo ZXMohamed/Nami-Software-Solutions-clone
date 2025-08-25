@@ -1,0 +1,48 @@
+@use "_shared.scss" as *;
+
+.marketers{
+    padding: 60px 0;
+}
+.marketerCard{
+    @extend %sectionCard;
+    width: clamp(0px,416px,100%);
+    flex-wrap: wrap;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.marketerCardHeader{
+    column-gap: 10px;
+    align-items: center;
+    img{
+        width: 48px;
+        border-radius: 6px;
+    }
+    p{
+        font-family: "PlexNormal";
+        color: $primaryColor;
+        font-size: 16px;
+        font-weight: 600;
+    }
+}
+p.marketerCardName{
+    font-family: "PlexNormal";
+    color: $PrimaryTextColor;
+    font-size: 24px;
+    font-weight: 600;
+}
+.marketerCardContact{
+    gap: 2px;
+    flex-wrap: wrap;
+    @include center("Y-flex");
+    justify-content: space-between;
+    button{
+        border-radius: 40px;
+        width: 110px;
+        height: 40px;
+        img{
+            width: 20px;
+        }
+    }
+}
