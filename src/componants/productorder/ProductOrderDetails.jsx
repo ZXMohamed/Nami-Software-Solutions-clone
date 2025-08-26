@@ -42,13 +42,13 @@ export default function ProductOrderDetails() {
         <Grid container spacing={2}>
           <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
 
-            { product_isSuccess && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
+            { product_isSuccess && product["id-2"].image && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
             
             { !product_isSuccess && <GalleryWaitItemsSkelton /> }
             
-            { product_isSuccess &&
+            { product_isSuccess && 
               <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
-                { product_isSuccess &&
+                { product_isSuccess && product["id-2"].serviceBadges &&
                   <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
                     { product["id-2"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                   </ServicesBadgesList>
@@ -62,24 +62,28 @@ export default function ProductOrderDetails() {
           </Grid>
           <Grid size={ { md: 6, xs: 12 } } { ...listCardAosAnimation } className="productListsSide">
             
-            <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-              { product_isSuccess && <PointsList dir={defaultContent.direction} data={ product["id-2"].objectives } />}
-              { !product_isSuccess && <ListCardWaitItemsSkelton/>}
-            </ListCard>
+            { product_isSuccess && product["id-2"].objectives &&
+              <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
+                <PointsList dir={ defaultContent.direction } data={ product["id-2"].objectives } />
+              </ListCard>
+            }
+            { !product_isSuccess && <ListCardWaitItemsSkelton/>}
             
-            <ListCard dir={defaultContent.direction} title={ defaultContent.featuresList.title }>
-              { product_isSuccess && <PointsList dir={defaultContent.direction} data={ product["id-2"].features } />}
-              { !product_isSuccess && <ListCardWaitItemsSkelton/>}
-            </ListCard>
+            { product_isSuccess && product["id-2"].features &&
+              <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
+                <PointsList dir={ defaultContent.direction } data={ product["id-2"].features } />
+              </ListCard>
+            }
+            { !product_isSuccess && <ListCardWaitItemsSkelton/>}
 
-            <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
-              { product_isSuccess &&
+            { product_isSuccess && product["id-2"].programmingLanguages &&
+              <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
                 <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
                   { product["id-2"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
                 </TechBadgesList>
-              }
-              { !product_isSuccess && <ListCardWaitItemsSkelton/>}
-            </ListCard>
+              </ListCard>
+            }
+            { !product_isSuccess && <ListCardWaitItemsSkelton /> }
 
           </Grid>
         </Grid>
@@ -109,21 +113,15 @@ function GalleryWaitItemsSkelton() {
 function IntroCardWaitItemsSkelton() { 
     return (
         <>
-            <br/>
             <Skeleton variant="rounded" width={ 200 } height={ 20 } />
-            <br/>
             <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
             <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
             <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-            <br />
             <Stack direction={"row"} columnGap={2}>
               <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
               <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
               <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
             </Stack>
-            <br />
             <Skeleton variant="rounded" width={ "50%" } height={ 60 } />
         </>
     );
@@ -141,6 +139,8 @@ function ListCardWaitItemsSkelton() {
         <Skeleton variant="rounded" width={ "60%" } height={ 15 } />
         <br/>
         <Skeleton variant="rounded" width={ "80%" } height={ 15 } />
+        <br/>
+        <br/>
       </Box>
     );
 }
