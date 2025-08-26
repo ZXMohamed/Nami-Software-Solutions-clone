@@ -38,7 +38,7 @@ export default function ProjectShowDetails() {
 
             { project_isSuccess &&
               <IntroCard dir={ defaultContent.direction } title={ project["id-1"].title } description={ project["id-1"].description } >
-                { project_isSuccess &&
+                { project_isSuccess && project["id-1"].serviceBadges &&
                   <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
                     { project["id-1"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                   </ServicesBadgesList>
@@ -48,28 +48,30 @@ export default function ProjectShowDetails() {
 
             { !project_isSuccess && <IntroCardWaitItemsSkelton /> }
 
-            { project_isSuccess && <Gallery dir={ defaultContent.direction } sideThumbs data={ [project["id-1"].image, ...(project["id-1"]?.gallery || [])] } /> }
+            { project_isSuccess && project["id-1"].image && <Gallery dir={ defaultContent.direction } sideThumbs data={ [project["id-1"].image, ...(project["id-1"]?.gallery || [])] } /> }
             
             { !project_isSuccess && <GalleryWaitItemsSkelton /> }
 
-            { project_isSuccess && <MobileScreens dir={defaultContent.direction} data={project["id-1"].screens} />}
+            { project_isSuccess && project["id-1"].screens && <MobileScreens dir={defaultContent.direction} data={project["id-1"].screens} />}
             
           </Grid>
           <Grid size={ { md: 4, xs: 12 } } { ...listCardAosAnimation } className="projectListsSide">
             
-            <ListCard dir={defaultContent.direction} title={ defaultContent.featuresList.title }>
-              { project_isSuccess && <PointsList dir={defaultContent.direction} data={ project["id-1"].features } />}
-              { !project_isSuccess && <ListCardWaitItemsSkelton/>}
-            </ListCard>
-
-            <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
-              { project_isSuccess &&
-                <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
-                  { project["id-1"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
-                </TechBadgesList>
-              }
-              { !project_isSuccess && <ListCardWaitItemsSkelton/>}
-            </ListCard>
+            { project_isSuccess && project["id-1"].features &&
+              <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
+                <PointsList dir={defaultContent.direction} data={ project["id-1"].features } />
+              </ListCard>
+            }
+            { !project_isSuccess && <ListCardWaitItemsSkelton/>}
+            
+            { project_isSuccess && project["id-1"].programmingLanguages &&
+              <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
+                  <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
+                  { project["id-1"].programmingLanguages.map((tech) => <TechBadge key={ tech.id } data={ tech } size={ techBadgeSize.big } />) }
+                  </TechBadgesList>
+              </ListCard>
+            }
+            { !project_isSuccess && <ListCardWaitItemsSkelton /> }
 
           </Grid>
         </Grid>
@@ -131,6 +133,7 @@ function ListCardWaitItemsSkelton() {
         <Skeleton variant="rounded" width={ "60%" } height={ 15 } />
         <br/>
         <Skeleton variant="rounded" width={ "80%" } height={ 15 } />
+        <br />
       </Box>
     );
 }
