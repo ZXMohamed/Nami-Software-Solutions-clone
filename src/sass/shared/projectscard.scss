@@ -6,7 +6,9 @@
     display: flex;
     >div{
         padding: 25px;
-        border: 1px solid $thirdColor;
+        // border: 1px solid $thirdColor;
+        border-style: solid;
+        border-color: $thirdColor;
         border-radius: 30px;
         position: relative;
         top:0px;
@@ -39,12 +41,14 @@ h3.projectTitle{
     @extend %transition;
     font-family: "PlexBold";
     font-size: 24px;
-    text-align: left;
+    // text-align: left;
+    @include textOverFlow(1);
+    overflow: hidden;
 }
 div.projectArrow{
     @extend %animatedBG;
-    width: 40px;
-    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 50%;
     @include center("flex");
     >div{

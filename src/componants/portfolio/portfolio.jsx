@@ -37,7 +37,7 @@ export default function Portfolio() {
 
 const Projects = memo(({ dir }) => {
 
-    const { isSuccess: projects_isSuccess, data: projects, isError: projects_isError } = useGetProjectsByCatQuery({ cat: "all", count: 6 }, {
+    const { isSuccess: projects_isSuccess, data: projects, isError: projects_isError } = useGetProjectsByCatQuery({ cat: "all", count: 6, reset:true }, {
         selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
     });
     
@@ -58,7 +58,7 @@ const Projects = memo(({ dir }) => {
                 { projects_isSuccess && Object.values(projects).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
-                            <ProjectCard dir={dir} data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
+                            <ProjectCard dir={dir} bordered data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
                         </SwiperSlide>
                     )
                 }

@@ -6,6 +6,7 @@ import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
 import Main from "./pages/main"
+import Project from "./pages/projects"
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -21,7 +22,8 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main/>
+        {/* <Main/> */}
+        <Project/>
       </ThemeProvider>
     </Fragment>
   )
