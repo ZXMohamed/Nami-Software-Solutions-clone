@@ -1,0 +1,125 @@
+@use "../shared/_shared.scss" as *;
+
+button.activeCategory.MuiButtonBase-root{
+    @extend %animatedBG;
+    color: $secondColor;
+}
+
+.filterCategory{
+    @include center("flex");
+    gap: 10px;
+    flex-wrap: wrap;
+    .MuiButtonBase-root{
+        line-height: normal;
+        color: $PrimaryTextColor;
+        background-color: $thirdColor;
+        padding: 10px 20px 10px 20px;
+        border-radius: 40px;
+        font-family: "PlexNormal";
+        @extend %transition;
+        cursor: pointer;
+
+        &:hover:not(.resetCategory){
+            @extend %animatedBG;
+            color: $secondColor;
+        }
+    }
+}
+
+.filterSearch{
+    @include center("flex");
+    gap: 10px;
+
+    .MuiTextField-root{
+        width: clamp(0px,680px,100%);
+        .MuiFormLabel-root{
+            font-size: 16px;
+            padding: 0px 15px 0px 15px;
+            border-radius: 20px;
+            font-family: "PlexNormal";
+            // background-image: url($siteBackground);
+        }
+        .MuiFormLabel-root[data-shrink=true]{
+            color: $secondColor;
+            background-color: $primaryColor;
+            padding: 0px 10px 0px 10px;
+        }
+        .MuiInputBase-root{
+            border-radius: 30px;
+            overflow: hidden;
+
+            input{
+                background-color: $secondColor;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                padding-left: 30px;
+                padding-right: 30px;
+                color: $secondTextColor;
+                caret-color: $secondTextColor;
+                filter: hue-rotate(260deg);
+                font-family: "PlexNormal";
+            
+                &::selection{
+                    background-color: rgb(110, 90, 200);
+                    color: $secondColor;
+                }
+            }
+        }
+    }
+
+    .MuiButtonBase-root{
+        border-radius: 40px;
+        width: 50px;
+        height: 50px;
+
+        &::after{
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url($searchIcon);
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: invert(1);
+        }
+    }
+}
+
+button.resetCategory.MuiButtonBase-root{
+    @include center("flex");
+    span.resetCategoryTitle{
+        @extend %transition;
+        width: 0px;
+        height: 0px;
+        overflow: hidden;
+    }
+    &:hover{
+        gap: 5px;
+        color: $secondColor;
+        background-color: #ff0000;
+
+        span.resetCategoryTitle{
+            width: 85px;
+            height: 22px;
+        }
+        svg{
+            @extend %transition;
+            transform: rotate(-270deg);
+        }
+    }
+}
+
+.projectViewerCon{
+    @include center("flex");
+    flex-direction: column;
+}
+.projectViewer{
+    @extend %hiddenScroll;
+}
+.viewerCell{
+    padding: 0px 8px 0px 8px;
+    @include center("Y-flex");
+    justify-content : "flex-start";
+}
+.loadMoreCon{
+    @include center("flex");
+}

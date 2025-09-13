@@ -7,10 +7,10 @@ import "./aos/aosinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
-import Products from "./pages/products"
+import Main from "./pages/main"
+import Project from "./pages/projects"
 //*css
 import '../node_modules/aos/dist/aos.css';
-// import 'swiper/css';//!use when needed
 //*sass files
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
@@ -24,7 +24,8 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Products/>
+        {/* <Main/> */}
+        <Project/>
       </ThemeProvider>
     </Fragment>
   )
