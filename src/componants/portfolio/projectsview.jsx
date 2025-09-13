@@ -72,7 +72,7 @@ export default function ProjectsView() {
       
       { !projects_isEmpty &&
         <Container Container maxWidth="lg" className='loadMoreCon'>
-          <Button variant='text' onClick={ handleLoadMore }> Load more </Button>
+          <Button variant='text' onClick={ handleLoadMore }> {defaultContent.buttons.loadMore} </Button>
         </Container>}
     </Box>
   )
