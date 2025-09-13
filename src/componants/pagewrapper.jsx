@@ -22,7 +22,7 @@ export default function PageWrapper({ children }) {
   function languageRequest(language) {
     //$get page from url
     if (language) {
-      getLanguage({language:language, page:"products"});
+      getLanguage({language:language, page:"portfolio"});
     } else {
       //$get language from url
       // if (url_language != defaultLanguage) {
