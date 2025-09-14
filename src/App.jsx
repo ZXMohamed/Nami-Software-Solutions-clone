@@ -10,11 +10,11 @@ import { theme } from "./mui/MUIinit"
 import Main from "./pages/main"
 //*css
 import '../node_modules/aos/dist/aos.css';
-// import 'swiper/css';//!use when needed
 //*sass files
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
-
+//*router
+import { BrowserRouter, Route, Routes } from "react-router"
 
 
 
@@ -24,7 +24,11 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main/>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </Fragment>
   )
