@@ -83,7 +83,6 @@ const activeTabAnimation = (tab) => {
             ["data-aos"]: "activeTab",
             ["data-aos-once"]: "false",
             ["data-aos-anchor-placement"]: "top-top",
-            ["disable-mutation-observer"]: "false",
             ["data-aos-anchor"]: "#" + tab.replace(" ", ""),
             ["data-aos-mirror"]:"true"
         }

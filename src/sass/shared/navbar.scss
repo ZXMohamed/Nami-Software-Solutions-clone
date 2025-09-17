@@ -37,9 +37,9 @@
         position: relative;
         top: 0px;
         padding: 13px 15px;
+        @extend %removeAdditionalLinkStyle;
         @extend %semiHexagon;
         @include center("flex");
-        @extend %transition;
         @media screen and (max-width:1080px) and (min-width:992px) {
             padding: 13px 10px;
         }
@@ -67,9 +67,10 @@
     @extend .navBarActiveItem;
     color: $secondColor;
 
-    &[dir=ltr],&[dir=rtl]{        
+    &[dir=ltr], &[dir=rtl]{   
         &::after{
             transform: translateX(0%);
+            filter: opacity(100%);
             // display: none !important;
         }
     }
@@ -80,12 +81,14 @@
     &[dir=ltr]{        
         &::after{
             transform: translateX(-100%);
+            filter: opacity(0);
             // display: none !important;
         }
     }
     &[dir=rtl]{
         &::after{
             transform: translateX(100%);
+            filter: opacity(0);
             // display: none !important;
         }
     }
@@ -168,7 +171,7 @@ div.navSideMenuItem{
     }
   }
 }
-[data-aos="activeTab"] {
+a[data-aos="activeTab"] {
     @extend .navBarNotActiveItem;
 
     &.aos-animate {
