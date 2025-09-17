@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
-import { useGetLanguageMutation } from '../redux/server state/language';
+import { useLazyGetLanguageQuery } from '../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
@@ -13,31 +13,46 @@ import Footer from './footer';
 import { defaultLanguage, Language } from '../languages/languagesContext';
 import { initZodMsgs } from '../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
+import { useLocation, useParams } from 'react-router';
+import useUpdateEffect from '../hooks/useupdateeffect';
 
 
 export default function PageWrapper({ children }) {
   
-  const [getLanguage, languageStatus] = useGetLanguageMutation(); 
+  const [getLanguage, languageStatus] = useLazyGetLanguageQuery(undefined,  (queryFn) => queryFn() ,{
+    selectFromResult:({data,isSuccess})=>({ isSuccess, data })
+  });
 
-  function languageRequest(language) {
+  const { language } = useParams();
+  const location = useLocation();
+
+  const defaultContent = useMemo(() => ({
+    language: languageStatus.isSuccess ? languageStatus.data.page.title : "Nami Software Solutions | Home",
+  }),
+    [languageStatus.data, languageStatus.isSuccess]);
+  
+  document.title = defaultContent.language;
+
+  
+  function languageRequest(language, location) {
     //$get page from url
-    if (language) {
-      getLanguage(language, "main");
-    } else {
-      //$get language from url
-      // if (url_language != defaultLanguage) {
-      //   getLanguage(language, "main");
-      // }
-    }
+    const parts = location.pathname.split("/").filter(Boolean);
+    const page = parts.length > 1 ? parts[1] : "main";
+    console.log(language,page);
+    getLanguage({ language, page });
   }
+  useEffect(() => { 
+    if (language != defaultLanguage) {
+      languageRequest(language, location);
+    }
+  }, []);
+  useUpdateEffect(() => {
+    console.log(location.pathname, language, location);
+    languageRequest(language, location);
+  }, [location.pathname]);
 
-  // useEffect(() => {
-  //   languageRequest();
-  // },[])
-
-  
   const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
-  
+    
   const languageControls = useMemo(() => {
 
     if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
@@ -53,8 +68,10 @@ export default function PageWrapper({ children }) {
     prevAddress_languageControls.current = { languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs } };
     
     return prevAddress_languageControls.current;
-  }, [languageStatus.isSuccess]);
+  });
 
+  
+console.log(languageControls);
   return (<>
     <Language.Provider value={languageControls}>
       <NavBar />

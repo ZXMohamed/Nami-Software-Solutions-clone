@@ -33,7 +33,7 @@ export default function OurProducts() {
     
     return (
         <>
-            <Box dir={defaultContent.direction} className={'ourProductsSection'}>
+            <Box id="Ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
                 <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ "" } />
                 <Products dir={ defaultContent.direction } />
             </Box>

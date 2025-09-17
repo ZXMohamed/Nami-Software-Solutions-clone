@@ -28,7 +28,7 @@ export default function Careers() {
     }), [language, language_isSuccess]);
     
     return (
-        <Box dir={defaultContent.direction} className='careersSection'>
+        <Box id="Careers" dir={defaultContent.direction} className='careersSection'>
             <Container disableGutters>    
                 <Grid container>
                     <Grid size={{xs:12,md:8}}>

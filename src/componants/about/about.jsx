@@ -24,7 +24,7 @@ export default function About() {
   }), [language, language_isSuccess]);
 
   return (
-    <Box dir={defaultContent.direction} className="aboutSection">
+    <Box id="Aboutus" dir={defaultContent.direction} className="aboutSection">
       <Container maxWidth="lg" disableGutters>
         <Grid container>
           <Grid size={ { md: 6, xs: 12 } } className="aboutMovingImgSide" {...movingImgSideAosAnimation}>

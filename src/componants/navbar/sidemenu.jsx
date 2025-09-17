@@ -18,7 +18,17 @@ const SideMenu = () => {
     const defaultContent = useMemo(() => ({
         direction: language_isSuccess ? language.page.direction : "ltr",
         logo: language_isSuccess ? language.navBar.navLogo : logo,
-        navTabs: language_isSuccess ? language.navBar.navTabs : ["Home", "About us", "Services", "Our products", "Portfolio", "Marketing", "Blogs", "Careers", "Contact us"]
+        navTabs: language_isSuccess ? language.navBar.navTabs :  {
+            "Home": { title: "Home" },
+            "About us": { title: "About us" },
+            "Services": { title: "Services" },
+            "Our products": { title: "Our products" },
+            "Portfolio": { title: "Portfolio" },
+            "Marketing": { title: "Marketing" },
+            "Blogs": { title: "Blogs" },
+            "Careers": { title: "Careers" },
+            "Contact us": { title: "Contact us" },
+        }
     }),
         [language, language_isSuccess]
     );
@@ -35,9 +45,9 @@ const SideMenu = () => {
                     <Stack direction="column" spacing={ 0.8 } className="navSideMenu">
                         <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt="Nami Software Solutions" className="navLogo" />
                         {
-                            defaultContent.navTabs.map((tab, inx) => {
+                                Object.keys(defaultContent.navTabs).map((tab, inx) => {
                                 const activeItem = inx == 0 ? "navBarActiveItem" : "";
-                                return <div key={ inx } className={ "navSideMenuItem " + activeItem }> { tab } </div>
+                                return <div key={ inx } className={ "navSideMenuItem " + activeItem }> {  defaultContent.navTabs[tab].title } </div>
                             })
                         }
                     </Stack>

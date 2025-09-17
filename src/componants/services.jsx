@@ -35,7 +35,7 @@ export default function Services() {
     }, []);
 
     return (
-        <Box dir={defaultContent.direction} className="servicesSection">
+        <Box id="Services" dir={defaultContent.direction} className="servicesSection" >
             <Container disableGutters>
                 <Stack direction={'column'} spacing={2} className='servicesHeader'>
                     <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>

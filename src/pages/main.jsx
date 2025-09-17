@@ -15,6 +15,7 @@ import "../sass/pages/main.scss"
 import "swiper/css"
 
 export default function Main() {
+
   return (
     <PageWrapper>
       <Home />

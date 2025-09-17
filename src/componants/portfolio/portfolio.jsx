@@ -28,7 +28,7 @@ export default function Portfolio() {
     }), [language, language_isSuccess]);
 
   return (
-    <Box dir={defaultContent.direction} className='portfolioSection'>
+    <Box id="Portfolio" dir={defaultContent.direction} className='portfolioSection'>
         <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
           <Projects dir={ defaultContent.direction } />
     </Box>

@@ -22,7 +22,7 @@ export function Our() {
   }), [language, language_isSuccess]);
 
   return (
-    <Box dir={defaultContent.direction} className="ourSection">
+    <Box id="Aboutus" dir={defaultContent.direction} className="ourSection">
       <Container maxWidth={ "lg" }>
         <Grid container spacing={4}>
           <OurVision />

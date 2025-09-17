@@ -14,11 +14,8 @@ const languageSlice = createApi({
         getAvailableLanguages: builder.query({
             query: () =>"/query/availableLanguage.php"
         }),
-        getLanguage: builder.mutation({
-            query: (language, page) => ({
-                url: "query/language.php?lang=" + language + "&" + "page=" + page,
-                method: "GET",
-            }),
+        getLanguage: builder.query({
+            query: ({ language, page }) => "query/language.php?lang=" + language + "&" + "page=" + page,
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     await queryFulfilled.then(() => {
@@ -38,4 +35,4 @@ const languageSlice = createApi({
 
 
 export default languageSlice;
-export const { useGetLanguageMutation, useGetAvailableLanguagesQuery } = languageSlice;
+export const { useLazyGetLanguageQuery, useGetAvailableLanguagesQuery } = languageSlice;

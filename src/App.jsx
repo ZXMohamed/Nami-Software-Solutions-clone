@@ -17,7 +17,6 @@ import "./sass/shared/fonts.scss"
 import { BrowserRouter, Route, Routes } from "react-router"
 
 
-
 function App() {
 
   return (
@@ -26,7 +25,8 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route index path="/:language?/*" element={ <Main/> } />
+            //!not found
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

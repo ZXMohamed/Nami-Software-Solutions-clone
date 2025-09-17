@@ -25,7 +25,7 @@ console.log("home");
     }), [language, language_isSuccess]);
 
     return (
-        <Box className="homeSection" dir={ defaultContent.direction }>
+        <Box id="Home" className="homeSection" dir={ defaultContent.direction }>
             
             <Typography variant="h2" component="h1" className="homeTitle" {...titleAosAnimation}>
                 {defaultContent.title.first} <span>{defaultContent.title.middle}</span> {defaultContent.title.last}

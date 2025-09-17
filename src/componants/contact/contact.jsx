@@ -20,7 +20,7 @@ export default function Contact() {
     const isXXSSize = useMediaQuery("(max-width:500px)");
 
     return (
-        <Box dir={defaultContent.direction} className="contactSection">
+        <Box id="Contactus" dir={defaultContent.direction} className="contactSection">
             <Container maxWidth="lg" disableGutters={isXXSSize}>
                 <Grid container rowSpacing={{xs:5,md:0}}>
                     <Grid size={{xs:12,md:6}} order={{xs:1,md:0}} className="contactSide">
