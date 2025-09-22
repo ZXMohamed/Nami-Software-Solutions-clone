@@ -1,5 +1,4 @@
 @use "_shared.scss" as *;
-// @use "fonts.scss" as *;
 
 .servicesBadges{
     gap: 4px;
@@ -9,11 +8,9 @@
     .serviceBadge{
         &::after{
             right: -50px;
-            // top: -50px;
         }
         &::before{
             left: -50px;
-            // bottom: -50px;
         }
         
         &:hover{
@@ -21,11 +18,9 @@
             color: $secondColor;
             &::after{
                 right: -28px;
-                // top: -28px;
             }
             &::before{
                 left: -28px;
-                // bottom: -28px;
             }
             img.serviceIcon{
                 filter: brightness(0) invert(1);

@@ -18,9 +18,6 @@ const openJobsSlice = createApi({
                 return {
                     url: "query/requestjob.php",
                     method: "POST",
-                    // headers: {
-                    //     'Content-Type': 'multipart/form-data',
-                    // },
                     body: formData,
                 }
             }

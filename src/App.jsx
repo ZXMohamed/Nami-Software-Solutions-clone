@@ -1,5 +1,7 @@
 //*react
 import { Fragment } from "react"
+//*router
+import { BrowserRouter, Route, Routes } from "react-router"
 //*mui
 import { CssBaseline, ThemeProvider } from "@mui/material"
 //*init
@@ -13,8 +15,6 @@ import '../node_modules/aos/dist/aos.css';
 //*sass files
 import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
-//*router
-import { BrowserRouter, Route, Routes } from "react-router"
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route index path="/:language?/*" element={ <Main/> } />
+            <Route index path="/:language?/" element={ <Main/> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>

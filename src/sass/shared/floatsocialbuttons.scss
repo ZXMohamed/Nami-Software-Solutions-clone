@@ -1,5 +1,4 @@
 @use "_shared.scss" as *;
-// @use "fonts.scss" as *;
 
 .floatSocialButtons{
     position: fixed;
@@ -7,7 +6,6 @@
     z-index: 1100;
     height: 180px;
     width: 120px;
-    // border-radius: 10px 50% 50% 10px;
     @include center("Y-flex");
     @extend %direction;
 }
@@ -40,11 +38,8 @@ div.openFloatSocialButtons{
     @extend %animatedBG;
     height: 44px;
     width: 44px;
-    // border-radius: 0px 50% 50% 0px;
     @include center("Y-flex");
-    // justify-content: flex-end;
     padding-right: 10px;
-    // box-shadow: 1px 3px 10px #00000023;
     &::before{
         content: "";
         background-image: url($floatSocialButtonsIcon);

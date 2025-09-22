@@ -260,7 +260,6 @@ span.establishmentTitle{
     font-size: 16px;
     transform: rotate(90deg);
     position: absolute;
-    // right: -52px;
     top: 40%;
     display: block;
 }
@@ -507,7 +506,6 @@ h3.serviceItemTitle{
 }
 p.serviceItemDescription{
     font-family: 'PlexNormal';
-    // height: 70px;
     overflow: hidden;
     @include textOverFlow(3);
     @media screen and (max-width:768px) {
@@ -579,7 +577,6 @@ button.serviceItemReadMore{
     bottom: 20px;
     border: 2px solid $secondColor;
     border-radius: 20px;
-    // width: 120px;
     @include center("flex");
     padding: 3px 10px;
     &::after{
@@ -621,7 +618,6 @@ div.productsSlider{
 .infoCardSection{
     background: linear-gradient(180deg, transparent 0px 60px, $secondColor 60px 100%);
     position: relative;
-    // top: -60px;
     margin-top: -60px;
 }
 
@@ -704,6 +700,7 @@ p.careersDescription{
     font-family: 'PlexNormal';
     text-wrap: balance;
     div{
+        opacity:0;
         transform: translateY(10px);
     }
     @media screen and (max-width:768px) {
@@ -770,11 +767,9 @@ p.formErrorMsg{
 
 .inputError{
     position: relative;
-    // padding-right: 25px;
 
     .MuiInputBase-formControl,
     .MuiInputBase-input{
-        // padding-right: 20px;
         &::after{
             content: "";
             background: url($formError);
@@ -786,13 +781,7 @@ p.formErrorMsg{
             height: 18px;
             position: absolute;
             z-index: 1;
-            // right: 8px;
             top: 32%;
-        }
-    }
-    .MuiInputBase-input{
-        &::after{
-            // right: 30px;
         }
     }
 }
@@ -832,20 +821,13 @@ p.formErrorMsg{
             width: 70%;
             font-size: 14px;
             text-transform: capitalize;
-            // padding-left: 10px;
             @include textOverFlow(1);
         }
     }
 }
 .fileInputError{
     border: 1px solid #ff0000;
-    label.fileInputBody{
-        div.fileInputTitle{
-            // border-right: 1px solid #ff0000;
-        }
-    }
     position: relative;
-    // padding-right: 25px;
     &::before{
         content: "";
         background: url($formError);
@@ -856,7 +838,6 @@ p.formErrorMsg{
         width: 18px;
         height: 18px;
         position: absolute;
-        // right: 8px;
         top: 30%;
     }
 }
@@ -939,7 +920,6 @@ p.formErrorMsg{
             }
         }
         div.inputError{
-            // padding-left: 25px;
             div.MuiInputBase-formControl,
             div.MuiInputBase-input{
                 padding-left: 20px;
@@ -980,7 +960,6 @@ p.formErrorMsg{
 //*contact */
 .contactSection{
     padding: 96px 10px 136px 10px;
-    // background-color: $secondColor;
 }
 .contactFormSection{
     background-color: $primaryColor;
@@ -1113,6 +1092,7 @@ p.contactInfoDescription{
     font-family: "PlexNormal";
     text-wrap: balance;
     div{
+        opacity: 0;
         transform: translateY(5px);
     }
     @media screen and (max-width:992px) {
@@ -1239,7 +1219,7 @@ h4.contactMethodLink{
     }
 }
 
-//*servicesticker*/
+//*servicesTicker*/
 .servicesTicker{
     @extend %animatedBG;
     height: 76px;
@@ -1266,7 +1246,6 @@ p.tickerItem{
 div.tickerItemSplitter{
     position: absolute;
     background-image: url($pointIcon);
-    // background-position: left 60%;
     background-repeat: no-repeat;
     background-size: 20px;
     filter: brightness(0) invert(1);
