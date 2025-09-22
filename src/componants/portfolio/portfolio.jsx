@@ -12,6 +12,8 @@ import { ProjectCard } from './projectcard';
 import { useGetProjectsByCatQuery } from '../../redux/server state/projects';
 //*scripts
 import { Language } from '../../languages/languagesContext';
+import { pages_routes } from '../../routes/routes';
+import { useParams } from 'react-router';
 
 
 export default function Portfolio() {
@@ -27,9 +29,11 @@ export default function Portfolio() {
         }
     }), [language, language_isSuccess]);
 
+    const { language: urlLang } = useParams();
+
   return (
     <Box id="Portfolio" dir={defaultContent.direction} className='portfolioSection'>
-        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={''}/>
+        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={pages_routes(urlLang)["Portfolio"].link}/>
           <Projects dir={ defaultContent.direction } />
     </Box>
   )

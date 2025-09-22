@@ -26,7 +26,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index path="/:language?/*" element={ <Main/> } />
-            //!not found
+            <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

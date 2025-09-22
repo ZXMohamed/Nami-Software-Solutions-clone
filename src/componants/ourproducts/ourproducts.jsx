@@ -15,6 +15,8 @@ import { useGetProductsQuery } from '../../redux/server state/products'
 import { Language } from '../../languages/languagesContext'
 //*styles
 import "../../sass/shared/productcard.scss"
+import { useNavigate, useParams } from 'react-router'
+import { pages_routes } from '../../routes/routes'
 
 export default function OurProducts() {
 
@@ -31,10 +33,12 @@ export default function OurProducts() {
         }
     }), [language, language_isSuccess]);
     
+    const { language: urlLang } = useParams();
+
     return (
         <>
             <Box id="Ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
-                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ "" } />
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["Our products"].link } />
                 <Products dir={ defaultContent.direction } />
             </Box>
             <Statistics/>
@@ -76,8 +80,12 @@ const Products = memo(({dir}) => {
 
 const ProductCard = memo(({ dir, data, aosAnimation })=> { 
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
+
+    const navigation = useNavigate();
+    const { language: urlLang } = useParams();
+
     return (
-        <Box className='productCard' { ...aosAnimation }>
+        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["Product details"].link)}>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
                     <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />

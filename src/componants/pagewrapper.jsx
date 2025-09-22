@@ -41,15 +41,17 @@ export default function PageWrapper({ children }) {
     console.log(language,page);
     getLanguage({ language, page });
   }
+  
   useEffect(() => { 
-    if (language != defaultLanguage) {
+    if (language && language != defaultLanguage) {
       languageRequest(language, location);
     }
   }, []);
+
   useUpdateEffect(() => {
     console.log(location.pathname, language, location);
     languageRequest(language, location);
-  }, [location.pathname]);
+  }, [language]);//location.pathname
 
   const prevAddress_languageControls = useRef({ languageRequest, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
     

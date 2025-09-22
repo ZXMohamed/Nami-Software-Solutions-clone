@@ -43,16 +43,20 @@
         @media screen and (max-width:1080px) and (min-width:992px) {
             padding: 13px 10px;
         }
+        &::after{
+            content: "";
+            @extend %semiHexagon;
+        }
     }
     @media screen and (max-width:992px) {
         display: none !important;
     }
 }
+
 .navBarActiveItem{
     
     &::after{
         content: "";
-        @extend %semiHexagon;
         @extend %animatedBG;
         border: 1px solid transparent;
         width: 100%;
@@ -60,6 +64,8 @@
         display: block;
         z-index: -1;
         position: absolute;
+        left: 0px;
+        right: 0px;
         @extend %transition;
     }
 }
@@ -137,14 +143,20 @@
     img.navLogo{
         margin-bottom: 24px !important;
     }
-}
-div.navSideMenuItem{
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-    height: 43px;
-    border-radius: 12px;
-    @include center("Y-flex");
+    a{
+        position: relative;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+        height: 43px;
+        @include center("Y-flex");
+        @extend %removeAdditionalLinkStyle;
+
+        &:after{
+            content: "";
+            border-radius: 12px;
+        }
+    }
 }
 [data-aos="navBarShrink"] {
     >div.MuiContainer-root{
@@ -173,7 +185,7 @@ div.navSideMenuItem{
 }
 a[data-aos="activeTab"] {
     @extend .navBarNotActiveItem;
-
+    pointer-events: fill;
     &.aos-animate {
         @extend .navBarActiveItemAnimated;
     }

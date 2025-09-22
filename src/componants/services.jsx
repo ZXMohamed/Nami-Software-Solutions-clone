@@ -9,6 +9,8 @@ import { SplitText } from 'gsap/SplitText';
 import { useGetServicesQuery } from '../redux/server state/services';
 //*scripts
 import { Language } from '../languages/languagesContext';
+import { Link, useParams } from 'react-router';
+import { pages_routes } from '../routes/routes';
 
 
 export default function Services() {
@@ -86,31 +88,37 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
         showObjectivesOnHover(itemObjectives);
     }, []);
 
+    const { language: urlLang } = useParams();
+
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
-            
-            <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
-            
-                <Stack direction={ 'row' } className='serviceItemHeader'>
-                    <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='serviceItemIcon' />
-                    <div className='serviceItemArrow'></div>
+
+            <Link to={ pages_routes(urlLang, data.id)["Service details"].link }>
+                
+                <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
+                
+                    <Stack direction={ 'row' } className='serviceItemHeader'>
+                        <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='serviceItemIcon' />
+                        <div className='serviceItemArrow'></div>
+                    </Stack>
+                
+                    <Typography variant='h5' component={ 'h3' } className='serviceItemTitle'>{ data.title }</Typography>
+                    <Typography className='serviceItemDescription'>{ data.description }</Typography>
+                
+                </Stack>
+                
+                <Stack dir={ dir } direction={ 'column' } className='serviceItemBack'>
+                
+                    <ul ref={ itemObjectives } className='serviceItemObjectives'>
+                        { data.objectives.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
+                    </ul>
+                
+                    <Button variant='contained' disableRipple className='serviceItemReadMore'>{ readMoreButton }</Button>
+                
                 </Stack>
             
-                <Typography variant='h5' component={ 'h3' } className='serviceItemTitle'>{ data.title }</Typography>
-                <Typography className='serviceItemDescription'>{ data.description }</Typography>
-            
-            </Stack>
-            
-            <Stack dir={ dir } direction={ 'column' } className='serviceItemBack'>
-            
-                <ul ref={ itemObjectives } className='serviceItemObjectives'>
-                    { data.objectives.map((objective, inx) => <li key={ inx }>{ objective }</li>) }
-                </ul>
-            
-                <Button variant='contained' disableRipple className='serviceItemReadMore'>{ readMoreButton }</Button>
-            
-            </Stack>
-        
+            </Link>
+
         </Grid>
     )
 });

@@ -1,5 +1,5 @@
 //*react
-import React, { memo, useContext, useEffect, useMemo, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 //*styles
 import "../../sass/shared/navbar.scss";
 //*queries
@@ -36,7 +36,12 @@ const LanguageButton = () => {
 
         // languageRequest(languagesList[languageIndex.current].requestName);
         const requestedLanguage = languagesList[languageIndex.current].requestName.toLowerCase();
-        const languagePath = location.pathname.replace(defaultContent.language, requestedLanguage);
+        let languagePath="";
+        if (location.pathname.includes(defaultContent.language)) {
+            languagePath = location.pathname.replace(defaultContent.language, requestedLanguage);
+        } else {
+            languagePath = location.pathname + requestedLanguage;
+        }
         navigation(languagePath);
         
         if (languagesList.length - 1 == languageIndex.current) {
@@ -71,6 +76,7 @@ export default LanguageButton;
 
 function getCurrentLanguageIndex(language, languagesArray = []) {
     let index = 0;
+    if (!language) language = defaultLanguage;
     for (let x of languagesArray) {console.log(index);
         if (x.requestName == language.toUpperCase()) {
             if (languagesArray.length - 1 == index) {

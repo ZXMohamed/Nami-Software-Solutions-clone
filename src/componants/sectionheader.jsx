@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 //*styles
 import "../sass/shared/sectionheader.scss"
+import { Link } from "react-router";
 
 export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 
 
@@ -30,7 +31,7 @@ export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,
                         <Typography ref={headerTitle} variant="h4" component="h1" className="sectionHeaderSubtitle">{subtitle}</Typography>
                     </Grid>
                     <Grid size={ { sm: 2, xs: 12 } } className="sectionHeaderButtonContainer" {...containerAosAnimation}>
-                        <a href={ headerButtonUrl } className="sectionHeaderButton">{ headerButtonTitle }<Box></Box></a>
+                        <Link to={ headerButtonUrl } className="sectionHeaderButton">{ headerButtonTitle }<Box></Box></Link>
                     </Grid>
                 </Grid>
             </Container>

@@ -8,6 +8,8 @@ import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
 import { Language } from "../../languages/languagesContext";
+import { useNavigate, useParams } from "react-router";
+import { pages_routes } from "../../routes/routes";
 
 export default function Home() { 
 console.log("home");
@@ -24,6 +26,9 @@ console.log("home");
         }
     }), [language, language_isSuccess]);
 
+    const { language: urlLang } = useParams();
+    const navigate = useNavigate();
+
     return (
         <Box id="Home" className="homeSection" dir={ defaultContent.direction }>
             
@@ -38,9 +43,9 @@ console.log("home");
             <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
 
             <Stack direction="row" gap={ 2 } className="homeButtons" {...homeButtonsAosAnimation}>
-                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton">{defaultContent.buttons.portfolio}</Button>
+                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={()=>navigate(pages_routes(urlLang)["Portfolio"].link)}>{defaultContent.buttons.portfolio}</Button>
                 <RequestQuotation/>
-                <Button variant="outlined" disableRipple className="homeButton homeProductsButton">{ defaultContent.buttons.ourProducts }</Button>
+                <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={()=>navigate(pages_routes(urlLang)["Our products"].link)}>{ defaultContent.buttons.ourProducts }</Button>
             </Stack>
             
             <FallingBackground/>

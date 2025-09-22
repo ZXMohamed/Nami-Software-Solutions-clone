@@ -68,12 +68,13 @@ a.sectionHeaderButton{
     font-family: "PlexNormal";
     @extend %wideHexagon;
     @extend %animatedBG;
+    @extend %removeAdditionalLinkStyle;
     width: clamp(70px,90px,200px);
     // padding-left: 10px;
     // padding-right: 10px;
     height: 52px;
     @include center("flex");
-    color: $secondColor;
+    color: $secondColor !important;
     font-size: 14px;
     @extend %transition;
     div{
