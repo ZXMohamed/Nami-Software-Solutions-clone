@@ -5,7 +5,7 @@ import ProjectViewFilter from './projectviewfilter'
 import ProjectViewer from './projectviewer'
 import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/projects'
 import { useSelector } from 'react-redux'
-import { Language } from '../../../languages/languagesContext'
+import { defaultLanguage, Language } from '../../../languages/languagesContext'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
 
 export default function ProjectsView() {
@@ -14,6 +14,7 @@ export default function ProjectsView() {
 
   const defaultContent = useMemo(() => ({
     direction: language_isSuccess ? language.page.direction : "ltr",
+    language: language_isSuccess ? language.page.direction : defaultLanguage,
     subtitle: language_isSuccess ? language.header.subtitle : "We bring your digital vision to life",
     description: language_isSuccess ? language.header.description : "At Nami Corporation, we excel at providing innovative and advanced web and mobile solutions. We specialize inDesign and development of websites and mobile applications tailored to meet the needs of our customers unique. Explore how we can help you achieve your digital goals with the best quality and highest standards.",
     buttons: {
@@ -32,7 +33,7 @@ export default function ProjectsView() {
 
   useUpdateEffect(() => {
     projects_reset()
-  }, [language_RequestId]);
+  }, [defaultContent.language]);
 
   useEffect(() => {
     const search = (filterValues.search != "" || filterValues.search != null) ? filterValues.search : null;
