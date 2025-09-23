@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 //*route
 import { useLocation, useParams } from 'react-router';
+import { getPage } from '../../routes/routesmanager';
 //*mui
 import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
@@ -40,10 +41,7 @@ export default function PageWrapper({ children }) {
   
   function languageRequest(language, location) {
     //$get page from url
-    const parts = location.pathname.split("/").filter(Boolean);
-    const page = parts.length > 1 ? parts[1].replace("-","") : "main";
-    console.log(language, page);
-    getLanguage({ language, page });
+    getLanguage({ language, page: getPage(location) });
     
   }
   

@@ -2,15 +2,14 @@ import React, { useContext, useMemo } from 'react'
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
 import IntroCard from '../../shared/introcard'
 import ListCard from '../../shared/listcard'
-import { Language } from '../../../languages/languagesContext'
+import { defaultLanguage, Language } from '../../../languages/languagesContext'
 import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 import Gallery from '../../shared/gallery'
 import PointsList from '../../shared/pointslist'
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../../shared/techbadges'
 import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
 import MobileScreens from '../../shared/mobilescreens'
-// import DownloadButton from '../buttons/downloadbutton'
-// import Orderproject from './orderproject'
+import useUpdateEffect from '../../../hooks/useupdateeffect'
 
 
 export default function ProjectShowDetails() {
@@ -19,7 +18,7 @@ export default function ProjectShowDetails() {
 
   const defaultContent = useMemo(() => ({
     direction: language_isSuccess ? language.page.direction : "ltr",
-    language: language_isSuccess ? language.page.language : "en",
+    language: language_isSuccess ? language.page.language : defaultLanguage,
     featuresList:{
       title: language_isSuccess ? language.featuresList.title : "System features"
     },
@@ -28,8 +27,12 @@ export default function ProjectShowDetails() {
     }
   }), [language, language_isSuccess]);
 
-  const { isSuccess: project_isSuccess, isError: project_isError, data: project } = useGetProjectByIdQuery({ id: 1 });
-  console.log(project);
+  const { isSuccess: project_isSuccess, isError: project_isError, data: project, refetch: project_refetch } = useGetProjectByIdQuery({ id: 1 });
+  
+  useUpdateEffect(() => {
+    project_refetch();
+   }, [defaultContent.language]);
+
   return (
     <Box dir={defaultContent.direction}>
       <Container maxWidth="lg">
