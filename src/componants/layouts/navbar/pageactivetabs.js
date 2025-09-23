@@ -3,7 +3,6 @@ import { getPage } from "../../../routes/routesmanager";
 export const activeTabAnimation = (tab, location) => {
     
     const sectionsList = ["Home", "About us", "Services", "Our products", "Portfolio", "Careers", "Contact us"];
-
     if (getPage(location) == "main") {        
         if (sectionsList.includes(tab)) {
             return {

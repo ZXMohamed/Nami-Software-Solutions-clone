@@ -12,6 +12,11 @@ export const navSettings = (tab, location, urlLang, id) => {
 
 export const getPage = (location) => {
     const parts = location.pathname.split("/").filter(Boolean);
-    const page = parts.length > 1 ? parts[1].replace("-","") : "main";
-    return page;
+    if (pages_routes()[parts[0].charAt(0).toUpperCase() + parts[0].slice(1)]) {
+        return parts[0].replace("-", "");
+    } else if (pages_routes()[parts[1].charAt(0).toUpperCase() + parts[1].slice(1)]) {
+        return parts[1].replace("-", "");
+    } else {
+        return "main"
+    }
 }
