@@ -40,7 +40,7 @@ const LanguageButton = () => {
         if (location.pathname.includes(defaultContent.language)) {
             languagePath = location.pathname.replace(defaultContent.language, requestedLanguage);
         } else {
-            languagePath = location.pathname + requestedLanguage;
+            languagePath = location.pathname.replace("/", "/" + requestedLanguage + "/");
         }
         navigation(languagePath);
         
