@@ -1,9 +1,11 @@
 import { Box, Button, Container, Stack, TextField } from '@mui/material'
-import React, { useDeferredValue, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useContext, useDeferredValue, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import { useGetCategoriesQuery } from '../../../redux/server state/projects';
 import { useDispatch, useSelector } from 'react-redux';
 import { portfolioFilterSliceActions } from '../../../redux/clint state/portfolio';
+import useUpdateEffect from '../../../hooks/useupdateeffect';
+import { defaultLanguage, Language } from '../../../languages/languagesContext';
 
 
 export default function ProjectViewFilter({ resetProjectsCash }) {
@@ -20,7 +22,19 @@ export default function ProjectViewFilter({ resetProjectsCash }) {
 }
 
 function Categories({ resetProjectsCash }) {
-    const { isSuccess, data } = useGetCategoriesQuery(undefined, {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : defaultLanguage,
+        category: {
+            all: language_isSuccess ? language.filter.category.all : "All",
+            reset: language_isSuccess ? language.filter.category.reset : "Reset filter"
+        }
+    }), [language, language_isSuccess]);
+
+    const { isSuccess, data, refetch } = useGetCategoriesQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
@@ -42,19 +56,33 @@ function Categories({ resetProjectsCash }) {
         }
     }
 
+    useUpdateEffect(() => {
+        refetch();
+    },[defaultContent.language])
+
     return (
-        <Stack direction={"row"} className='filterCategory'>
-            <Button className={ activeCategory == "all" && 'activeCategory' } onClick={ () => selectCategory("all") }>All</Button>
+        <Stack dir={defaultContent.direction} direction={"row"} className='filterCategory'>
+            <Button className={ activeCategory == "all" && 'activeCategory' } onClick={ () => selectCategory("all") }>{ defaultContent.category.all }</Button>
             { isSuccess && data.map((cat) => <Button key={cat.id} className={ activeCategory == cat.id && 'activeCategory' } onClick={ () => selectCategory(cat.id) }>{ cat.title }</Button>)}
             <Button className='resetCategory' onClick={resetFilter}>
                 <RotateLeftIcon/> 
-                <span className='resetCategoryTitle'>Reset filter</span>
+                <span className='resetCategoryTitle'>{ defaultContent.category.reset }</span>
             </Button>
         </Stack>
     )
 }
 
 function SearchBar({ resetProjectsCash }) {
+
+    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+
+    const defaultContent = useMemo(() => ({
+        direction: language_isSuccess ? language.page.direction : "ltr",
+        language: language_isSuccess ? language.page.language : defaultLanguage,
+        search: {
+            placeholder: language_isSuccess ? language.filter.search.placeholder : "Search about project"
+        }
+    }), [language, language_isSuccess]);
     
     const filterAction = useDispatch();
     const searchString = useSelector((state) => state.portfolioFilter.search);
@@ -76,8 +104,8 @@ function SearchBar({ resetProjectsCash }) {
     }, [searchInputDeferred]);
 
     return (
-        <Stack direction={"row"} className='filterSearch'>
-            <TextField type='search' label="Search about project" variant="outlined" value={searchString} onChange={searchInputChange} />
+        <Stack dir={defaultContent.direction} direction={"row"} className='filterSearch'>
+            <TextField type='search' label={ defaultContent.search.placeholder } variant="outlined" value={searchString} onChange={searchInputChange}/>
             <Button variant='contained' disableRipple disableElevation></Button>
         </Stack>
     )
