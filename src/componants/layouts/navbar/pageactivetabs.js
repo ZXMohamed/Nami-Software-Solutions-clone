@@ -1,11 +1,10 @@
+import { getPage } from "../../../routes/routesmanager";
+
 export const activeTabAnimation = (tab, location) => {
     
     const sectionsList = ["Home", "About us", "Services", "Our products", "Portfolio", "Careers", "Contact us"];
-    
-    const parts = location.pathname.split("/").filter(Boolean);
-    const page = parts.length > 1 ? parts[1] : "main";
 
-    if (page == "main") {        
+    if (getPage(location) == "main") {        
         if (sectionsList.includes(tab)) {
             return {
                 ["data-aos"]: "activeTab",
