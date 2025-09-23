@@ -68,9 +68,9 @@ const SideMenu = () => {
                             Object.keys(defaultContent.navTabs).map((tab, inx) => {
                                const x = navSettings(tab, location, urlLang);
                                     if (x.outerRoute)
-                                        return <Link key={ inx } to={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+                                        return <Link key={ inx } to={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </Link>;
                                     else
-                                        return <a key={ inx } href={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+                                        return <a key={ inx } href={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </a>;
                             })
                         }
                     </Stack>
