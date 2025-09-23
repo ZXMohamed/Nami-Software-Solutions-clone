@@ -65,9 +65,9 @@ const NavBar = memo(() => {
                                 Object.keys(defaultContent.navTabs).map((tab, inx) => {
                                     const nav = navSettings(tab, location, urlLang);
                                     if (nav.outerRoute)
-                                        return <Link key={ inx } to={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+                                        return <Link key={ inx } to={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </Link>;
                                     else
-                                        return <a key={ inx } href={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+                                        return <a key={ inx } href={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </a>;
                                 })
                             }
                         </Stack>

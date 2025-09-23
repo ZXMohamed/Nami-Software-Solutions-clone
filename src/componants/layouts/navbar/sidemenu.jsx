@@ -66,11 +66,11 @@ const SideMenu = () => {
                         {logoLink(<img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt="Nami Software Solutions" className="navLogo" />)}
                         {
                             Object.keys(defaultContent.navTabs).map((tab, inx) => {
-                               const nav = navSettings(tab, location, urlLang);
-                                    if (nav.outerRoute)
-                                        return <Link key={ inx } to={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+                               const x = navSettings(tab, location, urlLang);
+                                    if (x.outerRoute)
+                                        return <Link key={ inx } to={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </Link>;
                                     else
-                                        return <a key={ inx } href={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+                                        return <a key={ inx } href={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </a>;
                             })
                         }
                     </Stack>
