@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Stack, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/introcard.scss"
+import "../../sass/shared/introcard.scss"
 
 export default function IntroCard({ dir, icon, title, description, gutters, children = [] }) {
   

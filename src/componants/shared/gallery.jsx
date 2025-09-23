@@ -5,7 +5,7 @@ import { Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import "../sass/shared/gallery.scss"
+import "../../sass/shared/gallery.scss"
 
 export default function Gallery({ dir, data, sideThumbs }) {
   const [thumbs, setThumbs] = useState(null);

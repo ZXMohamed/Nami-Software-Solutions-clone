@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Divider, Stack, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/listcard.scss"
+import "../../sass/shared/listcard.scss"
 
 export default function ListCard({ dir, title, children = [] }) {
     if (!title) return <></>;

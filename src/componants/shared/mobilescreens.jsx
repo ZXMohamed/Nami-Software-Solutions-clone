@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import "../sass/shared/mobilescreens.scss"
+import "../../sass/shared/mobilescreens.scss"
     
 
 import { Swiper, SwiperSlide } from 'swiper/react';

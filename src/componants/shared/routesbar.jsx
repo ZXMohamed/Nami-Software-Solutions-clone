@@ -3,8 +3,8 @@ import React, { useContext, useMemo } from 'react'
 //*mui
 import { Box, Breadcrumbs, Container } from '@mui/material'
 //*styles
-import "../sass/shared/routesbar.scss"
-import { Language } from '../languages/languagesContext';
+import "../../sass/shared/routesbar.scss"
+import { Language } from '../../languages/languagesContext';
 
 export default function RoutesBar() {
 
