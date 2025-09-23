@@ -6,12 +6,12 @@ import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 //*component
-import SectionHeader from '../sectionheader';
-import { ProjectCard } from './projectcard';
+import SectionHeader from '../../shared/sectionheader';
+import { ProjectCard } from '../../shared/projectcard';
 //*queries
-import { useGetProjectsByCatQuery } from '../../redux/server state/projects';
+import { useGetProjectsByCatQuery } from '../../../redux/server state/projects';
 //*scripts
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
 
 
 export default function Portfolio() {

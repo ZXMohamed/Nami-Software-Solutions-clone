@@ -1,8 +1,8 @@
 import { Box, Container, Stack } from '@mui/material'
 import React from 'react'
-import { ProjectCard } from './projectcard'
+import { ProjectCard } from '../../shared/projectcard'
 import { FixedSizeGrid } from 'react-window'
-import { useResponsiveViewer } from '../../hooks/portfolio/useResponsiveViewer';
+import { useResponsiveViewer } from '../../../hooks/portfolio/useResponsiveViewer';
 
 
 let rowCount = 0;

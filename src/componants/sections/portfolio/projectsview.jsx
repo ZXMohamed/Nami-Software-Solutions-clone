@@ -1,12 +1,12 @@
 import { Box, Button, Container, Skeleton, Stack, Typography } from '@mui/material'
 import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from '../infocard'
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import ProjectViewFilter from './projectviewfilter'
 import ProjectViewer from './projectviewer'
-import { useLazyGetNextProjectsByCatQuery } from '../../redux/server state/projects'
+import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/projects'
 import { useSelector } from 'react-redux'
-import { Language } from '../../languages/languagesContext'
-import useUpdateEffect from '../../hooks/useupdateeffect'
+import { Language } from '../../../languages/languagesContext'
+import useUpdateEffect from '../../../hooks/useupdateeffect'
 
 export default function ProjectsView() {
 

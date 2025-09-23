@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 //*styles
-import "../sass/shared/sectionheader.scss"
+import "../../sass/shared/sectionheader.scss"
 
 export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 
     

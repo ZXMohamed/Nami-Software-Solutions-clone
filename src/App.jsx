@@ -22,7 +22,7 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <Main/> */}
+        <Main/>
         <Project/>
       </ThemeProvider>
     </Fragment>
