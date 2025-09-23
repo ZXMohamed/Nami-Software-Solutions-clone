@@ -1,12 +1,12 @@
 import { Box, Button, Container, Skeleton, Stack, Typography } from '@mui/material'
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from '../infocard'
+import React, { useContext, useEffect, useMemo, useRef } from 'react'
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import ProjectViewFilter from './projectviewfilter'
 import ProjectViewer from './projectviewer'
-import { useLazyGetNextProjectsByCatQuery } from '../../redux/server state/projects'
+import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/projects'
 import { useSelector } from 'react-redux'
-import { Language } from '../../languages/languagesContext'
-import useUpdateEffect from '../../hooks/useupdateeffect'
+import { Language } from '../../../languages/languagesContext'
+import useUpdateEffect from '../../../hooks/useupdateeffect'
 
 export default function ProjectsView() {
 
@@ -51,7 +51,7 @@ export default function ProjectsView() {
   const projects_isEmpty = projects ? Object.keys(projects).length == 0 : undefined;
 
   return (
-    <Box>
+    <Box id="Portfolio">
       <InfoCard dir={ defaultContent.direction } waveDir='right' subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } />
       
       <br />
@@ -82,23 +82,26 @@ export default function ProjectsView() {
 
 
 function WaitItemSkeleton({ num = 1, }) { 
-    const skeletonArray = [];
-    for (let i = 0; i < num; i++) { 
-        skeletonArray.push(
-          <Stack width={ 390 }>
-              <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
-                  <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
-                  <Skeleton width={40} height={40} variant='circular'/>
-              </Stack>
-              <br />
-              <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-              <br/>
-              <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-              <br />
-              <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
-          </Stack>
-        )
-    }
+
+  const skeletonArray = [];
+  
+  for (let i = 0; i < num; i++) { 
+    skeletonArray.push(
+      <Stack key={i} width={ 390 }>
+        <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
+            <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
+            <Skeleton width={40} height={40} variant='circular'/>
+        </Stack>
+        <br />
+        <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+        <br/>
+        <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
+        <br />
+        <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
+      </Stack>
+    )
+  }
+  
   return (
     <Container maxWidth="lg">
       <Stack flexWrap={ "wrap" } direction={ "row" } gap={ 5 } justifyContent={'center'} alignItems={'center'}>

@@ -1,9 +1,9 @@
 import { Box, Button, Container, Stack, TextField } from '@mui/material'
-import React, { useDeferredValue, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useDeferredValue, useLayoutEffect, useState } from 'react'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
-import { useGetCategoriesQuery } from '../../redux/server state/projects';
+import { useGetCategoriesQuery } from '../../../redux/server state/projects';
 import { useDispatch, useSelector } from 'react-redux';
-import { portfolioFilterSliceActions } from '../../redux/clint state/portfolio';
+import { portfolioFilterSliceActions } from '../../../redux/clint state/portfolio';
 
 
 export default function ProjectViewFilter({ resetProjectsCash }) {
