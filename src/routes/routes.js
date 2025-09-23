@@ -25,5 +25,5 @@ export const pages_routes = (urlLang = defaultLanguage, id) => ({
     
     "Service details": { link: "/" + urlLang + "/" + "all-services" + "/" + id, outerRoute: true },
     "Product details": { link: "/" + urlLang + "/" + "product-details" + "/" + id, outerRoute: true },
-    "Project details": { link: "/" + urlLang + "/" + "portfolio" + "/" + id, outerRoute: true },
+    "Project details": { link: "/" + urlLang + "/" + "project-details" + "/" + id, outerRoute: true },
 });
