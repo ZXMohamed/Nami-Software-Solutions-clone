@@ -1,11 +1,15 @@
+//*react
 import React, { useState } from "react";
+//*mui
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+//*swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import "../sass/shared/gallery.scss"
+//*styles
+import "../../sass/shared/gallery.scss"
 
 export default function Gallery({ dir, data, sideThumbs }) {
   const [thumbs, setThumbs] = useState(null);

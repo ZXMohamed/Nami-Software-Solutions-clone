@@ -1,15 +1,15 @@
+//*react
 import React from 'react'
+//*mui
 import { Box } from '@mui/material'
-import "../sass/shared/mobilescreens.scss"
-    
-
+//*swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation, Autoplay } from 'swiper/modules';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
+//*styles
+import "../../sass/shared/mobilescreens.scss"
 
 
 export default function MobileScreens({ dir, data }) {

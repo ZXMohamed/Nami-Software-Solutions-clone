@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Box, Stack, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/servicebadge.scss"
+import "../../sass/shared/servicebadge.scss"
 
 
 export function ServicesBadgesList({ dir, children, type }) {

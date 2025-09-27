@@ -1,16 +1,19 @@
+//*react
 import React, { useContext, useMemo } from 'react'
+//*mui
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
-import IntroCard from '../introcard'
-import ListCard from '../listcard'
-import { Language } from '../../languages/languagesContext'
-import { useGetProjectByIdQuery } from '../../redux/server state/projects'
-import Gallery from '../gallery'
-import PointsList from '../pointslist'
-import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../techbadges'
-import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../servicesbadges'
-import MobileScreens from '../mobilescreens'
-// import DownloadButton from '../buttons/downloadbutton'
-// import Orderproject from './orderproject'
+//*components
+import IntroCard from '../../shared/introcard'
+import ListCard from '../../shared/listcard'
+import Gallery from '../../shared/gallery'
+import PointsList from '../../shared/pointslist'
+import MobileScreens from '../../shared/mobilescreens'
+import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
+import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../../shared/techbadges'
+//*queries
+import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
+//*scripts
+import { Language } from '../../../languages/languagesContext'
 
 
 export default function ProjectShowDetails() {
@@ -103,15 +106,10 @@ function GalleryWaitItemsSkelton() {
 function IntroCardWaitItemsSkelton() { 
     return (
         <>
-            {/* <br/> */}
             <Skeleton variant="rounded" width={ 200 } height={ 20 } />
-            {/* <br/> */}
             <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            {/* <br/> */}
             <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            {/* <br/> */}
             <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-            {/* <br /> */}
             <Stack direction={"row"} columnGap={2}>
               <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
               <Skeleton variant="rounded" width={ "20%" } height={ 40 } />

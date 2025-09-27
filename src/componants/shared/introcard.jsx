@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Stack, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/introcard.scss"
+import "../../sass/shared/introcard.scss"
 
 export default function IntroCard({ dir, icon, title, description, gutters, children = [] }) {
   
@@ -23,10 +23,6 @@ const aosAnimation = {
     ["data-aos"]: "fade-up",
     ["data-aos-duration"]: "1000",
 }
-// const cardAosAnimation = {
-//     ...aosAnimation,
-//     ["data-aos-delay"]: "50"
-// }
 const titleAosAnimation = {
     ...aosAnimation,
     ["data-aos-delay"]: "100"
