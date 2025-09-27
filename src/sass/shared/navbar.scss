@@ -42,6 +42,10 @@
         @media screen and (max-width:1080px) and (min-width:992px) {
             padding: 13px 10px;
         }
+        &:hover{
+            color: $secondColor;
+            @extend .navBarActiveItemAnimated;
+        }
         &::after{
             content: "";
             @extend %semiHexagon;
@@ -147,7 +151,10 @@
         height: 43px;
         @include center("Y-flex");
         @extend %removeAdditionalLinkStyle;
-
+        +:not(img):hover{
+            color: $secondColor;
+            @extend .navBarActiveItemAnimated;
+        }
         &:after{
             content: "";
             border-radius: 12px;
