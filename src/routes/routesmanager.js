@@ -1,22 +1,24 @@
 import { main_routes, pages_routes } from "./routes";
 
-export const navSettings = (tab, location, urlLang, id) => {
+export const navSettings = (urlLang, main, id) => {
 
-    if (getPage(location) == "main") {
-        return main_routes(urlLang, id)[tab];
+    if (main) {
+        return main_routes(urlLang, id);
     } else {
-        return pages_routes(urlLang, id)[tab];
+        return pages_routes(urlLang, id);
     }
 
 }
 
-export const getPage = (location) => {
+export const getPage = (location, urlLang) => {
     const parts = location.pathname.split("/").filter(Boolean);
-    if (pages_routes()[parts[0].charAt(0).toUpperCase() + parts[0].slice(1)]) {
-        return parts[0].replace("-", "");
-    } else if (pages_routes()[parts[1].charAt(0).toUpperCase() + parts[1].slice(1)]) {
-        return parts[1].replace("-", "");
-    } else {
-        return "main"
+    if (parts.length == 0) {
+        return "main"    
+    } else {        
+        if (urlLang == undefined) {
+            return parts[0].replace("-", " ");
+        } else {
+            return (parts[1] || "main").replace("-", " ");
+        }
     }
 }

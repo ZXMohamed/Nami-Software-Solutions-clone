@@ -7,9 +7,11 @@ import { Toolbar, Drawer, IconButton, Stack } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 //*styles
 import "../../../sass/shared/navbar.scss";
+//*components
+import LogoLink from "../../shared/logolink";
 //*scripts
 import { Language } from "../../../languages/languagesContext";
-import { navSettings } from "../../../routes/routesmanager";
+import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
 import logo from "../../../assets/photo/global/namilogo.svg";
@@ -37,22 +39,6 @@ const SideMenu = () => {
         [language, language_isSuccess]
     );
 
-    const location = useLocation();
-    const { language: urlLang } = useParams();
-    
-    function logoLink(logo) {
-        const nav = navSettings("Home", location, urlLang);
-        if (nav.outerRoute) {
-            return <Link to={nav.link}>
-                {logo}
-            </Link>
-        } else {
-            return <a href={nav.link}>
-                {logo}
-            </a>
-        }
-    }
-
     const [openDrawer, setOpenDrawer] = useState(false);
 
     return (
@@ -63,16 +49,10 @@ const SideMenu = () => {
             <Drawer dir={ defaultContent.direction } anchor={ defaultContent.direction == "ltr" ? "left" : "right" } open={ openDrawer } onClose={ () => setOpenDrawer(false) } disableScrollLock={true} >
                 <Toolbar className="navSideMenuContent">
                     <Stack direction="column" spacing={ 0.8 } className="navSideMenu">
-                        {logoLink(<img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt="Nami Software Solutions" className="navLogo" />)}
-                        {
-                            Object.keys(defaultContent.navTabs).map((tab, inx) => {
-                               const x = navSettings(tab, location, urlLang);
-                                    if (x.outerRoute)
-                                        return <Link key={ inx } to={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </Link>;
-                                    else
-                                        return <a key={ inx } href={x.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </a>;
-                            })
-                        }
+                        <LogoLink>
+                            <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt="Nami Software Solutions" className="navLogo" />
+                        </LogoLink>
+                        <Tabs defaultContent={defaultContent}/>
                     </Stack>
                 </Toolbar>
             </Drawer>
@@ -80,3 +60,26 @@ const SideMenu = () => {
     );
 };
 export default SideMenu;
+
+
+function Tabs({ defaultContent }) {
+    
+    const location = useLocation();
+    const urlLang = useParams();
+
+    if (getPage(location, urlLang) == "main") { 
+        const nav = navSettings(urlLang, true);
+        return Object.keys(defaultContent.navTabs).map((tab, inx) => {
+            if (nav[tab.toLowerCase()].outerRoute)
+                return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+            else
+                return <a key={ inx } href={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+        })
+    } else {
+        return Object.keys(defaultContent.navTabs).map((tab, inx) => {
+            const nav = navSettings(urlLang, true);
+            return <Link key={ inx } to={nav.link} dir={defaultContent.direction}> { defaultContent.navTabs[tab].title } </Link>;
+        })
+    }
+
+}
