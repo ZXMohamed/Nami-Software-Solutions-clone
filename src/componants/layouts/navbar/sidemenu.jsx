@@ -65,7 +65,7 @@ export default SideMenu;
 function Tabs({ defaultContent }) {
     
     const location = useLocation();
-    const urlLang = useParams();
+    const { language : urlLang } = useParams();
 
     if (getPage(location, urlLang) == "main") { 
         const nav = navSettings(urlLang, true);
@@ -76,9 +76,9 @@ function Tabs({ defaultContent }) {
                 return <a key={ inx } href={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
         })
     } else {
+        const nav = navSettings(urlLang, false);
         return Object.keys(defaultContent.navTabs).map((tab, inx) => {
-            const nav = navSettings(urlLang, true);
-            return <Link key={ inx } to={nav.link} dir={defaultContent.direction}> { defaultContent.navTabs[tab].title } </Link>;
+            return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction}> { defaultContent.navTabs[tab].title } </Link>;
         })
     }
 
