@@ -6,6 +6,7 @@ import { Link, useLocation, useParams } from 'react-router';
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*component
+import LogoLink from '../shared/logolink';
 import SocialButtons from '../shared/social&contacts/socialbuttons';
 //*queries
 import { useGetSocialQuery } from '../../redux/server state/social';
@@ -59,26 +60,12 @@ function FooterAboutTab() {
         footerLogo: language_isSuccess ? language.footer.footerLogo : logo,
         description: language_isSuccess ? language.footer.description : "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
     }), [language, language_isSuccess]);
-
-    const location = useLocation();
-    const { language: urlLang } = useParams();
-
-    function logoLink(logo) {
-        const nav = navSettings("Home", location, urlLang);
-        if (nav.outerRoute) {
-            return <Link to={nav.link}>
-                {logo}
-            </Link>
-        } else {
-            return <a href={nav.link}>
-                {logo}
-            </a>
-        }
-    }
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
-            { logoLink(<img src={ defaultContent.footerLogo } alt="Nami Software Solutions" loading='lazy' className='footerLogo' />) }
+            <LogoLink>
+                <img src={ defaultContent.footerLogo } alt="Nami Software Solutions" loading='lazy' className='footerLogo' />
+            </LogoLink>
             <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
     )
@@ -112,7 +99,7 @@ function FooterServicesTab() {
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
-                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id)["Service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
+                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id)["service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
                     })
                 }
             </ul>
@@ -148,7 +135,7 @@ function FooterLinksTab() {
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
-                    const nav = navSettings(item, location, urlLang);
+                    const nav = navSettings(item.toLocaleLowerCase(), location, urlLang);
                         if (nav.outerRoute)
                             return <li key={ inx } ><Link to={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
                         else
