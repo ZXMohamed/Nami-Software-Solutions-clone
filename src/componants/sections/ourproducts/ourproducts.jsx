@@ -93,7 +93,7 @@ const ProductCard = memo(({ dir, data, aosAnimation })=> {
     const { language: urlLang } = useParams();
 
     return (
-        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["Product details"].link)}>
+        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["product details"].link)}>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
                     <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />
