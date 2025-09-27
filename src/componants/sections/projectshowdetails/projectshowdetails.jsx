@@ -1,15 +1,22 @@
+//*react
 import React, { useContext, useMemo } from 'react'
+//*mui
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+//*components
 import IntroCard from '../../shared/introcard'
 import ListCard from '../../shared/listcard'
-import { defaultLanguage, Language } from '../../../languages/languagesContext'
-import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 import Gallery from '../../shared/gallery'
 import PointsList from '../../shared/pointslist'
+import MobileScreens from '../../shared/mobilescreens'
+import RoutesBar from '../../shared/routesbar'
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../../shared/techbadges'
 import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
-import MobileScreens from '../../shared/mobilescreens'
+//*queries
+import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
+//*hooks
 import useUpdateEffect from '../../../hooks/useupdateeffect'
+//*scripts
+import { defaultLanguage, Language } from '../../../languages/languagesContext'
 
 
 export default function ProjectShowDetails() {
@@ -34,7 +41,8 @@ export default function ProjectShowDetails() {
    }, [defaultContent.language]);
 
   return (
-    <Box dir={defaultContent.direction}>
+    <Box dir={ defaultContent.direction }>
+      { project_isSuccess && <RoutesBar title={ project["id-1"].title } storeTab={"Portfolio"} /> }
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={ { md: 8, xs: 12 } } { ...introCardAosAnimation } className="projectDetailsSide">
