@@ -36,8 +36,8 @@ export default function Portfolio() {
     const { language: urlLang } = useParams();
 
   return (
-    <Box id="Portfolio" dir={defaultContent.direction} className='portfolioSection'>
-        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={pages_routes(urlLang)["Portfolio"].link}/>
+    <Box id="portfolio" dir={defaultContent.direction} className='portfolioSection'>
+        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={pages_routes(urlLang)["portfolio"].link}/>
           <Projects dir={ defaultContent.direction } language={defaultContent.language} />
     </Box>
   )

@@ -41,8 +41,8 @@ export default function OurProducts() {
 
     return (
         <>
-            <Box id="Ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
-                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["Our products"].link } />
+            <Box id="ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["our products"].link } />
                 <Products dir={ defaultContent.direction } language={ defaultContent.language } />
             </Box>
             <Statistics/>

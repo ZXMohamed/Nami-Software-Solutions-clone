@@ -41,7 +41,7 @@ export default function PageWrapper({ children }) {
   
   function languageRequest(language, location) {
     //$get page from url
-    getLanguage({ language, page: getPage(location) });
+    getLanguage({ language, page: getPage(location, language) });
     
   }
   

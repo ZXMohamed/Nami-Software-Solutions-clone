@@ -9,9 +9,10 @@ import "../../../sass/shared/navbar.scss"
 //*components
 import SideMenu from "./sidemenu";
 import LanguageButton from "./languagebutton";
+import LogoLink from "../../shared/logolink";
 //*scripts
 import { Language } from "../../../languages/languagesContext";
-import { navSettings } from "../../../routes/routesmanager";
+import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
 import logo from "../../../assets/photo/global/namilogo.svg";
@@ -38,38 +39,16 @@ const NavBar = memo(() => {
         [language, language_isSuccess]
     );
 
-    const location = useLocation();
-    const { language: urlLang } = useParams();
-
-    function logoLink(logo) {
-        const nav = navSettings("Home", location, urlLang);
-        if (nav.outerRoute) {
-            return <Link to={nav.link}>
-                {logo}
-            </Link>
-        } else {
-            return <a href={nav.link}>
-                {logo}
-            </a>
-        }
-    }
-
     return (
         <AppBar dir={ defaultContent.direction } color="transparent" elevation={ 0 } className="navBar" { ...navBarAosAnimation }>
             <Container maxWidth="lg" disableGutters>
                 <Toolbar className="navContent" disableGutters>
-                    { logoLink(<img src={ defaultContent.logo } width={ "126px" } height={ "43px" } alt="Nami Software Solutions" loading="lazy" className="navLogo" />) }
+                    <LogoLink>
+                        <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } alt="Nami Software Solutions" loading="lazy" className="navLogo" />
+                    </LogoLink>
                     <Stack direction="row">
                         <Stack direction="row" className="navBarItems">
-                            {
-                                Object.keys(defaultContent.navTabs).map((tab, inx) => {
-                                    const nav = navSettings(tab, location, urlLang);
-                                    if (nav.outerRoute)
-                                        return <Link key={ inx } to={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </Link>;
-                                    else
-                                        return <a key={ inx } href={nav.link} dir={defaultContent.direction} { ...activeTabAnimation(tab,location) }> { defaultContent.navTabs[tab].title } </a>;
-                                })
-                            }
+                            <Tabs defaultContent={defaultContent}/>
                         </Stack>
                         <LanguageButton />
                         <SideMenu />
@@ -83,6 +62,28 @@ const NavBar = memo(() => {
 export default NavBar;
 
 
+
+function Tabs({ defaultContent }) {
+    
+    const location = useLocation();
+    const { language : urlLang } = useParams();
+
+    if (getPage(location, urlLang) == "main") { 
+        const nav = navSettings(urlLang, true);
+        return Object.keys(defaultContent.navTabs).map((tab, inx) => {
+            if (nav[tab.toLowerCase()].outerRoute)
+                return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+            else
+            return <a key={ inx } href={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+        })
+    } else {
+        const nav = navSettings(urlLang, false);
+        return Object.keys(defaultContent.navTabs).map((tab, inx) => {
+            return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction}> { defaultContent.navTabs[tab].title } </Link>;
+        })
+    }
+
+}
 
 const navBarAosAnimation = {
     ["data-aos"]: "navBarShrink",

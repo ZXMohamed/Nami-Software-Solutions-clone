@@ -40,7 +40,7 @@ export default function Services() {
     }, []);
 
     return (
-        <Box id="Services" dir={defaultContent.direction} className="servicesSection" >
+        <Box id="services" dir={defaultContent.direction} className="servicesSection" >
             <Container disableGutters>
                 <Stack direction={'column'} spacing={2} className='servicesHeader'>
                     <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
@@ -99,7 +99,7 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
 
-            <Link to={ pages_routes(urlLang, data.id)["Service details"].link }>
+            <Link to={ pages_routes(urlLang, data.id)["service details"].link }>
                 
                 <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
                 

@@ -30,7 +30,7 @@ console.log("home");
     const navigate = useNavigate();
 
     return (
-        <Box id="Home" className="homeSection" dir={ defaultContent.direction }>
+        <Box id="home" className="homeSection" dir={ defaultContent.direction }>
             
             <Typography variant="h2" component="h1" className="homeTitle" {...titleAosAnimation}>
                 {defaultContent.title.first} <span>{defaultContent.title.middle}</span> {defaultContent.title.last}
