@@ -131,14 +131,6 @@ function FooterLinksTab() {
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
-                {/* { Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
-                    const nav = navSettings(item.toLocaleLowerCase(), location, urlLang);
-                        if (nav.outerRoute)
-                            return <li key={ inx } ><Link to={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
-                        else
-                            return <li key={ inx } ><a href={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
-                    })
-                } */}
                 <Links defaultContent={defaultContent}/>
             </ul>
         </Grid>
