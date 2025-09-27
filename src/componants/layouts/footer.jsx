@@ -12,7 +12,7 @@ import SocialButtons from '../shared/social&contacts/socialbuttons';
 import { useGetSocialQuery } from '../../redux/server state/social';
 //*scripts
 import { Language } from '../../languages/languagesContext';
-import { navSettings } from '../../routes/routesmanager';
+import { getPage, navSettings } from '../../routes/routesmanager';
 //*assets
 import logo from "../../assets/photo/global/namilogo.svg";
 import mailbox from "../../assets/photo/footer/mailbox.svg";
@@ -127,24 +127,43 @@ function FooterLinksTab() {
         },
     }), [language, language_isSuccess]);
 
-    const { language: urlLang } = useParams();
-    const location = useLocation();
-
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
-                { Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+                {/* { Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
                     const nav = navSettings(item.toLocaleLowerCase(), location, urlLang);
                         if (nav.outerRoute)
                             return <li key={ inx } ><Link to={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
                         else
                             return <li key={ inx } ><a href={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
                     })
-                }
+                } */}
+                <Links defaultContent={defaultContent}/>
             </ul>
         </Grid>
     )
+}
+function Links({ defaultContent }) {
+    
+    const location = useLocation();
+    const { language : urlLang } = useParams();
+
+    if (getPage(location, urlLang) == "main") { 
+        const nav = navSettings(urlLang, true);
+        return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+            if (nav[item.toLowerCase()].outerRoute)
+                return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
+            else
+                return <li key={ inx } ><a href={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
+        })
+    } else {
+        const nav = navSettings(urlLang, false);
+        return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+            return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
+        })
+    }
+
 }
 
 function FooterContactEmail() {

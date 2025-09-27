@@ -43,9 +43,9 @@ console.log("home");
             <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
 
             <Stack direction="row" gap={ 2 } className="homeButtons" {...homeButtonsAosAnimation}>
-                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={()=>navigate(pages_routes(urlLang)["Portfolio"].link)}>{defaultContent.buttons.portfolio}</Button>
+                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={()=>navigate(pages_routes(urlLang)["portfolio"].link)}>{defaultContent.buttons.portfolio}</Button>
                 <RequestQuotation/>
-                <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={()=>navigate(pages_routes(urlLang)["Our products"].link)}>{ defaultContent.buttons.ourProducts }</Button>
+                <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={()=>navigate(pages_routes(urlLang)["our products"].link)}>{ defaultContent.buttons.ourProducts }</Button>
             </Stack>
             
             <FallingBackground/>
