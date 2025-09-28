@@ -2,10 +2,11 @@
 import React, { useEffect, useRef } from 'react'
 //*mui
 import { Container, Typography, Box, Stack } from '@mui/material'
+//*gsap
+import gsap from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 //*styles
 import "../../sass/shared/infocard.scss"
-import { SplitText } from 'gsap/SplitText';
-import gsap from 'gsap';
 
 export default function InfoCard({ dir = "ltr", title, subtitle, description, animateDescription = false, waveDir = "left", typographyForm, effects = [], children, sx }) {
   
