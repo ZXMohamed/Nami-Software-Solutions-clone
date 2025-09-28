@@ -3,11 +3,11 @@ import { useContext, useMemo } from "react";
 //*mui
 import { Box, Typography, Stack, Button } from "@mui/material";
 //*components
-import SocialButtons from "../social&contacts/socialbuttons";
+import SocialButtons from "../../shared/social&contacts/socialbuttons";
 import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 
 export default function Home() { 
 console.log("home");
@@ -25,7 +25,7 @@ console.log("home");
     }), [language, language_isSuccess]);
 
     return (
-        <Box className="homeSection" dir={ defaultContent.direction }>
+        <Box id="#home" className="homeSection" dir={ defaultContent.direction }>
             
             <Typography variant="h2" component="h1" className="homeTitle" {...titleAosAnimation}>
                 {defaultContent.title.first} <span>{defaultContent.title.middle}</span> {defaultContent.title.last}
