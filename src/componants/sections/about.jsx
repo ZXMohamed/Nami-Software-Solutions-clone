@@ -3,15 +3,15 @@ import React, { lazy, memo, Suspense, useContext, useMemo } from 'react'
 //*mui
 import { Box, Container, Grid, Typography, Stack, Skeleton } from '@mui/material'
 //*scripts
-import { Language } from '../languages/languagesContext'
+import { Language } from '../../languages/languagesContext'
 //*assets
-import innovation from "../assets/photo/our/Innovation.svg"
-import quality from "../assets/photo/our/Quality.svg"
-import focusOnTheClint from "../assets/photo/our/Focus On The Clint.svg"
-import teamwork from "../assets/photo/our/Teamwork.svg"
-import quickResponse from "../assets/photo/our/quick Response.svg"
-import continuousLearning from "../assets/photo/our/Continuous Learning.svg"
-import Sustainability from "../assets/photo/our/Sustainability.svg"
+import innovation from "../../assets/photo/our/Innovation.svg"
+import quality from "../../assets/photo/our/Quality.svg"
+import focusOnTheClint from "../../assets/photo/our/Focus On The Clint.svg"
+import teamwork from "../../assets/photo/our/Teamwork.svg"
+import quickResponse from "../../assets/photo/our/quick Response.svg"
+import continuousLearning from "../../assets/photo/our/Continuous Learning.svg"
+import Sustainability from "../../assets/photo/our/Sustainability.svg"
 
 export function Our() {
 
@@ -142,7 +142,7 @@ const ValueBox = ({ data, aosAnimation }) => {
   )
 };
 
-const OurLazySideVideo = lazy(() => import("./oursidevideo"));
+const OurLazySideVideo = lazy(() => import("./Oursidevideo"));
 
 const SideVideo = () => {
   return (
