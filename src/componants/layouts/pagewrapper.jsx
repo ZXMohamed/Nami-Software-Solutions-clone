@@ -1,6 +1,9 @@
+//*react
 import React from 'react'
-import { useGetLanguageMutation } from '../redux/server state/language';
-import { Language } from '../languages/languagesContext';
+//*queries
+import { useGetLanguageMutation } from '../../redux/server state/language';
+//*scripts
+import { Language } from '../../languages/languagesContext';
 
 
 export default function PageWrapper({ children }) {

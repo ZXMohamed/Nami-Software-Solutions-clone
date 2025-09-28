@@ -1,9 +1,7 @@
 import React from 'react'
-
-import PageWrapper from '../componants/pagewrapper'
-
+import PageWrapper from '../componants/layouts/pagewrapper'
+import ServicesTicker from '../componants/layouts/servicesticker'
 import "../sass/pages/main.scss"
-import ServicesTicker from '../componants/servicesticker'
 
 export default function Main() {
   return (

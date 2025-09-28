@@ -5,9 +5,9 @@ import { Box, Stack, Typography } from '@mui/material';
 //*gsap
 import gsap from 'gsap';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 //*styles
-import "../sass/shared/servicesticker.scss"
+import "../../sass/shared/servicesticker.scss"
 
 export default function ServicesTicker() {
 
