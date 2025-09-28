@@ -10,13 +10,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { initZodMsgs, pattern } from '../form/assets';
+import { initZodMsgs, pattern } from '../../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
-import { sitekey } from '../form/recaptcha';
+import { sitekey } from '../../form/recaptcha';
 //*queries
-import { useGetOpenJobsQuery, useRequestJobMutation } from '../redux/server state/openjobs';
+import { useGetOpenJobsQuery, useRequestJobMutation } from '../../redux/server state/openjobs';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 
 
 export default function Careers() {
