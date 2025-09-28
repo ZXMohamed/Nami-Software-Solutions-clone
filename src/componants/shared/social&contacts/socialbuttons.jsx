@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 //*mui
 import { CircularProgress, Stack } from '@mui/material'
 //*queries
-import { useGetSocialQuery } from '../../redux/server state/social'
+import { useGetSocialQuery } from '../../../redux/server state/social'
 //*styles
 import "../../sass/shared/socialbuttons.scss"
 

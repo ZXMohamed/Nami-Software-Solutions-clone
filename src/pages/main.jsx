@@ -1,7 +1,7 @@
 //*react
 import React from 'react'
 //*component
-import PageWrapper from '../componants/pagewrapper'
+import PageWrapper from '../componants/layouts/pagewrapper'
 //*styles
 import "../sass/pages/main.scss"
 

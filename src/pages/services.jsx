@@ -1,20 +1,21 @@
 //*react
 import React from 'react'
 //*component
-import PageWrapper from '../componants/pagewrapper'
-import RoutesBar from '../componants/routesbar'
-import IntroCard from '../componants/introcard'
-import ListCard from '../componants/listcard'
-import ObjectivesList from '../componants/objectiveslist'
-import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/techbadges'
-import PointsList from '../componants/pointslist'
-import Gallery from '../componants/gallery'
-import MobileScreens from '../componants/mobilescreens'
-//*styles
-
+import PageWrapper from '../componants/layouts/pagewrapper'
+import RoutesBar from '../componants/shared/routesbar'
+import IntroCard from '../componants/shared/introcard'
+import ListCard from '../componants/shared/listcard'
+import ObjectivesList from '../componants/shared/objectiveslist'
+import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../componants/shared/techbadges'
+import PointsList from '../componants/shared/pointslist'
+import Gallery from '../componants/shared/gallery'
+import MobileScreens from '../componants/shared/mobilescreens'
+import InfoCard, { infoCardEffects, typographyForm } from '../componants/shared/infocard'
+import MiniHeader from '../componants/shared/miniheader'
+//*assets
 import x from "../assets/photo/servicesbadges/androidapplication.svg"
-import MiniHeader from '../componants/miniheader'
-import InfoCard, { infoCardEffects, typographyForm } from '../componants/infocard'
+
+
 const imagesMS = [
   'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/10.jpg',
   'http://marveltheme.com/tf/html/appai/appai/img/app-screenshots/11.jpg',
@@ -36,7 +37,7 @@ const images = [
 export default function Services() {
   return (
     <PageWrapper>
-      <RoutesBar dir={"ltr"}/>
+      <RoutesBar dir={"ltr"} storeTab={"Portfolio"} title={"shared-elements"}/>
       <IntroCard icon={ x } title={ "Design services" } description={ (" We offer a comprehensive range of design services that include graphic design and brand identity design. We work to create innovative designs that reflect the essence of your brand and attract the attention of your audience.") }></IntroCard>
       <br />
       <ListCard title={ "Service objectives" }>

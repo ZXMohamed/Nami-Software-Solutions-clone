@@ -3,11 +3,11 @@ import React, { useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
-import { useGetLanguageMutation } from '../redux/server state/language';
+import { useGetLanguageMutation } from '../../redux/server state/language';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 //*scripts
-import { defaultLanguage, Language } from '../languages/languagesContext';
-import { initZodMsgs } from '../form/assets';
+import { defaultLanguage, Language } from '../../languages/languagesContext';
+import { initZodMsgs } from '../../form/assets';
 import ContactButtons from './social&contacts/contactbuttons';
 
 
