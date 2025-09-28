@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from './infocard'
-import { Language } from '../languages/languagesContext';
+import InfoCard, { infoCardEffects, typographyForm } from '../shared/infocard'
+import { Language } from '../../languages/languagesContext';
 import { Box } from '@mui/material';
 
 export default function BlogsView() {

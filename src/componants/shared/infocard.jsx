@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react'
 //*mui
 import { Container, Typography, Box, Stack } from '@mui/material'
 //*styles
-import "../sass/shared/infocard.scss"
+import "../../sass/shared/infocard.scss"
 import { SplitText } from 'gsap/SplitText';
 import gsap from 'gsap';
 

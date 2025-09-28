@@ -1,8 +1,8 @@
 //*react
 import React from 'react'
 //*component
-import PageWrapper from '../componants/pagewrapper'
-import BlogsView from '../componants/blogsview'
+import PageWrapper from '../componants/layouts/pagewrapper'
+import BlogsView from '../componants/sections/blogsview'
 
 export default function BlogsPages() {
   return (
