@@ -1,11 +1,11 @@
 //*react
 import React, { memo, useContext, useEffect, useRef } from "react";
 //*styles
-import "../../sass/shared/navbar.scss";
+import "../../../sass/shared/navbar.scss";
 //*queries
-import { useGetAvailableLanguagesQuery } from "../../redux/server state/language";
+import { useGetAvailableLanguagesQuery } from "../../../redux/server state/language";
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 
 
 const LanguageButton = () => {

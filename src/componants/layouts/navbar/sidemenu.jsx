@@ -4,11 +4,11 @@ import React, { memo, useContext, useMemo, useState } from "react";
 import { Toolbar, Drawer, IconButton, Stack } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 //*styles
-import "../../sass/shared/navbar.scss";
+import "../../../sass/shared/navbar.scss";
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 //*assets
-import logo from "../../assets/photo/global/namilogo.svg";
+import logo from "../../../assets/photo/global/namilogo.svg";
 
 const SideMenu = () => {
     console.log("SM");

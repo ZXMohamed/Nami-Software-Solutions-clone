@@ -1,6 +1,6 @@
 import React from 'react'
-import PageWrapper from '../componants/pagewrapper'
-import ServiceOrderDetails from '../componants/serviceorder/serviceorderdetails'
+import PageWrapper from '../componants/layouts/pagewrapper'
+import ServiceOrderDetails from '../componants/sections/serviceorder/serviceorderdetails'
 import "../sass/pages/service.scss"
 export default function Service() {
   return (

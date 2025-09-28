@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
 import React from 'react'
-import "../sass/shared/objectiveslist.scss"
+import "../../sass/shared/objectiveslist.scss"
 
 export default function ObjectivesList({ dir, data }) {
 

@@ -1,11 +1,16 @@
-import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+//*react
 import React, { useContext, useMemo } from 'react'
-import IntroCard from '../introcard'
-import ListCard from '../listcard'
-import ObjectivesList from '../objectiveslist'
+//*mui
+import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+//*components
+import IntroCard from '../../shared/introcard'
+import ListCard from '../../shared/listcard'
+import ObjectivesList from '../../shared/objectiveslist'
 import OrderService from './orderservice'
-import { useGetServicesQuery } from '../../redux/server state/services'
-import { Language } from '../../languages/languagesContext'
+//*queries
+import { useGetServicesQuery } from '../../../redux/server state/services'
+//*scripts
+import { Language } from '../../../languages/languagesContext'
 
 
 export default function ServiceOrderDetails() {

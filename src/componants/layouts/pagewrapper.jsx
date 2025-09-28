@@ -3,12 +3,12 @@ import React, { useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Alert, AlertTitle, LinearProgress, Snackbar } from '@mui/material';
 //*queries
-import { useGetLanguageMutation } from '../redux/server state/language';
+import { useGetLanguageMutation } from '../../redux/server state/language';
 //*component
 import NavBar from './navbar/navbar';
 //*scripts
-import { defaultLanguage, Language } from '../languages/languagesContext';
-import { initZodMsgs } from '../form/assets';
+import { defaultLanguage, Language } from '../../languages/languagesContext';
+import { initZodMsgs } from '../../form/assets';
 
 
 export default function PageWrapper({ children }) {
