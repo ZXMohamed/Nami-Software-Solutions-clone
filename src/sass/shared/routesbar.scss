@@ -1,0 +1,13 @@
+@use "_shared.scss" as *;
+
+nav.routesBarContainer{
+    color: $primaryColor;
+    font-family: "PlexNormal";
+}
+.routBarTab{
+    @extend %removeAdditionalLinkStyle;
+    text-transform: capitalize;
+}
+.activeRoutTab{
+    color: $secondTextColor;
+}

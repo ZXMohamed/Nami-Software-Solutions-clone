@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from '../infocard'
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import { Products } from './ourproducts'
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
 
 export default function AllProducts() {
 
