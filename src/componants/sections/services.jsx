@@ -6,9 +6,9 @@ import { Box, Grid, Stack, Typography, Container, Button, Skeleton } from '@mui/
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 //*queries
-import { useGetServicesQuery } from '../redux/server state/services';
+import { useGetServicesQuery } from '../../redux/server state/services';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 
 
 export default function Services() {
