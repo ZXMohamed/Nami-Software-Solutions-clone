@@ -7,10 +7,10 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 //*queries
-import { useGetLocationQuery } from '../../redux/server state/location';
-import { useGetSocialQuery } from '../../redux/server state/social';
+import { useGetLocationQuery } from '../../../redux/server state/location';
+import { useGetSocialQuery } from '../../../redux/server state/social';
 //*scripts
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
 
 
 export function InfoSection() {

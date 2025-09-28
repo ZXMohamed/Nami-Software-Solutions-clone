@@ -1,9 +1,7 @@
 import React from 'react'
-
-import PageWrapper from '../componants/pagewrapper'
-
+import PageWrapper from '../componants/layouts/pagewrapper'
+import Contact from '../componants/sections/contact/contact'
 import "../sass/pages/main.scss"
-import Contact from '../componants/contact/contact'
 
 export default function Main() {
   return (

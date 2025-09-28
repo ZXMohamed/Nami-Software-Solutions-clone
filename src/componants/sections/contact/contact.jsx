@@ -6,7 +6,7 @@ import { Box, Container, Grid, useMediaQuery } from '@mui/material'
 import { FormSection } from './contactform';
 import { ContactMethodsSection, InfoSection } from './contactinfo';
 //*scripts
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
 
 
 export default function Contact() {

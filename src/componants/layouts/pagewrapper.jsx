@@ -1,10 +1,10 @@
 //*react
 import React, { useMemo, useRef } from 'react'
 //*queries
-import { useGetLanguageMutation } from '../redux/server state/language';
+import { useGetLanguageMutation } from '../../redux/server state/language';
 //*scripts
-import { Language } from '../languages/languagesContext';
-import { initZodMsgs } from '../form/assets';
+import { Language } from '../../languages/languagesContext';
+import { initZodMsgs } from '../../form/assets';
 
 
 export default function PageWrapper({ children }) {

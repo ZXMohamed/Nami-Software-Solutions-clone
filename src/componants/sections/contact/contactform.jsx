@@ -5,14 +5,14 @@ import { Alert, Box, Button, Grid, Stack, TextField } from '@mui/material'
 //*form
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { pattern, initZodMsgs } from '../../form/assets';
+import { pattern, initZodMsgs } from '../../../form/assets';
 import { useForm } from 'react-hook-form';
 import ReCAPTCHA from "react-google-recaptcha";
-import { sitekey } from '../../form/recaptcha';
+import { sitekey } from '../../../form/recaptcha';
 //*queries
-import { useContactMutation } from '../../redux/server state/contact';
+import { useContactMutation } from '../../../redux/server state/contact';
 //*scripts
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
 
 
 export function FormSection() {
