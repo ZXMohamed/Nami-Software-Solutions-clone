@@ -3,14 +3,14 @@ import React, { memo, useContext, useEffect, useMemo } from "react";
 //*mui
 import { AppBar, Toolbar, Container, Stack } from "@mui/material";
 //*styles
-import "../../sass/shared/navbar.scss"
+import "../../../sass/shared/navbar.scss"
 //*components
 import SideMenu from "./sidemenu";
 import LanguageButton from "./languagebutton";
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 //*assets
-import logo from "../../assets/photo/global/namilogo.svg";
+import logo from "../../../assets/photo/global/namilogo.svg";
 
 const navBarAosAnimation = {
     ["data-aos"]: "navBarShrink",
