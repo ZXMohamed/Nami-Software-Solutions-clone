@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Box, Skeleton, Stack, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/techbadge.scss"
+import "../../sass/shared/techbadge.scss"
 
 
 export function TechBadgesList({ dir, loading, children, type }) {

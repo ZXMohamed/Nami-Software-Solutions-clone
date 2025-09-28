@@ -1,6 +1,9 @@
-import { Box, Skeleton, Stack, Typography } from '@mui/material'
+//*react
 import React from 'react'
-import "../sass/shared/pointslist.scss"
+//*mui
+import { Box, Skeleton, Stack, Typography } from '@mui/material'
+//*styles
+import "../../sass/shared/pointslist.scss"
 
 export default function PointsList({ dir, loading, data=[] }) {
   return (

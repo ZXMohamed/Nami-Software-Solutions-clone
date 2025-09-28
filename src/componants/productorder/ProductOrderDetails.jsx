@@ -1,14 +1,14 @@
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
 import React, { useContext, useMemo } from 'react'
-import IntroCard from '../introcard'
-import ListCard from '../listcard'
+import IntroCard from '../shared/introcard'
+import ListCard from '../shared/listcard'
 import { Language } from '../../languages/languagesContext'
 import { useGetProductsQuery } from '../../redux/server state/products'
-import Gallery from '../gallery'
-import PointsList from '../pointslist'
-import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../techbadges'
-import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../servicesbadges'
-import DownloadButton from '../buttons/downloadbutton'
+import Gallery from '../shared/gallery'
+import PointsList from '../shared/pointslist'
+import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../shared/techbadges'
+import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../shared/servicesbadges'
+import DownloadButton from '../shared/buttons/downloadbutton'
 import OrderProduct from './orderproduct'
 
 
@@ -20,7 +20,6 @@ export default function ProductOrderDetails() {
     direction: language_isSuccess ? language.page.direction : "ltr",
     language: language_isSuccess ? language.page.language : "en",
     buttons:{
-      // orderProduct: language_isSuccess ? language.productOrder.buttons.orderProduct : "Request a trial version",
       downloadSystemFile: language_isSuccess ? language.buttons.downloadSystemFile : "Download the system file"
     },
     objectivesList: {
