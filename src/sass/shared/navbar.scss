@@ -1,5 +1,4 @@
 @use "../shared/_shared.scss" as *;
-// @use "../shared/fonts.scss" as *;
 
 
 //*navBar*/
@@ -33,23 +32,72 @@
     }
 }
 .navBarItems{
-    span{
+    a{
+        position: relative;
+        top: 0px;
         padding: 13px 15px;
+        @extend %removeAdditionalLinkStyle;
         @extend %semiHexagon;
         @include center("flex");
-        @extend %transition;
         @media screen and (max-width:1080px) and (min-width:992px) {
             padding: 13px 10px;
+        }
+        &:hover{
+            color: $secondColor;
+            @extend .navBarActiveItemAnimated;
+        }
+        &::after{
+            content: "";
+            @extend %semiHexagon;
         }
     }
     @media screen and (max-width:992px) {
         display: none !important;
     }
 }
+
 .navBarActiveItem{
+    
+    &::after{
+        content: "";
+        @extend %animatedBG;
+        border: 1px solid transparent;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: -1;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        @extend %transition;
+    }
+}
+.navBarActiveItemAnimated{
+    @extend .navBarActiveItem;
     color: $secondColor;
-    @extend %animatedBG;
-    border: 1px solid #ffffff;
+
+    &[dir=ltr], &[dir=rtl]{   
+        &::after{
+            transform: translateX(0%);
+            filter: opacity(100%);
+        }
+    }
+}
+.navBarNotActiveItem{
+    @extend .navBarActiveItem;
+
+    &[dir=ltr]{        
+        &::after{
+            transform: translateX(-100%);
+            filter: opacity(0);
+        }
+    }
+    &[dir=rtl]{
+        &::after{
+            transform: translateX(100%);
+            filter: opacity(0);
+        }
+    }
 }
 .navBarLang{
     @extend %hexagonBorder;
@@ -95,20 +143,30 @@
     img.navLogo{
         margin-bottom: 24px !important;
     }
-}
-div.navSideMenuItem{
-    padding-left: 15px;
-    padding-right: 15px;
-    width: 100%;
-    height: 43px;
-    border-radius: 12px;
-    @include center("Y-flex");
+    a{
+        position: relative;
+        padding-left: 15px;
+        padding-right: 15px;
+        width: 100%;
+        height: 43px;
+        @include center("Y-flex");
+        @extend %removeAdditionalLinkStyle;
+        +:not(img):hover{
+            color: $secondColor;
+            @extend .navBarActiveItemAnimated;
+        }
+        &:after{
+            content: "";
+            border-radius: 12px;
+        }
+    }
 }
 [data-aos="navBarShrink"] {
     >div.MuiContainer-root{
         box-shadow: none;
         background-color: transparent;
     }
+
     &.aos-animate {
     >div.MuiContainer-root{
         box-shadow: 0px 0px 20vw $primaryColor;
@@ -128,4 +186,11 @@ div.navSideMenuItem{
         }
     }
   }
+}
+a[data-aos="activeTab"] {
+    @extend .navBarNotActiveItem;
+    pointer-events: fill;
+    &.aos-animate {
+        @extend .navBarActiveItemAnimated;
+    }
 }
