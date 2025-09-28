@@ -3,12 +3,12 @@ import React, { useContext, useMemo } from 'react'
 //*mui
 import { Box, CircularProgress, Typography } from '@mui/material'
 //*component
-import InfoCard, { infoCardEffects, typographyForm } from '../infoCard'
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infoCard'
 import { StatisticsList, StatisticsBox } from './statisticsbox'
 //*queries
-import { useGetStatisticsQuery } from '../../redux/server state/statistics'
+import { useGetStatisticsQuery } from '../../../redux/server state/statistics'
 //*scripts
-import { Language } from '../../languages/languagesContext'
+import { Language } from '../../../languages/languagesContext'
 
 
 export function Statistics() {

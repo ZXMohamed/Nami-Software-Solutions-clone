@@ -4,26 +4,11 @@ import React, { memo, useEffect, useMemo, useRef } from 'react'
 import { Stack, Typography } from '@mui/material'
 //*gsap
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 //*styles
-import "../../sass/shared/statisticsbox.scss"
+import "../../../sass/shared/statisticsbox.scss"
 
 
 export function StatisticsList({ children }) {
-
-    //!fix when collect pages
-    // const editedChildren = useRef(children);
-
-    // useEffect(() => {
-    //     editedChildren.current = React.Children.map(children, (child, inx) => {
-    //         if (React.isValidElement(child)) {
-    //             return React.cloneElement(child, {
-    //                 aosAnimation: statisticsBoxAosAnimation(inx + 1)
-    //             });
-    //         }
-    //         return child;
-    //     });
-    // }, []);
 
     const editedChildren = React.Children.map(children, (child, inx) => {
         if (React.isValidElement(child)) {

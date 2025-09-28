@@ -1,7 +1,10 @@
+//*react
 import React, { useContext, useMemo } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from '../infocard'
+//*components
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import { Products } from './ourproducts'
-import { Language } from '../../languages/languagesContext';
+//*scripts
+import { Language } from '../../../languages/languagesContext';
 
 export default function AllProducts() {
 

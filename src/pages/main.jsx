@@ -1,12 +1,12 @@
 //*react
 import React from 'react'
 //*components
-import PageWrapper from '../componants/pagewrapper'
-import OurProducts from '../componants/ourproducts/ourproducts'
+import PageWrapper from '../componants/layouts/pagewrapper'
+import OurProducts from '../componants/sections/ourproducts/ourproducts'
+import AllProducts from '../componants/sections/ourproducts/allproducts';
 //*styles
 import 'swiper/css';//!use when needed
 import "../sass/pages/main.scss"
-import AllProducts from '../componants/ourproducts/allproducts';
 
 export default function Main() {
   return (

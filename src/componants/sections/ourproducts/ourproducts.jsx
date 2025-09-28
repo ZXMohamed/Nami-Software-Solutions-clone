@@ -6,15 +6,15 @@ import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 //*component
-import SectionHeader from '../sectionheader'
-import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../servicesbadges'
+import SectionHeader from '../../shared/sectionheader'
+import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
 import { Statistics } from './statistics'
 //*queries
-import { useGetProductsQuery } from '../../redux/server state/products'
+import { useGetProductsQuery } from '../../../redux/server state/products'
 //*scripts
-import { Language } from '../../languages/languagesContext'
+import { Language } from '../../../languages/languagesContext'
 //*styles
-import "../../sass/shared/productcard.scss"
+import "../../../sass/shared/productcard.scss"
 
 export default function OurProducts() {
 
