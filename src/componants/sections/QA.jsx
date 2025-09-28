@@ -1,10 +1,16 @@
+//*react
 import React, { useContext, useMemo } from 'react'
+//*mui
 import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Skeleton, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MiniHeader from './miniheader'
-import "../sass/shared/QA.scss"
-import { useGetServicesQuestionQuery } from '../redux/server state/services';
-import { Language } from '../languages/languagesContext';
+//*components
+import MiniHeader from '../shared/miniheader'
+//*queries
+import { useGetServicesQuestionQuery } from '../../redux/server state/services';
+//*scripts
+import { Language } from '../../languages/languagesContext';
+//*styles
+import "../../sass/shared/QA.scss"
 
 export default function QA() {
 

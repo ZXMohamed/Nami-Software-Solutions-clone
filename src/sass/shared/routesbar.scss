@@ -5,6 +5,7 @@ nav.routesBarContainer{
     font-family: "PlexNormal";
 }
 .routBarTab{
+    @extend %removeAdditionalLinkStyle;
     text-transform: capitalize;
 }
 .activeRoutTab{

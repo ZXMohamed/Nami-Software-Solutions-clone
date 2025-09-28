@@ -1,18 +1,23 @@
 //*react
 import React, { memo, useContext, useMemo } from 'react'
+//*route
+import { pages_routes } from '../../routes/routes';
+import { Link, useLocation, useParams } from 'react-router';
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*component
-import SocialButtons from './social&contacts/socialbuttons';
+import LogoLink from '../shared/logolink';
+import SocialButtons from '../shared/social&contacts/socialbuttons';
 //*queries
-import { useGetSocialQuery } from '../redux/server state/social';
+import { useGetSocialQuery } from '../../redux/server state/social';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
+import { getPage, navSettings } from '../../routes/routesmanager';
 //*assets
-import logo from "../assets/photo/global/namilogo.svg";
-import mailbox from "../assets/photo/footer/mailbox.svg";
+import logo from "../../assets/photo/global/namilogo.svg";
+import mailbox from "../../assets/photo/footer/mailbox.svg";
 //*styles
-import "../sass/shared/footer.scss";
+import "../../sass/shared/footer.scss"
 
 const Footer = memo(() => {
 
@@ -58,7 +63,9 @@ function FooterAboutTab() {
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
-            <img src={defaultContent.footerLogo} alt="Nami Software Solutions" loading='lazy' className='footerLogo'/>
+            <LogoLink>
+                <img src={ defaultContent.footerLogo } alt="Nami Software Solutions" loading='lazy' className='footerLogo' />
+            </LogoLink>
             <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
     )
@@ -73,16 +80,28 @@ function FooterServicesTab() {
         tabs: {
             services: {
                 title: language_isSuccess ? language.footer.tabs.services.title : "Services",
-                items: language_isSuccess ? language.footer.tabs.services.items : ["Design services", "Cloud services", "Technical consulting", "Digital marketing", "Mobile application development", "Website development"]
+                items: language_isSuccess ? language.footer.tabs.services.items : {
+                    "Design services": { title: "Design services", id: 6 },
+                    "Cloud services": { title: "Cloud services", id: 5 },
+                    "Technical consulting": { title: "Technical consulting", id: 4 },
+                    "Digital marketing": { title: "Digital marketing", id: 3 },
+                    "Mobile application development": { title: "Mobile application development", id: 2 },
+                    "Website development": { title: "Website development", id: 1 }
+                }
             },
         },
     }), [language, language_isSuccess]);
+
+    const { language: urlLang } = useParams();
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerServicesTab'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
-                { defaultContent.tabs.services.items.map((item, inx) => <li key={ inx } >{ item }</li>)}
+                { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
+                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id)["service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
+                    })
+                }
             </ul>
         </Grid>
     )
@@ -98,7 +117,12 @@ function FooterLinksTab() {
         tabs: {
             links: {
                 title: language_isSuccess ? language.footer.tabs.links.title : "Links",
-                items: language_isSuccess ? language.footer.tabs.links.items : ["Home", "About us", "Services", "Contact us"]
+                items: language_isSuccess ? language.footer.tabs.links.items : {
+                    "Home": { title: "Home" },
+                    "About us": { title: "About us" },
+                    "Services": { title: "Services" },
+                    "Contact us": { title: "Contact us" },
+                }
             },
         },
     }), [language, language_isSuccess]);
@@ -107,10 +131,39 @@ function FooterLinksTab() {
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
-                { defaultContent.tabs.links.items.map((item, inx) => <li key={ inx } >{ item }</li>)}
+                {/* { Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+                    const nav = navSettings(item.toLocaleLowerCase(), location, urlLang);
+                        if (nav.outerRoute)
+                            return <li key={ inx } ><Link to={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
+                        else
+                            return <li key={ inx } ><a href={nav.link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
+                    })
+                } */}
+                <Links defaultContent={defaultContent}/>
             </ul>
         </Grid>
     )
+}
+function Links({ defaultContent }) {
+    
+    const location = useLocation();
+    const { language : urlLang } = useParams();
+
+    if (getPage(location, urlLang) == "main") { 
+        const nav = navSettings(urlLang, true);
+        return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+            if (nav[item.toLowerCase()].outerRoute)
+                return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
+            else
+                return <li key={ inx } ><a href={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
+        })
+    } else {
+        const nav = navSettings(urlLang, false);
+        return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
+            return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
+        })
+    }
+
 }
 
 function FooterContactEmail() {
@@ -122,7 +175,6 @@ function FooterContactEmail() {
         tabs: {
             contactEmail: {
                 title: language_isSuccess ? language.footer.tabs.contactEmail.title : "Contact email",
-                // items:language_isSuccess ? language.footer.tabs.contactEmail.items : ["Support","Human resources","Sales and marketing"]
             }
         },
     }), [language, language_isSuccess]);

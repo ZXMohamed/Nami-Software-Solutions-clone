@@ -1,9 +1,15 @@
+//*react
 import React, { useContext, useMemo } from 'react'
+//*mui
 import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
-import MiniHeader from './miniheader'
-import "../sass/shared/whyus.scss"
-import { useGetServicesQuestionQuery } from '../redux/server state/services'
-import { Language } from '../languages/languagesContext'
+//*components
+import MiniHeader from '../shared/miniheader'
+//*queries
+import { useGetServicesQuestionQuery } from '../../redux/server state/services'
+//*scripts
+import { Language } from '../../languages/languagesContext'
+//*styles
+import "../../sass/shared/whyus.scss"
 
 export default function WhyUs() {
 
