@@ -3,7 +3,7 @@ import React from 'react'
 //*mui
 import { Box, Container, Typography } from '@mui/material'
 //*styles
-import "../sass/shared/miniheader.scss"
+import "../../sass/shared/miniheader.scss"
 
 
 export default function MiniHeader({ dir, title, subtitle }) {

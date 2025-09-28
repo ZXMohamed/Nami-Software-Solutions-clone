@@ -1,9 +1,13 @@
+//*react
 import React, { useContext, useMemo } from 'react'
-import InfoCard, { infoCardEffects, typographyForm } from '../infocard'
-import { Language } from '../../languages/languagesContext';
+
 import { Box } from '@mui/material';
+//*components
 import Marketers from './marketers';
 import Partnership from './partnership';
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
+//*scripts
+import { Language } from '../../../languages/languagesContext';
 
 export default function MarketingResources() {
 

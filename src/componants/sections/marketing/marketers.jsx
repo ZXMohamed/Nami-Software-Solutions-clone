@@ -1,15 +1,19 @@
+//*react
 import React, { useContext, useMemo } from 'react'
-import MiniHeader from '../miniheader'
+//*mui
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
-import { Language } from '../../languages/languagesContext';
-
-import "../../sass/shared/marketers.scss"
-
-import EG from "../../assets/photo/marketing/EG.svg"
-import SA from "../../assets/photo/marketing/SA.svg"
-import whatsapp from "../../assets/photo/marketing/whatsapp.svg"
-import call from "../../assets/photo/marketing/call.svg"
-import mailbox from "../../assets/photo/marketing/mailbox.svg"
+//*scripts
+import { Language } from '../../../languages/languagesContext';
+//*components
+import MiniHeader from '../../shared/miniheader'
+//*styles
+import "../../../sass/shared/marketers.scss"
+//*assets
+import EG from "../../../assets/photo/marketing/EG.svg"
+import SA from "../../../assets/photo/marketing/SA.svg"
+import whatsapp from "../../../assets/photo/marketing/whatsapp.svg"
+import call from "../../../assets/photo/marketing/call.svg"
+import mailbox from "../../../assets/photo/marketing/mailbox.svg"
 
 export default function Marketers() {
 

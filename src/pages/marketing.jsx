@@ -1,8 +1,8 @@
 //*react
 import React from 'react'
-//*component
-import PageWrapper from '../componants/pagewrapper'
-import MarketingResources from '../componants/marketing/marketingresources'
+//*components
+import PageWrapper from '../componants/layouts/pagewrapper'
+import MarketingResources from '../componants/sections/marketing/marketingresources'
 
 export default function Marketing() {
   return (

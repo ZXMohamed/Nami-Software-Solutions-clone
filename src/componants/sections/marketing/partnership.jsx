@@ -1,11 +1,15 @@
+//*react
 import React, { useContext, useMemo } from 'react'
-import MiniHeader from '../miniheader';
+//*mui
 import { Box, Container, Stack, Typography } from '@mui/material';
-import { Language } from '../../languages/languagesContext';
-
-import "../../sass/shared/partnership.scss"
-
-import companyLogo from "../../assets/photo/global/namiicon.svg"
+//*components
+import MiniHeader from '../../shared/miniheader';
+//*scripts
+import { Language } from '../../../languages/languagesContext';
+//*styles
+import "../../../sass/shared/partnership.scss"
+//*assets
+import companyLogo from "../../../assets/photo/global/namiicon.svg"
 
 export default function Partnership() {
 

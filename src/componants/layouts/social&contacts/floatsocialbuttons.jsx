@@ -2,12 +2,12 @@
 import React, { memo, useContext, useMemo } from 'react'
 //*mui
 import { Box } from '@mui/material'
-//*styles
-import "../../sass/shared/floatsocialbuttons.scss"
 //*query
-import { useGetSocialQuery } from '../../redux/server state/social'
+import { useGetSocialQuery } from '../../../redux/server state/social'
 //*scripts
-import { Language } from '../../languages/languagesContext';
+import { Language } from '../../../languages/languagesContext';
+//*styles
+import "../../../sass/shared/floatsocialbuttons.scss"
 
 const FloatSocialButtons = memo(() => {
   console.log("kkk");
