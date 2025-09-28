@@ -3,16 +3,16 @@ import React, { memo, useContext, useMemo } from 'react'
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*component
-import SocialButtons from './socialbuttons';
+import SocialButtons from '../shared/social&contacts/socialbuttons';
 //*queries
-import { useGetSocialQuery } from '../redux/server state/social';
+import { useGetSocialQuery } from '../../redux/server state/social';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 //*assets
-import logo from "../assets/photo/global/namilogo.svg";
-import mailbox from "../assets/photo/footer/mailbox.svg";
+import logo from "../../assets/photo/global/namilogo.svg";
+import mailbox from "../../assets/photo/footer/mailbox.svg";
 //*styles
-import "../sass/shared/footer.scss";
+import "../../sass/shared/footer.scss";
 
 const Footer = memo(() => {
 

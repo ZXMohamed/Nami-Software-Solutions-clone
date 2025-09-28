@@ -1,8 +1,11 @@
+//*react
 import React from 'react'
+//*mui
 import { CircularProgress, Stack } from '@mui/material'
-import { useGetSocialQuery } from '../redux/server state/social'
-
-import "../sass/shared/socialbuttons.scss"
+//*queries
+import { useGetSocialQuery } from '../../../redux/server state/social'
+//*styles
+import "../../../sass/shared/socialbuttons.scss"
 
 export default function SocialButtons({ aosAnimation }) {
     const { isLoading, isSuccess, data : social } = useGetSocialQuery();
