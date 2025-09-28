@@ -1,9 +1,8 @@
 import React from 'react'
-
-import PageWrapper from '../componants/pagewrapper'
-import About from '../componants/about'
-
+import PageWrapper from '../componants/layouts/pagewrapper'
+import About from '../componants/sections/about'
 import "../sass/pages/main.scss"
+
 
 export default function Main() {
   return (

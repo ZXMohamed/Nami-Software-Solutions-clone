@@ -6,13 +6,13 @@ import { Box, Container, Grid, Typography, Stack } from '@mui/material'
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 //*components
-import DownloadButton from './buttons/downloadbutton';
+import DownloadButton from '../shared/buttons/downloadbutton';
 //*queries
-import { useGetCompanyFileQuery } from '../redux/server state/companyfile';
+import { useGetCompanyFileQuery } from '../../redux/server state/companyfile';
 //*scripts
-import { Language } from '../languages/languagesContext';
+import { Language } from '../../languages/languagesContext';
 //*assets
-import aboutSideImg from "../assets/photo/about/aboutsideimg.webp";
+import aboutSideImg from "../../assets/photo/about/aboutsideimg.webp";
 
 
 export default function About() {
