@@ -3,7 +3,7 @@ import React,{memo} from 'react'
 //*mui
 import { Button } from '@mui/material'
 //*styles
-import "../../sass/shared/requestbutton.scss"
+import "../../../sass/shared/requestbutton.scss"
 
 const RequestButton = memo((props) => {
   return (

@@ -3,14 +3,14 @@ import React, { useEffect, useMemo, useRef } from 'react';
 //*mui
 import { Box, Button, InputLabel, Stack, TextField, Alert } from '@mui/material';
 //*styles
-import "../sass/shared/requestform.scss";
+import "../../sass/shared/requestform.scss";
 //*form
 import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { pattern, setFormAdditionalInputs } from '../form/assets';
+import { pattern, setFormAdditionalInputs } from '../../form/assets';
 import ReCAPTCHA from "react-google-recaptcha";
-import { sitekey } from '../form/recaptcha';
+import { sitekey } from '../../form/recaptcha';
 
 export default function RequestForm({ closeButton = () => { }, defaultContent, formAdditionalInputs = [], form_isLoading, form_isSuccess, form_isError, submit = () => { } }) {
 

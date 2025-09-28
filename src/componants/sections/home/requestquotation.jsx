@@ -3,12 +3,12 @@ import { memo, useContext, useMemo, useState } from "react";
 //*mui
 import { TextField } from "@mui/material";
 //*component
-import RequestButton from "../buttons/requestbutton";
+import RequestButton from "../../shared/buttons/requestbutton";
 import RequestForm from "../requestform";
 //*queries
-import { useRequestQuotationMutation } from '../../redux/server state/requestquotation';
+import { useRequestQuotationMutation } from '../../../redux/server state/requestquotation';
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 //*form
 import zod from "zod";
 

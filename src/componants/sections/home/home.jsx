@@ -3,11 +3,11 @@ import { useContext, useMemo } from "react";
 //*mui
 import { Box, Typography, Stack, Button } from "@mui/material";
 //*components
-import SocialButtons from "../social&contacts/socialbuttons";
-import RequestQuotation from "./RequestQuotation";
+import SocialButtons from "../../layouts/social&contacts/socialbuttons";
+import RequestQuotation from "./requestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
-import { Language } from "../../languages/languagesContext";
+import { Language } from "../../../languages/languagesContext";
 
 export default function Home() { 
 console.log("home");

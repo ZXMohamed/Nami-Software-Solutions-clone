@@ -1,8 +1,8 @@
 //*react
 import React from 'react'
 //*component
-import PageWrapper from '../componants/pagewrapper'
-import Home from '../componants/Home/Home'
+import PageWrapper from '../componants/layouts/pagewrapper'
+import Home from '../componants/sections/Home/Home'
 //*styles
 import "../sass/pages/main.scss"
 
