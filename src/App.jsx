@@ -1,4 +1,8 @@
+//*react
 import { Fragment } from "react"
+//*router
+import { BrowserRouter, Route, Routes } from "react-router"
+//*mui
 import { CssBaseline, ThemeProvider } from "@mui/material"
 //*init
 import "./aos/aosinit"
@@ -22,7 +26,12 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main/>
+        <BrowserRouter>
+          <Routes>
+            <Route index path="/:language?/" element={ <Main/> } />
+            <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </Fragment>
   )
