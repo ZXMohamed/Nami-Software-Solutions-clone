@@ -73,7 +73,7 @@ const Projects = memo(({ dir, language }) => {
 
     return (
         <Container maxWidth="lg">
-            <Swiper key={"new-"+sliderLoopCase} dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDSize) } { ...projectsSliderSettings(dir, sliderLoopCase) } className='projectsSlider'>
+            <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDSize) } { ...projectsSliderSettings(sliderLoopCase) } className='projectsSlider'>
                 { projects_isFetching && WaitItemSkeleton(6) }
                 { (!projects_isFetching && projects_isSuccess) && Object.values(projects).map((project, inx) => {
                     return (
@@ -89,10 +89,13 @@ const Projects = memo(({ dir, language }) => {
     )
 });
 
-const projectsSliderSettings = (direction, loop) => ({
+const projectsSliderSettings = (loop) => ({
     spaceBetween: 10,
     loop: loop,
-    autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false,
+    },
     modules: [Autoplay]
 })
 

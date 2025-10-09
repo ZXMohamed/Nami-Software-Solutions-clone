@@ -80,7 +80,7 @@ const Products = memo(({ dir, language }) => {
 
     return (
         <Container maxWidth="lg" disableGutters>{console.log("sda")}
-            <Swiper key={"new-"+sliderLoopCase} dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( dir, sliderLoopCase ) } className='productsSlider'>
+            <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( sliderLoopCase ) } className='productsSlider'>
                 { products_isFetching && waitItemSkeleton(3) }
                 { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
@@ -94,10 +94,13 @@ const Products = memo(({ dir, language }) => {
     )
 });
 
-const productsSliderSettings = (direction, loop) => ({
+const productsSliderSettings = (loop) => ({
     loop: loop,
     spaceBetween: 12,
-    autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
+    autoplay: {
+        delay: 2000,
+        disableOnInteraction: false
+    },
     modules : [Autoplay] 
 })
 
