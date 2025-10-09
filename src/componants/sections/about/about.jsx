@@ -1,28 +1,24 @@
 //*react
-import React, { memo, useContext, useEffect, useMemo, useRef } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 //*mui
 import { Box, Container, Grid, Typography, Stack } from '@mui/material'
-//*gsap
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 //*components
 import DownloadButton from '../../shared/buttons/downloadbutton';
 //*queries
 import { useGetCompanyFileQuery } from '../../../redux/server state/companyfile';
-//*scripts
-import { Language } from '../../../languages/languagesContext';
 //*assets
 import aboutSideImg from "../../../assets/photo/about/aboutsideimg.webp";
+//*animation
+import { aboutDescriptionAosAnimation, aboutTitleAosAnimation, descriptionLinesUp, establishmentCounterAosAnimation, establishmentDateAosAnimation, establishmentDateCountUp, imgMoveWithScroll, movingImgSideAosAnimation, subtitleBackgroundMoveWithScroll } from '../../../animation/about';
 
 
 export default function About() {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+  const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
   
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-  }), [language, language_isSuccess]);
-
   return (
     <Box id="aboutus" dir={defaultContent.direction} className="aboutSection">
       <Container maxWidth="lg" disableGutters>
@@ -61,14 +57,20 @@ const SideImg = memo(() => {
 
 const Info = () => {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-  
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    title : language_isSuccess ? language.about.title : "Know about us ..",
-    subtitle : language_isSuccess ? language.about.subtitle : "Nami is a company specialized in providing Integrated web services",
-    description : language_isSuccess ? language.about.description : "Starting from graphic design to programming and designing smart phone applications, Nami strivesAnd its work team from the day of its establishment until it became one of the most important Arab web development companies, and weWe know the path and we are walking on it with great strides.",
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+        return {
+          direction: content.page.direction,
+          title: content.about.title,
+          subtitle: content.about.subtitle,
+          description: content.about.description,
+        }
+      } else {
+          return infoFirstContent;
+      }
+  })();
 
   const subtitle = useRef();
   const description = useRef();
@@ -89,14 +91,21 @@ const Info = () => {
   )
 }
 const CompanyFile = () => {
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-  
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    buttons: {
-      companyFile: language_isSuccess ? language.about.buttons.companyFile : "Download the company file",
-    }
-  }), [language, language_isSuccess]);
+
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+        return {
+          direction: content.page.direction,
+          buttons: {
+            companyFile: content.about.buttons.companyFile,
+          }
+        }
+      } else {
+        return companyFileFirstContent;
+      }
+  })();
 
   const { isSuccess: companyFile_isSuccess, data: companyFile } = useGetCompanyFileQuery(undefined, {
     selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
@@ -109,15 +118,21 @@ const CompanyFile = () => {
 }
 const Establishment = () => {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-  
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    establishment: {
-      title: language_isSuccess ? language.about.establishment.title : "Establishment",
-        establishmentDate: language_isSuccess ? language.about.establishment.establishmentDate : "2017"
-    }
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+        return {
+          direction: content.page.direction,
+          establishment: {
+            title: content.about.establishment.title,
+            establishmentDate: content.about.establishment.establishmentDate
+          }
+        }
+      } else {
+        return establishmentFirstContent;
+      }
+  })();
 
   const establishment = useRef();
   const establishmentDate = useRef();
@@ -136,90 +151,22 @@ const Establishment = () => {
   )
 }
 
-const aosAnimation = {
-  ["data-aos"]:"fade-up",
-  ["data-aos-duration"]:"1000" 
+const infoFirstContent = {
+  direction: "ltr",
+  title: "Know about us ..",
+  subtitle: "Nami is a company specialized in providing Integrated web services",
+  description: "Starting from graphic design to programming and designing smart phone applications, Nami strivesAnd its work team from the day of its establishment until it became one of the most important Arab web development companies, and weWe know the path and we are walking on it with great strides.",
 }
-const movingImgSideAosAnimation = {
-  ...aosAnimation
+const companyFileFirstContent = {
+  direction: "ltr",
+  buttons: {
+    companyFile: "Download the company file",
+  }
 }
-const aboutTitleAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"50"
-}
-const aboutDescriptionAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"80"
-}
-const establishmentCounterAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-duration"]:"600",
-  ["data-aos-delay"]:"80"
-}
-const establishmentDateAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-duration"]:"600",
-  ["data-aos-delay"]:"80"
-}
-
-function imgMoveWithScroll(sideImgContainer,sideImg) {
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: sideImgContainer.current,
-      scrub: 1,
-      start: "top+=90 bottom",
-      end: "top+=1000 bottom"
-    },
-  }).to(sideImg.current, {
-    yPercent: -16,
-  });
-}
-function subtitleBackgroundMoveWithScroll(subtitle) {
-  const subtitleLineSplit = new SplitText(subtitle.current, {
-    type: "lines"
-  });
-
-  const subtitleLines = subtitleLineSplit.lines;
-  gsap.to(subtitleLines, {
-    backgroundPositionX: "100%",
-    stagger: 1,
-    ease: "power2.in",
-    scrollTrigger: {
-      trigger: subtitle.current,
-      scrub: 1,
-      start: "top+=0 bottom",
-      end: "top+=400 bottom"
-    }
-  });
-}
-function descriptionLinesUp(description) {
-  const descriptionLineSplit = new SplitText(description.current, {
-    type: "lines"
-  });
-
-  const descriptionLines = descriptionLineSplit.lines;
-  gsap.from(descriptionLines, {
-    scrollTrigger: {
-      start: "top+=50 bottom",
-      end: "top+=50 bottom",
-      trigger: description.current,
-    },
-    duration: 0.5,
-    opacity: 0,
-    y: 80,
-    stagger: 0.05
-  });
-}
-function establishmentDateCountUp(establishmentDate,establishment,finalValue) {
-  gsap.to(establishmentDate.current, {
-    scrollTrigger: {
-      start: "top bottom",
-      trigger: establishment.current,
-    },
-    textContent: finalValue,
-    duration: 4,
-    ease: "power2.in",
-    snap: { textContent: 1 },
-    stagger: 1,
-  });
-}
+const establishmentFirstContent = {
+  direction: "ltr",
+  establishment: {
+    title: "Establishment",
+    establishmentDate: "2017"
+  }
+};

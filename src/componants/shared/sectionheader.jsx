@@ -2,12 +2,11 @@
 import react, { useEffect, useRef } from "react";
 //*mui
 import { Box, Container, Grid, Typography } from "@mui/material";
-//*gsap
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 //*styles
 import "../../sass/shared/sectionheader.scss"
 import { Link } from "react-router";
+//*components
+import { containerAosAnimation, sectionHeaderTitleAosAnimation, subtitleWordsUP, titleWordsUP } from "../../animation/sectionheader";
 
 export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 
 
@@ -36,57 +35,4 @@ export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,
             </Container>
         </Box>
     )
-}
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "600"
-}
-const sectionHeaderTitleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"50"
-}
-const containerAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"100"
-}
-
-
-function titleWordsUP(headerTitle) {
-
-    const headerTitleSplit = new SplitText(headerTitle.current, {
-        type: "words"
-    });
-
-    gsap.to(headerTitleSplit.words, {
-        scrollTrigger: {
-            trigger: headerTitle.current,
-            start: "top+=0 bottom",
-            end: "top+=20 bottom",
-        },
-        duration:0.5,
-        y: 0,
-        opacity:1,
-        stagger: 0.15,
-    });
-   
-}
-function subtitleWordsUP(headerSubtitle) {
-
-    const headerSubtitleSplit = new SplitText(headerSubtitle.current, {
-        type: "words"
-    });
-
-    gsap.to(headerSubtitleSplit.words, {
-        scrollTrigger: {
-            trigger: headerSubtitle.current,
-            start: "top+=0 bottom",
-            end: "top+=20 bottom",
-        },
-        duration:0.5,
-        y: 0,
-        opacity:1,
-        stagger: 0.1,
-    });
-
 }

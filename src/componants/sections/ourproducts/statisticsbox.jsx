@@ -6,6 +6,8 @@ import { Stack, Typography } from '@mui/material'
 import gsap from 'gsap'
 //*styles
 import "../../../sass/shared/statisticsbox.scss"
+//*animation
+import { countUp, statisticsBoxAosAnimation } from '../../../animation/statisticsbox'
 
 
 export function StatisticsList({ children }) {
@@ -47,29 +49,6 @@ export const StatisticsBox = memo(({ data, aosAnimation }) => {
         </Stack>
     )
 });
-
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000"
-}
-const statisticsBoxAosAnimation = (order) => ({
-    ...aosAnimation,
-    ["data-aos-delay"]: (100 * order).toString()
-})
-
-function countUp(statisticValue,maxValue) { 
-    gsap.to(statisticValue.current, {
-        scrollTrigger: {
-            start: "top bottom",
-            trigger: statisticValue.current,
-        },
-        textContent: maxValue,
-        duration: 4,
-        snap: { textContent: 1 },
-        stagger: 1,
-    });
-}
 
 //*example
 /*

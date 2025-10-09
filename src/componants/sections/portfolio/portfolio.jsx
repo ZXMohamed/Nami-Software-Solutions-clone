@@ -1,37 +1,47 @@
 //*react
-import React, { memo, useContext, useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 //*route
 import { pages_routes } from '../../../routes/routes';
 import { useParams } from 'react-router';
 //*mui
-import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 //*swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 //*component
 import SectionHeader from '../../shared/sectionheader';
 import { ProjectCard } from '../../shared/projectcard';
+import { WaitItemSkeleton } from '../../loadingitems/portfolio';
 //*queries
 import { useGetProjectsByCatQuery } from '../../../redux/server state/projects';
 //*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 import useUpdateEffect from '../../../hooks/useupdateeffect';
 //*scripts
-import { defaultLanguage, Language } from '../../../languages/languagesContext';
+import { defaultLanguage } from '../../../languages/languagesContext';
+//*animation
+import { projectCardAosAnimation } from '../../../animation/portfolio';
 
 
 export default function Portfolio() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-        title : language_isSuccess ? language.projects.header.title : "Newest portfolio",
-        subtitle : language_isSuccess ? language.projects.header.subtitle : "We bring your digital vision to life",
-        buttons: {
-            headerButton: language_isSuccess ? language.projects.header.buttons.headerButton : "Show all"
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction ,
+                language: content.page.language ,
+                title: content.projects.header.title ,
+                subtitle: content.projects.header.subtitle ,
+                buttons: {
+                    headerButton: content.projects.header.buttons.headerButton 
+                }
+            }
+        } else {
+            return portfolioFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
 
     const { language: urlLang } = useParams();
 
@@ -45,9 +55,7 @@ export default function Portfolio() {
 
 const Projects = memo(({ dir, language }) => {
 
-    const { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, refetch: projects_refetch } = useGetProjectsByCatQuery({ cat: "all", count: 6, reset: true }, {
-        selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data })
-    });
+    const { isSuccess: projects_isSuccess, isFetching: projects_isFetching, data: projects, isError: projects_isError, refetch: projects_refetch } = useGetProjectsByCatQuery({ cat: "all", count: 6, reset: true });
     
     const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
@@ -66,8 +74,8 @@ const Projects = memo(({ dir, language }) => {
     return (
         <Container maxWidth="lg">
             <Swiper key={"new-"+sliderLoopCase} dir={"ltr"} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDSize) } { ...projectsSliderSettings(dir, sliderLoopCase) } className='projectsSlider'>
-                { !projects_isSuccess && WaitItemSkeleton(6) }
-                { projects_isSuccess && Object.values(projects).map((project, inx) => {
+                { projects_isFetching && WaitItemSkeleton(6) }
+                { (!projects_isFetching && projects_isSuccess) && Object.values(projects).map((project, inx) => {
                     return (
                         <SwiperSlide key={ project.id } className='projectsSlide'>
                             <ProjectCard dir={dir} bordered data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
@@ -80,15 +88,6 @@ const Projects = memo(({ dir, language }) => {
         </Container>
     )
 });
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000"
-} 
-const projectCardAosAnimation = (order)=>({
-    ...aosAnimation,
-    ["data-aos-delay"]: (100 * order).toString()
-})
 
 const projectsSliderSettings = (direction, loop) => ({
     spaceBetween: 10,
@@ -108,25 +107,12 @@ function visibleSlidePerSize(isXXXSSize, isMDSize) {
     }
 }
 
-function WaitItemSkeleton(num = 1) { 
-    const skeletonArray = [];
-    for (let i = 0; i < num; i++) { 
-        skeletonArray.push(
-            <SwiperSlide key={ i }>
-                <Stack width={ "100%" }>
-                    <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
-                        <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
-                        <Skeleton width={40} height={40} variant='circular'/>
-                    </Stack>
-                    <br />
-                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-                    <br/>
-                    <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-                    <br />
-                    <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
-                </Stack>
-            </SwiperSlide>
-        )
+const portfolioFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    title: "Newest portfolio",
+    subtitle: "We bring your digital vision to life",
+    buttons: {
+        headerButton: "Show all"
     }
-    return skeletonArray;
 }

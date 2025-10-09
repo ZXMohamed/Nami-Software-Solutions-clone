@@ -6,11 +6,9 @@ const statisticsSlice = createApi({
         baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
-    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getStatistics: builder.query({
             query: () => "query/statistics.php",
-            providesTags: ['ReQueryForMainPage']
         })
     })
 })

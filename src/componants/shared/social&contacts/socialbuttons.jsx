@@ -1,9 +1,11 @@
 //*react
 import React, { memo } from 'react'
 //*mui
-import { CircularProgress, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
+//*components
+import { WaiteProgress } from '../../loadingitems/socialbuttons';
 //*styles
 import "../../../sass/shared/socialbuttons.scss"
 
@@ -37,14 +39,3 @@ const SocialButton = ({ link, icon, title }) => {
     </a>
   )
 };
-
-function WaiteProgress(props) {
-    
-    const progressSet = [];
-    
-    for (let i = 0; i <= props.num; i++) { 
-        progressSet.push(<CircularProgress key={i} { ...props } />);
-    }
-    
-    return progressSet;
-}

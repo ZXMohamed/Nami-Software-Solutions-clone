@@ -1,41 +1,51 @@
 //*react
-import React, { memo, useContext, useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 //*route
-import { useNavigate, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { pages_routes } from '../../../routes/routes'
 //*mui
-import { Box, Container, Skeleton, Stack, Typography, useMediaQuery } from '@mui/material'
+import { Box, Container, Typography, useMediaQuery } from '@mui/material'
 //*swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
-//*component
-import SectionHeader from '../../shared/sectionheader'
-import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
-import { Statistics } from './statistics'
-//*queries
-import { useGetProductsQuery } from '../../../redux/server state/products'
 //*hooks
 import useUpdateEffect from '../../../hooks/useupdateeffect'
+import { useContent } from '../../../languages/hooks/usecontent'
+//*component
+import SectionHeader from '../../shared/sectionheader'
+import { Statistics } from './statistics'
+import { ProductCard } from '../../shared/productcard'
+import { waitItemSkeleton } from '../../loadingitems/ourproducts'
+//*queries
+import { useGetProductsQuery } from '../../../redux/server state/products'
 //*scripts
-import { defaultLanguage, Language } from '../../../languages/languagesContext'
+import { defaultLanguage } from '../../../languages/languagesContext'
 //*styles
 import "../../../sass/shared/productcard.scss"
+//*animation
+import { productCardAosAnimation } from '../../../animation/ourproducts'
 
 export default function OurProducts() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-        header: {
-            title: language_isSuccess ? language.products.header.title : "Our products",
-            subtitle: language_isSuccess ? language.products.header.subtitle : "Where quality meets innovation",
-            buttons: {
-                headerButton: language_isSuccess ? language.products.header.buttons.headerButton : "Show all"
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                header: {
+                    title: content.products.header.title,
+                    subtitle: content.products.header.subtitle,
+                    buttons: {
+                        headerButton: content.products.header.buttons.headerButton
+                    }
+                }
             }
+        } else {
+            return ourProductsFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
     
     const { language: urlLang } = useParams();
 
@@ -52,9 +62,7 @@ export default function OurProducts() {
 
 const Products = memo(({ dir, language }) => {
 
-    const { isSuccess: products_isSuccess, data: products, isError: products_isError, refetch: products_refetch } = useGetProductsQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
+    const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, refetch: products_refetch } = useGetProductsQuery();
     
     const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
@@ -73,8 +81,8 @@ const Products = memo(({ dir, language }) => {
     return (
         <Container maxWidth="lg" disableGutters>{console.log("sda")}
             <Swiper key={"new-"+sliderLoopCase} dir='ltr' slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( dir, sliderLoopCase ) } className='productsSlider'>
-                { !products_isSuccess && waitItemSkeleton(3) }
-                { products_isSuccess && Object.values(products).map((product, inx) => {
+                { products_isFetching && waitItemSkeleton(3) }
+                { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
                                 <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
                             </SwiperSlide>
@@ -86,44 +94,11 @@ const Products = memo(({ dir, language }) => {
     )
 });
 
-const ProductCard = memo(({ dir, data, aosAnimation })=> { 
-    if (!data || (data && Object.keys(data).length == 0)) return <></>;
-
-    const navigation = useNavigate();
-    const { language: urlLang } = useParams();
-
-    return (
-        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["product details"].link)}>
-            <Stack dir={ dir } direction={ "column" } >
-                <Box className="productImageContainer shine">
-                    <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />
-                </Box>
-                <Typography variant='h6' component={ 'h3' } className='productTitle'>{ data.title }</Typography>
-                <Typography className='productDescription'>{ data.description }</Typography>
-                <Box className="badgesContainer">
-                    <ServicesBadgesList dir={ dir } type={ servicesBadgesListType.box }>
-                        { data.serviceBadges.map((badge, inx) => <ServiceBadge key={ badge.id } data={ badge } size={ serviceBadgeSize.small } />) }
-                    </ServicesBadgesList>
-                </Box>
-            </Stack>
-        </Box>
-    )
-});
-
 const productsSliderSettings = (direction, loop) => ({
     loop: loop,
     spaceBetween: 12,
     autoplay: { delay: 2000, disableOnInteraction: false, reverseDirection: (direction == "ltr" ? false : true) },
     modules : [Autoplay] 
-})
-
-const aosAnimation = {
-    ["data-aos"] : "fade-up",
-    ["data-aos-duration"] : "1000"
-}
-const productCardAosAnimation = (order) => ({
-    ...aosAnimation,
-    ["data-aos-delay"] : (100 * order).toString()
 })
 
 function visibleSlidesPerSize(isXXXSSize, isMDSize) {
@@ -137,32 +112,14 @@ function visibleSlidesPerSize(isXXXSSize, isMDSize) {
     }
 }
 
-function waitItemSkeleton(num = 1) { 
-    const skeletonArray = [];
-    for (let i = 0; i < num; i++) {
-        skeletonArray.push(
-            <SwiperSlide key={ i } >
-                <Stack width={"100%"} alignItems={"center"}>
-                    <Skeleton width={ "100%" } height={ 400 } variant='rounded' />
-                    <br />
-                    <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
-                    <br />
-                    <Skeleton width={ "80%" } height={ 10 } variant='rounded' />
-                    <br />
-                    <Skeleton width={ "80%" } height={ 10 } variant='rounded' />
-                    <br />
-                    <Stack direction={ "row" } spacing={3}>
-                        <Skeleton width={ 100 } height={ 30 } variant='rounded' />
-                        <Skeleton width={ 100 } height={ 30 } variant='rounded' />
-                    </Stack>
-                    <br />
-                    <Stack direction={ "row" } spacing={3}>
-                        <Skeleton width={ 100 } height={ 30 } variant='rounded'/>
-                        <Skeleton width={ 100 } height={ 30 } variant='rounded' />
-                    </Stack>
-                </Stack>
-            </SwiperSlide>
-        )
+const ourProductsFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    header: {
+        title: "Our products",
+        subtitle: "Where quality meets innovation",
+        buttons: {
+            headerButton: "Show all"
+        }
     }
-    return skeletonArray;
 }

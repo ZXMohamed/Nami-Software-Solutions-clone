@@ -1,21 +1,19 @@
 //*react
-import React, { memo, useContext, useMemo } from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Stack } from '@mui/material'
 //*styles
 import "../../../sass/shared/contactbuttons.scss"
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
-//*scripts
-import { Language } from '../../../languages/languagesContext';
 
-const ContactButtons = memo(() => {console.log("cb");
+const ContactButtons = memo(() => {
+    console.log("cb");
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-  
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
 
     const { isSuccess, data: social } = useGetSocialQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })

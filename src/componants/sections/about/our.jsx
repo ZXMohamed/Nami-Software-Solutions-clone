@@ -1,9 +1,9 @@
 //*react
-import React, { lazy, memo, Suspense, useContext, useMemo } from 'react'
+import React, { lazy, memo, Suspense } from 'react'
 //*mui
 import { Box, Container, Grid, Typography, Stack, Skeleton } from '@mui/material'
-//*scripts
-import { Language } from '../../../languages/languagesContext'
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent'
 //*assets
 import innovation from "../../../assets/photo/our/Innovation.svg"
 import quality from "../../../assets/photo/our/Quality.svg"
@@ -12,14 +12,13 @@ import teamwork from "../../../assets/photo/our/Teamwork.svg"
 import quickResponse from "../../../assets/photo/our/quick Response.svg"
 import continuousLearning from "../../../assets/photo/our/Continuous Learning.svg"
 import Sustainability from "../../../assets/photo/our/Sustainability.svg"
+//*animation
+import { ourMessageAosAnimation, ourValuesAosAnimation, ourVisionAosAnimation, valueBoxAosAnimation } from '../../../animation/our'
 
 function Our() {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+  const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
 
   return (
     <Box id="Aboutus" dir={defaultContent.direction} className="ourSection">
@@ -35,21 +34,26 @@ function Our() {
     </Box>
   )
 }
-
 export default Our;
 
 const OurVision = () => {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    vision: {
-      title: language_isSuccess ? language.our.vision.title : "Our vision",
-      description: language_isSuccess ? language.our.vision.description : "We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way.",
+  const defaultContent = (() => {
+    if (content_isSuccess) {
+      return {
+        direction: content.page.direction,
+        vision: {
+          title: content.our.vision.title,
+          description: content.our.vision.description
+        }
+      }
+    } else {
+        return ourVisionFirstContent;
     }
-  }), [language, language_isSuccess]);
-    
+  })();
+
   return (
     <Grid container size={ { xs: 12, sm: 6 } } spacing={ 1 } className="ourVision" {...ourVisionAosAnimation}>
       <SideVideo />
@@ -65,15 +69,21 @@ const OurVision = () => {
 
 const OurMessage = () => {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    message: {
-      title: language_isSuccess ? language.our.message.title : "Our message",
-      description: language_isSuccess ? language.our.message.description : "We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success.",
+  const defaultContent = (() => {
+    if (content_isSuccess) {
+      return {
+        direction: content.page.direction,
+        message: {
+          title: content.our.message.title,
+          description: content.our.message.description
+        }
+      }
+    } else {
+        return ourMessageFirstContent;
     }
-  }), [language, language_isSuccess]);
+  })();
 
   return (
     <Grid container size={ { xs: 12, sm: 6 } } spacing={ 1 } className="ourMessage" {...ourMessageAosAnimation}>
@@ -100,16 +110,22 @@ const values = [
 
 const OurValues = () => {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    values: {
-      title: language_isSuccess ? language.our.values.title : "Our values",
-      description: language_isSuccess ? language.our.values.description : "We at Nami Corporation are proud of a set of core values ​​that drive our operations, build our relationships with our customers, and define our approach to providing integrated technology solutions.",
-      values: values.map((values, inx) => ({ title: language_isSuccess ? language.our.values.values[inx].title : values.title, icon: values.icon }))
+  const defaultContent = (() => {
+    if (content_isSuccess) {
+      return {
+        direction: content.page.direction,
+        values: {
+          title: content.our.values.title,
+          description: content.our.values.description,
+          values: values.map((values, inx) => ({ title: content.our.values.values[inx].title, icon: values.icon }))
+        }
+      }
+    } else {
+      return ourValuesFirstContent;
     }
-  }), [language, language_isSuccess]);
+  })();
   
   return (
     <Grid size={ 12 } className="ourValues" {...ourValuesAosAnimation}>
@@ -130,11 +146,8 @@ const ValueBox = ({ data, aosAnimation }) => {
 
   if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+  const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
 
   return (
     <Stack dir={ defaultContent.direction } direction={ 'column' } className="valueBox" { ...aosAnimation } >
@@ -157,21 +170,25 @@ const SideVideo = memo(() => {
   )
 });
 
-const aosAnimation = {
-  ["data-aos"]: 'fade-up',
-  ["data-aos-duration"]:"600"
+const ourVisionFirstContent = {
+  direction: "ltr",
+  vision: {
+    title: "Our vision",
+    description: "We seek to be the world's leading company in providing innovative technological solutions that help organizations achieve digital excellence and enhance their presence on the Internet in a unique and distinct way.",
+  }
 }
-const ourVisionAosAnimation = {
-  ...aosAnimation
+const ourMessageFirstContent = {
+  direction: "ltr",
+  message: {
+    title: "Our message",
+    description: "We empower our clients by providing website and mobile application design and development solutions that combine creativity, advanced technology, and a unique user experience to achieve their sustainable digital success.",
+  }
 }
-const ourMessageAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"50"
+const ourValuesFirstContent = {
+  direction: "ltr",
+  values: {
+    title: "Our values",
+    description: "We at Nami Corporation are proud of a set of core values ​​that drive our operations, build our relationships with our customers, and define our approach to providing integrated technology solutions.",
+    values: values.map((values, inx) => ({ title: values.title, icon: values.icon }))
+  }
 }
-const ourValuesAosAnimation = {
-  ...aosAnimation,
-}
-const valueBoxAosAnimation = (order)=> ({
-  ...aosAnimation,
-  ["data-aos-delay"]: (50 * order).toString()
-})

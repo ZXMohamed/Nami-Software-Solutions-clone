@@ -1,10 +1,10 @@
 //*react
-import React, { memo, useContext, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 //*route
 import { Link, useParams } from 'react-router';
 import { pages_routes } from '../../routes/routes';
 //*mui
-import { Box, Grid, Stack, Typography, Container, Button, Skeleton } from '@mui/material';
+import { Box, Grid, Stack, Typography, Container, Button } from '@mui/material';
 //*gsap
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
@@ -12,24 +12,35 @@ import { SplitText } from 'gsap/SplitText';
 import { useGetServicesQuery } from '../../redux/server state/services';
 //*hook
 import useUpdateEffect from '../../hooks/useupdateeffect';
+import { useContent } from '../../languages/hooks/usecontent';
 //*scripts
-import { defaultLanguage, Language } from '../../languages/languagesContext';
+import { defaultLanguage } from '../../languages/languagesContext';
+//*components
+import { WaitItemsSkelton } from '../loadingitems/services';
+//*animation
+import { descriptionWordsUP, serviceCardAosAnimation, servicesDescriptionAosAnimation, servicesSubtitleAosAnimation, servicesTitleAosAnimation, showObjectivesOnHover } from '../../animation/services';
 
 
 export default function Services() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-        title: language_isSuccess ? language.services.title : "Our Services",
-        subtitle: language_isSuccess ? language.services.subtitle : "Where quality meets innovation",
-        description: language_isSuccess ? language.services.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
-        buttons: {
-            readMore: language_isSuccess ? language.services.buttons.readMore : "Read more",
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.services.title,
+                subtitle: content.services.subtitle,
+                description: content.services.description,
+                buttons: {
+                    readMore: content.services.buttons.readMore,
+                }
+            }
+        } else {
+            return servicesFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
     
     const description = useRef();
 
@@ -59,9 +70,7 @@ export default function Services() {
 
 const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
 
-    const { isSuccess: servicesItems_isSuccess, data: servicesItems, isError: servicesItems_isError, refetch: servicesItems_refetch } = useGetServicesQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
+    const { isSuccess: servicesItems_isSuccess, isFetching: servicesItems_isFetching, data: servicesItems, isError: servicesItems_isError, refetch: servicesItems_refetch } = useGetServicesQuery();
 
     const servicesItemsGridCellInRow = useRef(3);
 
@@ -77,8 +86,8 @@ const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
 
     return (
         <>
-            { !servicesItems_isSuccess && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
-            { servicesItems_isSuccess && servicesItemsGrid }
+            { servicesItems_isFetching && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
+            { (!servicesItems_isFetching && servicesItems_isSuccess) && servicesItemsGrid }
             { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
         </>
     );
@@ -129,76 +138,13 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
     )
 });
 
-function WaitItemsSkelton({ cellInRow, num }) { 
-    const skeltonArray = [];
-    for (let i = 0; i < num; i++) { 
-        skeltonArray.push(
-            <Grid key={i} size={ 12 / cellInRow }>
-                <Stack direction={"row"} justifyContent={ "space-between" } alignItems={"center"}>
-                    <Skeleton variant="rounded" width={ 60 } height={ 60 } />
-                    <Skeleton variant="circular" width={ 45 } height={ 45 } />
-                </Stack>
-                <br/>
-                <Skeleton variant="rounded" width={ "60%" } height={ 20 } />
-                <br/>
-                <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-                <br/>
-                <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-                <br/>
-                <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            </Grid>
-        );
+const servicesFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    title: "Our Services",
+    subtitle: "Where quality meets innovation",
+    description: "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
+    buttons: {
+        readMore: "Read more",
     }
-    return skeltonArray;
 }
-
-function descriptionWordsUP(description) {
-    const descriptionSplit = new SplitText(description.current, {
-        type: "words"
-    });
-
-    gsap.to(descriptionSplit.words, {
-        scrollTrigger: {
-            trigger: description.current,
-            scrub: 5,
-            start: "top+=0 bottom",
-            end: "top+=20 bottom",
-        },
-        duration:0.5,
-        y: 0,
-        opacity:1,
-        stagger: 0.05,
-    });
-}
-function showObjectivesOnHover(itemObjectives) {
-    const itemObjectivesAnimate = gsap.to(itemObjectives.current.querySelectorAll("li"), {
-        stagger: 0.1,
-        transform: "translateX(0px)",
-        filter: "opacity(100%)",
-        duration: 0.6,
-        paused: true
-    });
-    itemObjectives.current.parentElement.onmouseover = ()=>itemObjectivesAnimate.restart();
-    itemObjectives.current.parentElement.onmouseleave = ()=>itemObjectivesAnimate.kill();
-}
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]:"600" 
-}
-const servicesTitleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"50"
-}
-const servicesSubtitleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"100"
-}
-const servicesDescriptionAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]:"150"
-}
-const serviceCardAosAnimation = (order) => ({
-    ...aosAnimation,
-    ["data-aos-delay"]:(order*100).toString()
-})
