@@ -1,39 +1,33 @@
 //*react
-import React, { useMemo, useRef } from 'react'
-//*queries
-import { useGetLanguageMutation } from '../../redux/server state/language';
-//*scripts
-import { Language } from '../../languages/languagesContext';
-import { initZodMsgs } from '../../form/assets';
+import React from 'react';
+//*component
+import PageTitle from '../shared/pagetitle';
+// import NavBar from './navbar/navbar';
+// import FloatSocialButtons from './social&contacts/floatsocialbuttons';
+// import ContactButtons from './social&contacts/contactbuttons';
+// import ServicesTicker from './servicesticker';
+// import Footer from './footer';
+//*context
+import LanguagesProvider from '../../languages/languagesContext';
 
 
 export default function PageWrapper({ children }) {
-    
-    const [getLanguage, languageStatus] = useGetLanguageMutation();
-  
-    const prevAddress_languageControls = useRef({ getLanguage, ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
-  
-    const languageControls = useMemo(() => {
 
-      if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
-      
-      let zodMsgs = {};
-      if (languageStatus.data) {
-        zodMsgs = initZodMsgs(languageStatus.data.page.form);
-      } else {
-        zodMsgs = initZodMsgs();
-      }
-
-      // console.log(languageStatus.data);
-      prevAddress_languageControls.current = { getLanguage, ...languageStatus, data: { ...languageStatus.data, zodMsgs } };console.log(prevAddress_languageControls.current);
-      
-      return prevAddress_languageControls.current;
-    }, [languageStatus.isSuccess]);
-  
-    return (
-      <Language.Provider value={languageControls}>
+  return (
+    <>
+      <LanguagesProvider>
+        
+        { console.log("sssssssssaaaaaaaaaaa") }
+        
+        <PageTitle/>
+        {/* <NavBar /> */}
         {children}
-        {/*footer*/}
-      </Language.Provider>
+        {/* <FloatSocialButtons />
+        <ContactButtons />
+        <ServicesTicker />
+        <Footer /> */}
+
+      </LanguagesProvider>
+    </>
   )
 }
