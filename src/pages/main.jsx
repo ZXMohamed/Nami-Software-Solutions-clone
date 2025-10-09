@@ -1,6 +1,6 @@
 import React from 'react'
 import PageWrapper from '../componants/layouts/pagewrapper'
-import About from '../componants/sections/about'
+import About from '../componants/sections/about/about'
 import "../sass/pages/main.scss"
 
 
