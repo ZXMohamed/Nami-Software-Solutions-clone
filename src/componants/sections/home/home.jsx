@@ -1,31 +1,45 @@
-//*react
-import { useContext, useMemo } from "react";
 //*mui
 import { Box, Typography, Stack, Button } from "@mui/material";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*components
-import SocialButtons from "../../layouts/social&contacts/socialbuttons";
-import RequestQuotation from "./requestQuotation";
+import SocialButtons from "../../shared/social&contacts/socialbuttons";
+import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
-import { Language } from "../../../languages/languagesContext";
+import { useNavigate, useParams } from "react-router";
+import { pages_routes } from "../../../routes/routes";
+//*animation
+import { descriptionAosAnimation, homeButtonsAosAnimation, socialButtonsAosAnimation, titleAosAnimation } from "../../../animation/home";
 
 export default function Home() { 
 console.log("home");
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-    
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        title: language_isSuccess ? language.home.title : { first: "Nami", middle: "Software", last: "Solutions" },
-        description: language_isSuccess ? language.home.description : "For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
-        buttons: {
-            portfolio: language_isSuccess ? language.home.buttons.portfolio : "Portfolio",
-            ourProducts: language_isSuccess ? language.home.buttons.ourProducts : "our Products",
-            requestQuotation: language_isSuccess ? language.home.buttons.requestQuotation : "Request for Quotation"
+
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                title: content.home.title,
+                description: content.home.description,
+                buttons: {
+                    portfolio: content.home.buttons.portfolio,
+                    ourProducts: content.home.buttons.ourProducts,
+                    requestQuotation: content.home.buttons.requestQuotation
+                }
+            }
+        } else {
+            return firstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
+
+
+    const { language: urlLang } = useParams();
+    const navigate = useNavigate();
 
     return (
-        <Box className="homeSection" dir={ defaultContent.direction }>
+        <Box id="home" className="homeSection" dir={ defaultContent.direction }>
             
             <Typography variant="h2" component="h1" className="homeTitle" {...titleAosAnimation}>
                 {defaultContent.title.first} <span>{defaultContent.title.middle}</span> {defaultContent.title.last}
@@ -35,12 +49,12 @@ console.log("home");
                 {defaultContent.description}
             </Typography>
 
-            <SocialButtons aosAnimation={ { ...socialButtonsAosAnimation } }/>
+            <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
 
             <Stack direction="row" gap={ 2 } className="homeButtons" {...homeButtonsAosAnimation}>
-                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton">{defaultContent.buttons.portfolio}</Button>
+                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={()=>navigate(pages_routes(urlLang)["portfolio"].link)}>{defaultContent.buttons.portfolio}</Button>
                 <RequestQuotation/>
-                <Button variant="outlined" disableRipple className="homeButton homeProductsButton">{ defaultContent.buttons.ourProducts }</Button>
+                <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={()=>navigate(pages_routes(urlLang)["our products"].link)}>{ defaultContent.buttons.ourProducts }</Button>
             </Stack>
             
             <FallingBackground/>
@@ -50,24 +64,13 @@ console.log("home");
 }
 
 
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const titleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "50"
-}
-const descriptionAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "100"
-}
-const socialButtonsAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "150"
-}
-const homeButtonsAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "200"
+const firstContent = {
+    direction: "ltr",
+    title: { first: "Nami", middle: "Software", last: "Solutions" },
+    description: "For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
+    buttons: {
+        portfolio: "Portfolio",
+        ourProducts: "our Products",
+        requestQuotation: "Request for Quotation"
+    }
 }

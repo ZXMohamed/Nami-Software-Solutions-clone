@@ -5,12 +5,14 @@ import { Box, Button, InputLabel, Stack, TextField, Alert } from '@mui/material'
 //*styles
 import "../../sass/shared/requestform.scss";
 //*form
-import zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-import { pattern, setFormAdditionalInputs } from '../../form/assets';
+import { pattern } from '../../form/util/rules';
+import { setFormAdditionalInputs } from './additionalinputs';
 import ReCAPTCHA from "react-google-recaptcha";
 import { sitekey } from '../../form/recaptcha';
+import { createZodObject } from '../../form/schema/requestform';
+import { createInputsSettings } from '../../form/settings/requestform';
 
 export default function RequestForm({ closeButton = () => { }, defaultContent, formAdditionalInputs = [], form_isLoading, form_isSuccess, form_isError, submit = () => { } }) {
 
@@ -40,8 +42,6 @@ export default function RequestForm({ closeButton = () => { }, defaultContent, f
     }, []);
     
     useEffect(() => { if (Object.keys(errors).length > 0) trigger(); }, [defaultContent]);
-
-    // const [requestQuotation, { isSuccess: form_isSuccess, isLoading: form_isLoading, isError: form_isError }] = useRequestQuotationMutation();
 
     const onSubmit = (data) => {
         
@@ -84,11 +84,6 @@ export default function RequestForm({ closeButton = () => { }, defaultContent, f
                 <InputLabel htmlFor="formPhone" className='inputTitle'>{defaultContent.form.inputs.phone} <span  className='requiredSymbol'>*</span></InputLabel>  
                 <TextField type='number' id='formPhone' color={errors?.phone?"error":"primary"} helperText={errors?.phone?.message} {...inputsSettings.phone} />
             </Box>
-            
-            {/* <Box>
-                <InputLabel htmlFor="formDescription" className='inputTitle'>{defaultContent.form.inputs.description} <span  className='requiredSymbol'>*</span></InputLabel>  
-                <TextField multiline id='formDescription' maxRows={6} minRows={2}  color={errors?.description?"error":"primary"} helperText={errors?.description?.message}  {...inputsSettings.description}/> 
-            </Box> */}
               
             {additionalInputs.inputs.map((input,inx)=>input(inx,register,errors))}
         
@@ -104,31 +99,4 @@ export default function RequestForm({ closeButton = () => { }, defaultContent, f
         </Stack>
     </Box>
   )
-}
-
-
-function createZodObject(defaultContent, pattern, additionalInputsSchema) {
-
-    const required = defaultContent.zodMsgs.required;
-    const length = defaultContent.zodMsgs.length;
-    const valid = defaultContent.zodMsgs.valid;
-
-    const name = defaultContent.form.inputs.name;
-    const phone = defaultContent.form.inputs.phone;
-    const email = defaultContent.form.inputs.email;
-    
-    return zod.object({
-        name: zod.string().nonempty(required).min(3, { message: length.less(name,3) }).max(100, { message: length.more(name,100) }).refine((name) => pattern.name(name), { message: valid(name) }),
-        phone: zod.string().min(1, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
-        email: zod.string().nonempty(required).email(valid(email)),
-        ...additionalInputsSchema
-    });
-}
-
-function createInputsSettings(register) {
-    return {
-        name: register("name", { required: true }),
-        phone: register("phone", { required: true }),
-        email: register("email", { required: true }),
-    }
 }

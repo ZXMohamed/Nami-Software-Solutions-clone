@@ -1,14 +1,14 @@
 //*react
-import { memo, useContext, useMemo, useState } from "react";
+import { useState } from "react";
 //*mui
 import { TextField } from "@mui/material";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*component
 import RequestButton from "../../shared/buttons/requestbutton";
-import RequestForm from "../requestform";
+import RequestForm from "../../forms/requestform";
 //*queries
 import { useRequestQuotationMutation } from '../../../redux/server state/requestquotation';
-//*scripts
-import { Language } from "../../../languages/languagesContext";
 //*form
 import zod from "zod";
 
@@ -16,31 +16,37 @@ import zod from "zod";
 const RequestQuotation = () => {
     console.log("homeRQ");
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-    // console.log(language);
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : "en",
-        zodMsgs: language.zodMsgs,
-        buttons: {
-            requestQuotation: language_isSuccess ? language.home.buttons.requestQuotation : "Request for Quotation"
-        },
-        form: {
-            title: "",
-            inputs: {
-                name: language_isSuccess ? language.requestQuotation.form.inputs.name : "Name",
-                email: language_isSuccess ? language.requestQuotation.form.inputs.email : "Email",
-                phone: language_isSuccess ? language.requestQuotation.form.inputs.phone : "Phone",
-                description: language_isSuccess ? language.requestQuotation.form.inputs.description : "Description"
-            },
-            alert: {
-                success: language_isSuccess ? language.requestQuotation.form.alert.success : "Request Sent Successfully.",
-                error: language_isSuccess ? language.requestQuotation.form.alert.error : "Request Failed.",
-                reCaptcha: language_isSuccess ? language.requestQuotation.form.alert.reCaptcha : "Please verify that you're not a robot."
-            },
-            submit: language_isSuccess ? language.requestQuotation.form.submit : "Send"
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                zodMsgs: content.zodMsgs,
+                buttons: {
+                    requestQuotation: content.home.buttons.requestQuotation
+                },
+                form: {
+                    title: "",
+                    inputs: {
+                        name: content.requestQuotation.form.inputs.name,
+                        email: content.requestQuotation.form.inputs.email,
+                        phone: content.requestQuotation.form.inputs.phone,
+                        description: content.requestQuotation.form.inputs.description
+                    },
+                    alert: {
+                        success: content.requestQuotation.form.alert.success,
+                        error: content.requestQuotation.form.alert.error,
+                        reCaptcha: content.requestQuotation.form.alert.reCaptcha
+                    },
+                    submit: content.requestQuotation.form.submit
+                }
+            }
+        } else {
+            return { ...firstContent, zodMsgs: content.zodMsgs };
         }
-    }), [language, language_isSuccess]);
+    })();
 
     const [requestFormOpen, setRequestFormOpen] = useState(false);
 
@@ -49,7 +55,7 @@ const RequestQuotation = () => {
     return (
         <>
             <RequestButton title={ defaultContent.buttons.requestQuotation } className="homeRequestButton" onClick={ () => setRequestFormOpen(true) } />
-            { requestFormOpen && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setRequestFormOpen(false); requestQuotation_reset(); } } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } /> }
+            { requestFormOpen && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => {setRequestFormOpen(false); requestQuotation_reset();} } form_isLoading={ requestQuotation_isLoading } form_isSuccess={ requestQuotation_isSuccess } form_isError={ requestQuotation_isError } submit={ requestQuotation } /> }
         </>
     );
 };
@@ -73,6 +79,28 @@ const formAdditionalInputs = [
             return zod.string().nonempty(required).max(500, { message: length.more(description, 500) })
         },
         input: (props) => <TextField multiline maxRows={ 6 } minRows={ 2 } { ...props } /> 
-        
     }
 ]
+
+const firstContent = {
+    direction: "ltr",
+    language: "en",
+    buttons: {
+        requestQuotation:  "Request for Quotation"
+    },
+    form: {
+        title: "",
+        inputs: {
+            name:  "Name",
+            email: "Email",
+            phone:  "Phone",
+            description:"Description"
+        },
+        alert: {
+            success: "Request Sent Successfully.",
+            error:  "Request Failed.",
+            reCaptcha:"Please verify that you're not a robot."
+        },
+        submit: "Send"
+    }
+}

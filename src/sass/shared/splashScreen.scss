@@ -1,0 +1,68 @@
+@use "_shared.scss" as *;
+
+body{
+    position: relative;
+}
+
+.splashScreen{
+    overflow: hidden;
+    @include center("flex");
+    background-color: $secondColor;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1100;
+}
+
+section.splashScreenWaveAnimationCon{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+div.splashScreenWaveAnimationTop{ 
+    @include circleWave("right",500px);
+    width: 500px;
+    height: 500px;
+}
+div.splashScreenWaveAnimationBottom{ 
+    @include circleWave("left",900px);
+    width: 900px;
+    height: 900px;
+}
+
+div.splashScreenWaveAnimationTop,
+div.splashScreenWaveAnimationBottom{
+    position: absolute;
+    div{
+        filter: brightness(85%);
+    }
+}
+div.splashScreenWaveAnimationBottomCon{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+img.splashScreenIcon{
+    position: fixed;
+    top: 45%;
+    animation-name: grayIt;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+@keyframes grayIt {
+    0%{
+        filter: saturate(200%);
+    }
+    50%{
+        filter: saturate(0%);
+    }
+    100%{
+        filter: saturate(200%);
+    }
+}
