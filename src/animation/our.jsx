@@ -1,18 +1,16 @@
-export const aosAnimation = {
-  ["data-aos"]: 'fade-up',
-  ["data-aos-duration"]:"600"
-}
+import { aosAnimationLeft, aosAnimationRight, aosAnimationUp } from "../aos/aosprops"
+
 export const ourVisionAosAnimation = {
-  ...aosAnimation
+  ...aosAnimationRight
 }
 export const ourMessageAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationLeft,
   ["data-aos-delay"]:"50"
 }
 export const ourValuesAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationUp,
 }
 export const valueBoxAosAnimation = (order)=> ({
-  ...aosAnimation,
+  ...aosAnimationUp,
   ["data-aos-delay"]: (50 * order).toString()
 })

@@ -1,13 +1,11 @@
 //*gsap
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import { aosAnimationUp } from '../aos/aosprops';
 
-export const aosAnimation = {
-  ["data-aos"]:"fade-up",
-  ["data-aos-duration"]:"1000"
-}
+
 export const infoCardAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationUp,
   ["data-aos-delay"]:"50"
 }
 

@@ -1,8 +1,6 @@
-export const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000"
-}
+import { aosAnimationLeft } from "../aos/aosprops";
+
 export const formAosAnimation = {
-    ...aosAnimation,
+    ...aosAnimationLeft,
     ["data-aos-delay"]: "250"
 }

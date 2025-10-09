@@ -1,20 +1,18 @@
-export const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "600",
-}
+import { aosAnimationUp } from "../aos/aosprops"
+
 export const titleAosAnimation = {
-    ...aosAnimation,
+    ...aosAnimationUp,
     ["data-aos-delay"]: "50"
 }
 export const descriptionAosAnimation = {
-    ...aosAnimation,
+    ...aosAnimationUp,
     ["data-aos-delay"]: "100"
 }
 export const socialButtonsAosAnimation = {
-    ...aosAnimation,
+    ...aosAnimationUp,
     ["data-aos-delay"]: "150"
 }
 export const homeButtonsAosAnimation = {
-    ...aosAnimation,
+    ...aosAnimationUp,
     ["data-aos-delay"]: "200"
 }

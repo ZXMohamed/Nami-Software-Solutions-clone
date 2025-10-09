@@ -1,30 +1,27 @@
 //*gsap
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
+import { aosAnimationLeft, aosAnimationRight } from '../aos/aosprops';
 
 
-export const aosAnimation = {
-  ["data-aos"]:"fade-up",
-  ["data-aos-duration"]:"1000" 
-}
 export const movingImgSideAosAnimation = {
-  ...aosAnimation
+  ...aosAnimationRight
 }
 export const aboutTitleAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationLeft,
   ["data-aos-delay"]:"50"
 }
 export const aboutDescriptionAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationLeft,
   ["data-aos-delay"]:"80"
 }
 export const establishmentCounterAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationLeft,
   ["data-aos-duration"]:"600",
   ["data-aos-delay"]:"80"
 }
 export const establishmentDateAosAnimation = {
-  ...aosAnimation,
+  ...aosAnimationLeft,
   ["data-aos-duration"]:"600",
   ["data-aos-delay"]:"80"
 }

@@ -1,4 +1,5 @@
 import zod from "zod";
+import { nameRules, phoneRules } from "../util/rules";
 
 export function createZodObject(defaultContent, pattern, additionalInputsSchema) {
 
@@ -11,8 +12,8 @@ export function createZodObject(defaultContent, pattern, additionalInputsSchema)
     const email = defaultContent.form.inputs.email;
 
     return zod.object({
-        name: zod.string().nonempty(required).min(3, { message: length.less(name, 3) }).max(100, { message: length.more(name, 100) }).refine((name) => pattern.name(name), { message: valid(name) }),
-        phone: zod.string().min(1, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
+        name: zod.string().nonempty(required).min(nameRules.min, { message: length.less(name, nameRules.min) }).max(nameRules.max, { message: length.more(name, nameRules.max) }).refine((name) => pattern.name(name), { message: valid(name) }),
+        phone: zod.string().min(phoneRules.min, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
         email: zod.string().nonempty(required).email(valid(email)),
         ...additionalInputsSchema
     });
