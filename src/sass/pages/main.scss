@@ -57,6 +57,9 @@ p.servicesDescription{
         background-color: $primary2Transparent;
         backdrop-filter:  brightness(0) opacity(20%);
         position: relative;
+        a{
+            @extend %removeAdditionalLinkStyle;
+        }
     }
 }
 div.serviceItemFace{
