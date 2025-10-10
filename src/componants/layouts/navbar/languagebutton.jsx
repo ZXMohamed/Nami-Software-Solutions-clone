@@ -1,13 +1,15 @@
 //*react
-import React, { useContext, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 //*route
 import { useLocation, useNavigate, useParams } from "react-router";
 //*styles
 import "../../../sass/shared/navbar.scss";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*queries
 import { useGetAvailableLanguagesQuery } from "../../../redux/server state/language";
 //*scripts
-import { defaultLanguage, Language } from "../../../languages/languagesContext";
+import { defaultLanguage } from "../../../languages/languagesContext";
 
 
 const LanguageButton = () => {
@@ -22,13 +24,8 @@ const LanguageButton = () => {
     const { language: urlLang } = useParams();
     const languageIndex = useRef(0);
     
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-    }),
-        [language, language_isSuccess]
-    );
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = { language: content_isSuccess ? content.page.language : defaultLanguage };
 
     const location = useLocation();
     const navigation = useNavigate();

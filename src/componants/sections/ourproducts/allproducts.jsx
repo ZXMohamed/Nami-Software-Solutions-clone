@@ -1,20 +1,29 @@
-import React, { useContext, useMemo } from 'react'
+//*react
+import React from 'react'
+//*components
 import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import { Products } from './ourproducts'
-import { Language } from '../../../languages/languagesContext';
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 
 export default function AllProducts() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        header: {
-            subtitle: language_isSuccess ? language.header.subtitle : "Where quality meets innovation",
-            description: language_isSuccess ? language.header.description : "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                header: {
+                    subtitle: content.header.subtitle,
+                    description: content.header.description,
+                }
+            }
+        } else {
+            return firstContent;
         }
-    }), [language, language_isSuccess]);
-    
+    })();
+
     return (
         <>
             <InfoCard dir={ defaultContent.direction } waveDir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.header.subtitle } animateDescription description={ defaultContent.header.description } />
@@ -23,4 +32,14 @@ export default function AllProducts() {
             <Products dir={ defaultContent.direction } />
         </>
   )
+}
+
+
+
+const firstContent = {
+    direction: "ltr",
+    header: {
+        subtitle: "Where quality meets innovation",
+        description: "Nami Foundation provides integrated digital solutions for resale in website design And mobile applications. We resell upgraded products with the highest quality standards to meet your needs.",
+    }
 }
