@@ -74,10 +74,10 @@ div.infoCardWaveAnimation{
     &[dir=ltr]{
         div.MuiContainer-root{
             div.infoCardWaveAnimation{
-                &[waveDir=left]{
+                &[wave_dir=left]{
                     @include circleWave("left",430px);
                 }
-                &[waveDir=right]{
+                &[wave_dir=right]{
                     @include circleWave("right",430px);
                 }
             }
@@ -86,10 +86,10 @@ div.infoCardWaveAnimation{
     &[dir=rtl]{
         div.MuiContainer-root{
             div.infoCardWaveAnimation{
-                &[waveDir=left]{
+                &[wave_dir=left]{
                     @include circleWave("right",430px);
                 }
-                &[waveDir=right]{
+                &[wave_dir=right]{
                     @include circleWave("left",430px);
                 }
             }

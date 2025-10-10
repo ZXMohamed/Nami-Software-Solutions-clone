@@ -5,7 +5,7 @@ import { Container, Typography, Box, Stack } from '@mui/material'
 //*styles
 import "../../sass/shared/infocard.scss"
 //*components
-import { WaveAnimation } from '../loadingitems/infocard';
+import { WaveAnimation } from './waveanimation';
 //*animation
 import { descriptionWordsUP, infoCardAosAnimation } from '../../animation/infocard';
 
@@ -17,7 +17,8 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
     requestIdleCallback(() => {
       animateDescription && descriptionWordsUP(descriptionx)
     })
-  },[]);
+  }, []);
+  
   return (
     <Box dir={dir} sx={sx} className="infoCard" {...infoCardAosAnimation}>
         <Container maxWidth="lg" className={effects.join(" ")}>
