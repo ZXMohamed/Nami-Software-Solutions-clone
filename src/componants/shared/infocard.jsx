@@ -5,7 +5,7 @@ import { Container, Typography, Box, Stack } from '@mui/material'
 //*styles
 import "../../sass/shared/infocard.scss"
 //*components
-import { WaveAnimation } from '../loadingitems/infocard';
+import { WaveAnimation } from './waveanimation';
 //*animation
 import { descriptionWordsUP, infoCardAosAnimation } from '../../animation/infocard';
 
