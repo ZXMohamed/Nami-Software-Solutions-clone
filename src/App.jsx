@@ -1,4 +1,8 @@
+//*react
 import { Fragment } from "react"
+//*router
+import { BrowserRouter, Route, Routes } from "react-router"
+//*mui
 import { CssBaseline, ThemeProvider } from "@mui/material"
 //*init
 import "./aos/aosinit"
@@ -6,6 +10,7 @@ import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
 import Main from "./pages/main"
+import Products from "./pages/products"
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -21,7 +26,13 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Main/>
+        <BrowserRouter>
+          <Routes>
+            <Route index path="/:language?/" element={ <Main/> } />
+            <Route index path="/:language?/products" element={ <Products/> } />
+            <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </Fragment>
   )

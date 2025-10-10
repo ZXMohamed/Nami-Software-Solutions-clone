@@ -1,57 +1,68 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 //*component
-import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infoCard'
+import InfoCard, { typographyForm } from '../../shared/infocard'
 import { StatisticsList, StatisticsBox } from './statisticsbox'
+import { WaitStatisticProgress } from '../../loadingitems/statistics'
 //*queries
 import { useGetStatisticsQuery } from '../../../redux/server state/statistics'
+//*hooks
+import useUpdateEffect from '../../../hooks/useupdateeffect'
+import { useContent } from '../../../languages/hooks/usecontent'
 //*scripts
-import { Language } from '../../../languages/languagesContext'
+import { defaultLanguage } from '../../../languages/languagesContext'
 
 
 export function Statistics() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        title: language_isSuccess ? language.statistics.title : "Statistics",
-        subtitle: language_isSuccess ? language.statistics.subtitle : "Good planning is not enough Great callings require the extraordinary!",
-    }), [language, language_isSuccess]);
-    
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.statistics.title,
+                subtitle: content.statistics.subtitle,
+            }
+        } else {
+            return statisticsFirstContent;
+        }
+    })();
+
     return (
         <Box className='infoCardSection'>
-            <InfoCard dir={defaultContent.direction} waveDir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
+            <InfoCard dir={defaultContent.direction} wave_dir={ "left" } typographyForm={ { subtitle : [typographyForm.subtitle.size.small] }} title={ defaultContent.title } subtitle={ defaultContent.subtitle }>
                 <StatisticsList>
-                    <StatisticsBoxRow />
+                    <StatisticsBoxRow language={ defaultContent.language } />
                 </StatisticsList>
             </InfoCard>
         </Box>
   )
 }
 
-export function StatisticsBoxRow() {
+function StatisticsBoxRow({language}) {
 
-    const { isError: statistic_isError, isSuccess: statistic_isSuccess, data: statistics } = useGetStatisticsQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
+    const { isError: statistic_isError, isSuccess: statistic_isSuccess, isFetching: statistic_isFetching, data: statistics, refetch: statistic_refetch } = useGetStatisticsQuery();
+
+    useUpdateEffect(() => {
+        statistic_refetch()
+    }, [language]);
 
     return (
         <>
-            {!statistic_isSuccess && <WaitStatisticProgress num={5} />}
-            {statistic_isSuccess && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
+            {statistic_isFetching && <WaitStatisticProgress num={5} />}
+            {(!statistic_isFetching && statistic_isSuccess) && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
             {statistic_isError && <Typography variant='h6' color='error'>Data Not Found !</Typography>}
         </>
     )
 }
 
-
-function WaitStatisticProgress({ num = 1 }) { 
-    const progressArray = [];
-    for (let i = 0; i < num; i++) { 
-        progressArray.push(<CircularProgress key={i} variant="indeterminate" color='secondary' size={40} thickness={2}/>)
-    }
-    return progressArray;
+const statisticsFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    title: "Statistics",
+    subtitle: "Good planning is not enough Great callings require the extraordinary!",
 }
