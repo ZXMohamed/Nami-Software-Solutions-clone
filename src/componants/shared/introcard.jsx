@@ -4,6 +4,8 @@ import React from 'react'
 import { Stack, Typography } from '@mui/material'
 //*styles
 import "../../sass/shared/introcard.scss"
+//*animation
+import { descriptionAosAnimation, titleAosAnimation } from '../../animation/introcard';
 
 export default function IntroCard({ dir, icon, title, description, gutters, children = [] }) {
   
@@ -17,21 +19,4 @@ export default function IntroCard({ dir, icon, title, description, gutters, chil
             {children}
         </Stack>
     )
-}
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-// const cardAosAnimation = {
-//     ...aosAnimation,
-//     ["data-aos-delay"]: "50"
-// }
-const titleAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "100"
-}
-const descriptionAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "150"
 }

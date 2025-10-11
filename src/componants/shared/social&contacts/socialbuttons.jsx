@@ -5,7 +5,7 @@ import { CircularProgress, Stack } from '@mui/material'
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
 //*styles
-import "../../sass/shared/socialbuttons.scss"
+import "../../../sass/shared/socialbuttons.scss"
 
 const SocialButtons = memo(({ aosAnimation }) => {console.log("j");
     const { isLoading, isSuccess, data: social } = useGetSocialQuery();

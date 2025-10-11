@@ -29,7 +29,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index path="/:language?/" element={ <Main/> } />
-            <Route index path="/:language?/all-services" element={ <Services/> } />
+            <Route index path="/:language?/service-details/:id" element={ <Services/> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>
