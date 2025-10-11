@@ -9,7 +9,6 @@ const servicesSlice = createApi({
     endpoints: (builder) => ({
         getServices: builder.query({
             query: (params) => { return "query/services.php" + (params?.id ? "?id=" + params.id : "")  },
-            providesTags: ['ReQueryForMainPage']
         }),
         orderService: builder.mutation({
             query: (data) => {
