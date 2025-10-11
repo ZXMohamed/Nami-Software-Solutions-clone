@@ -1,5 +1,5 @@
 //*react
-import React, { useContext, useMemo, useState } from "react";
+import React, { useState } from "react";
 //*route
 import { Link, useLocation, useParams } from "react-router";
 //*mui
@@ -7,10 +7,11 @@ import { Toolbar, Drawer, IconButton, Stack } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 //*styles
 import "../../../sass/shared/navbar.scss";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*components
 import LogoLink from "../../shared/logolink";
 //*scripts
-import { Language } from "../../../languages/languagesContext";
 import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
@@ -19,25 +20,19 @@ import logo from "../../../assets/photo/global/namilogo.svg";
 const SideMenu = () => {
     console.log("SM");
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        logo: language_isSuccess ? language.navBar.navLogo : logo,
-        navTabs: language_isSuccess ? language.navBar.navTabs :  {
-            "Home": { title: "Home" },
-            "About us": { title: "About us" },
-            "Services": { title: "Services" },
-            "Our products": { title: "Our products" },
-            "Portfolio": { title: "Portfolio" },
-            "Marketing": { title: "Marketing" },
-            "Blogs": { title: "Blogs" },
-            "Careers": { title: "Careers" },
-            "Contact us": { title: "Contact us" },
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                logo: content.navBar.navLogo,
+                navTabs: content.navBar.navTabs
+            }
+        } else {
+            return firstContent;
         }
-    }),
-        [language, language_isSuccess]
-    );
+    })();
 
     const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -82,4 +77,21 @@ function Tabs({ defaultContent }) {
         })
     }
 
+}
+
+
+const firstContent = {
+    direction: "ltr",
+    logo: logo,
+    navTabs: {
+        "Home": { title: "Home" },
+        "About us": { title: "About us" },
+        "Services": { title: "Services" },
+        "Our products": { title: "Our products" },
+        "Portfolio": { title: "Portfolio" },
+        "Marketing": { title: "Marketing" },
+        "Blogs": { title: "Blogs" },
+        "Careers": { title: "Careers" },
+        "Contact us": { title: "Contact us" },
+    }
 }
