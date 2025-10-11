@@ -1,43 +1,55 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*components
 import MiniHeader from '../shared/miniheader'
+import { AnswerBoxWaitItemsSkelton } from '../loadingitems/whyus'
 //*queries
 import { useGetServicesQuestionQuery } from '../../redux/server state/services'
-//*scripts
-import { Language } from '../../languages/languagesContext'
 //*styles
 import "../../sass/shared/whyus.scss"
+//*animation
+import { boxAosAnimation } from '../../animation/whyus'
+//*hooks
+import { useContent } from '../../languages/hooks/usecontent'
+import useUpdateEffect from '../../hooks/useupdateeffect'
 
 export default function WhyUs() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : "en",
-        title: language_isSuccess ? language.whyUs.title : "Why us",
-        subtitle: language_isSuccess ? language.whyUs.subtitle : "Why to choose work with us"
-    }), [language, language_isSuccess]);
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.whyUs.title,
+                subtitle: content.whyUs.subtitle
+            }
+        } else {
+            return firstContent;
+        }
+    })();
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    })
-console.log(servicesQuestion);
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion, isFetching: servicesQuestion_isFetching,  refetch: servicesQuestion_refetch } = useGetServicesQuestionQuery();
+    
+    useUpdateEffect(() => { 
+        servicesQuestion_refetch();
+    }, [defaultContent.language])
+
     return (
         <>
             <Box dir={defaultContent.direction} className="whyUsSection">
                 <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
                 <Container maxWidth="lg">
                     <Grid container spacing={3}>
-                        { servicesQuestion_isSuccess && Object.values(servicesQuestion.whySec).map((answer) =>
+                        { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && Object.values(servicesQuestion.whySec).map((answer) =>
                             <Grid key={answer.id} size={ { sm: 4, xs: 12 } }>
                                 <AnswerBox dir={defaultContent.direction} data={ answer } aosAnimation={ boxAosAnimation } />
                             </Grid>  
                         )}
-                        { !servicesQuestion_isSuccess && <Grid size={ { sm: 4, xs: 12 } }> <AnswerBoxWaitItemsSkelton /> </Grid> }
+                        { servicesQuestion_isFetching && <Grid size={ { sm: 4, xs: 12 } }> <AnswerBoxWaitItemsSkelton /> </Grid> }
                     </Grid>
                     {servicesQuestion_isError && <Typography component={"p"} variant='h5' color='error'>data not found !</Typography>}
                 </Container>
@@ -59,33 +71,10 @@ function AnswerBox({ dir, data, aosAnimation }) {
     )
 }
 
-function AnswerBoxWaitItemsSkelton() { 
-    return (
-        <>
-            <Stack direction={ "row" } justifyContent={ "space-between" } alignItems={ "center" }>
-                <Skeleton variant="rounded" width={ 60 } height={ 60 } />
-            </Stack>
-            <br/>
-            <Skeleton variant="rounded" width={ 200 } height={ 20 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-        </>
-    );
-}
 
-const aosAnimation = {
-  ["data-aos"]: "fade-up",
-  ["data-aos-duration"]: "1000",
-}
-const boxAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]: "100"
+const firstContent = {
+    direction: "ltr",
+    language: "en",
+    title: "Why us",
+    subtitle: "Why to choose work with us"
 }

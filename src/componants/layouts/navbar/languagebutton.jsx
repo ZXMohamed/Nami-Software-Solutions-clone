@@ -1,28 +1,45 @@
 //*react
-import React, { memo, useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+//*route
+import { useLocation, useNavigate, useParams } from "react-router";
 //*styles
 import "../../../sass/shared/navbar.scss";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*queries
 import { useGetAvailableLanguagesQuery } from "../../../redux/server state/language";
 //*scripts
-import { Language } from "../../../languages/languagesContext";
+import { defaultLanguage } from "../../../languages/languagesContext";
 
 
 const LanguageButton = () => {
     console.log("LB");
 
     const LanguageButtonTitle = useRef();
-    const languageIndex = useRef(1);
 
     const { data: AL, isSuccess: AL_isSuccess } = useGetAvailableLanguagesQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
+
+    const { language: urlLang } = useParams();
+    const languageIndex = useRef(0);
     
-    const { languageRequest } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = { language: content_isSuccess ? content.page.language : defaultLanguage };
+
+    const location = useLocation();
+    const navigation = useNavigate();
 
     function changeLanguage(languagesList, languageIndex) {
 
-        languageRequest(languagesList[languageIndex.current].requestName);
+        const requestedLanguage = languagesList[languageIndex.current].requestName.toLowerCase();
+        let languagePath="";
+        if (location.pathname.includes(defaultContent.language)) {
+            languagePath = location.pathname.replace(defaultContent.language, requestedLanguage);
+        } else {
+            languagePath = location.pathname.replace("/", "/" + requestedLanguage + "/");
+        }
+        navigation(languagePath);
         
         if (languagesList.length - 1 == languageIndex.current) {
             languageIndex.current = 0;
@@ -34,9 +51,11 @@ const LanguageButton = () => {
     }
 
     useEffect(() => {
-        if (AL_isSuccess && AL.languages?.length >= 1)
+        if (AL_isSuccess && AL.languages?.length >= 1) {
+            languageIndex.current = getCurrentLanguageIndex(urlLang, AL.languages);
             LanguageButtonTitle.current.innerText = AL.languages[languageIndex.current].title
-    }, [AL_isSuccess, AL])
+        }
+    }, [AL_isSuccess, AL]);
 
     return (
         <>
@@ -51,3 +70,18 @@ const LanguageButton = () => {
 
 };
 export default LanguageButton;
+
+function getCurrentLanguageIndex(language, languagesArray = []) {
+    let index = 0;
+    if (!language) language = defaultLanguage;
+    for (let x of languagesArray) {console.log(index);
+        if (x.requestName == language.toUpperCase()) {
+            if (languagesArray.length - 1 == index) {
+                return 0;
+            } else {
+                return index + 1;
+            }
+        }
+        index++;
+    }
+}

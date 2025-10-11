@@ -4,6 +4,8 @@ import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
 //*styles
 import "../../sass/shared/miniheader.scss"
+//*animation
+import { subtitleAosAnimation, titleAosAnimation } from '../../animation/miniheader'
 
 
 export default function MiniHeader({ dir, title, subtitle }) {
@@ -16,17 +18,4 @@ export default function MiniHeader({ dir, title, subtitle }) {
       </Container>
     </Box>
   )
-}
-
-const aosAnimation = {
-  ["data-aos"]: "fade-up",
-  ["data-aos-duration"]: "1000",
-}
-const titleAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]: "50"
-}
-const subtitleAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]: "80"
 }
