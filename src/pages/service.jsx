@@ -6,7 +6,7 @@ import QA from '../componants/sections/QA'
 //*styles
 import "../sass/pages/main.scss"
 
-export default function Main() {
+export default function Service() {
   return (
     <PageWrapper>
       <QA/>
