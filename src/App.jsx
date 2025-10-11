@@ -9,7 +9,7 @@ import "./aos/aosinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
-import BlogsPages from "./pages/blogspage"
+import Blogs from "./pages/blogs"
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -24,7 +24,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route index path="/:language?/blogs" element={ <BlogsPages/> } />
+            <Route index path="/:language?/blogs" element={ <Blogs/> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>
