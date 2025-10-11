@@ -1,9 +1,9 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
-//*scripts
-import { Language } from '../../../languages/languagesContext';
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 //*components
 import MiniHeader from '../../shared/miniheader'
 //*styles
@@ -17,14 +17,20 @@ import mailbox from "../../../assets/photo/marketing/mailbox.svg"
 
 export default function Marketers() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-    
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        title: language_isSuccess ? language.marketers.header.title : "Our certified marketers",
-        subtitle: language_isSuccess ? language.marketers.header.subtitle : "Get to know the most prominent marketers who speak on behalf of our company",
-        marketers:language_isSuccess ? language.marketers.marketersList : marketersList
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                title: content.marketers.header.title,
+                subtitle: content.marketers.header.subtitle,
+                marketers: content.marketers.marketersList
+            }
+        } else {
+            return firstContent;
+        }
+    })();
     
     return (
     <Box dir={defaultContent.direction} className="marketers">
@@ -59,11 +65,19 @@ export function MarketerCard({ dir, data }) {
 
 const marketersList = [
     {
-        country:{icon:SA,title:"Agent Saudi Arabia"},
-        marketer:{name:"احمد ابوعتمان"}
+        country: { icon: SA, title: "Agent Saudi Arabia" },
+        marketer: { name: "احمد ابوعتمان" }
     },
     {
-        country:{icon:EG,title:"Agent Egypt"},
-        marketer:{name:"محمد العشري"}
+        country: { icon: EG, title: "Agent Egypt" },
+        marketer: { name: "محمد العشري" }
     }
 ]
+
+
+const firstContent = {
+    direction: "ltr",
+    title: "Our certified marketers",
+    subtitle: "Get to know the most prominent marketers who speak on behalf of our company",
+    marketers: marketersList
+}

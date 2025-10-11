@@ -1,22 +1,19 @@
 //*react
-import React, { memo, useContext, useMemo } from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Box } from '@mui/material'
-//*query
-import { useGetSocialQuery } from '../../../redux/server state/social'
-//*scripts
-import { Language } from '../../../languages/languagesContext';
 //*styles
 import "../../../sass/shared/floatsocialbuttons.scss"
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
+//*query
+import { useGetSocialQuery } from '../../../redux/server state/social'
 
 const FloatSocialButtons = memo(() => {
-  console.log("kkk");
+  console.log("fsb");
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+  const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
 
   const { isSuccess: social_isSuccess, data: social } = useGetSocialQuery(undefined, {
     selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })

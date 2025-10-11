@@ -1,26 +1,32 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
 import { Box, Container, Stack, Typography } from '@mui/material';
 //*components
 import MiniHeader from '../../shared/miniheader';
-//*scripts
-import { Language } from '../../../languages/languagesContext';
 //*styles
-import "../../../sass/shared/partnership.scss"
+import "../../../sass/shared/partnership.scss";
 //*assets
-import companyLogo from "../../../assets/photo/global/namiicon.svg"
+import companyLogo from "../../../assets/photo/global/namiicon.svg";
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
 
 export default function Partnership() {
-
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
   
-  const defaultContent = useMemo(() => ({
-      direction: language_isSuccess ? language.page.direction : "ltr",
-      title: language_isSuccess ? language.partnership.header.title : "How to be our partner",
-      subtitle: language_isSuccess ? language.partnership.header.subtitle : "Marketer partnership system",
-      questions:language_isSuccess ? language.partnership.questions : questions
-  }), [language, language_isSuccess]);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
+
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+        return {
+          direction: content.page.direction,
+          title: content.partnership.header.title,
+          subtitle: content.partnership.header.subtitle,
+          questions: content.partnership.questions
+        }
+      } else {
+          return firstContent;
+      }
+  })();
 
   return (
   <Box className="partnership">
@@ -71,3 +77,10 @@ const questions = [
       "A":"Nami has introduced a new system called the \"Marketer Partnership Program,\" designed for those working in marketing and anyone looking to increase their income during their spare time."
   }
 ]
+
+const firstContent = {
+  direction: "ltr",
+  title: "How to be our partner",
+  subtitle: "Marketer partnership system",
+  questions: questions
+}

@@ -1,21 +1,19 @@
 //*react
-import React, { memo, useContext } from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Stack } from '@mui/material'
-//*queries
-import { useGetSocialQuery } from '../../../redux/server state/social'
-//*scripts
-import { Language } from '../../../languages/languagesContext';
 //*styles
 import "../../../sass/shared/contactbuttons.scss"
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent';
+//*queries
+import { useGetSocialQuery } from '../../../redux/server state/social'
 
 const ContactButtons = memo(() => {
+    console.log("cb");
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-  
-    const defaultContent = {
-        direction: language_isSuccess ? language.page.direction : "ltr"
-    }
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
 
     const { isSuccess, data: social } = useGetSocialQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
@@ -33,7 +31,7 @@ const ContactButtons = memo(() => {
 export default ContactButtons;
 
 const ContactButton = memo(({link,icon,title}) => {
-    
+
     return (
         <a href={ link } target='_blank' className='contactButton'>
             <img src={ icon } loading='lazy' alt={ title + " for Nami" } className='contactIcon' />
