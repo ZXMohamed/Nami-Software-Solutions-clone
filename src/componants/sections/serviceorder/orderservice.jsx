@@ -1,54 +1,64 @@
 //*react
-import { memo, useContext, useMemo, useState } from "react";
+import { useState } from "react";
 //*mui
-import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
+import { FormHelperText, MenuItem, Select } from "@mui/material";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*component
 import RequestButton from "../../shared/buttons/requestbutton";
-import RequestForm from "../requestform";
+import RequestForm from "../../forms/requestform";
 //*queries
 import { useGetServicesQuery, useOrderServiceMutation } from '../../../redux/server state/services';
 //*scripts
-import { Language } from "../../../languages/languagesContext";
+import { defaultLanguage } from "../../../languages/languagesContext";
 //*form
 import zod from "zod";
+//*animation
+import { requestButtonAosAnimation } from "../../../animation/orderservice";
 
 
 const OrderService = () => {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-    // console.log(language);
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : "en",
-        zodMsgs: language.zodMsgs,
-        buttons: {
-            orderService: language_isSuccess ? language.serviceOrder.buttons.orderService : "Order The Service now"
-        },
-        form: {
-            title: "",
-            inputs: {
-                name: language_isSuccess ? language.orderService.form.inputs.name : "Name",
-                email: language_isSuccess ? language.orderService.form.inputs.email : "Email",
-                phone: language_isSuccess ? language.orderService.form.inputs.phone : "Phone",
-                service: language_isSuccess ? language.orderService.form.inputs.service : "Service"
-            },
-            alert: {
-                success: language_isSuccess ? language.orderService.form.alert.success : "Order Sent Successfully.",
-                error: language_isSuccess ? language.orderService.form.alert.error : "Order Failed.",
-                reCaptcha: language_isSuccess ? language.orderService.form.alert.reCaptcha : "Please verify that you're not a robot."
-            },
-            submit: language_isSuccess ? language.orderService.form.submit : "Send"
-        }
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const [serviceForm, setServiceForm] = useState(false);
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                zodMsgs: content.zodMsgs,
+                buttons: {
+                    orderService: content.serviceOrder.buttons.orderService
+                },
+                form: {
+                    title: "",
+                    inputs: {
+                        name: content.orderService.form.inputs.name,
+                        email: content.orderService.form.inputs.email,
+                        phone: content.orderService.form.inputs.phone,
+                        service: content.orderService.form.inputs.service
+                    },
+                    alert: {
+                        success: content.orderService.form.alert.success,
+                        error: content.orderService.form.alert.error,
+                        reCaptcha: content.orderService.form.alert.reCaptcha
+                    },
+                    submit: content.orderService.form.submit
+                }
+            }
+        } else {
+            return { ...firstContent, zodMsgs: content.zodMsgs }
+        }
+    })();
+
+    const [openForm, setOpenForm] = useState(false);
 
     const [orderService, { isSuccess: orderService_isSuccess, isLoading: orderService_isLoading, isError: orderService_isError, reset: orderService_reset }] = useOrderServiceMutation();
 
     return (
         <>
-            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setServiceForm(true) } { ...requestButtonAosAnimation } />
-            { serviceForm && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setServiceForm(false); orderService_reset(); } } form_isLoading={ orderService_isLoading } form_isSuccess={ orderService_isSuccess } form_isError={ orderService_isError } submit={ orderService }/> }
+            <RequestButton title={ defaultContent.buttons.orderService } className="serviceRequestButton" onClick={ () => setOpenForm(true) } { ...requestButtonAosAnimation } />
+            { openForm && <RequestForm defaultContent={ defaultContent } formAdditionalInputs={ formAdditionalInputs } closeButton={ () => { setOpenForm(false); orderService_reset(); } } form_isLoading={ orderService_isLoading } form_isSuccess={ orderService_isSuccess } form_isError={ orderService_isError } submit={ orderService }/> }
         </>
     );
 };
@@ -75,19 +85,19 @@ const formAdditionalInputs = [
 ]
 
 function SelectInput(props) {
-    console.log(props);
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = {
+        direction: content_isSuccess ? content.page.direction : "ltr",
+        language: content_isSuccess ? content.page.language : defaultLanguage
+    };
 
     const selectInputProps = { ...props };
     delete selectInputProps?.helperText;
 
-    const { data: services, isSuccess: services_isSuccess } = useGetServicesQuery(undefined, {
-        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+    const { data: services, isSuccess: services_isSuccess, refetch: services_refetch } = useGetServicesQuery(undefined, {
+        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data }),
+        refetchOnMountOrArgChange: true
     });
 
     const [service, setService] = useState("0");
@@ -95,7 +105,6 @@ function SelectInput(props) {
     return (
         <>
             <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
-                {/* <MenuItem value={"0"}>{props.title}</MenuItem> */}
                 { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem dir={defaultContent.direction} key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
             </Select>
             { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
@@ -103,11 +112,25 @@ function SelectInput(props) {
     )
 }
 
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const requestButtonAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "200"
+const firstContent = {
+    direction: "ltr",
+    language: "en",
+    buttons: {
+        orderService: "Order The Service now"
+    },
+    form: {
+        title: "",
+        inputs: {
+            name: "Name",
+            email: "Email",
+            phone: "Phone",
+            service: "Service"
+        },
+        alert: {
+            success: "Order Sent Successfully.",
+            error: "Order Failed.",
+            reCaptcha: "Please verify that you're not a robot."
+        },
+        submit: "Send"
+    }
 }

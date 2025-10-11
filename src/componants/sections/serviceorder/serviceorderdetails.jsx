@@ -1,45 +1,59 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
+//*hooks
+import useUpdateEffect from '../../../hooks/useupdateeffect'
+import { useContent } from '../../../languages/hooks/usecontent'
 //*components
 import IntroCard from '../../shared/introcard'
 import ListCard from '../../shared/listcard'
 import ObjectivesList from '../../shared/objectiveslist'
 import OrderService from './orderservice'
+import { IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/serviceorderdetails'
 //*queries
 import { useGetServicesQuery } from '../../../redux/server state/services'
-//*scripts
-import { Language } from '../../../languages/languagesContext'
+//*animation
+import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/serviceorderdetails'
 
 
 export default function ServiceOrderDetails() {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    language: language_isSuccess ? language.page.language : "en",
-    objectivesList: {
-      title: language_isSuccess ? language.serviceOrder.objectivesList.title : "Service objectives"
-    }
-  }), [language, language_isSuccess]);
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+          return {
+            direction: content.page.direction,
+            language: content.page.language,
+            objectivesList: {
+              title: content.serviceOrder.objectivesList.title
+            }
+          }
+      } else {
+          return firstContent;
+      }
+  })();
 
-  const { isSuccess: service_isSuccess, isError: service_isError, data: service } = useGetServicesQuery({ id: 1 });
-  console.log(service);
+  const { isSuccess: service_isSuccess, isError: service_isError, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: 1 });
+
+  useUpdateEffect(() => {
+    service_refetch();
+  },[defaultContent.language]);
+  
   return (
     <Box dir={defaultContent.direction}>
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            { service_isSuccess && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
-            { !service_isSuccess && <IntroCardWaitItemsSkelton/>}
+            { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
+            { service_isFetching && <IntroCardWaitItemsSkelton/>}
           </Grid>
           <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
             <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-              { service_isSuccess && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
-              { !service_isSuccess && <ListCardWaitItemsSkelton/>}
-              { service_isSuccess && < OrderService />}
+              { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
+              { (!service_isFetching && service_isSuccess) && <OrderService />}
+              { service_isFetching && <ListCardWaitItemsSkelton/>}
             </ListCard>
           </Grid>
         </Grid>
@@ -49,53 +63,11 @@ export default function ServiceOrderDetails() {
   )
 }
 
-function IntroCardWaitItemsSkelton() { 
-    return (
-        <>
-            <Stack direction={ "row" } justifyContent={ "space-between" } alignItems={ "center" }>
-                <Skeleton variant="rounded" width={ 60 } height={ 60 } />
-            </Stack>
-            <br/>
-            <Skeleton variant="rounded" width={ 200 } height={ 20 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-        </>
-    );
-}
 
-function ListCardWaitItemsSkelton() { 
-    return (
-      <Box>
-        <Skeleton variant="rounded" width={ "100%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "90%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "100%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "60%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "80%" } height={ 15 } />
-        <br/>
-        <br />
-        <Skeleton variant="rounded" width={ "100%" } height={ 50 } />
-        
-      </Box>
-    );
-}
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const introCardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "50"
-}
-const listCardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "150"
+const firstContent = {
+  direction: "ltr",
+  language: "en",
+  objectivesList: {
+    title: "Service objectives"
+  }
 }

@@ -6,11 +6,9 @@ const servicesSlice = createApi({
         baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
-    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getServices: builder.query({
             query: (params) => { return "query/services.php" + (params?.id ? "?id=" + params.id : "")  },
-            providesTags: ['ReQueryForMainPage']
         }),
         orderService: builder.mutation({
             query: (data) => {
