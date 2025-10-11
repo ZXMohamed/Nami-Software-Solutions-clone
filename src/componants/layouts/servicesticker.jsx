@@ -6,6 +6,8 @@ import { Box, Stack, Typography } from '@mui/material';
 import { useContent } from '../../languages/hooks/usecontent';
 //*animation
 import { tickerItemsMover } from '../../animation/servicesticker';
+//*styles
+import "../../sass/shared/servicesticker.scss"
 
 const ServicesTicker = memo(() => {
 

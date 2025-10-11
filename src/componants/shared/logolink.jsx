@@ -1,4 +1,3 @@
-//*route
 import { Link, useLocation, useParams } from "react-router";
 import { getPage, navSettings } from "../../routes/routesmanager";
 

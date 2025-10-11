@@ -1,41 +1,54 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Skeleton, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography } from '@mui/material'
+//*assets
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 //*components
 import MiniHeader from '../shared/miniheader'
-//*queries
-import { useGetServicesQuestionQuery } from '../../redux/server state/services';
-//*scripts
-import { Language } from '../../languages/languagesContext';
+import { QABoxWaitItemsSkelton } from '../loadingitems/QA';
 //*styles
 import "../../sass/shared/QA.scss"
+//*hooks
+import { useGetServicesQuestionQuery } from '../../redux/server state/services';
+import useUpdateEffect from '../../hooks/useupdateeffect';
+import { useContent } from '../../languages/hooks/usecontent';
+//*animation
+import { boxAosAnimation } from '../../animation/QA';
+
 
 export default function QA() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : "en",
-        title: language_isSuccess ? language.QA.title : "FAQS",
-        subtitle: language_isSuccess ? language.QA.subtitle : "The most common questions that clients ask about website development"
-    }), [language, language_isSuccess]);
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.QA.title,
+                subtitle: content.QA.subtitle
+            }
+        } else {
+            return firstContent;
+        }
+    })();
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion } = useGetServicesQuestionQuery(undefined, {
-        selectFromResult: ({ isSuccess, data, isError }) => ({ isSuccess, data, isError })
-    });
-console.log(servicesQuestion);
+    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion, isFetching: servicesQuestion_isFetching, refetch: servicesQuestion_refetch } = useGetServicesQuestionQuery();
+
+    useUpdateEffect(() => {
+        servicesQuestion_refetch();
+    },[defaultContent.language])
+
     return (
         <>
             <Box dir={defaultContent.direction} className="QASection">
                 <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
                 <Container maxWidth="lg">
-                    { servicesQuestion_isSuccess && Object.values(servicesQuestion.QA).map((QA) => 
+                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && Object.values(servicesQuestion.QA).map((QA) => 
                         <QABox key={QA.id} dir={ defaultContent.direction } data={ QA } aosAnimation={ boxAosAnimation } />
                     )}
-                    { !servicesQuestion_isSuccess && <QABoxWaitItemsSkelton/>}
+                    { servicesQuestion_isFetching && <QABoxWaitItemsSkelton/>}
                     { servicesQuestion_isError && <Typography variant='h5' color='error'>data not found !</Typography>}
                 </Container>
             </Box>
@@ -59,24 +72,10 @@ function QABox({ dir, data, aosAnimation }) {
     )
 }
 
-function QABoxWaitItemsSkelton() { 
-    return (
-        <>
-            <Skeleton variant="rounded" width={ "100%" } height={ 50 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 50 } />
-            <br/>
-            <Skeleton variant="rounded" width={ "100%" } height={ 50 } />
-        </>
-    );
-}
 
-
-const aosAnimation = {
-  ["data-aos"]: "fade-up",
-  ["data-aos-duration"]: "1000",
-}
-const boxAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]: "100"
+const firstContent = {
+    direction: "ltr",
+    language: "en",
+    title: "FAQS",
+    subtitle: "The most common questions that clients ask about website development"
 }
