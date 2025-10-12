@@ -1,6 +1,6 @@
 import React from 'react'
 import PageWrapper from '../componants/layouts/pagewrapper'
-import ProductOrderDetails from '../componants/productorder/ProductOrderDetails'
+import ProductOrderDetails from '../componants/sections/productorder/ProductOrderDetails'
 import "../sass/pages/productorder.scss"
 import 'swiper/css';
 

@@ -1,0 +1,124 @@
+@use "_shared.scss" as *;
+
+.floatSocialButtons{
+    position: fixed;
+    top: 40.4%;
+    z-index: 1100;
+    height: 180px;
+    width: 120px;
+    @include center("Y-flex");
+    @extend %direction;
+}
+
+a.floatSocialButton{
+    box-shadow: 1px 3px 5px #00000023;
+    height: 40px;
+    width: 40px;
+    @include socialButtonsStyle("sty2");
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    opacity: 0%;
+    @extend %transition;
+    @include center("flex");
+
+    img{
+        width: 16px;
+    }
+}
+@for $i from 1 through 5{
+    a.floatSocialButton:nth-child(#{$i}){
+        transition-delay:#{($i / 10)}s;
+    }
+}
+
+div.openFloatSocialButtons{
+    z-index: 100;
+    @extend %animatedBG;
+    height: 44px;
+    width: 44px;
+    @include center("Y-flex");
+    padding-right: 10px;
+    &::before{
+        content: "";
+        background-image: url($floatSocialButtonsIcon);
+        background-repeat: no-repeat;
+        background-size: 24px;
+        filter: brightness(0) invert(1);
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+}
+
+%direction{
+    &[dir = ltr]{
+        left: 0px;
+        border-radius: 10px 50% 50% 10px;
+        &:hover{
+            a.floatSocialButton{
+                opacity: 100%;
+            }
+            a.floatSocialButton:nth-child(1){
+                top: 0px;
+                left: 10px;
+            }
+            a.floatSocialButton:nth-child(2){
+                top: 20px;
+                left: 55px;
+            }
+            a.floatSocialButton:nth-child(3){
+                top:  70px;
+                left: 70px;
+            }
+            a.floatSocialButton:nth-child(4){
+                top: 120px;
+                left: 55px;
+            }
+            a.floatSocialButton:nth-child(5){
+                top: 138px;
+                left: 10px;
+            }
+        }
+        div.openFloatSocialButtons{
+            border-radius: 0px 50% 50% 0px;
+            justify-content: flex-end;
+            box-shadow: 1px 3px 10px #00000023;
+        }
+    }
+    &[dir = rtl]{
+        right: 0px;
+        border-radius: 50% 10px 10px 50%;
+        &:hover{
+            a.floatSocialButton{
+                opacity: 100%;
+            }
+            a.floatSocialButton:nth-child(1){
+                top: 0px;
+                right: 10px;
+            }
+            a.floatSocialButton:nth-child(2){
+                top: 20px;
+                right: 55px;
+            }
+            a.floatSocialButton:nth-child(3){
+                top:  70px;
+                right: 70px;
+            }
+            a.floatSocialButton:nth-child(4){
+                top: 120px;
+                right: 55px;
+            }
+            a.floatSocialButton:nth-child(5){
+                top: 138px;
+                right: 10px;
+            }
+        }
+        div.openFloatSocialButtons{
+            border-radius: 50% 0px 0px 50%;
+            justify-content: flex-start;
+            box-shadow: -1px 3px 10px #00000023;
+        }
+    }
+}

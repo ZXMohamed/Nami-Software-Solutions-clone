@@ -6,11 +6,9 @@ const productsSlice = createApi({
         baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
-    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: (params) => "query/products.php" + (params?.id ? "?id=" + params.id : ""),
-            providesTags:['ReQueryForMainPage']
         }),
         orderProduct: builder.mutation({
             query: (data) => {
