@@ -1,5 +1,5 @@
 //*react
-import React, { useContext, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 //*mui
 import { Box, Button, Container, Typography } from '@mui/material'
 //*components
@@ -12,39 +12,43 @@ import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/pr
 //*hooks
 import { useSelector } from 'react-redux'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
-//*scripts
-import { Language } from '../../../languages/languagesContext'
+import { useContent } from '../../../languages/hooks/usecontent'
 
 
 
 export default function ProjectsView() {
 
-  const { isSuccess: language_isSuccess, data: language, requestId: language_RequestId } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content, requestId: content_RequestId } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    subtitle: language_isSuccess ? language.header.subtitle : "We bring your digital vision to life",
-    description: language_isSuccess ? language.header.description : "At Nami Corporation, we excel at providing innovative and advanced web and mobile solutions. We specialize inDesign and development of websites and mobile applications tailored to meet the needs of our customers unique. Explore how we can help you achieve your digital goals with the best quality and highest standards.",
-    buttons: {
-      loadMore: language_isSuccess ? language.buttons.loadMore : "Load more"
+  const defaultContent = (() => {
+    if (content_isSuccess) {
+      return {
+        direction: content.page.direction,
+        subtitle: content.header.subtitle,
+        description: content.header.description,
+        buttons: {
+          loadMore: content.buttons.loadMore
+        }
+      }
+    } else {
+        return projectsViewFirstContent;
     }
-  }), [language, language_isSuccess]);
+  })();
 
   const viewerRef = useRef();
 
-  
   const filterValues = useSelector((state) => state.portfolioFilter);
   
   const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, reset: projects_reset, isFetching: projects_isFetching }] = useLazyGetNextProjectsByCatQuery();
 
   useUpdateEffect(() => {
     projects_reset()
-  }, [language_RequestId]);
+  }, [content_RequestId]);
 
   useEffect(() => {
     const search = (filterValues.search != "" || filterValues.search != null) ? filterValues.search : null;
     projects_trigger({ cat: filterValues.cat, count: 9, reset: true, search: search });
-  }, [filterValues.cat, filterValues.search, language_RequestId]);
+  }, [filterValues.cat, filterValues.search, content_RequestId]);
   
 
   const handleLoadMore = () => {
@@ -83,4 +87,13 @@ export default function ProjectsView() {
         </Container>}
     </Box>
   )
+}
+
+const projectsViewFirstContent = {
+  direction: "ltr",
+  subtitle: "We bring your digital vision to life",
+  description: "At Nami Corporation, we excel at providing innovative and advanced web and mobile solutions. We specialize inDesign and development of websites and mobile applications tailored to meet the needs of our customers unique. Explore how we can help you achieve your digital goals with the best quality and highest standards.",
+  buttons: {
+    loadMore: "Load more"
+  }
 }

@@ -7,7 +7,7 @@ import 'swiper/css';
 import "../sass/pages/projects.scss"
 import ProjectsView from '../componants/sections/portfolio/projectsview';
 
-export default function Project() {
+export default function Portfolio() {
   return (
     <PageWrapper>
       <ProjectsView/>

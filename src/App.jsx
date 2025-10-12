@@ -10,7 +10,7 @@ import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
 import Main from "./pages/main"
-import Project from "./pages/projects"
+import Portfolio from "./pages/portfolio"
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -29,7 +29,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index path="/:language?/" element={ <Main/> } />
-            <Route index path="/:language?/portfolio" element={ <Project/> } />
+            <Route index path="/:language?/portfolio" element={ <Portfolio/> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>
