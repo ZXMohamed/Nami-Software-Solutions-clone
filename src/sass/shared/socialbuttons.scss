@@ -22,11 +22,4 @@
             filter:brightness(0) invert(1);
         }
     }
-    // $inx:0;
-    // @each $iconURL in $socialiconurls {
-    //     $inx : $inx + 1;
-    //     a:nth-child(#{$inx})::after{
-    //         background-image: url($iconURL);
-    //     }
-    // }
 }

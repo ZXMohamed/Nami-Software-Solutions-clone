@@ -7,18 +7,12 @@ import "../../sass/shared/requestform.scss";
 //*form
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
-<<<<<<<< HEAD:src/componants/sections/requestform.jsx
-import { pattern, setFormAdditionalInputs } from '../../form/assets';
-import ReCAPTCHA from "react-google-recaptcha";
-import { sitekey } from '../../form/recaptcha';
-========
 import { pattern } from '../../form/util/rules';
 import { setFormAdditionalInputs } from './additionalinputs';
 import ReCAPTCHA from "react-google-recaptcha";
 import { sitekey } from '../../form/recaptcha';
 import { createZodObject } from '../../form/schema/requestform';
 import { createInputsSettings } from '../../form/settings/requestform';
->>>>>>>> product-order:src/componants/forms/requestform.jsx
 
 export default function RequestForm({ closeButton = () => { }, defaultContent, formAdditionalInputs = [], form_isLoading, form_isSuccess, form_isError, submit = () => { } }) {
 

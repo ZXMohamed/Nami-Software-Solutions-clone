@@ -1,5 +1,4 @@
-@use "../shared/_shared.scss" as *;
-// @use "../shared/fonts.scss" as *;
+@use "_shared.scss" as *;
 
 //*footer*/
 .footer{
@@ -84,7 +83,6 @@ ul.footerTabList{
         img.footerTabListItemsIcon{
             width: 20px;
             align-self: center;
-            // margin-right: 10px;
         }
 
         a.footerTabListItemsLink{

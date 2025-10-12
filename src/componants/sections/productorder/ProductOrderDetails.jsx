@@ -1,61 +1,75 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Box, Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
+//*scripts
+import { defaultLanguage } from '../../../languages/languagesContext'
+//*hooks
+import { useContent } from '../../../languages/hooks/usecontent'
+import { useGetProductsQuery } from '../../../redux/server state/products'
 //*components
 import IntroCard from '../../shared/introcard'
 import ListCard from '../../shared/listcard'
-import PointsList from '../../shared/pointslist'
 import Gallery from '../../shared/gallery'
-import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
+import PointsList from '../../shared/pointslist'
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../../shared/techbadges'
+import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
 import DownloadButton from '../../shared/buttons/downloadbutton'
 import OrderProduct from './orderproduct'
 import RoutesBar from '../../shared/routesbar'
-//*queries
-import { useGetProductsQuery } from '../../../redux/server state/products'
-//*scripts
-import { Language } from '../../../languages/languagesContext'
-import { pages_routes } from '../../../routes/routes'
+//*animation
+import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/ProductOrderDetails'
+import { GalleryWaitItemsSkelton, IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/ProductOrderDetails'
+import useUpdateEffect from '../../../hooks/useupdateeffect'
 
 
 export default function ProductOrderDetails() {
 
-  const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+  const { isSuccess: content_isSuccess, data: content } = useContent();
 
-  const defaultContent = useMemo(() => ({
-    direction: language_isSuccess ? language.page.direction : "ltr",
-    language: language_isSuccess ? language.page.language : "en",
-    buttons:{
-      downloadSystemFile: language_isSuccess ? language.buttons.downloadSystemFile : "Download the system file"
-    },
-    objectivesList: {
-      title: language_isSuccess ? language.objectivesList.title : "System objectives"
-    },
-    featuresList:{
-      title: language_isSuccess ? language.featuresList.title : "System features"
-    },
-    programmingLanguagesList:{
-      title: language_isSuccess ? language.programmingLanguagesList.title : "Programming languages used"
-    }
-  }), [language, language_isSuccess]);
+  const defaultContent = (() => {
+      if (content_isSuccess) {
+        return {
+          direction: content.page.direction,
+          language: content.page.language,
+          buttons: {
+            downloadSystemFile: content.buttons.downloadSystemFile
+          },
+          objectivesList: {
+            title: content.objectivesList.title
+          },
+          featuresList: {
+            title: content.featuresList.title
+          },
+          programmingLanguagesList: {
+            title: content.programmingLanguagesList.title
+          }
+        }
+      } else {
+          return firstContent;
+      }
+  })();
 
-  const { isSuccess: product_isSuccess, isError: product_isError, data: product } = useGetProductsQuery({ id: 2 });
-  console.log(product);
+  const { isSuccess: product_isSuccess, isError: product_isError, data: product, isFetching: product_isFetching, refetch: product_refetch } = useGetProductsQuery({ id: 2 });
+
+  useUpdateEffect(() => { 
+    product_refetch();
+  },[defaultContent.language])
+
   return (<>
     <Box dir={ defaultContent.direction }>
-      { product_isSuccess && <RoutesBar title={ product["id-2"].title } storeTab={"Our products"} /> }
+      { (!product_isFetching && product_isSuccess) && <RoutesBar title={ product["id-2"].title } storeTab={"Our products"} /> }
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
 
-            { product_isSuccess && product["id-2"].image && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
+            { (!product_isFetching && product_isSuccess) && product["id-2"].image && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
             
-            { !product_isSuccess && <GalleryWaitItemsSkelton /> }
+            { product_isFetching && <GalleryWaitItemsSkelton /> }
             
-            { product_isSuccess && 
+            { (!product_isFetching && product_isSuccess) && 
               <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
-                { product_isSuccess && product["id-2"].serviceBadges &&
+                { (!product_isFetching && product_isSuccess && product["id-2"].serviceBadges) &&
                   <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
                     { product["id-2"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                   </ServicesBadgesList>
@@ -64,33 +78,33 @@ export default function ProductOrderDetails() {
               </IntroCard>
             }
 
-            { !product_isSuccess && <IntroCardWaitItemsSkelton /> }
+            { product_isFetching && <IntroCardWaitItemsSkelton /> }
             
           </Grid>
           <Grid size={ { md: 6, xs: 12 } } { ...listCardAosAnimation } className="productListsSide">
             
-            { product_isSuccess && product["id-2"].objectives &&
+            { (!product_isFetching && product_isSuccess && product["id-2"].objectives) &&
               <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
                 <PointsList dir={ defaultContent.direction } data={ product["id-2"].objectives } />
               </ListCard>
             }
-            { !product_isSuccess && <ListCardWaitItemsSkelton/>}
+            { product_isFetching && <ListCardWaitItemsSkelton/>}
             
-            { product_isSuccess && product["id-2"].features &&
+            { (!product_isFetching && product_isSuccess && product["id-2"].features) &&
               <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
                 <PointsList dir={ defaultContent.direction } data={ product["id-2"].features } />
               </ListCard>
             }
-            { !product_isSuccess && <ListCardWaitItemsSkelton/>}
+            { product_isFetching && <ListCardWaitItemsSkelton/>}
 
-            { product_isSuccess && product["id-2"].programmingLanguages &&
+            { (!product_isFetching && product_isSuccess && product["id-2"].programmingLanguages) &&
               <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
                 <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
                   { product["id-2"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
                 </TechBadgesList>
               </ListCard>
             }
-            { !product_isSuccess && <ListCardWaitItemsSkelton /> }
+            { product_isFetching && <ListCardWaitItemsSkelton /> }
 
           </Grid>
         </Grid>
@@ -99,7 +113,7 @@ export default function ProductOrderDetails() {
         <br />
 
         <Box className="orderProductCon">
-          { product_isSuccess && <OrderProduct />}
+          { (!product_isFetching && product_isSuccess) && <OrderProduct />}
         </Box>
 
         { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
@@ -109,58 +123,19 @@ export default function ProductOrderDetails() {
   )
 }
 
-function GalleryWaitItemsSkelton() { 
-    return (
-        <>
-          <Skeleton variant="rounded" width={ "100%" } height={ 500 } />
-        </>
-    );
-}
-
-function IntroCardWaitItemsSkelton() { 
-    return (
-        <>
-            <Skeleton variant="rounded" width={ 200 } height={ 20 } />
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <Skeleton variant="rounded" width={ "100%" } height={ 10 } />
-            <Skeleton variant="rounded" width={ "80%" } height={ 10 } />
-            <Stack direction={"row"} columnGap={2}>
-              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
-              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
-              <Skeleton variant="rounded" width={ "20%" } height={ 40 } />
-            </Stack>
-            <Skeleton variant="rounded" width={ "50%" } height={ 60 } />
-        </>
-    );
-}
-
-function ListCardWaitItemsSkelton() { 
-    return (
-      <Box>
-        <Skeleton variant="rounded" width={ "100%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "90%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "100%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "60%" } height={ 15 } />
-        <br/>
-        <Skeleton variant="rounded" width={ "80%" } height={ 15 } />
-        <br/>
-        <br/>
-      </Box>
-    );
-}
-
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const introCardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "50"
-}
-const listCardAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "150"
+const firstContent = {
+  direction: "ltr",
+  language: defaultLanguage,
+  buttons: {
+    downloadSystemFile: "Download the system file"
+  },
+  objectivesList: {
+    title: "System objectives"
+  },
+  featuresList: {
+    title: "System features"
+  },
+  programmingLanguagesList: {
+    title: "Programming languages used"
+  }
 }

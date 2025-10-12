@@ -1,45 +1,55 @@
 //*react
-import { memo, useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 //*mui
-import { FormHelperText, MenuItem, Select, TextField } from "@mui/material";
+import { FormHelperText, MenuItem, Select } from "@mui/material";
+//*hooks
+import { useContent } from "../../../languages/hooks/usecontent";
 //*component
 import RequestButton from "../../shared/buttons/requestbutton";
-import RequestForm from "../../sections/requestform";
+import RequestForm from "../../forms/requestform";
 //*queries
 import { useGetProductsQuery, useOrderProductMutation } from '../../../redux/server state/products';
 //*scripts
-import { Language } from "../../../languages/languagesContext";
+import { defaultLanguage, Language } from "../../../languages/languagesContext";
 //*form
 import zod from "zod";
+//*animation
+import { requestButtonAosAnimation } from "../../../animation/orderproduct";
 
 
 const OrderProduct = () => {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : "en",
-        zodMsgs: language.zodMsgs,
-        buttons: {
-            orderProduct: language_isSuccess ? language.buttons.orderProduct : "Request a trial version",
-        },
-        form: {
-            title: "",
-            inputs: {
-                name: language_isSuccess ? language.orderProduct.form.inputs.name : "Name",
-                email: language_isSuccess ? language.orderProduct.form.inputs.email : "Email",
-                phone: language_isSuccess ? language.orderProduct.form.inputs.phone : "Phone",
-                product: language_isSuccess ? language.orderProduct.form.inputs.product : "Product"
-            },
-            alert: {
-                success: language_isSuccess ? language.orderProduct.form.alert.success : "Order Sent Successfully.",
-                error: language_isSuccess ? language.orderProduct.form.alert.error : "Order Failed.",
-                reCaptcha: language_isSuccess ? language.orderProduct.form.alert.reCaptcha : "Please verify that you're not a robot."
-            },
-            submit: language_isSuccess ? language.orderProduct.form.submit : "Send"
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                zodMsgs: content.zodMsgs,
+                buttons: {
+                    orderProduct: content.buttons.orderProduct,
+                },
+                form: {
+                    title: "",
+                    inputs: {
+                        name: content.orderProduct.form.inputs.name,
+                        email: content.orderProduct.form.inputs.email,
+                        phone: content.orderProduct.form.inputs.phone,
+                        product: content.orderProduct.form.inputs.product
+                    },
+                    alert: {
+                        success: content.orderProduct.form.alert.success,
+                        error: content.orderProduct.form.alert.error,
+                        reCaptcha: content.orderProduct.form.alert.reCaptcha
+                    },
+                    submit: content.orderProduct.form.submit
+                }
+            }
+        } else {
+            return { ...firstContent, zodMsgs: content.zodMsgs }
         }
-    }), [language, language_isSuccess]);console.log(defaultContent);
+    })();
 
     const [productForm, setProductForm] = useState(false);
 
@@ -75,7 +85,6 @@ const formAdditionalInputs = [
 ]
 
 function SelectInput(props) {
-    console.log(props);
 
     const { isSuccess: language_isSuccess, data: language } = useContext(Language);
 
@@ -87,7 +96,8 @@ function SelectInput(props) {
     delete selectInputProps?.helperText;
 
     const { data: products, isSuccess: products_isSuccess } = useGetProductsQuery(undefined, {
-        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+        selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data }),
+        refetchOnMountOrArgChange: true
     });
 
     const [product, setProduct] = useState("0");
@@ -102,11 +112,25 @@ function SelectInput(props) {
     )
 }
 
-const aosAnimation = {
-    ["data-aos"]: "fade-up",
-    ["data-aos-duration"]: "1000",
-}
-const requestButtonAosAnimation = {
-    ...aosAnimation,
-    ["data-aos-delay"]: "200"
+const firstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    buttons: {
+        orderProduct: "Request a trial version",
+    },
+    form: {
+        title: "",
+        inputs: {
+            name: "Name",
+            email: "Email",
+            phone: "Phone",
+            product: "Product"
+        },
+        alert: {
+            success: "Order Sent Successfully.",
+            error: "Order Failed.",
+            reCaptcha: "Please verify that you're not a robot."
+        },
+        submit: "Send"
+    }
 }

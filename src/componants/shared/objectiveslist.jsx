@@ -2,7 +2,7 @@
 import React from 'react'
 //*mui
 import { Stack } from '@mui/material'
-//*style
+//*styles
 import "../../sass/shared/objectiveslist.scss"
 
 export default function ObjectivesList({ dir, data }) {
