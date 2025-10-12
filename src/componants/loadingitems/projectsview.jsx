@@ -8,7 +8,7 @@ export function WaitItemSkeleton({ num = 1, }) {
     const skeletonArray = [];
     for (let i = 0; i < num; i++) { 
         skeletonArray.push(
-          <Stack width={ 390 }>
+          <Stack key={i} width={ 390 }>
               <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
                   <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
                   <Skeleton width={40} height={40} variant='circular'/>
