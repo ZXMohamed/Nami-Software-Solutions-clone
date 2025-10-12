@@ -23,7 +23,7 @@ export const pages_routes = (urlLang = defaultLanguage, id = "") => ({
     "careers": { link: "/" + urlLang + "/" + "#careers", outerRoute: true },
     "contact us": { link: "/" + urlLang + "/" + "#contactus", outerRoute: true },
     
-    "service details": { link: "/" + urlLang + "/" + "all-services" + "/" + id, outerRoute: true },
+    "service details": { link: "/" + urlLang + "/" + "service-details" + "/" + id, outerRoute: true },
     "product details": { link: "/" + urlLang + "/" + "product-details" + "/" + id, outerRoute: true },
     "project details": { link: "/" + urlLang + "/" + "project-details" + "/" + id, outerRoute: true },
 });
