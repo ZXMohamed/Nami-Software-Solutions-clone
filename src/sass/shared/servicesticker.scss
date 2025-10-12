@@ -1,0 +1,50 @@
+@use "../shared/_shared.scss" as *;
+
+//*servicesticker*/
+.servicesTicker{
+    @extend %animatedBG;
+    height: 76px;
+    color: $secondColor;
+    @include center("flex");
+    @extend %servicesTickerDirection;
+}
+div.tickerBar{
+    height: 100%;
+    padding: 14px 0;
+    width: 1920px;
+    @include center("Y-flex");
+    overflow: hidden;
+    position: relative;
+}
+p.tickerItem{
+    width: fit-content;
+    font-family: "PlexNormal";
+    font-size: 18px;
+    display: flex;
+    position: absolute;
+}
+
+div.tickerItemSplitter{
+    position: absolute;
+    background-image: url($pointIcon);
+    // background-position: left 60%;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    filter: brightness(0) invert(1);
+    width: 20px;
+    height: 30px;
+    display: block;
+}
+
+%servicesTickerDirection{
+    &[dir=ltr]{
+        div.tickerItemSplitter{
+            background-position: left 60%;
+        }
+    }
+    &[dir=rtl]{        
+        div.tickerItemSplitter{
+            background-position: right 60%;
+        }
+    }
+}

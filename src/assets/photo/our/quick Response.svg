@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 67.37 50.68">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+        mix-blend-mode: darken;
+      }
+
+      .cls-3 {
+        fill: #009f6f;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="767.09" y1="36.09" x2="809.36" y2="36.09" gradientTransform="translate(67.61 -763.59) rotate(90)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#009f6f"/>
+      <stop offset="1" stop-color="#11b14e"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="Layer_1-2" data-name="Layer 1">
+        <path class="cls-3" d="M3.3,22.57l28.22,11.66L3.3,45.77V22.57M0,17.64V50.68l4.54-1.86,28.22-11.54,7.42-3.03-7.41-3.06L4.56,19.52l-4.56-1.88H0Z"/>
+        <path class="cls-3" d="M64.07,4.93V28.14l-28.22-11.54,28.22-11.66m3.3-4.93l-4.56,1.88-28.22,11.66-7.41,3.06,7.42,3.03,28.22,11.54,4.54,1.86V0h0Z"/>
+        <polygon class="cls-2" points="10.92 28.69 10.92 3.5 52.12 20.59 52.12 45.77 10.92 28.69"/>
+      </g>
+    </g>
+  </g>
+</svg>
