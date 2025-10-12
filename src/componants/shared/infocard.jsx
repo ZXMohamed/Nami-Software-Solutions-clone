@@ -4,27 +4,29 @@ import React, { useEffect, useRef } from 'react'
 import { Container, Typography, Box, Stack } from '@mui/material'
 //*styles
 import "../../sass/shared/infocard.scss"
-import { SplitText } from 'gsap/SplitText';
-import gsap from 'gsap';
+//*components
+import { WaveAnimation } from './waveanimation';
+//*animation
+import { descriptionWordsUP, infoCardAosAnimation } from '../../animation/infocard';
 
 export default function InfoCard({ dir = "ltr", title, subtitle, description, animateDescription = false, wave_dir = "left", typographyForm, effects = [], children, sx }) {
   
-  const descriptionItem = useRef();
+  const descriptionx = useRef();
 
   useEffect(() => {
     requestIdleCallback(() => {
-      animateDescription && descriptionWordsUP(descriptionItem)
+      animateDescription && descriptionWordsUP(descriptionx)
     })
   }, []);
   
   return (
-    <Box dir={dir} sx={sx} {...infoCardAosAnimation} className="infoCard">
+    <Box dir={dir} sx={sx} className="infoCard" {...infoCardAosAnimation}>
         <Container maxWidth="lg" className={effects.join(" ")}>
           <WaveAnimation wave_dir={ wave_dir }/>
             <Stack className='infoCardContent' direction={'column'} spacing={2} alignItems={"center"}>
               { title && <Typography variant='h5' component={'h1'} className="infoCardTitle"><i>{title}</i></Typography> }
               { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
-              { description && <Typography ref={descriptionItem} className="infoCardDescription">{description}</Typography> }
+              { description && <Typography ref={descriptionx} className="infoCardDescription">{description}</Typography> }
               <br/>
               { children && 
                 <>
@@ -40,16 +42,6 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
   )
 }
 
-const WaveAnimation = ({ wave_dir }) => {
-  return (
-    <Box wave_dir={wave_dir} className="infoCardWaveAnimation">
-        <div></div>
-        <div></div>
-        <div></div>
-    </Box>
-  );
-} 
-
 export const typographyForm = {
   subtitle: {
     size: {
@@ -60,34 +52,6 @@ export const typographyForm = {
 } 
 export const infoCardEffects = {
   sharpEffect: "sharpEffect"
-}
-
-const aosAnimation = {
-  ["data-aos"]:"fade-up",
-  ["data-aos-duration"]:"1000"
-}
-const infoCardAosAnimation = {
-  ...aosAnimation,
-  ["data-aos-delay"]:"50"
-}
-
-function descriptionWordsUP(description) {
-  const descriptionSplit = new SplitText(description.current, {
-      type: "words"
-  });
-
-  gsap.to(descriptionSplit.words, {
-      scrollTrigger: {
-          trigger: description.current,
-          scrub: 5,
-          start: "top+=0 bottom",
-          end: "top+=20 bottom",
-      },
-      duration:1,
-      y: 0,
-      opacity:1,
-      stagger: 0.05,
-  });
 }
 
 //*example
