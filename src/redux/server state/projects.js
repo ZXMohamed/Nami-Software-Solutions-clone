@@ -6,11 +6,9 @@ const projectsSlice = createApi({
         baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
         credentials: 'include'
     }),
-    tagTypes: ['ReQueryForMainPage'],
     endpoints: (builder) => ({
         getProjectsByCat: builder.query({
             query: ({ cat, count, reset, search }) => "/query/projects.php?cat=" + cat + "&" + "count=" + count + "&" + (reset ? "reset=1" : "") + "&" + (search ? "search=" + search : ""),
-            providesTags: ['ReQueryForMainPage']
         }),
         getNextProjectsByCat: builder.query({
             query: ({ cat, count, reset, search }) => "/query/projects.php?cat=" + cat + "&" + "count=" + count + "&" + (reset ? "reset=1" : "") + "&" + (search ? "search=" + search : ""),
@@ -33,11 +31,9 @@ const projectsSlice = createApi({
                 // Ensure currentCache is an array before spreading
                 return {...(currentCache || {}), ...newItems};
             },
-            providesTags: ['ReQueryForMainPage']
         }),
         getCategories: builder.query({
             query: ()=>"/query/portfoliocategory.php",
-            providesTags: ['ReQueryForMainPage']
         })
     })
 })

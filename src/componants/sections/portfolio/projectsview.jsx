@@ -1,12 +1,21 @@
-import { Box, Button, Container, Skeleton, Stack, Typography } from '@mui/material'
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+//*react
+import React, { useContext, useEffect, useMemo, useRef } from 'react'
+//*mui
+import { Box, Button, Container, Typography } from '@mui/material'
+//*components
 import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import ProjectViewFilter from './projectviewfilter'
 import ProjectViewer from './projectviewer'
+import { WaitItemSkeleton } from '../../loadingitems/projectsview'
+//*queries
 import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/projects'
+//*hooks
 import { useSelector } from 'react-redux'
-import { Language } from '../../../languages/languagesContext'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
+//*scripts
+import { Language } from '../../../languages/languagesContext'
+
+
 
 export default function ProjectsView() {
 
@@ -26,9 +35,7 @@ export default function ProjectsView() {
   
   const filterValues = useSelector((state) => state.portfolioFilter);
   
-  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, reset: projects_reset }] = useLazyGetNextProjectsByCatQuery(undefined, {
-    selectFromResult: ({ isSuccess, isError, data }) => ({ isSuccess, isError, data }),
-  });
+  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, reset: projects_reset, isFetching: projects_isFetching }] = useLazyGetNextProjectsByCatQuery();
 
   useUpdateEffect(() => {
     projects_reset()
@@ -68,7 +75,7 @@ export default function ProjectsView() {
 
       { <ProjectViewer ref={ viewerRef } dir={ defaultContent.direction } data={ projects_isSuccess && projects } loadMore={ projects_trigger } isSuccess={ projects_isSuccess } isEmpty={ projects_isEmpty } /> }
       
-      { !projects_isSuccess && <WaitItemSkeleton num={ 9 } /> }
+      { projects_isFetching && <WaitItemSkeleton num={ 9 } /> }
       
       { !projects_isEmpty &&
         <Container Container maxWidth="lg" className='loadMoreCon'>
@@ -76,34 +83,4 @@ export default function ProjectsView() {
         </Container>}
     </Box>
   )
-}
-
-
-
-
-function WaitItemSkeleton({ num = 1, }) { 
-    const skeletonArray = [];
-    for (let i = 0; i < num; i++) { 
-        skeletonArray.push(
-          <Stack width={ 390 }>
-              <Stack direction={ "row" } justifyContent={"space-between"} alignItems={"center"}>
-                  <Skeleton width={ "30%" } height={ 20 } variant='rounded' />
-                  <Skeleton width={40} height={40} variant='circular'/>
-              </Stack>
-              <br />
-              <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-              <br/>
-              <Skeleton width={ "100%" } height={ 10 } variant='rounded' />
-              <br />
-              <Skeleton width={ "100%" } height={ 350 } variant='rounded' />
-          </Stack>
-        )
-    }
-  return (
-    <Container maxWidth="lg">
-      <Stack flexWrap={ "wrap" } direction={ "row" } gap={ 5 } justifyContent={'center'} alignItems={'center'}>
-        { skeletonArray }
-      </Stack>
-    </Container>
-  );
 }

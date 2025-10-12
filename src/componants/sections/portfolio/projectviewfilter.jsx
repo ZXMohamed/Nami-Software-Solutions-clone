@@ -1,11 +1,18 @@
+//*react
+import React, { useDeferredValue, useLayoutEffect, useState } from 'react'
+//*mui
 import { Box, Button, Container, Stack, TextField } from '@mui/material'
-import React, { useContext, useDeferredValue, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+//*components
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+//*queries
 import { useGetCategoriesQuery } from '../../../redux/server state/projects';
+//*hooks
 import { useDispatch, useSelector } from 'react-redux';
-import { portfolioFilterSliceActions } from '../../../redux/clint state/portfolio';
 import useUpdateEffect from '../../../hooks/useupdateeffect';
-import { defaultLanguage, Language } from '../../../languages/languagesContext';
+import { useContent } from '../../../languages/hooks/usecontent';
+//*scripts
+import { portfolioFilterSliceActions } from '../../../redux/clint state/portfolio';
+import { defaultLanguage } from '../../../languages/languagesContext';
 
 
 export default function ProjectViewFilter({ resetProjectsCash }) {
@@ -23,16 +30,22 @@ export default function ProjectViewFilter({ resetProjectsCash }) {
 
 function Categories({ resetProjectsCash }) {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-        category: {
-            all: language_isSuccess ? language.filter.category.all : "All",
-            reset: language_isSuccess ? language.filter.category.reset : "Reset filter"
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                category: {
+                    all: content.filter.category.all,
+                    reset: content.filter.category.reset
+                }
+            }
+        } else {
+            return categoriesFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
 
     const { isSuccess, data, refetch } = useGetCategoriesQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
@@ -74,15 +87,21 @@ function Categories({ resetProjectsCash }) {
 
 function SearchBar({ resetProjectsCash }) {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        language: language_isSuccess ? language.page.language : defaultLanguage,
-        search: {
-            placeholder: language_isSuccess ? language.filter.search.placeholder : "Search about project"
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                search: {
+                    placeholder: content.filter.search.placeholder
+                }
+            }
+        } else {
+            return searchBarFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
     
     const filterAction = useDispatch();
     const searchString = useSelector((state) => state.portfolioFilter.search);
@@ -109,4 +128,21 @@ function SearchBar({ resetProjectsCash }) {
             <Button variant='contained' disableRipple disableElevation></Button>
         </Stack>
     )
+}
+
+const categoriesFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    category: {
+        all: "All",
+        reset: "Reset filter"
+    }
+}
+
+const searchBarFirstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    search: {
+        placeholder: "Search about project"
+    }
 }

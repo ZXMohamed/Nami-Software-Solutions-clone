@@ -1,7 +1,11 @@
-import { Box, Container, Stack } from '@mui/material'
+//*react
 import React from 'react'
+//*mui
+import { Box, Container, Stack } from '@mui/material'
+//*components
 import { ProjectCard } from '../../shared/projectcard'
 import { FixedSizeGrid } from 'react-window'
+//*hooks
 import { useResponsiveViewer } from '../../../hooks/portfolio/useResponsiveViewer';
 
 
@@ -50,5 +54,3 @@ export default function ProjectViewer({ ref, dir, data = {}, isSuccess, isEmpty 
     </Box>
   )
 }
-
-
