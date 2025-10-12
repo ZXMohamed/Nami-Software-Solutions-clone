@@ -82,7 +82,7 @@ export default function ProjectsView() {
       { projects_isFetching && <WaitItemSkeleton num={ 9 } /> }
       
       { !projects_isEmpty &&
-        <Container Container maxWidth="lg" className='loadMoreCon'>
+        <Container maxWidth="lg" className='loadMoreCon'>
           <Button variant='text' onClick={ handleLoadMore }> {defaultContent.buttons.loadMore} </Button>
         </Container>}
     </Box>
