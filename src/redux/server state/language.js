@@ -12,10 +12,13 @@ const languageSlice = createApi({
         }),
         getLanguage: builder.query({
             query: ({ language, page }) => "query/language.php?lang=" + language + "&" + "page=" + page,
+        }),
+        setCurrentLanguage: builder.mutation({
+            query: ({ language }) => "query/currentLanguage.php?lang=" + language,
         })
     })
 })
 
 
 export default languageSlice;
-export const { useLazyGetLanguageQuery, useGetAvailableLanguagesQuery } = languageSlice;
+export const { useLazyGetLanguageQuery, useGetAvailableLanguagesQuery, useSetCurrentLanguageMutation } = languageSlice;

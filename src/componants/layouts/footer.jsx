@@ -1,17 +1,18 @@
 //*react
-import React, { memo, useContext, useMemo } from 'react'
+import React, { memo } from 'react'
 //*route
 import { pages_routes } from '../../routes/routes';
 import { Link, useLocation, useParams } from 'react-router';
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
+//*hooks
+import { useContent } from '../../languages/hooks/usecontent';
 //*component
 import LogoLink from '../shared/logolink';
 import SocialButtons from '../shared/social&contacts/socialbuttons';
 //*queries
 import { useGetSocialQuery } from '../../redux/server state/social';
 //*scripts
-import { Language } from '../../languages/languagesContext';
 import { getPage, navSettings } from '../../routes/routesmanager';
 //*assets
 import logo from "../../assets/photo/global/namilogo.svg";
@@ -21,14 +22,19 @@ import "../../sass/shared/footer.scss"
 
 const Footer = memo(() => {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        downBar: {
-            copyRights: language_isSuccess ? language.footer.downBar.copyRights : "© 2025 All rights reserved for Nami Software Development Company."
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                downBar: {
+                    copyRights: content.footer.downBar.copyRights 
+                }
+            }
+        } else {
+            return footerFirstContent;
         }
-    }), [language, language_isSuccess]);
+    })();
 
     return (
         <Box dir={ defaultContent.direction } className='footer'>
@@ -53,13 +59,18 @@ export default Footer;
 
 function FooterAboutTab() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        footerLogo: language_isSuccess ? language.footer.footerLogo : logo,
-        description: language_isSuccess ? language.footer.description : "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                footerLogo: content.footer.footerLogo,
+                description: content.footer.description,
+            }
+        } else {
+            return footerAboutTabFirstContent;
+        }
+    })();
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
@@ -73,24 +84,22 @@ function FooterAboutTab() {
 
 function FooterServicesTab() {
 
-    const { isSuccess: language_isSuccess, data: language } = useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        tabs: {
-            services: {
-                title: language_isSuccess ? language.footer.tabs.services.title : "Services",
-                items: language_isSuccess ? language.footer.tabs.services.items : {
-                    "Design services": { title: "Design services", id: 6 },
-                    "Cloud services": { title: "Cloud services", id: 5 },
-                    "Technical consulting": { title: "Technical consulting", id: 4 },
-                    "Digital marketing": { title: "Digital marketing", id: 3 },
-                    "Mobile application development": { title: "Mobile application development", id: 2 },
-                    "Website development": { title: "Website development", id: 1 }
-                }
-            },
-        },
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                tabs: {
+                    services: {
+                        title: content.footer.tabs.services.title,
+                        items: content.footer.tabs.services.items
+                    },
+                },
+            }
+        } else {
+            return footerServicesTabFirstContent;
+        }
+    })();
 
     const { language: urlLang } = useParams();
     
@@ -108,24 +117,23 @@ function FooterServicesTab() {
 }
 
 function FooterLinksTab() {
-    
-    
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
 
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        tabs: {
-            links: {
-                title: language_isSuccess ? language.footer.tabs.links.title : "Links",
-                items: language_isSuccess ? language.footer.tabs.links.items : {
-                    "Home": { title: "Home" },
-                    "About us": { title: "About us" },
-                    "Services": { title: "Services" },
-                    "Contact us": { title: "Contact us" },
-                }
-            },
-        },
-    }), [language, language_isSuccess]);
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                tabs: {
+                    links: {
+                        title: content.footer.tabs.links.title,
+                        items: content.footer.tabs.links.items
+                    },
+                },
+            }
+        } else {
+            return footerLinksTabFirstContent;
+        }
+    })();
 
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
@@ -160,16 +168,21 @@ function Links({ defaultContent }) {
 
 function FooterContactEmail() {
 
-    const { isSuccess: language_isSuccess, data: language }=useContext(Language);
-
-    const defaultContent = useMemo(() => ({
-        direction: language_isSuccess ? language.page.direction : "ltr",
-        tabs: {
-            contactEmail: {
-                title: language_isSuccess ? language.footer.tabs.contactEmail.title : "Contact email",
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                tabs: {
+                    contactEmail: {
+                        title: content.footer.tabs.contactEmail.title,
+                    }
+                },
             }
-        },
-    }), [language, language_isSuccess]);
+        } else {
+            return footerContactEmailFirstContent;
+        }
+    })();
 
     const { data: social, isSuccess: social_isSuccess } = useGetSocialQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
@@ -179,10 +192,60 @@ function FooterContactEmail() {
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerContactEmail'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.contactEmail.title}</Typography>
             { social_isSuccess && <ul type="none" className='footerTabList'>
-                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.support["title-" + language.page.language] : social?.email.support.title }</a></li>
-                <li><img src={ mailbox } alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.humanResources["title-" + language.page.language] : social?.email.humanResources.title }</a></li>
-                <li><img src={ mailbox } alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ language_isSuccess ? social?.email.sales["title-" + language.page.language] : social?.email.sales.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.support["title-" + content.page.language] : social?.email.support.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.humanResources["title-" + content.page.language] : social?.email.humanResources.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.sales["title-" + content.page.language] : social?.email.sales.title }</a></li>
             </ul> }
         </Grid>
     )
+}
+
+const footerFirstContent = {
+    direction: "ltr",
+    downBar: {
+        copyRights: "© 2025 All rights reserved for Nami Software Development Company."
+    }
+}
+const footerAboutTabFirstContent = {
+    direction: "ltr",
+    footerLogo: logo,
+    description: "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
+}
+const footerServicesTabFirstContent = {
+    direction: "ltr",
+    tabs: {
+        services: {
+            title: "Services",
+            items: {
+                "Design services": { title: "Design services", id: 6 },
+                "Cloud services": { title: "Cloud services", id: 5 },
+                "Technical consulting": { title: "Technical consulting", id: 4 },
+                "Digital marketing": { title: "Digital marketing", id: 3 },
+                "Mobile application development": { title: "Mobile application development", id: 2 },
+                "Website development": { title: "Website development", id: 1 }
+            }
+        },
+    },
+}
+const footerLinksTabFirstContent = {
+    direction: "ltr",
+    tabs: {
+        links: {
+            title: "Links",
+            items: {
+                "Home": { title: "Home" },
+                "About us": { title: "About us" },
+                "Services": { title: "Services" },
+                "Contact us": { title: "Contact us" },
+            }
+        },
+    },
+}
+const footerContactEmailFirstContent = {
+    direction: "ltr",
+    tabs: {
+        contactEmail: {
+            title: "Contact email",
+        }
+    },
 }
