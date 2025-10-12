@@ -1,9 +1,11 @@
 //*react
 import React from 'react'
 //*mui
-import { Box, Skeleton, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 //*styles
 import "../../sass/shared/techbadge.scss"
+//*components
+import { WaitItemsSkelton } from '../loadingitems/techbadges';
 
 
 export function TechBadgesList({ dir, loading, children, type }) {
@@ -35,15 +37,4 @@ export const techBadgesListType = {
 export const techBadgeSize = {
     big : "techBadgeBig",
     small:"techBadgeSmall"
-}
-
-function WaitItemsSkelton() { 
-    return (
-      <Stack direction={"row"} flexWrap={"wrap"} gap={2}>
-        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
-        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
-        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
-        <Skeleton variant="rounded" width={ 100 } height={ 40 } />
-      </Stack>
-    );
 }

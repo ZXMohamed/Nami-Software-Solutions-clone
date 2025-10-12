@@ -16,12 +16,3 @@ export default function ListCard({ dir, title, children = [] }) {
     </Stack>
   )
 }
-
-// const aosAnimation = {
-//   ["data-aos"]: "fade-up",
-//   ["data-aos-duration"]: "1000",
-// }
-// const cardAosAnimation = {
-//   ...aosAnimation,
-//   ["data-aos-delay"]: "100"
-// }

@@ -4,6 +4,8 @@ import React, { Fragment, memo, useEffect, useRef } from 'react'
 import { Box, Stack, Typography } from '@mui/material';
 //*hooks
 import { useContent } from '../../languages/hooks/usecontent';
+//*styles
+import "../../sass/shared/servicesticker.scss";
 //*animation
 import { tickerItemsMover } from '../../animation/servicesticker';
 
