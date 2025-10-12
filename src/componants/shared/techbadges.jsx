@@ -5,7 +5,7 @@ import { Box, Stack, Typography } from '@mui/material'
 //*styles
 import "../../sass/shared/techbadge.scss"
 //*components
-import { WaitItemsSkelton } from '../loadinitems/techbadges';
+import { WaitItemsSkelton } from '../loadingitems/techbadges';
 
 
 export function TechBadgesList({ dir, loading, children, type }) {
