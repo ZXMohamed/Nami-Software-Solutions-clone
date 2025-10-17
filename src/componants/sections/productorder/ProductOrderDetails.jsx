@@ -1,5 +1,5 @@
 //*react
-import React from 'react'
+import React, { useEffect } from 'react'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*scripts
@@ -20,6 +20,8 @@ import OrderProduct from './orderproduct'
 import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/ProductOrderDetails'
 import { GalleryWaitItemsSkelton, IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/ProductOrderDetails'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
+//*hooks
+import useCashedImage from '../../../hooks/usecashedimage'
 
 
 export default function ProductOrderDetails() {
@@ -61,7 +63,7 @@ export default function ProductOrderDetails() {
         <Grid container spacing={2}>
           <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
 
-            { (!product_isFetching && product_isSuccess) && product["id-2"].image && <Gallery dir={ defaultContent.direction } data={ [product["id-2"].image] } /> }
+            { (!product_isFetching && product_isSuccess) && product["id-2"].image && <CashedGallery dir={ defaultContent.direction } id={product["id-2"].id} mainImage={ product["id-2"].image } /> }
             
             { product_isFetching && <GalleryWaitItemsSkelton /> }
             
@@ -118,6 +120,18 @@ export default function ProductOrderDetails() {
       </Container>
     </Box>
     </>
+  )
+}
+
+function CashedGallery({dir, id, mainImage}) {
+  
+  const [image, cashImage] = useCashedImage(mainImage, "products", id);
+  useEffect(() => {
+    cashImage();
+  },[]);
+
+  return (
+    <Gallery dir={ dir } data={ [image] } /> 
   )
 }
 
