@@ -1,5 +1,5 @@
 //*react
-import React from 'react'
+import React, { useEffect } from 'react'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*hooks
@@ -19,6 +19,9 @@ import { GalleryWaitItemsSkelton, IntroCardWaitItemsSkelton, ListCardWaitItemsSk
 import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 //*animation
 import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/projectshowdetails'
+//*hooks
+import useCashedImage from '../../../hooks/usecashedimage'
+
 
 
 export default function ProjectShowDetails() {
@@ -68,7 +71,7 @@ export default function ProjectShowDetails() {
 
             { project_isFetching && <IntroCardWaitItemsSkelton /> }
 
-            { (!project_isFetching && project_isSuccess) && project["id-1"].image && <Gallery dir={ defaultContent.direction } sideThumbs data={ [project["id-1"].image, ...(project["id-1"]?.gallery || [])] } /> }
+            { (!project_isFetching && project_isSuccess) && project["id-1"].image && <CashedGallery dir={ defaultContent.direction } id={project["id-1"].id} mainImage={project["id-1"].image} data={ (project["id-1"]?.gallery || []) } /> }
 
             { project_isFetching && <GalleryWaitItemsSkelton /> }
 
@@ -99,6 +102,19 @@ export default function ProjectShowDetails() {
         { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
       </Container>
     </Box>
+  )
+}
+
+
+function CashedGallery({ dir, id, mainImage, data}) {
+  const [image, cashImage] = useCashedImage(mainImage, "portfolio", id);
+  
+  useEffect(() => {
+    cashImage();
+  },[])
+console.log(dir,id,mainImage,data,image);
+  return (
+    <Gallery dir={ dir } sideThumbs data={ [image, ...data]} />
   )
 }
 
