@@ -31,8 +31,8 @@ export const ProductCard = memo(({ dir, data, aosAnimation }) => {
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
                     <img src={ image } alt={ data.title + " service product from Nami" } loading='lazy' />
-                </Box>
                     {!image && <><br /><Typography color="error" sx={{p:2}}>Can't Load Image</Typography></>}
+                </Box>
                 <Typography variant='h6' component={ 'h3' } className='productTitle'>{ data.title }</Typography>
                 <Typography className='productDescription'>{ data.description }</Typography>
                 <Box className="badgesContainer">
