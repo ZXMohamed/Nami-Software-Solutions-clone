@@ -1,5 +1,5 @@
 //*react
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 //*route
 import { useNavigate, useParams } from 'react-router'
 import { pages_routes } from '../../routes/routes'
@@ -9,6 +9,9 @@ import { Box, Stack, Typography } from '@mui/material'
 import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from './servicesbadges'
 //*styles
 import "../../sass/shared/productcard.scss"
+//*hooks
+import useCashedImage from '../../hooks/usecashedimage'
+
 
 
 export const ProductCard = memo(({ dir, data, aosAnimation }) => {
@@ -17,12 +20,19 @@ export const ProductCard = memo(({ dir, data, aosAnimation }) => {
     const navigation = useNavigate();
     const { language: urlLang } = useParams();
 
+    const [image, cashImage] = useCashedImage(data.image, "products", data.id);
+
+    useEffect(() => {
+        cashImage();
+    },[])
+
     return (
         <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["product details"].link) }>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
-                    <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />
+                    <img src={ image } alt={ data.title + " service product from Nami" } loading='lazy' />
                 </Box>
+                    {!image && <><br /><Typography color="error" sx={{p:2}}>Can't Load Image</Typography></>}
                 <Typography variant='h6' component={ 'h3' } className='productTitle'>{ data.title }</Typography>
                 <Typography className='productDescription'>{ data.description }</Typography>
                 <Box className="badgesContainer">
