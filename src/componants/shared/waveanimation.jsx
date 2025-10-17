@@ -2,6 +2,9 @@
 import React from 'react'
 //*mui
 import { Box } from '@mui/material'
+//*styles
+import "../../sass/shared/infocard.scss"
+
 
 export const WaveAnimation = ({ wave_dir }) => {
   return (
