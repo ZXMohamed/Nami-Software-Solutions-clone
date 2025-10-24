@@ -3,6 +3,7 @@ import { Box, Typography, Stack, Button } from "@mui/material";
 //*hooks
 import { useContent } from "../../../languages/hooks/usecontent";
 //*components
+import PageHead from "../../shared/pagehead";
 import SocialButtons from "../../shared/social&contacts/socialbuttons";
 import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
@@ -12,8 +13,8 @@ import { pages_routes } from "../../../routes/routes";
 //*animation
 import { descriptionAosAnimation, homeButtonsAosAnimation, socialButtonsAosAnimation, titleAosAnimation } from "../../../animation/home";
 
-export default function Home() { 
-console.log("home");
+export default function Home() {
+    console.log("home");
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
 
@@ -21,6 +22,8 @@ console.log("home");
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language: content.page.language,
+                logo: content.navBar.navLogo,
                 title: content.home.title,
                 description: content.home.description,
                 buttons: {
@@ -39,27 +42,31 @@ console.log("home");
     const navigate = useNavigate();
 
     return (
-        <Box id="home" className="homeSection" dir={ defaultContent.direction }>
+        <>
+            <PageHead title={defaultContent.title} description={defaultContent.description} language={defaultContent.language} image={defaultContent.logo} url="/"/>
             
-            <Typography variant="h2" component="h1" className="homeTitle" {...titleAosAnimation}>
-                {defaultContent.title.first} <span>{defaultContent.title.middle}</span> {defaultContent.title.last}
-            </Typography>
-            
-            <Typography className="homeDescription" {...descriptionAosAnimation}>
-                {defaultContent.description}
-            </Typography>
+            <Box id="home" className="homeSection" dir={ defaultContent.direction }>
 
-            <SocialButtons aosAnimation={ socialButtonsAosAnimation }/>
+                <Typography variant="h2" component="h1" className="homeTitle" { ...titleAosAnimation }>
+                    { defaultContent.title.first } <span>{ defaultContent.title.middle }</span> { defaultContent.title.last }
+                </Typography>
 
-            <Stack direction="row" gap={ 2 } className="homeButtons" {...homeButtonsAosAnimation}>
-                <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={()=>navigate(pages_routes(urlLang)["portfolio"].link)}>{defaultContent.buttons.portfolio}</Button>
-                <RequestQuotation/>
-                <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={()=>navigate(pages_routes(urlLang)["our products"].link)}>{ defaultContent.buttons.ourProducts }</Button>
-            </Stack>
-            
-            <FallingBackground/>
+                <Typography className="homeDescription" { ...descriptionAosAnimation }>
+                    { defaultContent.description }
+                </Typography>
 
-        </Box>
+                <SocialButtons aosAnimation={ socialButtonsAosAnimation } />
+
+                <Stack direction="row" gap={ 2 } className="homeButtons" { ...homeButtonsAosAnimation }>
+                    <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={ () => navigate(pages_routes(urlLang)["portfolio"].link) }>{ defaultContent.buttons.portfolio }</Button>
+                    <RequestQuotation />
+                    <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={ () => navigate(pages_routes(urlLang)["our products"].link) }>{ defaultContent.buttons.ourProducts }</Button>
+                </Stack>
+
+                <FallingBackground />
+
+            </Box>
+        </>
     )
 }
 
