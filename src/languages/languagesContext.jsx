@@ -16,6 +16,8 @@ export default function LanguagesProvider({ children }) {
     
     const { languageControls, isError, isSuccess, isLoading, isFetching } = useLanguage();
 
+    isSuccess && (document.documentElement.lang = languageControls?.data?.page?.language ? languageControls.data.page.language : defaultLanguage);
+
     return (
         <Language.Provider value={ languageControls }>
             
