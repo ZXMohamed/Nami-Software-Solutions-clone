@@ -17,6 +17,7 @@ import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListT
 import DownloadButton from '../../shared/buttons/downloadbutton'
 import OrderProduct from './orderproduct'
 import RoutesBar from '../../shared/routesbar'
+import PageHead from '../../shared/pagehead'
 //*animation
 import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/ProductOrderDetails'
 import { GalleryWaitItemsSkelton, IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/ProductOrderDetails'
@@ -58,69 +59,77 @@ export default function ProductOrderDetails() {
     product_refetch();
   },[defaultContent.language])
 
-  return (<>
-    <Box dir={ defaultContent.direction }>
-      { (!product_isFetching && product_isSuccess) && <RoutesBar title={ product["id-2"].title } storeTab={"Our products"} /> }
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
+  return (
+    <>
+      { product_isSuccess && <PageHead pageTitle={ product["id-2"].title } title={ product["id-2"].title } description={ product["id-2"].description } language={ defaultContent.language } type='Product' url='/' image={ defaultContent.logo } LD_Json={ {
+        "offers": {
+          "@type": "Product",
+          "name": product["id-2"].title,
+          "description": product["id-2"].description
+        }
+      } } /> }
+      <Box dir={ defaultContent.direction }>
+        { (!product_isFetching && product_isSuccess) && <RoutesBar title={ product["id-2"].title } storeTab={"Our products"} /> }
+        <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
 
-            { (!product_isFetching && product_isSuccess) && product["id-2"].image && <CashedGallery dir={ defaultContent.direction } id={product["id-2"].id} mainImage={ product["id-2"].image } /> }
-            
-            { product_isFetching && <GalleryWaitItemsSkelton /> }
-            
-            { (!product_isFetching && product_isSuccess) && 
-              <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
-                { (!product_isFetching && product_isSuccess && product["id-2"].serviceBadges) &&
-                  <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
-                    { product["id-2"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
-                  </ServicesBadgesList>
-                }
-                <DownloadButton direction={defaultContent.direction} title={defaultContent.buttons.downloadSystemFile} link={product["id-2"].document} />
-              </IntroCard>
-            }
+              { (!product_isFetching && product_isSuccess) && product["id-2"].image && <CashedGallery dir={ defaultContent.direction } id={product["id-2"].id} mainImage={ product["id-2"].image } /> }
+              
+              { product_isFetching && <GalleryWaitItemsSkelton /> }
+              
+              { (!product_isFetching && product_isSuccess) && 
+                <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
+                  { (!product_isFetching && product_isSuccess && product["id-2"].serviceBadges) &&
+                    <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
+                      { product["id-2"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
+                    </ServicesBadgesList>
+                  }
+                  <DownloadButton direction={defaultContent.direction} title={defaultContent.buttons.downloadSystemFile} link={product["id-2"].document} />
+                </IntroCard>
+              }
 
-            { product_isFetching && <IntroCardWaitItemsSkelton /> }
-            
+              { product_isFetching && <IntroCardWaitItemsSkelton /> }
+              
+            </Grid>
+            <Grid size={ { md: 6, xs: 12 } } { ...listCardAosAnimation } className="productListsSide">
+              
+              { (!product_isFetching && product_isSuccess && product["id-2"].objectives) &&
+                <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
+                  <PointsList dir={ defaultContent.direction } data={ product["id-2"].objectives } />
+                </ListCard>
+              }
+              { product_isFetching && <ListCardWaitItemsSkelton/>}
+              
+              { (!product_isFetching && product_isSuccess && product["id-2"].features) &&
+                <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
+                  <PointsList dir={ defaultContent.direction } data={ product["id-2"].features } />
+                </ListCard>
+              }
+              { product_isFetching && <ListCardWaitItemsSkelton/>}
+
+              { (!product_isFetching && product_isSuccess && product["id-2"].programmingLanguages) &&
+                <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
+                  <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
+                    { product["id-2"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
+                  </TechBadgesList>
+                </ListCard>
+              }
+              { product_isFetching && <ListCardWaitItemsSkelton /> }
+
+            </Grid>
           </Grid>
-          <Grid size={ { md: 6, xs: 12 } } { ...listCardAosAnimation } className="productListsSide">
-            
-            { (!product_isFetching && product_isSuccess && product["id-2"].objectives) &&
-              <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
-                <PointsList dir={ defaultContent.direction } data={ product["id-2"].objectives } />
-              </ListCard>
-            }
-            { product_isFetching && <ListCardWaitItemsSkelton/>}
-            
-            { (!product_isFetching && product_isSuccess && product["id-2"].features) &&
-              <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
-                <PointsList dir={ defaultContent.direction } data={ product["id-2"].features } />
-              </ListCard>
-            }
-            { product_isFetching && <ListCardWaitItemsSkelton/>}
+          
+          <br />
+          <br />
 
-            { (!product_isFetching && product_isSuccess && product["id-2"].programmingLanguages) &&
-              <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
-                <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
-                  { product["id-2"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
-                </TechBadgesList>
-              </ListCard>
-            }
-            { product_isFetching && <ListCardWaitItemsSkelton /> }
+          <Box className="orderProductCon">
+            { (!product_isFetching && product_isSuccess) && <OrderProduct />}
+          </Box>
 
-          </Grid>
-        </Grid>
-        
-        <br />
-        <br />
-
-        <Box className="orderProductCon">
-          { (!product_isFetching && product_isSuccess) && <OrderProduct />}
-        </Box>
-
-        { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
-      </Container>
-    </Box>
+          { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+        </Container>
+      </Box>
     </>
   )
 }
