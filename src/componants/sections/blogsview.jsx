@@ -3,6 +3,7 @@ import React from 'react'
 //*mui
 import { Box } from '@mui/material';
 //*components
+import PageHead from '../shared/pagehead';
 import InfoCard, { infoCardEffects, typographyForm } from '../shared/infocard'
 //*hooks
 import { useContent } from '../../languages/hooks/usecontent';
@@ -15,6 +16,8 @@ export default function BlogsView() {
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language: content.page.language,
+                logo: content.navBar.navLogo,
                 subtitle: content.header.subtitle,
                 description: content.header.description,
             }
@@ -26,6 +29,7 @@ export default function BlogsView() {
 
     return (
         <Box>
+            <PageHead description={defaultContent.description} image={defaultContent.logo} language={defaultContent.language} url='/'/>
             <InfoCard dir={ defaultContent.direction } wave_dir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription />
         </Box>
     )
