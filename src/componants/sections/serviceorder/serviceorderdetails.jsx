@@ -44,13 +44,13 @@ export default function ServiceOrderDetails() {
   
   return (
     <>
-      <PageHead pageTitle={ service["id-1"].title } title={ service["id-1"].title } description={ service["id-1"].description } language={ defaultContent.language } type={ "Service" } image={ service["id-1"].image } url='/' LD_Json={ {
-          "offers": {
+      { service_isSuccess && <PageHead pageTitle={ service["id-1"].title } title={ service["id-1"].title } description={ service["id-1"].description } language={ defaultContent.language } type={ "Service" } image={ service["id-1"].image } url='/' LD_Json={ {
+        "offers": {
           "@type": "Service",
           "name": service["id-1"].title,
           "description": service["id-1"].description
         }
-      }} />
+      } } /> }
       <Box dir={defaultContent.direction}>
         <Container maxWidth="lg">
           <Grid container spacing={2}>
