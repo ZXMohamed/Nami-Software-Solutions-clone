@@ -8,6 +8,7 @@ import { useContent } from '../../../languages/hooks/usecontent';
 import Marketers from './marketers';
 import Partnership from './partnership';
 import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
+import PageHead from '../../shared/pagehead';
 
 export default function MarketingResources() {
 
@@ -16,7 +17,9 @@ export default function MarketingResources() {
     const defaultContent = (() => {
         if (content_isSuccess) {
             return {
+                language: content.page.language,
                 direction: content.page.direction,
+                logo: content.navBar.navLogo,
                 subtitle: content.header.subtitle,
                 description: content.header.description,
             }
@@ -27,6 +30,7 @@ export default function MarketingResources() {
 
     return (
         <Box>
+            <PageHead description={defaultContent.description} language={defaultContent.language} image={defaultContent.logo} url='/'/>
             <InfoCard dir={ defaultContent.direction } wave_dir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription />
             <br />
             <Marketers />
