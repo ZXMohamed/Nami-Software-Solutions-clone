@@ -15,6 +15,7 @@ import MobileScreens from '../../shared/mobilescreens'
 import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListType } from '../../shared/servicesbadges'
 import { TechBadge, techBadgeSize, TechBadgesList, techBadgesListType } from '../../shared/techbadges'
 import { GalleryWaitItemsSkelton, IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/projectshowdetails'
+import PageHead from '../../shared/pagehead'
 //*queries
 import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 //*animation
@@ -33,6 +34,7 @@ export default function ProjectShowDetails() {
       return {
         direction: content.page.direction,
         language: content.page.language,
+        logo: content.navBar.navLogo,
         featuresList: {
           title: content.featuresList.title
         },
@@ -53,6 +55,16 @@ export default function ProjectShowDetails() {
   },[defaultContent.language]);
 
   return (
+  <>
+    { project_isSuccess && <PageHead pageTitle={ project["id-1"].title } title={ project["id-1"].title } description={ project["id-1"].description } language={ defaultContent.language } type='SoftwareApplication' image={ defaultContent.logo } url='/' LD_Json={ 
+        {
+          "offers": {
+            "@type": "SoftwareApplication",
+            "name": project["id-1"].title,
+            "description": project["id-1"].description
+          }
+        }
+      } /> }
     <Box dir={ defaultContent.direction }>
       { project_isSuccess && <RoutesBar title={ project["id-1"].title } storeTab={"Portfolio"} /> }
       <Container maxWidth="lg">
@@ -102,6 +114,7 @@ export default function ProjectShowDetails() {
         { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
       </Container>
     </Box>
+  </>
   )
 }
 

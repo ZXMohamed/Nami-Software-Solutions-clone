@@ -27,6 +27,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
+            <Route index path="/:language?/project-details/:slug?/:id" element={ <ProjectDetails /> } />
             <Route index path="/:language?/project-details/:id" element={ <ProjectDetails /> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
