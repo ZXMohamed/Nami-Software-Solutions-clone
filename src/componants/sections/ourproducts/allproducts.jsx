@@ -3,6 +3,7 @@ import React from 'react'
 //*components
 import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
 import { Products } from './ourproducts'
+import PageHead from '../../shared/pagehead';
 //*hooks
 import { useContent } from '../../../languages/hooks/usecontent';
 
@@ -14,6 +15,8 @@ export default function AllProducts() {
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language: content.page.language,
+                logo: content.navBar.navLogo,
                 header: {
                     subtitle: content.header.subtitle,
                     description: content.header.description,
@@ -26,6 +29,7 @@ export default function AllProducts() {
 
     return (
         <>
+            <PageHead description={defaultContent.header.description} image={defaultContent.logo} language={defaultContent.language} type='Products' url='/'/>
             <InfoCard dir={ defaultContent.direction } waveDir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.header.subtitle } animateDescription description={ defaultContent.header.description } />
             <br/>
             <br/>
