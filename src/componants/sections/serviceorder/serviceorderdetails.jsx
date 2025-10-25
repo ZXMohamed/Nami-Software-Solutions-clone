@@ -11,6 +11,7 @@ import ListCard from '../../shared/listcard'
 import ObjectivesList from '../../shared/objectiveslist'
 import OrderService from './orderservice'
 import { IntroCardWaitItemsSkelton, ListCardWaitItemsSkelton } from '../../loadingitems/serviceorderdetails'
+import PageHead from '../../shared/pagehead'
 //*queries
 import { useGetServicesQuery } from '../../../redux/server state/services'
 //*animation
@@ -42,24 +43,33 @@ export default function ServiceOrderDetails() {
   },[defaultContent.language]);
   
   return (
-    <Box dir={defaultContent.direction}>
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
-            { service_isFetching && <IntroCardWaitItemsSkelton/>}
+    <>
+      <PageHead pageTitle={ service["id-1"].title } title={ service["id-1"].title } description={ service["id-1"].description } language={ defaultContent.language } type={ "Service" } image={ service["id-1"].image } url='/' LD_Json={ {
+          "offers": {
+          "@type": "Service",
+          "name": service["id-1"].title,
+          "description": service["id-1"].description
+        }
+      }} />
+      <Box dir={defaultContent.direction}>
+        <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
+              { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
+              { service_isFetching && <IntroCardWaitItemsSkelton/>}
+            </Grid>
+            <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
+              <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
+                { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
+                { (!service_isFetching && service_isSuccess) && <OrderService />}
+                { service_isFetching && <ListCardWaitItemsSkelton/>}
+              </ListCard>
+            </Grid>
           </Grid>
-          <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
-            <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-              { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
-              { (!service_isFetching && service_isSuccess) && <OrderService />}
-              { service_isFetching && <ListCardWaitItemsSkelton/>}
-            </ListCard>
-          </Grid>
-        </Grid>
-        { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
-      </Container>
-    </Box>
+          { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+        </Container>
+      </Box>
+    </>
   )
 }
 
