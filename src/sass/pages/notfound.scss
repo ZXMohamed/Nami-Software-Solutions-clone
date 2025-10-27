@@ -1,0 +1,34 @@
+@use "../shared/_shared.scss" as *;
+
+.notFoundCon{
+    width: 100%;
+    height: 90vh;
+    flex-direction: column;
+    @include center("flex");
+    
+    h1{
+        font-size: 56px;
+        text-transform: capitalize;
+        @extend %animatedBG;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        text-align: center;
+    }
+    
+    a{
+        @extend %removeAdditionalLinkStyle;
+        font-size: 30px;
+        &:hover{
+            @extend %animatedBG;
+            color:transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        &::after{
+            content: url($listArrow);
+            filter: brightness(0);
+            margin: 5px;
+        }
+    }
+}
