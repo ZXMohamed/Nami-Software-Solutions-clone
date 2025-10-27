@@ -30,12 +30,12 @@ export default function Portfolio() {
     const defaultContent = (() => {
         if (content_isSuccess) {
             return {
-                direction: content.page.direction ,
-                language: content.page.language ,
-                title: content.projects.header.title ,
-                subtitle: content.projects.header.subtitle ,
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.projects.header.title,
+                subtitle: content.projects.header.subtitle,
                 buttons: {
-                    headerButton: content.projects.header.buttons.headerButton 
+                    headerButton: content.projects.header.buttons.headerButton
                 }
             }
         } else {
