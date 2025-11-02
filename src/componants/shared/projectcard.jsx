@@ -25,7 +25,7 @@ export const ProjectCard = memo(({ dir, data, bordered, aosAnimation, style}) =>
                 </Stack>
                 <Typography className='projectDescription'>{ data.description }</Typography>
                 <Box className="projectImageContainer shine">
-                    <img src={ data.image } alt={ data.title + " project from Nami" } loading='lazy' />
+                    <img src={ data.image } alt={ data.title } loading='lazy' />
                 </Box>
             </Stack>
         </Box>

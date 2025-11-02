@@ -70,7 +70,7 @@ export default function Services() {
 
 const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
 
-    const { isSuccess: servicesItems_isSuccess, isFetching: servicesItems_isFetching, data: servicesItems, isError: servicesItems_isError, refetch: servicesItems_refetch } = useGetServicesQuery();
+    const { isSuccess: servicesItems_isSuccess, isFetching: servicesItems_isFetching, data: servicesItems, isError: servicesItems_isError, error: servicesItems_error, refetch: servicesItems_refetch } = useGetServicesQuery();
 
     const servicesItemsGridCellInRow = useRef(3);
 
@@ -88,7 +88,7 @@ const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
         <>
             { servicesItems_isFetching && <WaitItemsSkelton cellInRow={ 3 } num={ 6 } /> }
             { (!servicesItems_isFetching && servicesItems_isSuccess) && servicesItemsGrid }
-            { servicesItems_isError && <Typography variant={"h6"} color="error">Data Not Found !</Typography> }
+            { servicesItems_isError && <Typography variant={ "h6" } color="error">{ servicesItems_error.data.error }</Typography> }
         </>
     );
 };
@@ -113,7 +113,7 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
                 <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
                 
                     <Stack direction={ 'row' } className='serviceItemHeader'>
-                        <img src={ data.image } alt={ data.title + " service" } loading='lazy' className='serviceItemIcon' />
+                        <img src={ data.image } alt={ data.title } loading='lazy' className='serviceItemIcon' />
                         <div className='serviceItemArrow'></div>
                     </Stack>
                 

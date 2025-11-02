@@ -45,7 +45,7 @@ export function Statistics() {
 
 function StatisticsBoxRow({language}) {
 
-    const { isError: statistic_isError, isSuccess: statistic_isSuccess, isFetching: statistic_isFetching, data: statistics, refetch: statistic_refetch } = useGetStatisticsQuery();
+    const { isError: statistic_isError, error: statistic_error, isSuccess: statistic_isSuccess, isFetching: statistic_isFetching, data: statistics, refetch: statistic_refetch } = useGetStatisticsQuery();
 
     useUpdateEffect(() => {
         statistic_refetch()
@@ -55,7 +55,7 @@ function StatisticsBoxRow({language}) {
         <>
             {statistic_isFetching && <WaitStatisticProgress num={5} />}
             {(!statistic_isFetching && statistic_isSuccess) && Object.values(statistics).map((statistic) => <StatisticsBox key={statistic.id} data={statistic} />) }
-            {statistic_isError && <Typography variant='h6' color='error'>Data Not Found !</Typography>}
+            { statistic_isError && <Typography variant='h6' color='error'>{ statistic_error.data.error }</Typography>}
         </>
     )
 }

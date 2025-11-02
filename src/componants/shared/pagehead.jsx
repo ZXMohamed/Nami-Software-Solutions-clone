@@ -63,11 +63,11 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
         <Helmet>
             {/* <!-- meta --> */ }
             <meta charset="UTF-8" />
-            <meta name="application-name" content="Nami Software Solutions Portfolio" />
+            <meta name="application-name" content={title} />
             <meta name="description" content={ description } />
             <meta name="keywords" content={ keywords } />
             <meta name="generator" content="React-dom" />
-            <meta name="author" content="Nami Software Solutions" />
+            <meta name="author" content={ title } />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
             <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.google.com https://www.gstatic.com;frame-src https://www.google.com;" />

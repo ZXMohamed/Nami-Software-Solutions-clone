@@ -1,12 +1,9 @@
 //*react
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 //*mui
-import { Alert, Button, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
 //*hooks
 import { useContent } from '../../languages/hooks/usecontent';
-//*components
-import SelectInput from '../shared/SelectInput';
-import FileInput from '../shared/fileinput';
 //*form
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
@@ -16,7 +13,7 @@ import { sitekey } from '../../form/recaptcha';
 import { createZodObject } from '../../form/schema/careersform';
 import { createInputsSettings } from '../../form/settings/careersform';
 //*queries
-import { useRequestJobMutation } from '../../redux/server state/openjobs';
+import { useGetOpenJobsQuery, useRequestJobMutation } from '../../redux/server state/openjobs';
 //*scripts
 import { defaultLanguage } from '../../languages/languagesContext';
 //*animation
@@ -127,6 +124,47 @@ export function FormSection() {
             <Typography className='formErrorMsg'>{ handleLastErrors(lastInputChanged, errors) }</Typography>
             
         </Stack>
+    )
+}
+
+function SelectInput(props) {
+
+    const { data: openJobs, isSuccess: openJobs_isSuccess, isError: openJobs_isError, error: openJobs_error } = useGetOpenJobsQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError, error }) => ({ isSuccess, data, isError, error })
+    });
+
+    const [job, setJob] = useState("0");
+
+    return (
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job } disabled={openJobs_isError} onChange={ (e) => { props.onChange(e); setJob(e.target.value); }}>
+            { openJobs_isSuccess && <MenuItem value={ "0" }>{ props.title }</MenuItem> }
+            {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
+            {openJobs_isError && <MenuItem value={"0"}>{openJobs_error.data.error} (You can't apply)</MenuItem>}
+        </Select>
+    )
+}
+
+function FileInput(props) {
+
+    const [fileName, setFileName] = useState(props.no_file);
+
+    const fileNameChange = (e, setFileName) => {
+        if (e.target.files.length > 0) {
+            setFileName(e.target.files[0]?.name);
+        } else if (e.target.files.length == 0) {
+            setFileName(props.no_file);
+        }
+    }
+
+
+    return (
+        <Box className={ "fileInput " + (props.color=="error"?"fileInputError": "")} >
+            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); fileNameChange(e, setFileName); } } />
+            <label htmlFor="cvUpload" className='fileInputBody'>
+                <div variant='contained' className='fileInputTitle'>{ props.title }</div>
+                <Typography component={'span'} className='selectedFileName'>{fileName}</Typography>
+            </label>
+        </Box>
     )
 }
 

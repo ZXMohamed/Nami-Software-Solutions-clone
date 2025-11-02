@@ -107,12 +107,13 @@ const CompanyFile = () => {
       }
   })();
 
-  const { isSuccess: companyFile_isSuccess, data: companyFile } = useGetCompanyFileQuery(undefined, {
-    selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
+  const { isSuccess: companyFile_isSuccess, data: companyFile, isError: companyFile_isError, error: companyFile_error } = useGetCompanyFileQuery(undefined, {
+    selectFromResult: ({ isSuccess, data, isError, error }) => ({ isSuccess, data, isError, error })
   });
   return (
     <>
-      { companyFile_isSuccess && <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } /> }
+      <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } />
+      { companyFile_isError && <Typography color='error'>{ companyFile_error.data.error }</Typography> }
     </>
   );
 }

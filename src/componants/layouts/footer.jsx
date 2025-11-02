@@ -65,6 +65,7 @@ function FooterAboutTab() {
             return {
                 direction: content.page.direction,
                 footerLogo: content.footer.footerLogo,
+                footerLogoAlt: content.footer.footerLogoAlt,
                 description: content.footer.description,
             }
         } else {
@@ -75,7 +76,7 @@ function FooterAboutTab() {
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
             <LogoLink>
-                <img src={ defaultContent.footerLogo } alt="Nami Software Solutions" loading='lazy' className='footerLogo' />
+                <img src={ defaultContent.footerLogo } alt={defaultContent.footerLogoAlt} loading='lazy' className='footerLogo' />
             </LogoLink>
             <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
@@ -209,6 +210,7 @@ const footerFirstContent = {
 const footerAboutTabFirstContent = {
     direction: "ltr",
     footerLogo: logo,
+    footerLogoAlt: "Nami Software Solutions",
     description: "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
 }
 const footerServicesTabFirstContent = {

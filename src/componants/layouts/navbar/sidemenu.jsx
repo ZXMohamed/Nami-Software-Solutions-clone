@@ -27,6 +27,7 @@ const SideMenu = () => {
             return {
                 direction: content.page.direction,
                 logo: content.navBar.navLogo,
+                logoAlt:content.navBar.navLogoAlt,
                 navTabs: content.navBar.navTabs
             }
         } else {
@@ -45,7 +46,7 @@ const SideMenu = () => {
                 <Toolbar className="navSideMenuContent">
                     <Stack direction="column" spacing={ 0.8 } className="navSideMenu">
                         <LogoLink>
-                            <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt="Nami Software Solutions" className="navLogo" />
+                            <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } loading="lazy" alt={defaultContent.logoAlt} className="navLogo" />
                         </LogoLink>
                         <Tabs defaultContent={defaultContent}/>
                     </Stack>
@@ -83,6 +84,7 @@ function Tabs({ defaultContent }) {
 const firstContent = {
     direction: "ltr",
     logo: logo,
+    logoAlt:"Nami Software Solutions",
     navTabs: {
         "Home": { title: "Home" },
         "About us": { title: "About us" },

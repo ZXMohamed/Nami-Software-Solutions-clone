@@ -10,6 +10,9 @@ import FallingBackground from "./fallingbackground";
 //*scripts
 import { useNavigate, useParams } from "react-router";
 import { pages_routes } from "../../../routes/routes";
+import { defaultLanguage } from "../../../languages/languagesContext";
+//*assets
+import logo from "../../../assets/photo/global/namilogo.svg";
 //*animation
 import { descriptionAosAnimation, homeButtonsAosAnimation, socialButtonsAosAnimation, titleAosAnimation } from "../../../animation/home";
 
@@ -23,7 +26,12 @@ export default function Home() {
             return {
                 direction: content.page.direction,
                 language: content.page.language,
-                logo: content.navBar.navLogo,
+                pageTitle: content.page.title,
+                meta: {
+                    title:content.page.meta.title,
+                    description:content.page.meta.description,
+                    image:content.page.meta.image,
+                },
                 title: content.home.title,
                 description: content.home.description,
                 buttons: {
@@ -43,7 +51,7 @@ export default function Home() {
 
     return (
         <>
-            <PageHead title={defaultContent.title} description={defaultContent.description} language={defaultContent.language} image={defaultContent.logo} url="/"/>
+            <PageHead pageTitle={ defaultContent.pageTitle } title={ defaultContent.meta.title } description={ defaultContent.meta.description } language={ defaultContent.language } image={ defaultContent.meta.image } url={ pages_routes(urlLang)["home"].link } />
             
             <Box id="home" className="homeSection" dir={ defaultContent.direction }>
 
@@ -73,6 +81,13 @@ export default function Home() {
 
 const firstContent = {
     direction: "ltr",
+    language: defaultLanguage,
+    pageTitle: "Nami Software Solutions | Home",
+    meta: {
+        title:"Nami Software Solutions",
+        description:"For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
+        image:logo,
+    },
     title: { first: "Nami", middle: "Software", last: "Solutions" },
     description: "For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
     buttons: {

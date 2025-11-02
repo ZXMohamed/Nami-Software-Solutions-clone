@@ -21,7 +21,7 @@ export const ProductCard = memo(({ dir, data, aosAnimation }) => {
         <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id)["product details"].link) }>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
-                    <img src={ data.image } alt={ data.title + " service product from Nami" } loading='lazy' />
+                    <img src={ data.image } alt={ data.title } loading='lazy' />
                 </Box>
                 <Typography variant='h6' component={ 'h3' } className='productTitle'>{ data.title }</Typography>
                 <Typography className='productDescription'>{ data.description }</Typography>

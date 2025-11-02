@@ -29,6 +29,7 @@ const NavBar = memo(() => {
             return {
                 direction: content.page.direction,
                 logo: content.navBar.navLogo,
+                logoAlt:content.navBar.navLogoAlt,
                 navTabs: content.navBar.navTabs
             }
         } else {
@@ -42,7 +43,7 @@ const NavBar = memo(() => {
             <Container maxWidth="lg" disableGutters>
                 <Toolbar className="navContent" disableGutters>
                     <LogoLink>
-                        <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } alt="Nami Software Solutions" loading="lazy" className="navLogo" />
+                        <img src={ defaultContent.logo } width={ "126px" } height={ "43px" } alt={defaultContent.logoAlt} loading="lazy" className="navLogo" />
                     </LogoLink>
                     <Stack direction="row">
                         <Stack direction="row" className="navBarItems">
@@ -87,6 +88,7 @@ function Tabs({ defaultContent }) {
 const firstContent = {
     direction: "ltr",
     logo: logo,
+    logoAlt:"Nami Software Solutions",
     navTabs: {
         "Home": { title: "Home" },
         "About us": { title: "About us" },
