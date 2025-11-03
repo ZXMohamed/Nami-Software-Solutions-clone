@@ -2,6 +2,7 @@
 import React from 'react'
 //*routs
 import { pages_routes } from '../../../routes/routes'
+import { useParams } from 'react-router'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*hooks
@@ -38,7 +39,9 @@ export default function ServiceOrderDetails() {
       }
   })();
 
-  const { isSuccess: service_isSuccess, isError: service_isError, error: service_error, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: 1 });
+  const { id: serviceId } = useParams(); 
+
+  const { isSuccess: service_isSuccess, isError: service_isError, error: service_error, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: serviceId });
 
   useUpdateEffect(() => {
     service_refetch();
@@ -46,7 +49,7 @@ export default function ServiceOrderDetails() {
   
   return (
     <>
-      { service_isSuccess && <PageHead pageTitle={ service.title } title={ service.title } description={ service.description } language={ defaultContent.language } type={ "Service" } image={ service.image } url={ pages_routes(defaultContent.language)["service details"].link } LD_Json={ {
+      { service_isSuccess && <PageHead pageTitle={ service.title } title={ service.title } description={ service.description } language={ defaultContent.language } type={ "Service" } image={ service.image } url={ pages_routes(defaultContent.language,serviceId)["service details"].link } LD_Json={ {
         "offers": {
           "@type": "Service",
           "name": service.title,
