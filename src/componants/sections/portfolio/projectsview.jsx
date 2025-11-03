@@ -77,7 +77,7 @@ export default function ProjectsView() {
 
   return (
     <>
-      <PageHead pageTitle={defaultContent.pageTitle} title={defaultContent.meta.title} description={defaultContent.meta.description} image={defaultContent.meta.image} type='portfolio' language={defaultContent.language} url={pages_routes(defaultContent.language)["portfolio"].link} LD_Json={{}} />
+      <PageHead pageTitle={defaultContent.pageTitle} title={defaultContent.meta.title} description={defaultContent.meta.description} image={defaultContent.meta.image} type='portfolio' language={defaultContent.language} url={pages_routes(defaultContent.language)["portfolio"].link} />
       <Box id="Portfolio">
         <InfoCard dir={ defaultContent.direction } waveDir='right' subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } />
         
