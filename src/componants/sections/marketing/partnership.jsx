@@ -56,7 +56,7 @@ export function QuestionCard({ dir, contentDir, data }) {
   return (
     <Stack direction={"row"} dir={dir} className={"questionCardCon"}>
       <Stack dir={contentDir} className={"questionCard"}>
-        <img src={companyLogo} alt="" />
+        <img src={companyLogo} alt={data.Q} />
         <Typography component={"h6"} className={"questionCard-Q"}>{ data.Q }</Typography>
         <Typography className={"questionCard-A"}>{ data.A }</Typography>
       </Stack>

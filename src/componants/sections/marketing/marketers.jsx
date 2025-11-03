@@ -49,7 +49,7 @@ export function MarketerCard({ dir, data }) {
   return (
     <Box dir={dir} className={"marketerCard"}>
         <Stack direction={"row"} className={"marketerCardHeader"}>
-            <img src={data.country.icon} alt="" />
+            <img src={data.country.icon} alt={data.country.title} />
             <Typography>{data.country.title}</Typography>
         </Stack>
         <Typography className={"marketerCardName"}>{data.marketer.name}</Typography>
