@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router';
 import { pages_routes } from '../../routes/routes';
 //*mui
 import { Box, Stack, Typography } from '@mui/material';
+import HideImageIcon from '@mui/icons-material/HideImage';
 //*styles
 import "../../sass/shared/projectscard.scss"
 //*hooks
@@ -33,8 +34,8 @@ export const ProjectCard = memo(({ dir, data, bordered, aosAnimation, style }) =
                 </Stack>
                 <Typography className='projectDescription'>{ data.description }</Typography>
                 <Box className="projectImageContainer shine">
-                    <img src={ image } alt={ data.title + " project from Nami" } loading='lazy' />
-                    {image===null && <><br/><Typography color='error' sx={{p:2}}>Can't Load Image</Typography></>}
+                    <img src={ image } alt={ data.title } loading='lazy' />
+                    {!image && <HideImageIcon fontSize='large' color='error' />}
                 </Box>
             </Stack>
         </Box>
