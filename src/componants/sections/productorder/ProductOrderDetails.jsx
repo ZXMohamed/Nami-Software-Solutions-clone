@@ -1,5 +1,8 @@
 //*react
 import React, { useEffect } from 'react'
+//*routes
+import { pages_routes } from '../../../routes/routes'
+import { useParams } from 'react-router'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*scripts
@@ -53,7 +56,9 @@ export default function ProductOrderDetails() {
       }
   })();
 
-  const { isSuccess: product_isSuccess, isError: product_isError, data: product, isFetching: product_isFetching, refetch: product_refetch } = useGetProductsQuery({ id: 2 });
+  const { id: productId } = useParams();
+
+  const { isSuccess: product_isSuccess, isError: product_isError, error: product_error, data: product, isFetching: product_isFetching, refetch: product_refetch } = useGetProductsQuery({ id: productId });
 
   useUpdateEffect(() => { 
     product_refetch();
@@ -61,31 +66,32 @@ export default function ProductOrderDetails() {
 
   return (
     <>
-      { product_isSuccess && <PageHead pageTitle={ product["id-2"].title } title={ product["id-2"].title } description={ product["id-2"].description } language={ defaultContent.language } type='Product' url='/' image={ defaultContent.logo } LD_Json={ {
+      { product_isSuccess && <PageHead pageTitle={ product.title } title={ product.title } description={ product.description } language={ defaultContent.language } type='Product' url={pages_routes(defaultContent.language,productId)["product details"].link} image={ product.image } LD_Json={ {
         "offers": {
           "@type": "Product",
-          "name": product["id-2"].title,
-          "description": product["id-2"].description
+          "name": product.title,
+          "description": product.description
         }
       } } /> }
       <Box dir={ defaultContent.direction }>
-        { (!product_isFetching && product_isSuccess) && <RoutesBar title={ product["id-2"].title } storeTab={"Our products"} /> }
+        { (!product_isFetching && product_isSuccess) && <RoutesBar title={ product.title } storeTab={"Our products"} /> }
         <Container maxWidth="lg">
           <Grid container spacing={2}>
             <Grid size={ { md: 6, xs: 12 } } { ...introCardAosAnimation } className="productDetailsSide">
 
-              { (!product_isFetching && product_isSuccess) && product["id-2"].image && <CashedGallery dir={ defaultContent.direction } id={product["id-2"].id} mainImage={ product["id-2"].image } /> }
+              { (!product_isFetching && product_isSuccess) && product.image && <CashedGallery dir={ defaultContent.direction } id={ product.id } mainImage={ product.image } alt={ product.title } /> }
               
               { product_isFetching && <GalleryWaitItemsSkelton /> }
               
               { (!product_isFetching && product_isSuccess) && 
-                <IntroCard dir={ defaultContent.direction } title={ product["id-2"].title } description={ product["id-2"].description } >
-                  { (!product_isFetching && product_isSuccess && product["id-2"].serviceBadges) &&
+                <IntroCard dir={ defaultContent.direction } title={ product.title } description={ product.description } >
+                  { 
                     <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
-                      { product["id-2"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
+                      { product.serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                     </ServicesBadgesList>
                   }
-                  <DownloadButton direction={defaultContent.direction} title={defaultContent.buttons.downloadSystemFile} link={product["id-2"].document} />
+                  
+                  {product.document && <DownloadButton direction={ defaultContent.direction } title={ defaultContent.buttons.downloadSystemFile } link={ product.document } />}
                 </IntroCard>
               }
 
@@ -94,24 +100,24 @@ export default function ProductOrderDetails() {
             </Grid>
             <Grid size={ { md: 6, xs: 12 } } { ...listCardAosAnimation } className="productListsSide">
               
-              { (!product_isFetching && product_isSuccess && product["id-2"].objectives) &&
+              { (!product_isFetching && product_isSuccess && product.objectives) &&
                 <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
-                  <PointsList dir={ defaultContent.direction } data={ product["id-2"].objectives } />
+                  <PointsList dir={ defaultContent.direction } data={ product.objectives } />
                 </ListCard>
               }
               { product_isFetching && <ListCardWaitItemsSkelton/>}
               
-              { (!product_isFetching && product_isSuccess && product["id-2"].features) &&
+              { (!product_isFetching && product_isSuccess && product.features) &&
                 <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
-                  <PointsList dir={ defaultContent.direction } data={ product["id-2"].features } />
+                  <PointsList dir={ defaultContent.direction } data={ product.features } />
                 </ListCard>
               }
               { product_isFetching && <ListCardWaitItemsSkelton/>}
 
-              { (!product_isFetching && product_isSuccess && product["id-2"].programmingLanguages) &&
+              { (!product_isFetching && product_isSuccess && product.programmingLanguages) &&
                 <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
                   <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
-                    { product["id-2"].programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
+                    { product.programmingLanguages.map((tech) => <TechBadge key={tech.id} data={tech} size={techBadgeSize.big}/>) }
                   </TechBadgesList>
                 </ListCard>
               }
@@ -127,14 +133,14 @@ export default function ProductOrderDetails() {
             { (!product_isFetching && product_isSuccess) && <OrderProduct />}
           </Box>
 
-          { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+          { product_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{ product_error.data.error }</Typography> }
         </Container>
       </Box>
     </>
   )
 }
 
-function CashedGallery({dir, id, mainImage}) {
+function CashedGallery({dir, id, mainImage, alt}) {
   
   const [image, cashImage] = useCashedImage(mainImage, "products", id);
   useEffect(() => {
@@ -142,7 +148,7 @@ function CashedGallery({dir, id, mainImage}) {
   },[]);
 
   return (
-    <Gallery dir={ dir } data={ [image] } /> 
+    <Gallery dir={ dir } data={ [image] } alt={alt}/> 
   )
 }
 

@@ -29,7 +29,7 @@ function App() {
           <Routes>
             <Route index path="/:language?/product-details/:slug?/:id" element={ <ProductDetails /> } />
             <Route index path="/:language?/product-details/:id" element={ <ProductDetails /> } />
-            <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
+            <Route path="*" element={ <h1>NOT FOUND !</h1> } />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
