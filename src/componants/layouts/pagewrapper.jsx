@@ -1,7 +1,6 @@
 //*react
 import React from 'react';
 //*component
-import PageTitle from '../shared/pagetitle';
 import NavBar from './navbar/navbar';
 import FloatSocialButtons from './social&contacts/floatsocialbuttons';
 import ContactButtons from './social&contacts/contactbuttons';
@@ -19,7 +18,6 @@ export default function PageWrapper({ children }) {
         
         { console.log("sssssssssaaaaaaaaaaa") }
         
-        <PageTitle/>
         <NavBar />
         {children}
         <FloatSocialButtons />

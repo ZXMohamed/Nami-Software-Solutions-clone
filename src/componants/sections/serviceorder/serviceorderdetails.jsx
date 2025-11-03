@@ -1,5 +1,7 @@
 //*react
 import React from 'react'
+//*routs
+import { pages_routes } from '../../../routes/routes'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*hooks
@@ -36,7 +38,7 @@ export default function ServiceOrderDetails() {
       }
   })();
 
-  const { isSuccess: service_isSuccess, isError: service_isError, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: 1 });
+  const { isSuccess: service_isSuccess, isError: service_isError, error: service_error, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: 1 });
 
   useUpdateEffect(() => {
     service_refetch();
@@ -44,29 +46,29 @@ export default function ServiceOrderDetails() {
   
   return (
     <>
-      { service_isSuccess && <PageHead pageTitle={ service["id-1"].title } title={ service["id-1"].title } description={ service["id-1"].description } language={ defaultContent.language } type={ "Service" } image={ service["id-1"].image } url='/' LD_Json={ {
+      { service_isSuccess && <PageHead pageTitle={ service.title } title={ service.title } description={ service.description } language={ defaultContent.language } type={ "Service" } image={ service.image } url={ pages_routes(defaultContent.language)["service details"].link } LD_Json={ {
         "offers": {
           "@type": "Service",
-          "name": service["id-1"].title,
-          "description": service["id-1"].description
+          "name": service.title,
+          "description": service.description
         }
       } } /> }
       <Box dir={defaultContent.direction}>
         <Container maxWidth="lg">
           <Grid container spacing={2}>
             <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-              { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
+              { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service.image } gutters title={ service.title } description={ service.description } /> }
               { service_isFetching && <IntroCardWaitItemsSkelton/>}
             </Grid>
             <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
               <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-                { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
+                { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service.objectives } />}
                 { (!service_isFetching && service_isSuccess) && <OrderService />}
                 { service_isFetching && <ListCardWaitItemsSkelton/>}
               </ListCard>
             </Grid>
           </Grid>
-          { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+          { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{service_error.data.error}</Typography> }
         </Container>
       </Box>
     </>

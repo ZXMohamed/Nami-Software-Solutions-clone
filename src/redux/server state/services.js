@@ -8,7 +8,10 @@ const servicesSlice = createApi({
     }),
     endpoints: (builder) => ({
         getServices: builder.query({
-            query: (params) => { return "query/services.php" + (params?.id ? "?id=" + params.id : "")  },
+            query: (params) => { return "query/services.php" + (params?.id ? "?id=" + params.id : "") },
+            transformResponse: (response) => {
+                return response[0]
+            }
         }),
         orderService: builder.mutation({
             query: (data) => {
@@ -27,7 +30,7 @@ const servicesSlice = createApi({
             }
         }),
         getServicesQuestion: builder.query({
-            query: () => { return "query/servicesquestions.php" },
+            query: () => { return "query/servicesquestions.php" }
         }),
     })
 });

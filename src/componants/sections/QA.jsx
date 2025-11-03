@@ -34,7 +34,7 @@ export default function QA() {
         }
     })();
 
-    const { isError: servicesQuestion_isError, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion, isFetching: servicesQuestion_isFetching, refetch: servicesQuestion_refetch } = useGetServicesQuestionQuery();
+    const { isError: servicesQuestion_isError, error: servicesQuestion_error, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion, isFetching: servicesQuestion_isFetching, refetch: servicesQuestion_refetch } = useGetServicesQuestionQuery();
 
     useUpdateEffect(() => {
         servicesQuestion_refetch();
@@ -45,11 +45,14 @@ export default function QA() {
             <Box dir={defaultContent.direction} className="QASection">
                 <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
                 <Container maxWidth="lg">
-                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && Object.values(servicesQuestion.QA).map((QA) => 
+                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && !servicesQuestion.QAError &&
+                        Object.values(servicesQuestion.QA).map((QA) => 
                         <QABox key={QA.id} dir={ defaultContent.direction } data={ QA } aosAnimation={ boxAosAnimation } />
                     )}
-                    { servicesQuestion_isFetching && <QABoxWaitItemsSkelton/>}
-                    { servicesQuestion_isError && <Typography variant='h5' color='error'>data not found !</Typography>}
+                    { servicesQuestion_isFetching && <QABoxWaitItemsSkelton /> }
+                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && servicesQuestion.QAError &&
+                        <Typography component={ "p" } variant='h5' color='error'>{ servicesQuestion.QA.error }</Typography> }
+                    {servicesQuestion_isError && <Typography component={"p"} variant='h5' color='error'>{servicesQuestion_error.data.whySec.error}</Typography>}
                 </Container>
             </Box>
         </>
