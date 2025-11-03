@@ -25,6 +25,7 @@ import "../../../sass/shared/productcard.scss"
 //*animation
 import { productCardAosAnimation } from '../../../animation/ourproducts'
 
+
 export default function OurProducts() {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
@@ -62,7 +63,7 @@ export default function OurProducts() {
 
 export const Products = memo(({ dir, language }) => {
 
-    const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, refetch: products_refetch } = useGetProductsQuery();
+    const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, error: products_error, refetch: products_refetch } = useGetProductsQuery();
     
     const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
@@ -88,7 +89,7 @@ export const Products = memo(({ dir, language }) => {
                             </SwiperSlide>
                     )
                 }) }
-                { products_isError && <Typography variant="h6" color='error'>Data Not Found !</Typography> }
+                { products_isError && <Typography variant="h6" color='error'>{ products_error.data.error }</Typography> }
             </Swiper>
         </Container>
     )
