@@ -12,13 +12,13 @@ import 'swiper/css/navigation';
 import "../../sass/shared/mobilescreens.scss"
 
 
-export default function MobileScreens({ dir, data }) {
+export default function MobileScreens({ dir, data, alt }) {
   return (
     <Box dir={dir} className="mobileScreensCon">
         <Swiper key={dir} dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
             {data.map((image, inx) => (
             <SwiperSlide key={inx} className='mobileScreensSlide'>
-                <img src={image} className='mobileScreensImage'/>
+                <img src={ image } className='mobileScreensImage' alt={ alt } />
             </SwiperSlide>
             ))}
         </Swiper>

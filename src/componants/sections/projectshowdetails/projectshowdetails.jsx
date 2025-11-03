@@ -22,6 +22,8 @@ import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/projectshowdetails'
 //*hooks
 import useCashedImage from '../../../hooks/usecashedimage'
+import { useParams } from 'react-router'
+import { pages_routes } from '../../../routes/routes'
 
 
 
@@ -48,7 +50,9 @@ export default function ProjectShowDetails() {
   }
   )()
 
-  const { isSuccess: project_isSuccess, isError: project_isError, data: project, isFetching: project_isFetching, refetch: project_refetch } = useGetProjectByIdQuery({ id: 1 });
+  const { id: projectId } = useParams();
+
+  const { isSuccess: project_isSuccess, isError: project_isError, error: project_error, data: project, isFetching: project_isFetching, refetch: project_refetch } = useGetProjectByIdQuery({ id: projectId });
 
   useUpdateEffect(() => {
     project_refetch();
@@ -56,26 +60,26 @@ export default function ProjectShowDetails() {
 
   return (
   <>
-    { project_isSuccess && <PageHead pageTitle={ project["id-1"].title } title={ project["id-1"].title } description={ project["id-1"].description } language={ defaultContent.language } type='SoftwareApplication' image={ defaultContent.logo } url='/' LD_Json={ 
+    { project_isSuccess && <PageHead pageTitle={ project.title } title={ project.title } description={ project.description } language={ defaultContent.language } type='SoftwareApplication' image={ defaultContent.logo } url={pages_routes(defaultContent.language,projectId)["project details"].link} LD_Json={ 
         {
           "offers": {
             "@type": "SoftwareApplication",
-            "name": project["id-1"].title,
-            "description": project["id-1"].description
+            "name": project.title,
+            "description": project.description
           }
         }
       } /> }
     <Box dir={ defaultContent.direction }>
-      { project_isSuccess && <RoutesBar title={ project["id-1"].title } storeTab={"Portfolio"} /> }
+      { project_isSuccess && <RoutesBar title={ project.title } storeTab={"Portfolio"} /> }
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={ { md: 8, xs: 12 } } { ...introCardAosAnimation } className="projectDetailsSide">
 
             { (!project_isFetching && project_isSuccess) &&
-              <IntroCard dir={ defaultContent.direction } title={ project["id-1"].title } description={ project["id-1"].description } >
-                { (!project_isFetching && project_isSuccess) && project["id-1"].serviceBadges &&
+              <IntroCard dir={ defaultContent.direction } title={ project.title } description={ project.description } >
+                { (!project_isFetching && project_isSuccess) && project.serviceBadges &&
                   <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
-                    { project["id-1"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
+                    { project.serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                   </ServicesBadgesList>
                 }
               </IntroCard>
@@ -83,26 +87,26 @@ export default function ProjectShowDetails() {
 
             { project_isFetching && <IntroCardWaitItemsSkelton /> }
 
-            { (!project_isFetching && project_isSuccess) && project["id-1"].image && <CashedGallery dir={ defaultContent.direction } id={project["id-1"].id} mainImage={project["id-1"].image} data={ (project["id-1"]?.gallery || []) } /> }
+            { (!project_isFetching && project_isSuccess) && (project.image || project?.gallery) && <CashedGallery dir={ defaultContent.direction } id={project.id} mainImage={project.image} data={ (project?.gallery || []) } alt={project.title} /> }
 
             { project_isFetching && <GalleryWaitItemsSkelton /> }
 
-            { (!project_isFetching && project_isSuccess) && project["id-1"].screens && <MobileScreens dir={defaultContent.direction} data={project["id-1"].screens} />}
+            { (!project_isFetching && project_isSuccess) && project.screens && <MobileScreens dir={defaultContent.direction} data={project.screens} alt={project.title}/>}
             
           </Grid>
           <Grid size={ { md: 4, xs: 12 } } { ...listCardAosAnimation } className="projectListsSide">
             
-            { (!project_isFetching && project_isSuccess) && project["id-1"].features &&
+            { (!project_isFetching && project_isSuccess) && project.features &&
               <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
-                <PointsList dir={defaultContent.direction} data={ project["id-1"].features } />
+                <PointsList dir={defaultContent.direction} data={ project.features } />
               </ListCard>
             }
             { project_isFetching && <ListCardWaitItemsSkelton/>}
             
-            { (!project_isFetching && project_isSuccess) && project["id-1"].programmingLanguages &&
+            { (!project_isFetching && project_isSuccess) && project.programmingLanguages &&
               <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
                   <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
-                  { project["id-1"].programmingLanguages.map((tech) => <TechBadge key={ tech.id } data={ tech } size={ techBadgeSize.big } />) }
+                  { project.programmingLanguages.map((tech) => <TechBadge key={ tech.id } data={ tech } size={ techBadgeSize.big } />) }
                   </TechBadgesList>
               </ListCard>
             }
@@ -111,7 +115,7 @@ export default function ProjectShowDetails() {
           </Grid>
         </Grid>
 
-        { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+        { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{project_error.data.error}</Typography> }
       </Container>
     </Box>
   </>
@@ -119,7 +123,7 @@ export default function ProjectShowDetails() {
 }
 
 
-function CashedGallery({ dir, id, mainImage, data}) {
+function CashedGallery({ dir, id, mainImage, data, alt }) {
   const [image, cashImage] = useCashedImage(mainImage, "portfolio", id);
   
   useEffect(() => {
@@ -127,7 +131,7 @@ function CashedGallery({ dir, id, mainImage, data}) {
   },[])
 console.log(dir,id,mainImage,data,image);
   return (
-    <Gallery dir={ dir } sideThumbs data={ [image, ...data]} />
+    <Gallery dir={ dir } sideThumbs data={ mainImage ? [image, ...data] : [...data] } alt={ alt } />
   )
 }
 
