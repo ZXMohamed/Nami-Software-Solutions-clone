@@ -4,12 +4,15 @@ import React, { memo, useEffect, useRef } from 'react'
 import { Box, Container, Grid, Typography, Stack } from '@mui/material'
 //*hooks
 import { useContent } from '../../../languages/hooks/usecontent';
+import useUpdateEffect from '../../../hooks/useupdateeffect';
 //*components
 import DownloadButton from '../../shared/buttons/downloadbutton';
 //*queries
 import { useGetCompanyFileQuery } from '../../../redux/server state/companyfile';
 //*assets
 import aboutSideImg from "../../../assets/photo/about/aboutsideimg.webp";
+//*scripts
+import { defaultLanguage } from '../../../languages/languagesContext';
 //*animation
 import { aboutDescriptionAosAnimation, aboutTitleAosAnimation, descriptionLinesUp, establishmentCounterAosAnimation, establishmentDateAosAnimation, establishmentDateCountUp, imgMoveWithScroll, movingImgSideAosAnimation, subtitleBackgroundMoveWithScroll } from '../../../animation/about';
 
@@ -98,6 +101,7 @@ const CompanyFile = () => {
       if (content_isSuccess) {
         return {
           direction: content.page.direction,
+          language: content.page.language,
           buttons: {
             companyFile: content.about.buttons.companyFile,
           }
@@ -107,9 +111,14 @@ const CompanyFile = () => {
       }
   })();
 
-  const { isSuccess: companyFile_isSuccess, data: companyFile, isError: companyFile_isError, error: companyFile_error } = useGetCompanyFileQuery(undefined, {
+  const { isSuccess: companyFile_isSuccess, data: companyFile, isError: companyFile_isError, error: companyFile_error, refetch: companyFile_refetch } = useGetCompanyFileQuery(undefined, {
     selectFromResult: ({ isSuccess, data, isError, error }) => ({ isSuccess, data, isError, error })
   });
+
+  useUpdateEffect(() => {
+    companyFile_refetch();
+  }, [defaultContent.language]);
+  
   return (
     <>
       <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } />
@@ -160,6 +169,7 @@ const infoFirstContent = {
 }
 const companyFileFirstContent = {
   direction: "ltr",
+  language: defaultLanguage,
   buttons: {
     companyFile: "Download the company file",
   }
