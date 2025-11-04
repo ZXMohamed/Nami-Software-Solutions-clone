@@ -66,7 +66,7 @@ export default function ProductOrderDetails() {
 
   return (
     <>
-      { product_isSuccess && <PageHead pageTitle={ product.title } title={ product.title } description={ product.description } language={ defaultContent.language } type='Product' url={pages_routes(defaultContent.language,productId)["product details"].link} image={ product.image } LD_Json={ {
+      { product_isSuccess && <PageHead pageTitle={ product.title } title={ product.title } description={ product.description } language={ defaultContent.language } type='Product' url={pages_routes(defaultContent.language,productId,product.title)["product details"].link} image={ product.image } LD_Json={ {
         "offers": {
           "@type": "Product",
           "name": product.title,
