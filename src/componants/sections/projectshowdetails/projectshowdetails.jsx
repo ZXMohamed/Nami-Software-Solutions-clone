@@ -60,7 +60,7 @@ export default function ProjectShowDetails() {
 
   return (
   <>
-    { project_isSuccess && <PageHead pageTitle={ project.title } title={ project.title } description={ project.description } language={ defaultContent.language } type='SoftwareApplication' image={ defaultContent.logo } url={pages_routes(defaultContent.language,projectId)["project details"].link} LD_Json={ 
+    { project_isSuccess && <PageHead pageTitle={ project.title } title={ project.title } description={ project.description } language={ defaultContent.language } type='SoftwareApplication' image={ defaultContent.logo } url={pages_routes(defaultContent.language,projectId,project.title)["project details"].link} LD_Json={ 
         {
           "offers": {
             "@type": "SoftwareApplication",
