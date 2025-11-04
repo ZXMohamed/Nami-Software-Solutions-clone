@@ -49,7 +49,7 @@ export default function ServiceOrderDetails() {
   
   return (
     <>
-      { service_isSuccess && <PageHead pageTitle={ service.title } title={ service.title } description={ service.description } language={ defaultContent.language } type={ "Service" } image={ service.image } url={ pages_routes(defaultContent.language,serviceId)["service details"].link } LD_Json={ {
+      { service_isSuccess && <PageHead pageTitle={ service.title } title={ service.title } description={ service.description } language={ defaultContent.language } type={ "Service" } image={ service.image } url={ pages_routes(defaultContent.language,serviceId,service.title)["service details"].link } LD_Json={ {
         "offers": {
           "@type": "Service",
           "name": service.title,
