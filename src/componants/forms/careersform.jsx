@@ -140,6 +140,7 @@ function SelectInput(props) {
             { openJobs_isSuccess && <MenuItem value={ "0" }>{ props.title }</MenuItem> }
             {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
             {openJobs_isError && <MenuItem value={"0"}>{openJobs_error.data.error} (You can't apply)</MenuItem>}
+            {!openJobs_isSuccess && <MenuItem value={"0"}>loading available jobs</MenuItem>}
         </Select>
     )
 }

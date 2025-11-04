@@ -111,18 +111,13 @@ const CompanyFile = () => {
       }
   })();
 
-  const { isSuccess: companyFile_isSuccess, data: companyFile, isError: companyFile_isError, error: companyFile_error, refetch: companyFile_refetch } = useGetCompanyFileQuery(undefined, {
+  const { isSuccess: companyFile_isSuccess, data: companyFile, isError: companyFile_isError } = useGetCompanyFileQuery(undefined, {
     selectFromResult: ({ isSuccess, data, isError, error }) => ({ isSuccess, data, isError, error })
   });
-
-  useUpdateEffect(() => {
-    companyFile_refetch();
-  }, [defaultContent.language]);
   
   return (
     <>
-      <DownloadButton direction={defaultContent.direction} link={ companyFile?.url } title={ defaultContent.buttons.companyFile } />
-      { companyFile_isError && <Typography color='error'>{ companyFile_error.data.error }</Typography> }
+      { companyFile_isSuccess && <DownloadButton direction={ defaultContent.direction } link={ companyFile?.url } title={ defaultContent.buttons.companyFile } /> }
     </>
   );
 }
