@@ -46,7 +46,7 @@ export default function AllProducts() {
             <InfoCard dir={ defaultContent.direction } waveDir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.header.subtitle } animateDescription description={ defaultContent.header.description } />
             <br/>
             <br/>
-            <Products dir={ defaultContent.direction } />
+            <Products dir={ defaultContent.direction } language={ defaultContent.language } />
         </>
   )
 }
