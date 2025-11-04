@@ -29,7 +29,7 @@ const projectsSlice = createApi({
                 // }
 
                 // Ensure currentCache is an array before spreading
-                return {...(currentCache || {}), ...newItems};
+                return [...(currentCache || []), ...newItems];
             },
         }),
         getCategories: builder.query({
