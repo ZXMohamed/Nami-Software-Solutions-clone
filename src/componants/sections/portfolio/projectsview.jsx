@@ -55,8 +55,13 @@ export default function ProjectsView() {
   
   const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, error: projects_error, reset: projects_reset, isLoading: projects_isLoading }] = useLazyGetNextProjectsByCatQuery();
 
+  useEffect(() => { 
+    //*reset cash on unmount to start from first on mount 
+    return ()=> projects_reset();
+  },[]);
+
   useUpdateEffect(() => {
-    projects_reset()
+    projects_reset();
   }, [content_RequestId]);
 
   useEffect(() => {
