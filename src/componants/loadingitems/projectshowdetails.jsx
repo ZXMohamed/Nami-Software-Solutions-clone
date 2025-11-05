@@ -6,7 +6,7 @@ import { Box, Skeleton, Stack } from '@mui/material'
 
 export function GalleryWaitItemsSkelton() { 
     return (
-      <Stack direction={ "row" } spacing={3}>
+      <Stack direction={ "row" } gap={3}>
           <Box>
             <Skeleton variant="rounded" width={ 120 } height={ 110 } />
             <br/>

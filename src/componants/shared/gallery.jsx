@@ -11,6 +11,7 @@ import "swiper/css/thumbs";
 //*styles
 import "../../sass/shared/gallery.scss"
 
+
 export default function Gallery({ dir, data, sideThumbs, alt }) {
   const [thumbs, setThumbs] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
