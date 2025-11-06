@@ -12,7 +12,7 @@ import { useResponsiveViewer } from '../../../hooks/portfolio/useResponsiveViewe
 let rowCount = 0;
 let viewerHeight = (rowCount) => rowCount < 2 ? 555 : 1200;
 
-export default function ProjectViewer({ ref, dir, data = {}, isSuccess, isEmpty }) {
+export default function ProjectViewer({ ref, dir, data = [] }) {
 
   const responsiveDimensions = useResponsiveViewer(3, 435, 555, 1320);
 
@@ -21,7 +21,6 @@ export default function ProjectViewer({ ref, dir, data = {}, isSuccess, isEmpty 
   return (
     <Box>
       <Container maxWidth={ 'lg' } disableGutters className='projectViewerCon'>
-        { isEmpty && <h4>No Result!</h4> }
         <FixedSizeGrid
           ref={ ref }
           direction={dir}
@@ -33,7 +32,7 @@ export default function ProjectViewer({ ref, dir, data = {}, isSuccess, isEmpty 
           columnWidth={ responsiveDimensions.columnWidth }
           rowHeight={ responsiveDimensions.rowHeight }
           
-          height={ isSuccess ? viewerHeight(rowCount) : 0}
+          height={ data.length == 0 ? 0 : viewerHeight(rowCount) }
           width={ responsiveDimensions.viewerWidth }
           
           className={ "projectViewer" }
@@ -41,7 +40,7 @@ export default function ProjectViewer({ ref, dir, data = {}, isSuccess, isEmpty 
           {
             (props) => {
               const nextItemIndex = props.rowIndex * responsiveDimensions.columnCount + props.columnIndex;
-              const data = props.data[Object.keys(props.data)[nextItemIndex]];
+              const data = props.data[nextItemIndex];
               return (
                 <Stack sx={ {...props.style } } className='viewerCell'>
                   <ProjectCard dir={dir} data={ data } />

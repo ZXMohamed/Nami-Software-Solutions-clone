@@ -53,22 +53,21 @@ export default function ProjectsView() {
 
   const filterValues = useSelector((state) => state.portfolioFilter);
   
-  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, error: projects_error, reset: projects_reset, isLoading: projects_isLoading }] = useLazyGetNextProjectsByCatQuery();
+  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, error: projects_error, reset: projects_reset, isLoading: projects_isLoading, isFetching: projects_isFetching }] = useLazyGetNextProjectsByCatQuery();
 
   useEffect(() => { 
-    //*reset cash on unmount to start from first on mount 
+    //*reset cash on unmount to start from first on mount (or open page)
     return ()=> projects_reset();
   },[]);
-
+  
   useUpdateEffect(() => {
     projects_reset();
   }, [content_RequestId]);
-
+  
   useEffect(() => {
     const search = (filterValues.search != "" || filterValues.search != null) ? filterValues.search : null;
     projects_trigger({ cat: filterValues.cat, count: 9, reset: true, search: search });
   }, [filterValues.cat, filterValues.search, content_RequestId]);
-  
 
   const handleLoadMore = () => {
     if (projects_isSuccess) {
@@ -78,12 +77,13 @@ export default function ProjectsView() {
     }
   }
 
-  const projects_isEmpty = projects ? Object.keys(projects).length == 0 : undefined;
+  const projects_isEmpty = projects ? projects.data.length == 0 : undefined;
 
   return (
     <>
       <PageHead pageTitle={defaultContent.pageTitle} title={defaultContent.meta.title} description={defaultContent.meta.description} image={defaultContent.meta.image} type='portfolio' language={defaultContent.language} url={pages_routes(defaultContent.language)["portfolio"].link} />
       <Box id="Portfolio">
+
         <InfoCard dir={ defaultContent.direction } waveDir='right' subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } />
         
         <br />
@@ -94,18 +94,22 @@ export default function ProjectsView() {
         <br />
         <br />
 
-        <Container maxWidth="lg">
-          { projects_isError && <Typography color={ "error" } variant={ "h5" }>{ projects_error.data.error }</Typography> }
-        </Container>
-
-        { <ProjectViewer ref={ viewerRef } dir={ defaultContent.direction } data={ projects_isSuccess && projects } loadMore={ projects_trigger } isSuccess={ projects_isSuccess } isEmpty={ projects_isEmpty } /> }
-        
         { projects_isLoading && <WaitItemSkeleton num={ 9 } /> }
+
+        { projects_isSuccess && <ProjectViewer ref={ viewerRef } dir={ defaultContent.direction } data={ projects.data } /> }
         
-        { !projects_isEmpty &&
-          <Container maxWidth="lg" className='loadMoreCon'>
-            <Button variant='text' onClick={ handleLoadMore }> {defaultContent.buttons.loadMore} </Button>
-          </Container>}
+        { projects_isError && <Container maxWidth="lg">
+          <Typography color={ "error" } variant={ "h5" }>{ projects_error?.data?.error }</Typography>
+        </Container> }
+
+        { <Container maxWidth="lg" className='loadMoreCon'>
+            <Button variant='text' loading={ projects_isFetching } disabled={ projects_isFetching || projects_isError || projects_isEmpty || projects?.error } onClick={ handleLoadMore }>
+              { projects?.error ?
+                projects.error :
+                defaultContent.buttons.loadMore }
+            </Button>
+          </Container> }
+        
       </Box>
     </>
   )
