@@ -108,7 +108,7 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
 
-            <Link to={ pages_routes(urlLang, data.id)["service details"].link }>
+            <Link to={ pages_routes(urlLang, data.id, data.title)["service details"].link }>
                 
                 <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
                 

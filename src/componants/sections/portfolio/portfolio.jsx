@@ -75,15 +75,15 @@ const Projects = memo(({ dir, language }) => {
         <Container maxWidth="lg">
             <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidePerSize(isXXXSSize, isMDSize) } { ...projectsSliderSettings(sliderLoopCase) } className='projectsSlider'>
                 { projects_isFetching && WaitItemSkeleton(6) }
-                { (!projects_isFetching && projects_isSuccess) && Object.values(projects).map((project, inx) => {
+                { (!projects_isFetching && projects_isSuccess) && Object.values(projects.data).map((project, inx) => {
                     return (
-                        <SwiperSlide key={ project.id } className='projectsSlide'>
+                        <SwiperSlide key={ projects.data.id } className='projectsSlide'>
                             <ProjectCard dir={dir} bordered data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
                         </SwiperSlide>
                     )
                 }
                 ) }
-                { projects_isError && <Typography component={ "h1" } variant={ "h5" } color='error'>Data Not Found!</Typography> }
+                { projects?.error && <Typography component={ "h1" } variant={ "h5" } color='error'>{ projects.error }</Typography> }
             </Swiper>
         </Container>
     )

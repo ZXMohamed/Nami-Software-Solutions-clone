@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const contactSlice = createApi({
     reducerPath: "contact",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
+        baseUrl: import.meta.env.VITE_API_URL,
     }),
     endpoints: (builder) => ({
         contact: builder.mutation({

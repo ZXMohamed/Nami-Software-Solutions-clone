@@ -15,7 +15,7 @@ export const ProjectCard = memo(({ dir, data, bordered, aosAnimation, style}) =>
     const { language: urlLang } = useParams();
 
     return (
-        <Box dir={ dir } className='projectCard' { ...aosAnimation } sx={style} onClick={ () => navigation(pages_routes(urlLang, data.id)["project details"].link)}>
+        <Box dir={ dir } className='projectCard' { ...aosAnimation } sx={style} onClick={ () => navigation(pages_routes(urlLang, data.id, data.title)["project details"].link)}>
             <Stack dir={dir} direction={ "column" } spacing={ 1 } sx={{borderWidth:(bordered?1:0)}}>
                 <Stack direction={ 'row' } className='projectHeader'>
                     <Typography variant='h6' component={ 'h3' } className='projectTitle'>{ data.title }</Typography>
