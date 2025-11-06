@@ -75,7 +75,7 @@ function getCurrentLanguageIndex(language, languagesArray = []) {
     let index = 0;
     if (!language) language = defaultLanguage;
     for (let x of languagesArray) {console.log(index);
-        if (x.requestName == language.toUpperCase()) {
+        if (x.requestName == language) {
             if (languagesArray.length - 1 == index) {
                 return 0;
             } else {
