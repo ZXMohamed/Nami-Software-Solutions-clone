@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-console.log(import.meta.env.VITE_API_URL);
+
 const projectsSlice = createApi({
     reducerPath: "projects",
     baseQuery: fetchBaseQuery({
