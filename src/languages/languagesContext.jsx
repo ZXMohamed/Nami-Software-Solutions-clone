@@ -7,7 +7,7 @@ import alert from "../componants/shared/alert";
 import SplashScreen from "../componants/layouts/splashScreen";
 
 
-export const defaultLanguage = "en";
+export const defaultLanguage = import.meta.env.VITE_DEFAULT_LANGUAGE;
 
 export const Language = createContext();
 
