@@ -109,7 +109,7 @@ function FooterServicesTab() {
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
-                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id)["service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
+                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id,defaultContent.tabs.services.items[item].title)["service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
                     })
                 }
             </ul>

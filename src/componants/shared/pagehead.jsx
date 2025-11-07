@@ -1,13 +1,15 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import icon from "../../assets/photo/global/Namiicon.svg"
+import logo from "../../assets/photo/global/namilogo.svg"
 
 const pageInfo = {
     title: "Nami Software Solutions",
     description: "For website design and development services and phone applications operating on the Android and iOS operating systems, the company provides integrated web solutions to all institutions in the world and has a huge customer base in all countries of the world.",
-    icon: "/src/assets/photo/global/Namiicon.svg",
-    image: "/src/assets/photo/global/namilogo.svg",
+    icon: icon,
+    image: logo,
     type: "Organization",
-    url: "/",
+    url: import.meta.env.VITE_CURRENT_URL,
     language: "en_US",
     keywords: "website design, development services, phone applications, Android, iOS, systems, integrated web solutions, Cloud services, Technical consulting, Design services, Digital marketing",
     LD_Json: { "foundingDate": "2017" }
@@ -19,7 +21,7 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
         "@context": "https://schema.org",
         "@type": type,
         "name": title,
-        "url": url,
+        "url": import.meta.env.VITE_CURRENT_URL + url,
         "logo": image,
         "description": description,
         ...LD_Json,
@@ -78,7 +80,7 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <meta property="og:type" content={ type } />
             <meta property="og:image" content={ image } />
             <meta property="og:image:alt" content={ title } />
-            <meta property="og:url" content={ url } />
+            <meta property="og:url" content={ import.meta.env.VITE_CURRENT_URL + url } />
             <meta property="og:locale" content={ language } />
 
             <meta name="twitter:card" content="summary_large_image" />
@@ -90,11 +92,11 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <meta name="twitter:image:alt" content={ title } />
 
             {/* <!-- link --> */ }
-            <link rel="canonical" href={ url } />
-            <link rel="author" href="/" />
+            <link rel="canonical" href={ import.meta.env.VITE_CURRENT_URL + url } />
+            <link rel="author" href={import.meta.env.VITE_CURRENT_URL + url} />
 
-            <link rel="alternate" href="https://localhost:5173/ar/" hreflang="ar" />
-            <link rel="alternate" href="https://localhost:5173/en/" hreflang="en" />
+            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/ar/" } hreflang="ar" />
+            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/en/" } hreflang="en" />
 
             <link rel="icon" type="image/svg+xml" href={ icon } />
 

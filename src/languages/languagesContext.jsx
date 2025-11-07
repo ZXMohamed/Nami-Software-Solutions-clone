@@ -18,7 +18,9 @@ export default function LanguagesProvider({ children }) {
 
     return (
         <Language.Provider value={ languageControls }>
-            
+
+            {isSuccess && document.documentElement.setAttribute('lang', languageControls.data?.page?.language || defaultLanguage )}
+
             { isSuccess && children }
 
             { isFetching && <SplashScreen /> }

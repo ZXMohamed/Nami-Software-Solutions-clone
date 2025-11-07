@@ -12,11 +12,13 @@ import { useLazyGetLanguageQuery, useSetCurrentLanguageMutation } from "../../re
 //*context
 import { defaultLanguage } from "../languagesContext";
 
-export const useLanguage = () => {
 
+export const useLanguage = () => {
+    
     const [getLanguage, languageStatus] = useLazyGetLanguageQuery();
     const [setCurrentLanguage,currentLanguageStatus] = useSetCurrentLanguageMutation();
-
+    
+    //*change language depend on url language param
     const { language } = useParams();
     const location = useLocation();
 
@@ -27,18 +29,23 @@ export const useLanguage = () => {
 
     useEffect(() => {
         if (language && language != defaultLanguage) {
+            //*request language from BE
             languageRequest(language, location);
         }
-        //$ else set language to default in BE
         else {
+            //* else set language to default in BE 
+            //* (at first open the site use default language that doesn't need to be loaded from BE
+            //*  but FE should told BE about this current language to match DB content language)
             setCurrentLanguage({ language: defaultLanguage });
         }
     }, []);
 
     useUpdateEffect(() => {
+        //*request language from BE when url change
         languageRequest(language, location);
     }, [language]);
 
+    //*avoid rerender the context (change value memory address) when success != true (for best performance)
     const prevAddress_languageControls = useRef({ ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
 
     const languageControls = useMemo(() => {
@@ -58,6 +65,7 @@ export const useLanguage = () => {
         return prevAddress_languageControls.current;
 
     }, [languageStatus.data]);
+    //*--------------------------------------------------------------------------------------------------
 
     const isSuccess = languageStatus.isSuccess || currentLanguageStatus.isSuccess;
     const isError = languageStatus.isError || currentLanguageStatus.isError;
