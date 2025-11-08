@@ -1,0 +1,212 @@
+//*react
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+//*mui
+import { Alert, Box, Button, MenuItem, Select, Stack, TextField, Typography } from '@mui/material'
+//*hooks
+import { useContent } from '../../languages/hooks/usecontent';
+//*form
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { pattern } from '../../form/util/rules';
+import ReCAPTCHA from "react-google-recaptcha";
+import { sitekey } from '../../form/recaptcha';
+import { createZodObject } from '../../form/schema/careersform';
+import { createInputsSettings } from '../../form/settings/careersform';
+//*queries
+import { useGetOpenJobsQuery, useRequestJobMutation } from '../../redux/server state/openjobs';
+//*scripts
+import { defaultLanguage } from '../../languages/languagesContext';
+//*animation
+import { formAosAnimation } from '../../animation/careersform';
+
+
+export function FormSection() {
+
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                zodMsgs: content.zodMsgs,
+                form: {
+                    title: content.careers.form.title,
+                    inputs: {
+                        name: content.careers.form.inputs.name,
+                        phone: content.careers.form.inputs.phone,
+                        job: content.careers.form.inputs.job,
+                        cvFile: content.careers.form.inputs.cvFile
+                    },
+                    alert: {
+                        success: content.careers.form.alert.success,
+                        error: content.careers.form.alert.error,
+                        reCaptcha: content.careers.form.alert.reCaptcha
+                    },
+                    submit: content.careers.form.submit
+                }
+            }
+        } else {
+            return { ...firstContent, zodMsgs: content.zodMsgs };
+        }
+    })();
+
+    const lastInputChanged = useRef("");
+
+    const reCaptcha = useRef();
+    const reCaptchaToken = useRef();
+
+    const schema = useMemo(() => createZodObject(defaultContent, pattern), [content, content_isSuccess]);
+
+    const { register, handleSubmit, watch, setError, clearErrors, trigger, formState: { errors, isSubmitting } } = useForm({ resolver: zodResolver(schema), mode: "onChange" });
+
+    const inputsSettings = useMemo(() => createInputsSettings(register, lastInputChanged), []);
+    
+    useEffect(() => {
+        const subscription = watch((value,{ name, type }) => {
+            if (reCaptchaToken.current) {
+                if (name && type) {
+                    reCaptcha.current.reset();
+                    reCaptchaToken.current = undefined;
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        if (Object.keys(errors).length > 0)
+            trigger();
+    }, [content, content_isSuccess])
+    
+    const [requestJob, { isSuccess: requestJob_isSuccess, isError: requestJob_isError, isLoading: requestJob_isLoading }] = useRequestJobMutation();
+    
+    const onSubmit = (data) => {
+        
+        if (!reCaptchaToken.current) {
+            setError("recaptcha", {
+                type: "manual",
+                message: defaultContent.form.alert.reCaptcha
+            });
+        } else {
+            clearErrors("recaptcha");
+            //$send recaptcha to php
+            data.reCaptchaToken = reCaptchaToken.current
+            data.cvFile = data.cvFile[0]
+            requestJob(data);
+            reCaptcha.current.reset();
+            reCaptchaToken.current = undefined;
+        }
+
+    };
+
+    return (
+        <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} {...formAosAnimation}>
+
+            <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
+
+            {(requestJob_isSuccess && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
+            {(requestJob_isError && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="error" color='error'> {defaultContent.form.alert.error} </Alert>}
+            { errors?.recaptcha && <Alert variant="filled" color='warning' severity="warning" className='formAlert'>{ errors.recaptcha.message }</Alert> }
+            
+            <TextField variant="outlined" type='text' color={ errors?.name ? "error" : "primary" } className={ errors?.name ? "inputError" : "" } placeholder={defaultContent.form.inputs.name} { ...inputsSettings.name } />
+            
+            <TextField variant="outlined" type="number" color={ errors?.phone ? "error" : "primary" } className={ errors?.phone ? "inputError" : "" } placeholder={defaultContent.form.inputs.phone} { ...inputsSettings.phone } />
+            
+            <SelectInput dir={defaultContent.direction} color={ errors?.job ? "error" : "primary" } className={ errors?.job ? "inputError" : "" } title={defaultContent.form.inputs.job} { ...inputsSettings.job }/>
+
+            <FileInput color={ errors?.cvFile ? "error" : "primary" } title={defaultContent.form.inputs.cvFile.title} no_file={defaultContent.form.inputs.cvFile.noFile} { ...inputsSettings.cvFile } />
+            
+            <ReCAPTCHA ref={ reCaptcha } key={defaultContent.language} sitekey={ sitekey } onChange={ (token) => { reCaptchaToken.current = token; } } hl={ defaultContent.language } />
+            
+            <Button loading={requestJob_isLoading} loadingPosition='center' variant='contained' disableRipple type='submit' disabled={ isSubmitting } className='formSubmit'>{ defaultContent.form.submit }</Button>
+            
+            <Typography className='formErrorMsg'>{ handleLastErrors(lastInputChanged, errors) }</Typography>
+            
+        </Stack>
+    )
+}
+
+function SelectInput(props) {
+
+    const { data: openJobs, isSuccess: openJobs_isSuccess, isError: openJobs_isError, error: openJobs_error } = useGetOpenJobsQuery(undefined, {
+        selectFromResult: ({ isSuccess, data, isError, error }) => ({ isSuccess, data, isError, error })
+    });
+
+    const [job, setJob] = useState("0");
+
+    return (
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job } disabled={openJobs_isError} onChange={ (e) => { props.onChange(e); setJob(e.target.value); }}>
+            { openJobs_isSuccess && <MenuItem value={ "0" }>{ props.title }</MenuItem> }
+            {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
+            {openJobs_isError && <MenuItem value={"0"}>{openJobs_error.data.error} (You can't apply)</MenuItem>}
+            {!openJobs_isSuccess && <MenuItem value={"0"}>loading available jobs</MenuItem>}
+        </Select>
+    )
+}
+
+function FileInput(props) {
+
+    const [fileName, setFileName] = useState(props.no_file);
+
+    const fileNameChange = (e, setFileName) => {
+        if (e.target.files.length > 0) {
+            setFileName(e.target.files[0]?.name);
+        } else if (e.target.files.length == 0) {
+            setFileName(props.no_file);
+        }
+    }
+
+
+    return (
+        <Box className={ "fileInput " + (props.color=="error"?"fileInputError": "")} >
+            <input type="file" id="cvUpload" hidden { ...props } onChange={ (e) => {  props.onChange(e); fileNameChange(e, setFileName); } } />
+            <label htmlFor="cvUpload" className='fileInputBody'>
+                <div variant='contained' className='fileInputTitle'>{ props.title }</div>
+                <Typography component={'span'} className='selectedFileName'>{fileName}</Typography>
+            </label>
+        </Box>
+    )
+}
+
+const handleLastErrors = (lastInputChanged, errors) => {
+    
+    let errorInputs = Object.keys(errors);
+
+    let lastErrorInput = errorInputs[errorInputs.length - 1];
+    
+    if (errors?.[lastInputChanged]) {
+        
+        return errors?.[lastInputChanged]?.message;
+    
+    } else if (errorInputs.length != 0) {
+    
+        return errors[lastErrorInput].message;
+    
+    } else { 
+
+        return "";
+    
+    }
+    
+};
+
+const firstContent = {
+    direction: "ltr",
+    language: defaultLanguage,
+    form: {
+        title: "Upload your CV",
+        inputs: {
+            name: "Full name",
+            phone: "phone number",
+            job: "select the job",
+            cvFile: { title: "choose file", noFile: "No file chosen" }
+        },
+        alert: {
+            success: "Request Sent Successfully.",
+            error: "Request Failed.",
+            reCaptcha: "Please verify that you're not a robot."
+        },
+        submit: "Apply now"
+    }
+}

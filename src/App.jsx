@@ -17,8 +17,6 @@ import "./sass/shared/pageinit.scss"
 import "./sass/shared/fonts.scss"
 
 
-
-
 function App() {
 
   return (

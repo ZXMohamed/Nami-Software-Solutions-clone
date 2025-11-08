@@ -1,0 +1,105 @@
+@use "_shared.scss" as *;
+
+.infoCard{
+    @extend %direction;
+    div.MuiContainer-root{
+        overflow: hidden;
+        position: relative;
+        z-index: 0;
+        padding: 40px;
+        border-radius: 20px;
+        @extend %animatedBG;
+        
+        &:hover{
+            div.infoCardWaveAnimation{
+                scale: 1.3;
+            }
+        }
+    }
+}
+h1.infoCardTitle{
+    font-family: "PlexBold";
+    text-align: center;
+    color: $secondColor;
+    @media screen and (max-width:768px) {
+        font-size: 18px;
+    }
+}
+h2.infoCardSubtitle{
+    font-family: "PlexBold";
+    text-align: center;
+    color: $secondColor;
+    text-transform: uppercase;
+    line-height: 1.6;
+    max-width: 750px;
+    @media screen and (max-width:768px) {
+        max-width: 600px;
+        font-size: 24px;
+    }
+}
+p.infoCardDescription{
+    max-width: 750px;
+    text-align: center;
+    font-family: "PlexNormal";
+    text-wrap: balance;
+    color: $secondColor;
+    div{
+        will-change: transform, opacity;
+        transform: translateY(30px);
+        opacity: 0;
+    }
+}
+div.infoCardAttachment{
+    width: 100%;
+}
+div.infoCardWaveAnimation{
+    @extend %transition;
+}
+
+.sharpEffect{
+    &::before{
+        content: "";
+        background-image: url($siteBackground);
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+    }
+}
+
+%direction{
+    &[dir=ltr]{
+        div.MuiContainer-root{
+            div.infoCardWaveAnimation{
+                &[wave_dir=left]{
+                    @include circleWave("left",430px);
+                }
+                &[wave_dir=right]{
+                    @include circleWave("right",430px);
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        div.MuiContainer-root{
+            div.infoCardWaveAnimation{
+                &[wave_dir=left]{
+                    @include circleWave("right",430px);
+                }
+                &[wave_dir=right]{
+                    @include circleWave("left",430px);
+                }
+            }
+        }
+    }
+}
+
+h2.infoCardSubtitleBig{
+    font-size: 40px;
+}
+h2.infoCardSubtitleSmall{
+    font-size: 30px;
+}

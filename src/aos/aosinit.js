@@ -1,8 +1,7 @@
-// import AOS from "aos";
+const { default: AOS } = await import('aos');
 
-// AOS.init({ once: true, offset: 65 });
-
-requestIdleCallback(async () => {
-    const { default: AOS } = await import('aos');
-    AOS.init({ once: true, offset: 65, duration: 1000 });
+AOS.init({
+    once: true,
+    offset: 65,
+    duration: 1000
 });
