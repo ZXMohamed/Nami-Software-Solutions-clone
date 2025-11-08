@@ -9,8 +9,8 @@ const servicesSlice = createApi({
     endpoints: (builder) => ({
         getServices: builder.query({
             query: (params) => { return "query/services.php" + (params?.id ? "?id=" + params.id : "") },
-            transformResponse: (response) => {
-                return response[0]
+            transformResponse: (response, meta, args) => {
+                return args?.id == "all" || !args ? response : response[0];
             }
         }),
         orderService: builder.mutation({

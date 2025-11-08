@@ -1,4 +1,6 @@
+//*aos
 import { activeTabAosAnimation } from "../../../animation/navbar";
+
 
 export const activeTabAnimation = (tab) => {
     

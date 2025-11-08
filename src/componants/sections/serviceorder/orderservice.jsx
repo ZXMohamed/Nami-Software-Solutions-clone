@@ -97,7 +97,6 @@ function SelectInput(props) {
 
     const { data: services, isSuccess: services_isSuccess, refetch: services_refetch } = useGetServicesQuery(undefined, {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data }),
-        refetchOnMountOrArgChange: true
     });
 
     const [service, setService] = useState("0");
@@ -105,7 +104,7 @@ function SelectInput(props) {
     return (
         <>
             <Select variant='outlined' { ...selectInputProps } value={ service } onChange={ (e) => { selectInputProps.onChange(e); setService(e.target.value); }}>
-                { services_isSuccess && Object.values(services).map((services, inx) => <MenuItem dir={defaultContent.direction} key={ services.id } value={ services.id }>{services.title}</MenuItem>)}
+                { services_isSuccess && services.map((service, inx) => <MenuItem dir={defaultContent.direction} key={ service.id } value={ service.id }>{service.title}</MenuItem>)}
             </Select>
             { props.helperText && <FormHelperText>{ props.helperText }</FormHelperText> }
         </>

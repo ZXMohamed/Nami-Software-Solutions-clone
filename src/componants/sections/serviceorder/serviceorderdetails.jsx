@@ -64,11 +64,12 @@ export default function ServiceOrderDetails() {
               { service_isFetching && <IntroCardWaitItemsSkelton/>}
             </Grid>
             <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
-              <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-                { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service.objectives } />}
-                { (!service_isFetching && service_isSuccess) && <OrderService />}
-                { service_isFetching && <ListCardWaitItemsSkelton/>}
-              </ListCard>
+              { (!service_isFetching && service_isSuccess) &&
+              <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
+                <ObjectivesList dir={defaultContent.direction} data={ service.objectives } />
+                <OrderService />
+              </ListCard>}
+              { service_isFetching && <ListCardWaitItemsSkelton/>}
             </Grid>
           </Grid>
           { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{service_error.data.error}</Typography> }

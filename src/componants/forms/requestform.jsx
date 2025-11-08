@@ -52,7 +52,7 @@ export default function RequestForm({ closeButton = () => { }, defaultContent, f
             });
         } else {
             clearErrors("recaptcha");
-            //$send recaptch to php
+            //$send recaptcha to php
             data.reCaptchaToken = reCaptchaToken.current
             submit(data);
             reCaptcha.current.reset();

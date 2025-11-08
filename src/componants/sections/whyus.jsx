@@ -1,5 +1,5 @@
 //*react
-import React from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*components
@@ -47,7 +47,7 @@ export default function WhyUs() {
                     <Grid container spacing={ 3 }>
                         { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && !servicesQuestion.whySecError &&
                             Object.values(servicesQuestion.whySec).map((answer) =>
-                            <Grid key={answer.id} size={ { sm: 4, xs: 12 } }>{console.log(answer)}
+                            <Grid key={answer.id} size={ { sm: 4, xs: 12 } }>
                                 <AnswerBox dir={defaultContent.direction} data={ answer } aosAnimation={ boxAosAnimation } />
                             </Grid>  
                         )}
@@ -62,18 +62,18 @@ export default function WhyUs() {
     )
 }
 
-function AnswerBox({ dir, data, aosAnimation }) {
+const AnswerBox = memo(({ dir, data, aosAnimation }) => {
 
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
     
     return (
-        <Stack dir={dir} direction={"column"} className='answerBox' {...aosAnimation}>
+        <Stack dir={ dir } direction={ "column" } className='answerBox' { ...aosAnimation }>
             <img src={ data.image } width={ 60 } height={ 60 } alt={ data.title } className='answerBoxIcon' />
             <Typography component={ "h5" } variant='h6' className='answerBoxTitle'>{ data.title }</Typography>
             <Typography className='answerBoxDescription'>{ data.description }</Typography>
         </Stack>
     )
-}
+});
 
 
 const firstContent = {

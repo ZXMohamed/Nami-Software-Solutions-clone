@@ -1,5 +1,5 @@
 //*react
-import React from 'react'
+import React, { memo } from 'react'
 //*mui
 import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography } from '@mui/material'
 //*assets
@@ -59,21 +59,21 @@ export default function QA() {
     )
 }
 
-function QABox({ dir, data, aosAnimation }) {
+const QABox = memo(({ dir, data, aosAnimation }) => {
     
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
     
     return (
-        <Box className='QABoxCon' {...aosAnimation}>
-            <Accordion dir={dir} className='QABox'>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} className='QABox-Q'>
+        <Box className='QABoxCon' { ...aosAnimation }>
+            <Accordion dir={ dir } className='QABox'>
+                <AccordionSummary expandIcon={ <ExpandMoreIcon /> } className='QABox-Q'>
                     { data.Q }
                 </AccordionSummary>
-                <AccordionDetails className='QABox-A'>{data.A}</AccordionDetails>
+                <AccordionDetails className='QABox-A'>{ data.A }</AccordionDetails>
             </Accordion>
         </Box>
     )
-}
+});
 
 
 const firstContent = {

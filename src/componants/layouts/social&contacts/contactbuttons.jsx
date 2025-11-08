@@ -9,8 +9,8 @@ import { useContent } from '../../../languages/hooks/usecontent';
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
 
-const ContactButtons = memo(() => {
-    console.log("cb");
+
+const ContactButtons = () => {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
     const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
@@ -26,7 +26,7 @@ const ContactButtons = memo(() => {
         </Stack>) }
     </>
     )
-});
+}
 
 export default ContactButtons;
 

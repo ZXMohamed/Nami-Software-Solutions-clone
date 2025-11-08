@@ -15,16 +15,12 @@ export default function PageWrapper({ children }) {
   return (
     <>
       <LanguagesProvider>
-        
-        { console.log("sssssssssaaaaaaaaaaa") }
-        
         <NavBar />
         {children}
         <FloatSocialButtons />
         <ContactButtons />
         <ServicesTicker />
         <Footer />
-
       </LanguagesProvider>
     </>
   )

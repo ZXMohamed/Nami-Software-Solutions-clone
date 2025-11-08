@@ -9,8 +9,8 @@ import { useContent } from '../../../languages/hooks/usecontent';
 //*query
 import { useGetSocialQuery } from '../../../redux/server state/social'
 
-const FloatSocialButtons = memo(() => {
-  console.log("fsb");
+
+const FloatSocialButtons = () => {
 
   const { isSuccess: content_isSuccess, data: content } = useContent();
   const defaultContent = { direction: content_isSuccess ? content.page.direction : "ltr" };
@@ -31,15 +31,16 @@ const FloatSocialButtons = memo(() => {
     </Box>
   )
 
-});
+}
 
 export default FloatSocialButtons;
 
-const FloatSocialButton = ({ link, icon, title }) => {
+const FloatSocialButton = memo(({ link, icon, title }) => {
+
   if (!link && !icon) return <></>;
   return (
     <a href={ link } target='_blank' className='floatSocialButton'>
       <img src={ icon } width="16px" height="16px" alt={ "Nami " + title + " account" } loading='lazy' />
     </a>
   )
-};
+});
