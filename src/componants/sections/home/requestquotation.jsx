@@ -13,8 +13,8 @@ import { useRequestQuotationMutation } from '../../../redux/server state/request
 import zod from "zod";
 
 
+
 const RequestQuotation = () => {
-    console.log("homeRQ");
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
 

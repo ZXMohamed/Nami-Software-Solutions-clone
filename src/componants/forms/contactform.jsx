@@ -1,5 +1,5 @@
 //*react
-import React, { useContext, useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 //*mui
 import { Alert, Box, Button, Grid, Stack, TextField } from '@mui/material'
 //*hooks
@@ -88,7 +88,7 @@ export function FormSection() {
             });
         } else {
             clearErrors("recaptcha");
-            //$send recaptch to php
+            //$send recaptcha to php
             data.reCaptchaToken = reCaptchaToken.current
             contact(data);
             reCaptcha.current.reset();

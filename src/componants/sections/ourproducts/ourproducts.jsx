@@ -1,7 +1,6 @@
 //*react
 import React, { memo, useMemo } from 'react'
 //*route
-import { useParams } from 'react-router'
 import { pages_routes } from '../../../routes/routes'
 //*mui
 import { Box, Container, Typography, useMediaQuery } from '@mui/material'
@@ -25,6 +24,7 @@ import "../../../sass/shared/productcard.scss"
 //*animation
 import { productCardAosAnimation } from '../../../animation/ourproducts'
 
+
 export default function OurProducts() {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
@@ -46,13 +46,11 @@ export default function OurProducts() {
             return ourProductsFirstContent;
         }
     })();
-    
-    const { language: urlLang } = useParams();
 
     return (
         <>
             <Box id="ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
-                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["our products"].link } />
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(defaultContent.language)["our products"].link } />
                 <Products dir={ defaultContent.direction } language={ defaultContent.language } />
             </Box>
             <Statistics/>
@@ -79,7 +77,7 @@ const Products = memo(({ dir, language }) => {
     }, [language]);
 
     return (
-        <Container maxWidth="lg" disableGutters>{console.log("sda")}
+        <Container maxWidth="lg" disableGutters>
             <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( sliderLoopCase ) } className='productsSlider'>
                 { products_isFetching && waitItemSkeleton(3) }
                 { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {

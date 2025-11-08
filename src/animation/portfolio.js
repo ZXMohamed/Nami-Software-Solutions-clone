@@ -1,3 +1,4 @@
+//*aos
 import { aosAnimationUp } from "../aos/aosprops";
 
 export const projectCardAosAnimation = (order)=>({

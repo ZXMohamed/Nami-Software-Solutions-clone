@@ -9,7 +9,9 @@ import "../../sass/shared/splashScreen.scss"
 export default function SplashScreen() {
   return (
     <div className='splashScreen'>
+
       <img src={ logo } alt="Nami Software Company" width={ 100 } className='splashScreenIcon'/>
+      
       <section className='splashScreenWaveAnimationCon'>
         <div className='splashScreenWaveAnimationTop'>
           <div></div>
@@ -25,6 +27,7 @@ export default function SplashScreen() {
           </div>
         </div>
       </section>
+      
     </div>
   )
 }

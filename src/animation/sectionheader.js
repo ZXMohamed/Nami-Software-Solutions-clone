@@ -1,6 +1,7 @@
 //*gsap
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+//*aos
 import { aosAnimationLeft, aosAnimationUp } from "../aos/aosprops";
 
 

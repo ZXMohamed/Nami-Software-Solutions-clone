@@ -82,7 +82,7 @@ export function FormSection() {
     const [requestJob, { isSuccess: requestJob_isSuccess, isError: requestJob_isError, isLoading: requestJob_isLoading }] = useRequestJobMutation();
     
     const onSubmit = (data) => {
-        console.log(data.cvFile);
+        
         if (!reCaptchaToken.current) {
             setError("recaptcha", {
                 type: "manual",
@@ -90,7 +90,7 @@ export function FormSection() {
             });
         } else {
             clearErrors("recaptcha");
-            //$send recaptch to php
+            //$send recaptcha to php
             data.reCaptchaToken = reCaptchaToken.current
             data.cvFile = data.cvFile[0]
             requestJob(data);

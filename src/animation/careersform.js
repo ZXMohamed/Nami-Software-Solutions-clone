@@ -1,3 +1,4 @@
+//*aos
 import { aosAnimationLeft } from "../aos/aosprops";
 
 export const formAosAnimation = {

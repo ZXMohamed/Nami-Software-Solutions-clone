@@ -2,7 +2,6 @@
 import React, { memo, useMemo } from 'react'
 //*route
 import { pages_routes } from '../../../routes/routes';
-import { useParams } from 'react-router';
 //*mui
 import { Box, Container, Typography, useMediaQuery } from '@mui/material';
 //*swiper
@@ -43,11 +42,9 @@ export default function Portfolio() {
         }
     })();
 
-    const { language: urlLang } = useParams();
-
   return (
     <Box id="portfolio" dir={defaultContent.direction} className='portfolioSection'>
-        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={pages_routes(urlLang)["portfolio"].link}/>
+        <SectionHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle} headerButtonTitle={defaultContent.buttons.headerButton} headerButtonUrl={pages_routes(defaultContent.language)["portfolio"].link}/>
           <Projects dir={ defaultContent.direction } language={defaultContent.language} />
     </Box>
   )

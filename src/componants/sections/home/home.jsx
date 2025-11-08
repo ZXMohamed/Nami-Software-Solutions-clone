@@ -8,7 +8,7 @@ import SocialButtons from "../../shared/social&contacts/socialbuttons";
 import RequestQuotation from "./RequestQuotation";
 import FallingBackground from "./fallingbackground";
 //*scripts
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { pages_routes } from "../../../routes/routes";
 import { defaultLanguage } from "../../../languages/languagesContext";
 //*assets
@@ -16,8 +16,8 @@ import logo from "../../../assets/photo/global/namilogo.svg";
 //*animation
 import { descriptionAosAnimation, homeButtonsAosAnimation, socialButtonsAosAnimation, titleAosAnimation } from "../../../animation/home";
 
+
 export default function Home() {
-    console.log("home");
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
 
@@ -45,13 +45,12 @@ export default function Home() {
         }
     })();
 
-
-    const { language: urlLang } = useParams();
     const navigate = useNavigate();
+
 
     return (
         <>
-            <PageHead pageTitle={ defaultContent.pageTitle } title={ defaultContent.meta.title } description={ defaultContent.meta.description } language={ defaultContent.language } image={ defaultContent.meta.image } url={ pages_routes(urlLang)["home"].link } />
+            <PageHead pageTitle={ defaultContent.pageTitle } title={ defaultContent.meta.title } description={ defaultContent.meta.description } language={ defaultContent.language } image={ defaultContent.meta.image } url={ pages_routes(defaultContent.language)["home"].link } />
             
             <Box id="home" className="homeSection" dir={ defaultContent.direction }>
 
@@ -66,9 +65,9 @@ export default function Home() {
                 <SocialButtons aosAnimation={ socialButtonsAosAnimation } />
 
                 <Stack direction="row" gap={ 2 } className="homeButtons" { ...homeButtonsAosAnimation }>
-                    <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={ () => navigate(pages_routes(urlLang)["portfolio"].link) }>{ defaultContent.buttons.portfolio }</Button>
+                    <Button variant="outlined" disableRipple className="homeButton homePortfolioButton" onClick={ () => navigate(pages_routes(defaultContent.language)["portfolio"].link) }>{ defaultContent.buttons.portfolio }</Button>
                     <RequestQuotation />
-                    <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={ () => navigate(pages_routes(urlLang)["our products"].link) }>{ defaultContent.buttons.ourProducts }</Button>
+                    <Button variant="outlined" disableRipple className="homeButton homeProductsButton" onClick={ () => navigate(pages_routes(defaultContent.language)["our products"].link) }>{ defaultContent.buttons.ourProducts }</Button>
                 </Stack>
 
                 <FallingBackground />

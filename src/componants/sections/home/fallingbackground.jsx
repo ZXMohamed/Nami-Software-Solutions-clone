@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 
 
 const FallingBackground = memo(() => {
-    console.log("fB");
+
     return (
         <Box className="fallingBackground">
             <div className="fallingBackgroundDelay-5"></div>

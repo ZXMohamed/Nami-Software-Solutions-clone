@@ -5,9 +5,6 @@ import { Link, useParams } from 'react-router';
 import { pages_routes } from '../../routes/routes';
 //*mui
 import { Box, Grid, Stack, Typography, Container, Button } from '@mui/material';
-//*gsap
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
 //*queries
 import { useGetServicesQuery } from '../../redux/server state/services';
 //*hook
@@ -68,7 +65,7 @@ export default function Services() {
     )
 }
 
-const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
+const ServiceCardGrid = memo(({ dir, language, readMoreButton }) => {
 
     const { isSuccess: servicesItems_isSuccess, isFetching: servicesItems_isFetching, data: servicesItems, isError: servicesItems_isError, error: servicesItems_error, refetch: servicesItems_refetch } = useGetServicesQuery();
 
@@ -91,7 +88,7 @@ const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
             { servicesItems_isError && <Typography variant={ "h6" } color="error">{ servicesItems_error.data.error }</Typography> }
         </>
     );
-};
+});
 
 const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => {
 

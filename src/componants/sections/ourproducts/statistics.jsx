@@ -1,7 +1,7 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 //*component
 import InfoCard, { typographyForm } from '../../shared/infoCard'
 import { StatisticsList, StatisticsBox } from './statisticsbox'

@@ -1,7 +1,7 @@
 //*react
-import React, { memo } from "react";
+import React from "react";
 //*route
-import { Link, useLocation, useParams } from "react-router";
+import { Link, useLocation } from "react-router";
 //*mui
 import { AppBar, Toolbar, Container, Stack } from "@mui/material";
 //*styles
@@ -17,10 +17,12 @@ import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
 import logo from "../../../assets/photo/global/namilogo.svg";
+//*animation
 import { navBarAosAnimation } from "../../../animation/navbar";
 
-const NavBar = memo(() => {
-    console.log("NB");
+
+
+const NavBar = () => {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
 
@@ -56,7 +58,7 @@ const NavBar = memo(() => {
             </Container>
         </AppBar>
     );
-});
+}
 
 export default NavBar;
 
@@ -64,22 +66,24 @@ export default NavBar;
 
 function Tabs({ defaultContent }) {
     
-    const location = useLocation();
-    const { language : urlLang } = useParams();
+    //*main page has tabs that nav to sections in it and other nav to other pages
+    //*if tab nav out of main page use <Link> else use <a> if it nav to section in the main page 
 
-    if (getPage(location, urlLang) == "main") { 
-        const nav = navSettings(urlLang, true);
+    const location = useLocation();
+
+    if (getPage(location, defaultContent.language) == "main") { 
+        const nav = navSettings(defaultContent.language, true);
         return Object.keys(defaultContent.navTabs).map((tab, inx) => {
             if (nav[tab.toLowerCase()].outerRoute)
-                return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
+                return <Link key={ inx } to={ nav[tab.toLowerCase()].link } dir={ defaultContent.direction } { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </Link>;
             else
-            return <a key={ inx } href={nav[tab.toLowerCase()].link} dir={defaultContent.direction} { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
-        })
+                return <a key={ inx } href={ nav[tab.toLowerCase()].link } dir={ defaultContent.direction } { ...activeTabAnimation(tab) }> { defaultContent.navTabs[tab].title } </a>;
+        });
     } else {
-        const nav = navSettings(urlLang, false);
+        const nav = navSettings(defaultContent.language, false);
         return Object.keys(defaultContent.navTabs).map((tab, inx) => {
-            return <Link key={ inx } to={nav[tab.toLowerCase()].link} dir={defaultContent.direction}> { defaultContent.navTabs[tab].title } </Link>;
-        })
+            return <Link key={ inx } to={ nav[tab.toLowerCase()].link } dir={ defaultContent.direction }> { defaultContent.navTabs[tab].title } </Link>;
+        });
     }
 
 }

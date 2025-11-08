@@ -4,7 +4,6 @@ import React, { memo, useEffect, useRef } from 'react'
 import { Box, Container, Grid, Typography, Stack } from '@mui/material'
 //*hooks
 import { useContent } from '../../../languages/hooks/usecontent';
-import useUpdateEffect from '../../../hooks/useupdateeffect';
 //*components
 import DownloadButton from '../../shared/buttons/downloadbutton';
 //*queries
@@ -41,7 +40,7 @@ export default function About() {
 }
 
 const SideImg = memo(() => {
-  
+
   const sideImgContainer = useRef();
   const sideImg = useRef();
 
@@ -63,16 +62,16 @@ const Info = () => {
   const { isSuccess: content_isSuccess, data: content } = useContent();
 
   const defaultContent = (() => {
-      if (content_isSuccess) {
-        return {
-          direction: content.page.direction,
-          title: content.about.title,
-          subtitle: content.about.subtitle,
-          description: content.about.description,
-        }
-      } else {
-          return infoFirstContent;
+    if (content_isSuccess) {
+      return {
+        direction: content.page.direction,
+        title: content.about.title,
+        subtitle: content.about.subtitle,
+        description: content.about.description,
       }
+    } else {
+        return infoFirstContent;
+    }
   })();
 
   const subtitle = useRef();

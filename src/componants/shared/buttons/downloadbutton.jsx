@@ -9,6 +9,7 @@ import "../../../sass/shared/downloadbutton.scss"
 //*animation
 import { aosAnimation } from '../../../animation/downloadbutton';
 
+
 const DownloadButton = memo(({ link, title, direction })=> {
 
   return (

@@ -15,6 +15,7 @@ import Sustainability from "../../../assets/photo/our/Sustainability.svg"
 //*animation
 import { ourMessageAosAnimation, ourValuesAosAnimation, ourVisionAosAnimation, valueBoxAosAnimation } from '../../../animation/our'
 
+
 function Our() {
 
   const { isSuccess: content_isSuccess, data: content } = useContent();

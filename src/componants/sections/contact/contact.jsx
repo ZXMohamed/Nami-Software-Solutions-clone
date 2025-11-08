@@ -1,5 +1,5 @@
 //*react
-import React, { useContext, useMemo } from 'react'
+import React from 'react'
 //*mui
 import { Box, Container, Grid, useMediaQuery } from '@mui/material'
 //*component

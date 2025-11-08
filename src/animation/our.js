@@ -1,3 +1,4 @@
+//*aos
 import { aosAnimationLeft, aosAnimationRight, aosAnimationUp } from "../aos/aosprops"
 
 export const ourVisionAosAnimation = {

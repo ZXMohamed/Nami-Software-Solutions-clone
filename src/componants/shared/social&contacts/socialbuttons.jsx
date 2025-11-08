@@ -9,7 +9,8 @@ import { WaiteProgress } from '../../loadingitems/socialbuttons';
 //*styles
 import "../../../sass/shared/socialbuttons.scss"
 
-const SocialButtons = memo(({ aosAnimation }) => {console.log("sb");
+
+const SocialButtons = memo(({ aosAnimation }) => {
     const { isLoading, isSuccess, data: social } = useGetSocialQuery();
 
     return (
