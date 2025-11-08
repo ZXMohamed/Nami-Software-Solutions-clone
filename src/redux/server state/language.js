@@ -14,7 +14,21 @@ const languageSlice = createApi({
             query: ({ language, page }) => "query/language.php?lang=" + language + "&" + "page=" + page,
         }),
         setCurrentLanguage: builder.mutation({
-            query: ({ language }) => "query/currentLanguage.php?lang=" + language,
+            query: ({ language }) => {
+
+                const params = new URLSearchParams();
+                
+                params.append("lang",language);
+                
+                return {
+                    url: "query/currentLanguage.php",
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params,
+                }   
+            }
         })
     })
 })
