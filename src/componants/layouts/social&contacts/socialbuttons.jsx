@@ -4,11 +4,14 @@ import React, { memo } from 'react'
 import { Stack } from '@mui/material'
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
+<<<<<<<< HEAD:src/componants/layouts/social&contacts/socialbuttons.jsx
 <<<<<<<< HEAD:src/componants/shared/social&contacts/socialbuttons.jsx
 //*components
 import { WaiteProgress } from '../../loadingitems/socialbuttons';
 ========
 >>>>>>>> blogs-page:src/componants/layouts/social&contacts/socialbuttons.jsx
+========
+>>>>>>>> marketing-page:src/componants/shared/social&contacts/socialbuttons.jsx
 //*styles
 import "../../../sass/shared/socialbuttons.scss"
 

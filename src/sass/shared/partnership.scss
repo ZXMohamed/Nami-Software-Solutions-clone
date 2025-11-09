@@ -1,0 +1,50 @@
+@use "_shared.scss" as *;
+
+.partnership{
+    padding: 60px 0;
+    background-color: $primary3Transparent;
+}
+.questionCardCon{
+
+}
+
+.questionCard{
+    border-bottom: 4px solid $primary2Transparent;
+    @extend %sectionCard;
+    width: 619.5px;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    img{
+        width: 45px;
+        filter: contrast(0) brightness(170%);
+    }
+    h6{
+        font-family: "PlexNormal";
+        color: $primaryColor;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    p{
+        font-family: "PlexNormal";
+        color: $PrimaryTextColor;
+        font-size: 16px;
+    }
+}
+.questionCardCubeBar{
+    align-self: center;
+    width: 15px;
+    height: 15px;
+    background-color: $primary3-2Transparent;
+}
+.questionCardBar{
+    align-items: center;
+    height: 100;
+    flex-shrink: 0;
+    background-color: $primary3-2Transparent;
+    width: 3px;
+    // border: solid;
+}

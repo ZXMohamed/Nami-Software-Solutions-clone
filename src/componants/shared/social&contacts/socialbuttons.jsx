@@ -11,7 +11,6 @@ import "../../../sass/shared/socialbuttons.scss"
 
 
 const SocialButtons = memo(({ aosAnimation }) => {
-
     const { isLoading, isSuccess, data: social } = useGetSocialQuery();
 
     return (
