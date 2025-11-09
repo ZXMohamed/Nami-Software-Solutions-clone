@@ -1,0 +1,84 @@
+//*react
+import React, { memo } from 'react'
+//*mui
+import { Accordion, AccordionDetails, AccordionSummary, Box, Container, Typography } from '@mui/material'
+//*assets
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+//*components
+import MiniHeader from '../shared/miniheader'
+import { QABoxWaitItemsSkelton } from '../loadingitems/QA';
+//*styles
+import "../../sass/shared/QA.scss"
+//*hooks
+import { useGetServicesQuestionQuery } from '../../redux/server state/services';
+import useUpdateEffect from '../../hooks/useupdateeffect';
+import { useContent } from '../../languages/hooks/usecontent';
+//*animation
+import { boxAosAnimation } from '../../animation/QA';
+
+
+export default function QA() {
+
+    const { isSuccess: content_isSuccess, data: content } = useContent();
+
+    const defaultContent = (() => {
+        if (content_isSuccess) {
+            return {
+                direction: content.page.direction,
+                language: content.page.language,
+                title: content.QA.title,
+                subtitle: content.QA.subtitle
+            }
+        } else {
+            return firstContent;
+        }
+    })();
+
+    const { isError: servicesQuestion_isError, error: servicesQuestion_error, isSuccess: servicesQuestion_isSuccess, data: servicesQuestion, isFetching: servicesQuestion_isFetching, refetch: servicesQuestion_refetch } = useGetServicesQuestionQuery();
+
+    useUpdateEffect(() => {
+        servicesQuestion_refetch();
+    },[defaultContent.language])
+
+    return (
+        <>
+            <Box dir={defaultContent.direction} className="QASection">
+                <MiniHeader dir={defaultContent.direction} title={defaultContent.title} subtitle={defaultContent.subtitle}/>
+                <Container maxWidth="lg">
+                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && !servicesQuestion.QAError &&
+                        Object.values(servicesQuestion.QA).map((QA) => 
+                        <QABox key={QA.id} dir={ defaultContent.direction } data={ QA } aosAnimation={ boxAosAnimation } />
+                    )}
+                    { servicesQuestion_isFetching && <QABoxWaitItemsSkelton /> }
+                    { (!servicesQuestion_isFetching && servicesQuestion_isSuccess) && servicesQuestion.QAError &&
+                        <Typography component={ "p" } variant='h5' color='error'>{ servicesQuestion.QA.error }</Typography> }
+                    {servicesQuestion_isError && <Typography component={"p"} variant='h5' color='error'>{servicesQuestion_error.data.whySec.error}</Typography>}
+                </Container>
+            </Box>
+        </>
+    )
+}
+
+const QABox = memo(({ dir, data, aosAnimation }) => {
+    
+    if (!data || (data && Object.keys(data).length == 0)) return <></>;
+    
+    return (
+        <Box className='QABoxCon' { ...aosAnimation }>
+            <Accordion dir={ dir } className='QABox'>
+                <AccordionSummary expandIcon={ <ExpandMoreIcon /> } className='QABox-Q'>
+                    { data.Q }
+                </AccordionSummary>
+                <AccordionDetails className='QABox-A'>{ data.A }</AccordionDetails>
+            </Accordion>
+        </Box>
+    )
+});
+
+
+const firstContent = {
+    direction: "ltr",
+    language: "en",
+    title: "FAQS",
+    subtitle: "The most common questions that clients ask about website development"
+}

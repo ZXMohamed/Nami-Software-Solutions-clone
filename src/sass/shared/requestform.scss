@@ -36,13 +36,14 @@ button.closeForm{
         width: min(500px,100%);
         background-color: $secondColor;
         
-        input,textarea{
+        input,textarea,.MuiSelect-select{
             caret-color: $primaryColor !important;
             padding: 0px 12px;
-            height: 46px;
             background-color: $secondColor;
             border-radius:10px;
             caret-color: $secondColor;
+            height: 46px;
+            
             &::selection{
                 background-color: $primary2Color;
             }
@@ -73,6 +74,9 @@ button.closeForm{
         }
         .MuiInputBase-multiline{
             padding: 0;
+        }
+        div.MuiSelect-select{
+            @include center("Y-flex")
         }
     }
 
@@ -136,6 +140,18 @@ label.inputTitle
                 margin-right: 12px;
             }
         }
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-left: 12px;
+                &~svg.MuiSvgIcon-root{
+                    right: 7px;
+                }
+            }
+        }
+        li.MuiMenuItem-root{
+            justify-content: flex-start;
+            -webkit-justify-content:flex-start;
+        }
         form{
             .MuiFormHelperText-root{
                 text-align: left;
@@ -152,6 +168,19 @@ label.inputTitle
                 margin-right: 0px;
                 margin-left: 12px;
             }
+        }
+        div.MuiInputBase-root{
+            div.MuiSelect-select{
+                padding-right: 12px;
+                &~svg.MuiSvgIcon-root{
+                    left: 7px;
+                    right: unset;
+                }
+            }
+        }
+        li.MuiMenuItem-root{
+            justify-content: flex-start;
+            -webkit-justify-content:flex-start;
         }
         form{
             .MuiFormHelperText-root{

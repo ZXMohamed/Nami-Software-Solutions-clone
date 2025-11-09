@@ -8,9 +8,10 @@ $floatSocialButtonsIcon: "#{$assets}/global/social.svg";
 $showAllArrow: "#{$assets}/sectionheader/show all arrow.svg";
 $cardArrow : "#{$assets}/services/arrow.svg";
 $listArrow : "#{$assets}/services/list arrow.svg";
-$sectionbackground : "#{$assets}/global/sectionbackground.jpg";
+$sectionBackground : "#{$assets}/global/sectionbackground.jpg";
 $formError : "#{$assets}/global/formerror.svg";
 $pointIcon : "#{$assets}/servicesticker/split.png";
+$mobileFrame : "#{$assets}/mobilescreens/mobileframe.png";
 
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
@@ -19,7 +20,9 @@ $primary3Color: #11b14e;
 $primaryTransparent: rgba($primaryColor, 0.19);
 $primary1-2Transparent: rgba($primaryColor, 0.05);
 $primary1-3Transparent:rgba($primaryColor, 0.369);
+$primary1-3Transparent:rgba($primaryColor, 0.369);
 $primary2Transparent: rgba($primary2Color, 0.25);
+$primary2-2Transparent: rgba($primary2Color, 0.733);
 $primary2-2Transparent: rgba($primary2Color, 0.733);
 $primary3Transparent: rgba($primary3Color, 0.07);
 $primary3-2Transparent: rgba($primary3Color, 0.17);
@@ -33,7 +36,9 @@ $thirdColor : #e1e1e1;
 $third2Color : #f5f5f5;
 
 $PrimaryTextColor:#000000;
+$PrimaryTextColor:#000000;
 $secondTextColor:#777;
+$thirdTextColor : #191919;
 
 $scrollColor:#CACACA;
 
@@ -176,7 +181,7 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
         width: 400%;
         height: 400%;
         position: absolute;
-        background: $gradientTransparentBG, url($sectionbackground);
+        background: $gradientTransparentBG, url($sectionBackground);
         background-size: cover;
         background-position: center;
         animation-name: moveSectionBG;

@@ -1,0 +1,59 @@
+@use "_shared.scss" as *;
+
+.QASection{
+    padding: 60px 0px;
+}
+
+
+div.QABoxCon{
+    &:last-child
+    {
+        button.QABox-Q{
+            border-radius: 0 0 20px 20px;
+        }
+    }
+    &:first-child
+    {
+        button.QABox-Q{
+            border-radius: 20px 20px 0 0;
+        }
+    }
+}
+div.QABox{
+    box-shadow: none;
+}
+div.QABox.Mui-expanded{
+    border-radius: 20px;
+    &:first-of-type,
+    &:last-of-type{
+        margin-top: 16px;
+        margin-bottom:16px;
+    }
+    button.QABox-Q{
+        border-radius: 20px;
+        @extend %animatedBG;
+        color: $secondColor;
+    }
+    .MuiSvgIcon-root{
+        color: $secondColor;
+    }
+}
+button.QABox-Q{
+    @extend %transition;
+    min-height: 57px;
+    // border-radius: 20px 20px 0 0;
+    background-color: $thirdColor;
+    font-family: "PlexNormal";
+    font-weight: 600;
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+div.QABox-A{
+    padding: 15px 20px 15px 20px;
+    font-family: "PlexNormal";
+
+    @media screen and (max-width:768px) {
+        font-size: 14px;
+    }
+}
