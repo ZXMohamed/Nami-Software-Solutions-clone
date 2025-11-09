@@ -4,14 +4,16 @@ import React, { memo } from 'react'
 import { Stack } from '@mui/material'
 //*queries
 import { useGetSocialQuery } from '../../../redux/server state/social'
+<<<<<<<< HEAD:src/componants/shared/social&contacts/socialbuttons.jsx
 //*components
 import { WaiteProgress } from '../../loadingitems/socialbuttons';
+========
+>>>>>>>> blogs-page:src/componants/layouts/social&contacts/socialbuttons.jsx
 //*styles
 import "../../../sass/shared/socialbuttons.scss"
 
 
 const SocialButtons = memo(({ aosAnimation }) => {
-
     const { isLoading, isSuccess, data: social } = useGetSocialQuery();
 
     return (
