@@ -15,11 +15,10 @@ import useCashedImage from '../../hooks/usecashedimage'
 
 
 
-export const ProductCard = memo(({ dir, data, aosAnimation }) => {
+export const ProductCard = memo(({ dir, data, aosAnimation, language }) => {
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
     const navigation = useNavigate();
-    const { language: urlLang } = useParams();
 
     const [image, cashImage] = useCashedImage(data.image, "products", data.id);
 
@@ -28,7 +27,7 @@ export const ProductCard = memo(({ dir, data, aosAnimation }) => {
     },[])
 
     return (
-        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id, data.title)["product details"].link) }>
+        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(language, data.id, data.title.replaceAll(" ","-"))["product details"].link) }>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
                     <img src={ image } alt={ data.title } loading='lazy' />

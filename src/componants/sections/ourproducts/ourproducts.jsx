@@ -47,13 +47,11 @@ export default function OurProducts() {
             return ourProductsFirstContent;
         }
     })();
-    
-    const { language: urlLang } = useParams();
 
     return (
         <>
             <Box id="ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
-                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["our products"].link } />
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(defaultContent.language)["our products"].link } />
                 <Products dir={ defaultContent.direction } language={ defaultContent.language } />
             </Box>
             <Statistics/>
@@ -85,7 +83,7 @@ export const Products = memo(({ dir, language }) => {
                 { products_isFetching && waitItemSkeleton(3) }
                 { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {
                     return (<SwiperSlide key={ product.id } className='productsSlide'>
-                                <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
+                                <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } language={language}/>
                             </SwiperSlide>
                     )
                 }) }
