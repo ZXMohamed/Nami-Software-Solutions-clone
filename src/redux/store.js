@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import imageCashSlice from "./clint state/imagecash";
 import languageSlice from "./server state/language";
 import requestQuotationSlice from "./server state/requestquotation";
 import socialSlice from "./server state/social";
@@ -10,7 +11,8 @@ import projectsSlice from "./server state/projects";
 import openJobsSlice from "./server state/openjobs";
 import contactSlice from "./server state/contact";
 import locationSlice from "./server state/location";
-import imageCashSlice from "./clint state/imagecash";
+import projectsSlice from "./server state/projects";
+import portfolioFilterSlice from "./clint state/portfolio";
 
 const store = configureStore({
     reducer: {
@@ -26,6 +28,7 @@ const store = configureStore({
         [openJobsSlice.reducerPath]: openJobsSlice.reducer,
         [contactSlice.reducerPath]: contactSlice.reducer,
         [locationSlice.reducerPath]: locationSlice.reducer,
+        [portfolioFilterSlice.name]: portfolioFilterSlice.reducer
     },
     middleware: (reduxMiddleWare) => reduxMiddleWare().concat(
         languageSlice.middleware,

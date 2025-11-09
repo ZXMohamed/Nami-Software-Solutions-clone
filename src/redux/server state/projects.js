@@ -13,11 +13,16 @@ const projectsSlice = createApi({
         getNextProjectsByCat: builder.query({
             query: ({ cat, count, reset, search }) => "/query/projects.php?cat=" + cat + "&" + "count=" + count + "&" + (reset ? "reset=1" : "") + "&" + (search ? "search=" + search : ""),
             serializeQueryArgs: ({ endpointName, queryArgs }) => {
-                
-                return `${endpointName}-${queryArgs.cat || ''}`
+                //* Cache key should include cat, but ignore count, search (page)
+                return `${endpointName}-${queryArgs.cat || ''}`;
             },
             merge: (currentCache, newItems, { arg }) => {
-                return {...(currentCache || {}), ...newItems};
+
+                //* Ensure currentCache is an array before spreading
+                return {
+                    error: newItems.error,
+                    data: [...(currentCache.data || []), ...newItems.data]
+                }
             },
         }),
         getCategories: builder.query({

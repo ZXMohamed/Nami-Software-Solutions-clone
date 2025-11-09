@@ -12,6 +12,7 @@ $sectionBackground : "#{$assets}/global/sectionbackground.jpg";
 $formError : "#{$assets}/global/formerror.svg";
 $pointIcon : "#{$assets}/servicesticker/split.png";
 $mobileFrame : "#{$assets}/mobilescreens/mobileframe.png";
+$searchIcon : "#{$assets}/portfolio/search.svg";
 
 $primaryColor: #009f6f;
 $primary2Color: #38c684;
@@ -62,6 +63,23 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     {
         background-color: $scrollColor;
         border-radius: 40vw;
+    }
+}
+
+%hiddenScroll{
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        background-color: transparent;
+        border-radius: 40vw;
+    }
+    
+    &:hover{
+        @extend %scroll;
     }
 }
 
