@@ -9,6 +9,7 @@ import "./aos/aosinit"
 import "./gsap/GSAPinit"
 import { theme } from "./mui/MUIinit"
 //*pages
+import Main from "./pages/main"
 import Service from "./pages/service"
 //*css
 import '../node_modules/aos/dist/aos.css';

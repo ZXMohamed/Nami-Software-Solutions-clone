@@ -56,7 +56,7 @@ export default function ServiceOrderDetails() {
           "description": service.description
         }
       } } /> }
-      <Box dir={defaultContent.direction}>
+      <Box dir={defaultContent.direction} className="serviceOrderDetailsCon">
         <Container maxWidth="lg">
           <Grid container spacing={2}>
             <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>

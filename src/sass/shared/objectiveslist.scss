@@ -7,7 +7,7 @@ div.objectivesList{
     @extend %transition;
     @extend %objectivesListDirection;
 }
-ul.serviceItemObjectives{
+ul.itemObjectives{
     margin: 0px;
     display: flex;
     flex-direction: column;
@@ -35,14 +35,14 @@ ul.serviceItemObjectives{
 
 %objectivesListDirection{
     &[dir=ltr]{
-        ul.serviceItemObjectives{
+        ul.itemObjectives{
             li::before {
                 margin-right: 5px;
             }
         }
     }
     &[dir=rtl]{
-        ul.serviceItemObjectives{
+        ul.itemObjectives{
             li::before {
                 transform: rotateY(180deg);
                 margin-left: 5px;
