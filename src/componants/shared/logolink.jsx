@@ -1,4 +1,6 @@
+//*react
 import { Link, useLocation, useParams } from "react-router";
+//*route
 import { getPage, navSettings } from "../../routes/routesmanager";
 
 function LogoLink({ children }) {

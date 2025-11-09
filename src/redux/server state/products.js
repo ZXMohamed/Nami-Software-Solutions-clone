@@ -7,12 +7,30 @@ const productsSlice = createApi({
         credentials: 'include'
     }),
     endpoints: (builder) => ({
+
         getProducts: builder.query({
-            query: () => "query/products.php",
-        })
+            query: (params) => "query/products.php" + (params?.id ? "?id=" + params.id : ""),
+        }),
+        orderProduct: builder.mutation({
+            query: (data) => {
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+                return {
+                    url: "query/orderproduct.php",
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params,
+                }
+            }
+        }),
     })
 
 });
 
+
 export default productsSlice;
-export const { useGetProductsQuery } = productsSlice;
+export const { useGetProductsQuery, useOrderProductMutation } = productsSlice;
