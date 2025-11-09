@@ -1,0 +1,32 @@
+@use "_shared.scss" as *;
+
+div.waveAnimation{
+    @extend %transition;
+    @extend %direction;
+}
+%direction{
+    &[dir=ltr]{
+        div.MuiContainer-root{
+            div.waveAnimation{
+                &[wave_dir=left]{
+                    @include circleWave("left",430px);
+                }
+                &[wave_dir=right]{
+                    @include circleWave("right",430px);
+                }
+            }
+        }
+    }
+    &[dir=rtl]{
+        div.MuiContainer-root{
+            div.waveAnimation{
+                &[wave_dir=left]{
+                    @include circleWave("right",430px);
+                }
+                &[wave_dir=right]{
+                    @include circleWave("left",430px);
+                }
+            }
+        }
+    }
+}
