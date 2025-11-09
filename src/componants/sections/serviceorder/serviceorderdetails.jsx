@@ -9,6 +9,7 @@ import { Box, Container, Grid, Typography } from '@mui/material'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
 import { useContent } from '../../../languages/hooks/usecontent'
 //*components
+import RoutesBar from '../../shared/routesbar'
 import IntroCard from '../../shared/introcard'
 import ListCard from '../../shared/listcard'
 import ObjectivesList from '../../shared/objectiveslist'
@@ -57,6 +58,7 @@ export default function ServiceOrderDetails() {
         }
       } } /> }
       <Box dir={defaultContent.direction} className="serviceOrderDetailsCon">
+      { service_isSuccess && <RoutesBar title={ service.title } storeTab={ "Services" } /> }
         <Container maxWidth="lg">
           <Grid container spacing={2}>
             <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>

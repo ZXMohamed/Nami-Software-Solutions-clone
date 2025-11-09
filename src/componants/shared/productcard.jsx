@@ -11,14 +11,13 @@ import { ServiceBadge, serviceBadgeSize, ServicesBadgesList, servicesBadgesListT
 import "../../sass/shared/productcard.scss"
 
 
-export const ProductCard = memo(({ dir, data, aosAnimation }) => {
+export const ProductCard = memo(({ dir, data, aosAnimation, language }) => {
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
     const navigation = useNavigate();
-    const { language: urlLang } = useParams();
-
+    
     return (
-        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(urlLang, data.id, data.title)["product details"].link) }>
+        <Box className='productCard' { ...aosAnimation } onClick={ () => navigation(pages_routes(language, data.id, data.title.replaceAll(" ","-"))["product details"].link) }>
             <Stack dir={ dir } direction={ "column" } >
                 <Box className="productImageContainer shine">
                     <img src={ data.image } alt={ data.title } loading='lazy' />

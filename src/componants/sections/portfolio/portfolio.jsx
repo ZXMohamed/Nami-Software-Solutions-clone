@@ -75,7 +75,7 @@ const Projects = memo(({ dir, language }) => {
                 { (!projects_isFetching && projects_isSuccess) && Object.values(projects.data).map((project, inx) => {
                     return (
                         <SwiperSlide key={ projects.data.id } className='projectsSlide'>
-                            <ProjectCard dir={dir} bordered data={project} aosAnimation={ projectCardAosAnimation(inx + 1) } />
+                            <ProjectCard dir={ dir } bordered data={ project } aosAnimation={ projectCardAosAnimation(inx + 1) } language={ language } />
                         </SwiperSlide>
                     )
                 }

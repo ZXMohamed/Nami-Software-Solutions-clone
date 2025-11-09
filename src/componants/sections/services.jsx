@@ -73,7 +73,7 @@ const ServiceCardGrid = memo(({ dir, language, readMoreButton }) => {
 
     const servicesItemsGrid = useMemo(() => {
         if (servicesItems) return Object.values(servicesItems).map((service, inx) => {
-            return <ServiceCard key={ inx } dir={ dir } data={ service } readMoreButton={ readMoreButton } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
+            return <ServiceCard key={ inx } dir={ dir } data={ service } language={language} readMoreButton={ readMoreButton } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
         });
     }, [servicesItems, servicesItems_isSuccess, servicesItemsGridCellInRow.current]);
     
@@ -90,7 +90,7 @@ const ServiceCardGrid = memo(({ dir, language, readMoreButton }) => {
     );
 });
 
-const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => {
+const ServiceCard = memo(({ dir, data, language, readMoreButton, size, aosAnimation }) => {
 
     if (!data || (data && Object.keys(data).length == 0)) return <></>;
 
@@ -100,12 +100,10 @@ const ServiceCard = memo(({ dir, data, readMoreButton, size, aosAnimation }) => 
         showObjectivesOnHover(itemObjectives);
     }, []);
 
-    const { language: urlLang } = useParams();
-
     return (
         <Grid key={ data.id } size={ { md: size, xxxs: 6, xs: 12 } } { ...aosAnimation }>
 
-            <Link to={ pages_routes(urlLang, data.id, data.title)["service details"].link }>
+            <Link to={ pages_routes(language, data.id, data.title.replaceAll(" ","-"))["service details"].link }>
                 
                 <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
                 

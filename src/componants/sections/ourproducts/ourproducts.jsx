@@ -81,9 +81,10 @@ const Products = memo(({ dir, language }) => {
             <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( sliderLoopCase ) } className='productsSlider'>
                 { products_isFetching && waitItemSkeleton(3) }
                 { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {
-                    return (<SwiperSlide key={ product.id } className='productsSlide'>
-                                <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
-                            </SwiperSlide>
+                    return (
+                        <SwiperSlide key={ product.id } className='productsSlide'>
+                            <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx + 1) } language={ language } />
+                        </SwiperSlide>
                     )
                 }) }
                 { products_isError && <Typography variant="h6" color='error'>{ products_error.data.error }</Typography> }

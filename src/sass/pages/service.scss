@@ -1,7 +1,7 @@
 @use "../shared/_shared.scss" as *;
 
 .serviceOrderDetailsCon{
-    margin-top: 130px;
+    padding-top: 130px;
 }
 .serviceRequestButton.MuiButton-root{
     width: clamp(0px, 300px, 100%);
