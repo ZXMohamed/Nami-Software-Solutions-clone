@@ -11,7 +11,6 @@ import projectsSlice from "./server state/projects";
 import openJobsSlice from "./server state/openjobs";
 import contactSlice from "./server state/contact";
 import locationSlice from "./server state/location";
-import projectsSlice from "./server state/projects";
 import portfolioFilterSlice from "./clint state/portfolio";
 
 const store = configureStore({

@@ -1,5 +1,9 @@
 @use "../shared/_shared.scss" as *;
 
+.projectsView{
+    padding-top: 130px;
+}
+
 button.activeCategory.MuiButtonBase-root{
     @extend %animatedBG;
     color: $secondColor;
