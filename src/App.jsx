@@ -11,6 +11,7 @@ import { theme } from "./mui/MUIinit"
 //*pages
 import Main from "./pages/main"
 import Service from "./pages/service"
+import Products from "./pages/products"
 //*css
 import '../node_modules/aos/dist/aos.css';
 //*sass files
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route index path="/:language?/" element={ <Main/> } />
             <Route index path="/:language?/service-details/:slug?/:id" element={ <Service/> } />
+            <Route index path="/:language?/products" element={ <Products/> } />
             <Route path="*" element={ <h1>NOT FOUND !</h1> } /> {/*//!not found*/}
           </Routes>
         </BrowserRouter>

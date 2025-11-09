@@ -10,10 +10,12 @@ import projectsSlice from "./server state/projects";
 import openJobsSlice from "./server state/openjobs";
 import contactSlice from "./server state/contact";
 import locationSlice from "./server state/location";
+import imageCashSlice from "./clint state/imagecash";
 
 const store = configureStore({
     reducer: {
-        [socialSlice.reducerPath] : socialSlice.reducer,
+        [imageCashSlice.name]: imageCashSlice.reducer,
+        [socialSlice.reducerPath]: socialSlice.reducer,
         [languageSlice.reducerPath]: languageSlice.reducer,
         [requestQuotationSlice.reducerPath]: requestQuotationSlice.reducer,
         [companyFileSlice.reducerPath]: companyFileSlice.reducer,
@@ -24,7 +26,6 @@ const store = configureStore({
         [openJobsSlice.reducerPath]: openJobsSlice.reducer,
         [contactSlice.reducerPath]: contactSlice.reducer,
         [locationSlice.reducerPath]: locationSlice.reducer,
-        
     },
     middleware: (reduxMiddleWare) => reduxMiddleWare().concat(
         languageSlice.middleware,
@@ -39,6 +40,6 @@ const store = configureStore({
         contactSlice.middleware,
         locationSlice.middleware
     )
-})
+});
 
 export default store;

@@ -58,7 +58,7 @@ export default function OurProducts() {
   )
 }
 
-const Products = memo(({ dir, language }) => {
+export const Products = memo(({ dir, language }) => {
 
     const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, error: products_error, refetch: products_refetch } = useGetProductsQuery();
     

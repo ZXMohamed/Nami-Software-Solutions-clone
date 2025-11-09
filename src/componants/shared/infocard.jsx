@@ -9,7 +9,6 @@ import { WaveAnimation } from './waveanimation';
 //*animation
 import { descriptionWordsUP, infoCardAosAnimation } from '../../animation/infocard';
 
-
 export default function InfoCard({ dir = "ltr", title, subtitle, description, animateDescription = false, wave_dir = "left", typographyForm, effects = [], children, sx }) {
   
   const descriptionx = useRef();

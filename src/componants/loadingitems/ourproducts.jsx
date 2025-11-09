@@ -1,4 +1,6 @@
+//*mui
 import { Skeleton, Stack } from "@mui/material";
+//*swiper
 import { SwiperSlide } from "swiper/react";
 
 export function waitItemSkeleton(num = 1) { 
