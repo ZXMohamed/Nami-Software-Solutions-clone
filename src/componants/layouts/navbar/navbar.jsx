@@ -13,13 +13,13 @@ import SideMenu from "./sidemenu";
 import LanguageButton from "./languagebutton";
 import LogoLink from "../../shared/logolink";
 //*scripts
+import { defaultLanguage } from "../../../languages/languagesContext";
 import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
 import logo from "../../../assets/photo/global/namilogo.svg";
 //*animation
 import { navBarAosAnimation } from "../../../animation/navbar";
-import { defaultLanguage } from "../../../languages/languagesContext";
 
 
 
