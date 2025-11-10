@@ -33,4 +33,4 @@ const projectsSlice = createApi({
 
 
 export default projectsSlice;
-export const { useGetProjectsByCatQuery, useGetCategoriesQuery, useLazyGetNextProjectsByCatQuery } = projectsSlice;
+export const { useGetProjectsByCatQuery, useGetCategoriesQuery, useLazyGetNextProjectsByCatQuery, useGetProjectByIdQuery} = projectsSlice;

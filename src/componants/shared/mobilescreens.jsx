@@ -1,0 +1,50 @@
+//*react
+import React from 'react'
+//*mui
+import { Box } from '@mui/material'
+//*swiper
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+//*styles
+import "../../sass/shared/mobilescreens.scss"
+
+
+export default function MobileScreens({ dir, data, alt }) {
+  return (
+    <Box dir={dir} className="mobileScreensCon">
+        <Swiper key={dir} dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
+            {data.map((image, inx) => (
+            <SwiperSlide key={inx} className='mobileScreensSlide'>
+                <img src={ image } className='mobileScreensImage' alt={ alt } />
+            </SwiperSlide>
+            ))}
+        </Swiper>
+    </Box>
+  )
+}
+
+const sliderSettings = (slidesNum)=>({
+  modules: [EffectCoverflow, Navigation, Autoplay],
+  effect:"coverflow",
+  grabCursor:true,
+  centeredSlides:true,
+  slidesPerView: "auto",
+  centeredSlidesBounds: true,
+  loop: true,
+  loopedSlides:slidesNum,
+  watchSlidesProgress:true,
+  autoplay:{
+      delay: 3000,
+      disableOnInteraction: false
+  },
+  coverflowEffect:{
+      rotate: 10,
+      stretch: 100,
+      depth: 200,
+      modifier: 1,
+      slideShadows: true
+  }
+});

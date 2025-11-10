@@ -30,7 +30,7 @@ export default function Gallery({ dir, data, sideThumbs, alt }) {
         )) }
       </Swiper> }
       {/* Main images */}
-      <Swiper dir={dir} thumbs={ { swiper: thumbs } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
+      <Swiper key={dir} dir={dir} thumbs={ { swiper: thumbs } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
         {data.map((image,inx) => (
           <SwiperSlide key={inx} className="galleryMainSlide shine">
             <img src={ image } className="galleryMainImage" alt={alt}/>

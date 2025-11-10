@@ -14,6 +14,7 @@ import Service from "./pages/service"
 import Products from "./pages/products"
 import ProductDetails from "./pages/productdetails"
 import Portfolio from "./pages/portfolio"
+import ProjectDetails from "./pages/projectdetails"
 import Blogs from "./pages/blogs"
 import Marketing from "./pages/marketing"
 import NotFoundPage from "./pages/notFound"
@@ -36,6 +37,7 @@ function App() {
             <Route index path="/:language?/products" element={ <Products/> } />
             <Route index path="/:language?/product-details/:slug?/:id" element={ <ProductDetails /> } />
             <Route path="/:language?/portfolio" element={ <Portfolio /> } />
+            <Route index path="/:language?/project-details/:slug?/:id" element={ <ProjectDetails /> } />
             <Route index path="/:language?/marketing" element={ <Marketing/> } />
             <Route index path="/:language?/blogs" element={ <Blogs/> } />
             <Route path="*" element={ <NotFoundPage/> } />

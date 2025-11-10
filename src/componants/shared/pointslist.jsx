@@ -4,6 +4,8 @@ import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 //*styles
 import "../../sass/shared/pointslist.scss"
+//*components
+import { WaitItemsSkelton } from '../loadingitems/pointslist'
 
 export default function PointsList({ dir, loading, data=[] }) {
   return (

@@ -29,14 +29,16 @@
 
   @media screen and (max-width:991px) {
     width: 100%;
-    height: auto;
+    height: 112px;
   }
 }
 
 .galleryThumbnailsSlide.swiper-slide{
   // max-width: 135px;
-  height: fit-content;
-
+  // height: fit-content !important;
+    overflow: hidden;
+    border-radius: 8px;
+    
   .galleryThumbnailsImage{
     width: 100%;
     cursor: pointer;
@@ -72,7 +74,7 @@
     }
   }
   @media screen and (max-width:991px) {
-    height: 60vw;
+    height: 75vw;
   }
 
 }
