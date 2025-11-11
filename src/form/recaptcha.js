@@ -1,1 +1,1 @@
-export const sitekey = "6LdAk10rAAAAAKeGJg9mnA0wwBNtenRYAlp5da7e";
+export const sitekey = import.meta.env.VITE_RECAPTCHA_SITEKEY;
