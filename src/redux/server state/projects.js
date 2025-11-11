@@ -29,8 +29,7 @@ const projectsSlice = createApi({
             query: () => "/query/portfoliocategory.php",
         }),
         getProjectById: builder.query({
-            query: ({ id }) => "/query/projects.php?id=" + id,
-            providesTags: ['ReQueryForMainPage']
+            query: ({ id }) => "/query/projects.php?id=" + id
         })
     })
 })
