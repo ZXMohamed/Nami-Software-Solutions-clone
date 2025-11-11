@@ -5,9 +5,6 @@ import { Link, useParams } from 'react-router';
 import { pages_routes } from '../../routes/routes';
 //*mui
 import { Box, Grid, Stack, Typography, Container, Button } from '@mui/material';
-//*gsap
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
 //*queries
 import { useGetServicesQuery } from '../../redux/server state/services';
 //*hook
@@ -75,7 +72,7 @@ const ServiceCardGrid = ({ dir, language, readMoreButton }) => {
     const servicesItemsGridCellInRow = useRef(3);
 
     const servicesItemsGrid = useMemo(() => {
-        if (servicesItems) return Object.values(servicesItems).map((service, inx) => {
+        if (servicesItems) return servicesItems.map((service, inx) => {
             return <ServiceCard key={ inx } dir={ dir } data={ service } readMoreButton={ readMoreButton } size={ 12 / servicesItemsGridCellInRow.current } aosAnimation={ serviceCardAosAnimation(inx + 1) } />
         });
     }, [servicesItems, servicesItems_isSuccess, servicesItemsGridCellInRow.current]);
