@@ -2,8 +2,6 @@
 import React, { memo, useEffect, useRef } from 'react'
 //*mui
 import { Stack, Typography } from '@mui/material'
-//*gsap
-import gsap from 'gsap'
 //*styles
 import "../../../sass/shared/statisticsbox.scss"
 //*animation
@@ -12,8 +10,6 @@ import { countUp, statisticsBoxAosAnimation } from '../../../animation/statistic
 
 export function StatisticsList({ children }) {
 
-    
-    
     return (
         <Stack direction={ 'row' } className='statisticsList'>
         

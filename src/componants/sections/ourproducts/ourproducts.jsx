@@ -1,7 +1,6 @@
 //*react
 import React, { memo, useMemo } from 'react'
 //*route
-import { useParams } from 'react-router'
 import { pages_routes } from '../../../routes/routes'
 //*mui
 import { Box, Container, Typography, useMediaQuery } from '@mui/material'
@@ -25,6 +24,7 @@ import "../../../sass/shared/productcard.scss"
 //*animation
 import { productCardAosAnimation } from '../../../animation/ourproducts'
 
+
 export default function OurProducts() {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
@@ -46,13 +46,11 @@ export default function OurProducts() {
             return ourProductsFirstContent;
         }
     })();
-    
-    const { language: urlLang } = useParams();
 
     return (
         <>
             <Box id="ourproducts" dir={defaultContent.direction} className={'ourProductsSection'}>
-                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(urlLang)["our products"].link } />
+                <SectionHeader dir={defaultContent.direction} title={ defaultContent.header.title } subtitle={ defaultContent.header.subtitle }  headerButtonTitle={defaultContent.header.buttons.headerButton} headerButtonUrl={ pages_routes(defaultContent.language)["our products"].link } />
                 <Products dir={ defaultContent.direction } language={ defaultContent.language } />
             </Box>
             <Statistics/>
@@ -62,7 +60,7 @@ export default function OurProducts() {
 
 export const Products = memo(({ dir, language }) => {
 
-    const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, refetch: products_refetch } = useGetProductsQuery();
+    const { isSuccess: products_isSuccess, isFetching: products_isFetching, data: products, isError: products_isError, error: products_error, refetch: products_refetch } = useGetProductsQuery();
     
     const isMDSize = useMediaQuery('(max-width:992px)');
     const isXXXSSize = useMediaQuery('(max-width:600px)');
@@ -79,16 +77,17 @@ export const Products = memo(({ dir, language }) => {
     }, [language]);
 
     return (
-        <Container maxWidth="lg" disableGutters>{console.log("sda")}
+        <Container maxWidth="lg" disableGutters>
             <Swiper key={dir} dir={dir} slidesPerView={ visibleSlidesPerSize(isXXXSSize, isMDSize) } { ...productsSliderSettings( sliderLoopCase ) } className='productsSlider'>
                 { products_isFetching && waitItemSkeleton(3) }
                 { (!products_isFetching && products_isSuccess) && Object.values(products).map((product, inx) => {
-                    return (<SwiperSlide key={ product.id } className='productsSlide'>
-                                <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx+1) } />
-                            </SwiperSlide>
+                    return (
+                        <SwiperSlide key={ product.id } className='productsSlide'>
+                            <ProductCard dir={ dir } data={ product } aosAnimation={ productCardAosAnimation(inx + 1) } language={ language } />
+                        </SwiperSlide>
                     )
                 }) }
-                { products_isError && <Typography variant="h6" color='error'>Data Not Found !</Typography> }
+                { products_isError && <Typography variant="h6" color='error'>{ products_error.data.error }</Typography> }
             </Swiper>
         </Container>
     )
