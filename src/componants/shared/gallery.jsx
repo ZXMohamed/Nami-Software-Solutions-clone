@@ -11,7 +11,8 @@ import "swiper/css/thumbs";
 //*styles
 import "../../sass/shared/gallery.scss"
 
-export default function Gallery({ dir, data, sideThumbs }) {
+
+export default function Gallery({ dir, data, sideThumbs, alt }) {
   const [thumbs, setThumbs] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -24,15 +25,15 @@ export default function Gallery({ dir, data, sideThumbs }) {
       { sideThumbs && <Swiper dir={ dir } onSwiper={ setThumbs } { ...thumbnailsSliderSettings(isMDSize ? "horizontal" : "vertical") } className="galleryThumbnailsSlider" >
         { data.map((image, inx) => (
           <SwiperSlide key={ inx } className="galleryThumbnailsSlide">
-            <img src={ image } className="galleryThumbnailsImage" style={ { filter: activeIndex !== inx ? "grayscale(100%)" : "none" } } />
+            <img src={ image } className="galleryThumbnailsImage" style={ { filter: activeIndex !== inx ? "grayscale(100%)" : "none" } } alt={alt}/>
           </SwiperSlide>
         )) }
       </Swiper> }
       {/* Main images */}
-      <Swiper dir={dir} thumbs={ { swiper: thumbs } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
+      <Swiper key={dir} dir={dir} thumbs={ { swiper: thumbs } } onSlideChange={ (swiper) => setActiveIndex(swiper.activeIndex) } {...galleryMainSliderSettings} className="galleryMainSlider" >
         {data.map((image,inx) => (
           <SwiperSlide key={inx} className="galleryMainSlide shine">
-            <img src={ image } className="galleryMainImage" />
+            <img src={ image } className="galleryMainImage" alt={alt}/>
           </SwiperSlide>
         ))}
       </Swiper>

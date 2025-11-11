@@ -2,8 +2,7 @@
 import React from 'react'
 //*mui
 import { Box, Skeleton } from '@mui/material'
-//*styles
-import "../../sass/shared/pointslist.scss"
+
 
 export function WaitItemsSkelton() { 
     return (

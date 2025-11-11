@@ -5,13 +5,10 @@ import { IconButton } from '@mui/material';
 import SubdirectoryArrowRightIcon from '@mui/icons-material/SubdirectoryArrowRight';
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 //*styles
-import "../../sass/shared/downloadbutton.scss"
+import "../../../sass/shared/downloadbutton.scss"
+//*animation
+import { aosAnimation } from '../../../animation/downloadbutton';
 
-const aosAnimation = {
-  ["data-aos"]: "fade-up",
-  ["data-aos-duration"]: "600",
-  ["data-aos-delay"]:"0"
-}
 
 const DownloadButton = memo(({ link, title, direction })=> {
 

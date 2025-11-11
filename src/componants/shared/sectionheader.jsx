@@ -1,11 +1,11 @@
 //*react
-import { useEffect, useRef } from "react";
+import react, { useEffect, useRef } from "react";
 //*mui
 import { Box, Container, Grid, Typography } from "@mui/material";
 //*styles
 import "../../sass/shared/sectionheader.scss"
 import { Link } from "react-router";
-//*animation
+//*components
 import { containerAosAnimation, sectionHeaderTitleAosAnimation, subtitleWordsUP, titleWordsUP } from "../../animation/sectionheader";
 
 export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,headerButtonUrl }) { 

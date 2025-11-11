@@ -2,8 +2,6 @@
 import React from 'react'
 //*mui
 import { Skeleton, Stack } from '@mui/material'
-//*styles
-import "../../sass/shared/techbadge.scss"
 
 
 export function WaitItemsSkelton() { 

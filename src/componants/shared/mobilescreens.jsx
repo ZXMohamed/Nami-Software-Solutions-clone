@@ -2,23 +2,23 @@
 import React from 'react'
 //*mui
 import { Box } from '@mui/material'
-//*styles
-import "../../sass/shared/mobilescreens.scss"
 //*swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/navigation';
+//*styles
+import "../../sass/shared/mobilescreens.scss"
 
 
-export default function MobileScreens({ dir, data }) {
+export default function MobileScreens({ dir, data, alt }) {
   return (
     <Box dir={dir} className="mobileScreensCon">
         <Swiper key={dir} dir={dir} {...sliderSettings(data.length)} className='mobileScreensSlider'>
             {data.map((image, inx) => (
             <SwiperSlide key={inx} className='mobileScreensSlide'>
-                <img src={image} className='mobileScreensImage'/>
+                <img src={ image } className='mobileScreensImage' alt={ alt } />
             </SwiperSlide>
             ))}
         </Swiper>
