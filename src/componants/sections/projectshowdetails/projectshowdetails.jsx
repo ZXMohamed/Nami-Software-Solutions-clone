@@ -20,6 +20,7 @@ import { useGetProjectByIdQuery } from '../../../redux/server state/projects'
 import { introCardAosAnimation, listCardAosAnimation } from '../../../animation/projectshowdetails'
 //*hooks
 import useCashedImage from '../../../hooks/usecashedimage'
+import { useParams } from 'react-router'
 
 
 
@@ -32,6 +33,7 @@ export default function ProjectShowDetails() {
       return {
         direction: content.page.direction,
         language: content.page.language,
+        logo: content.navBar.navLogo,
         featuresList: {
           title: content.featuresList.title
         },
@@ -45,23 +47,26 @@ export default function ProjectShowDetails() {
   }
   )()
 
-  const { isSuccess: project_isSuccess, isError: project_isError, data: project, isFetching: project_isFetching, refetch: project_refetch } = useGetProjectByIdQuery({ id: 1 });
+  const { id: projectId } = useParams();
+
+  const { isSuccess: project_isSuccess, isError: project_isError, error: project_error, data: project, isFetching: project_isFetching, refetch: project_refetch } = useGetProjectByIdQuery({ id: projectId });
 
   useUpdateEffect(() => {
     project_refetch();
   },[defaultContent.language]);
 
   return (
-    <Box dir={defaultContent.direction}>
+  <>
+    <Box dir={ defaultContent.direction } className="projectOrderDetails">
       <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid size={ { md: 8, xs: 12 } } { ...introCardAosAnimation } className="projectDetailsSide">
 
             { (!project_isFetching && project_isSuccess) &&
-              <IntroCard dir={ defaultContent.direction } title={ project["id-1"].title } description={ project["id-1"].description } >
-                { (!project_isFetching && project_isSuccess) && project["id-1"].serviceBadges &&
+              <IntroCard dir={ defaultContent.direction } title={ project.title } description={ project.description } >
+                { (!project_isFetching && project_isSuccess) && project.serviceBadges &&
                   <ServicesBadgesList dir={ defaultContent.direction } type={servicesBadgesListType.row}>
-                    { project["id-1"].serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
+                    { project.serviceBadges.map((tech) => <ServiceBadge key={tech.id} data={tech} size={serviceBadgeSize.big}/>) }
                   </ServicesBadgesList>
                 }
               </IntroCard>
@@ -69,26 +74,26 @@ export default function ProjectShowDetails() {
 
             { project_isFetching && <IntroCardWaitItemsSkelton /> }
 
-            { (!project_isFetching && project_isSuccess) && project["id-1"].image && <CashedGallery dir={ defaultContent.direction } id={project["id-1"].id} mainImage={project["id-1"].image} data={ (project["id-1"]?.gallery || []) } /> }
+            { (!project_isFetching && project_isSuccess) && (project.image || project?.gallery) && <CashedGallery dir={ defaultContent.direction } id={project.id} mainImage={project.image} data={ (project?.gallery || []) } alt={project.title} /> }
 
             { project_isFetching && <GalleryWaitItemsSkelton /> }
 
-            { (!project_isFetching && project_isSuccess) && project["id-1"].screens && <MobileScreens dir={defaultContent.direction} data={project["id-1"].screens} />}
+            { (!project_isFetching && project_isSuccess) && project.screens && <MobileScreens dir={defaultContent.direction} data={project.screens} alt={project.title}/>}
             
           </Grid>
           <Grid size={ { md: 4, xs: 12 } } { ...listCardAosAnimation } className="projectListsSide">
             
-            { (!project_isFetching && project_isSuccess) && project["id-1"].features &&
+            { (!project_isFetching && project_isSuccess) && project.features &&
               <ListCard dir={ defaultContent.direction } title={ defaultContent.featuresList.title }>
-                <PointsList dir={defaultContent.direction} data={ project["id-1"].features } />
+                <PointsList dir={defaultContent.direction} data={ project.features } />
               </ListCard>
             }
             { project_isFetching && <ListCardWaitItemsSkelton/>}
             
-            { (!project_isFetching && project_isSuccess) && project["id-1"].programmingLanguages &&
+            { (!project_isFetching && project_isSuccess) && project.programmingLanguages &&
               <ListCard dir={defaultContent.direction} title={ defaultContent.programmingLanguagesList.title }>
                   <TechBadgesList dir={ defaultContent.direction } type={techBadgesListType.row}>
-                  { project["id-1"].programmingLanguages.map((tech) => <TechBadge key={ tech.id } data={ tech } size={ techBadgeSize.big } />) }
+                  { project.programmingLanguages.map((tech) => <TechBadge key={ tech.id } data={ tech } size={ techBadgeSize.big } />) }
                   </TechBadgesList>
               </ListCard>
             }
@@ -97,22 +102,23 @@ export default function ProjectShowDetails() {
           </Grid>
         </Grid>
 
-        { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
+        { project_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{project_error.data.error}</Typography> }
       </Container>
     </Box>
+  </>
   )
 }
 
 
-function CashedGallery({ dir, id, mainImage, data}) {
+function CashedGallery({ dir, id, mainImage, data, alt }) {
   const [image, cashImage] = useCashedImage(mainImage, "portfolio", id);
   
   useEffect(() => {
     cashImage();
   },[])
-console.log(dir,id,mainImage,data,image);
+
   return (
-    <Gallery dir={ dir } sideThumbs data={ [image, ...data]} />
+    <Gallery dir={ dir } sideThumbs data={ mainImage ? [image, ...data] : [...data] } alt={ alt } />
   )
 }
 
