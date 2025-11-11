@@ -1,8 +1,8 @@
 //*react
-import React, { memo } from 'react'
+import React from 'react'
 //*route
 import { pages_routes } from '../../routes/routes';
-import { Link, useLocation, useParams } from 'react-router';
+import { Link, useLocation } from 'react-router';
 //*mui
 import { Box, Container, Grid, Stack, Typography } from '@mui/material'
 //*hooks
@@ -13,6 +13,7 @@ import SocialButtons from '../shared/social&contacts/socialbuttons';
 //*queries
 import { useGetSocialQuery } from '../../redux/server state/social';
 //*scripts
+import { defaultLanguage } from '../../languages/languagesContext';
 import { getPage, navSettings } from '../../routes/routesmanager';
 //*assets
 import logo from "../../assets/photo/global/namilogo.svg";
@@ -20,7 +21,8 @@ import mailbox from "../../assets/photo/footer/mailbox.svg";
 //*styles
 import "../../sass/shared/footer.scss"
 
-const Footer = memo(() => {
+
+const Footer = () => {
 
     const { isSuccess: content_isSuccess, data: content } = useContent();
     const defaultContent = (() => {
@@ -52,7 +54,7 @@ const Footer = memo(() => {
             </Container>
         </Box>
     )
-});
+}
 
 export default Footer;
 
@@ -65,6 +67,7 @@ function FooterAboutTab() {
             return {
                 direction: content.page.direction,
                 footerLogo: content.footer.footerLogo,
+                footerLogoAlt: content.footer.footerLogoAlt,
                 description: content.footer.description,
             }
         } else {
@@ -75,7 +78,7 @@ function FooterAboutTab() {
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
             <LogoLink>
-                <img src={ defaultContent.footerLogo } alt="Nami Software Solutions" loading='lazy' className='footerLogo' />
+                <img src={ defaultContent.footerLogo } alt={defaultContent.footerLogoAlt} loading='lazy' className='footerLogo' />
             </LogoLink>
             <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
@@ -89,6 +92,7 @@ function FooterServicesTab() {
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language: content.page.language,
                 tabs: {
                     services: {
                         title: content.footer.tabs.services.title,
@@ -100,15 +104,17 @@ function FooterServicesTab() {
             return footerServicesTabFirstContent;
         }
     })();
-
-    const { language: urlLang } = useParams();
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerServicesTab'>
             <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
-                        return <li key={ inx } ><Link to={pages_routes(urlLang,defaultContent.tabs.services.items[item].id)["service details"].link} className='footerTabListItemsLink'>{ defaultContent.tabs.services.items[item].title }</Link></li>;
+                    return <li key={ inx } >
+                        <Link to={ pages_routes(defaultContent.language, defaultContent.tabs.services.items[item].id, defaultContent.tabs.services.items[item].title.replaceAll(" ","-"))["service details"].link } className='footerTabListItemsLink'>
+                            { defaultContent.tabs.services.items[item].title }
+                        </Link>
+                    </li>;
                     })
                 }
             </ul>
@@ -147,10 +153,9 @@ function FooterLinksTab() {
 function Links({ defaultContent }) {
     
     const location = useLocation();
-    const { language : urlLang } = useParams();
 
-    if (getPage(location, urlLang) == "main") { 
-        const nav = navSettings(urlLang, true);
+    if (getPage(location, defaultContent.language) == "main") { 
+        const nav = navSettings(defaultContent.language, true);
         return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
             if (nav[item.toLowerCase()].outerRoute)
                 return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
@@ -158,7 +163,7 @@ function Links({ defaultContent }) {
                 return <li key={ inx } ><a href={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</a></li>;
         })
     } else {
-        const nav = navSettings(urlLang, false);
+        const nav = navSettings(defaultContent.language, false);
         return Object.keys(defaultContent.tabs.links.items).map((item, inx) => {
             return <li key={ inx } ><Link to={nav[item.toLowerCase()].link} className='footerTabListItemsLink'>{ defaultContent.tabs.links.items[item].title }</Link></li>;
         })
@@ -209,10 +214,12 @@ const footerFirstContent = {
 const footerAboutTabFirstContent = {
     direction: "ltr",
     footerLogo: logo,
+    footerLogoAlt: "Nami Software Solutions",
     description: "At Integrated Solutions, we combine creativity and professionalism to transform your ideas into inspiring digital experiences. Connect with us today to achieve tangible success together.",
 }
 const footerServicesTabFirstContent = {
     direction: "ltr",
+    language: defaultLanguage,
     tabs: {
         services: {
             title: "Services",
@@ -229,6 +236,7 @@ const footerServicesTabFirstContent = {
 }
 const footerLinksTabFirstContent = {
     direction: "ltr",
+    language: defaultLanguage,
     tabs: {
         links: {
             title: "Links",
