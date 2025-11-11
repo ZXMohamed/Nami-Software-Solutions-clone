@@ -4,6 +4,7 @@ import ServiceOrderDetails from '../componants/sections/serviceorder/serviceorde
 import "../sass/pages/service.scss"
 import WhyUs from '../componants/sections/whyus'
 import QA from '../componants/sections/QA'
+
 export default function Service() {
   return (
     <PageWrapper>

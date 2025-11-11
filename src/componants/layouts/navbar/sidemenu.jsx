@@ -12,6 +12,7 @@ import { useContent } from "../../../languages/hooks/usecontent";
 //*components
 import LogoLink from "../../shared/logolink";
 //*scripts
+import { defaultLanguage } from "../../../languages/languagesContext";
 import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
@@ -26,6 +27,7 @@ const SideMenu = () => {
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language:content.page.language,
                 logo: content.navBar.navLogo,
                 logoAlt:content.navBar.navLogoAlt,
                 navTabs: content.navBar.navTabs
@@ -85,6 +87,7 @@ function Tabs({ defaultContent }) {
 
 const firstContent = {
     direction: "ltr",
+    language:defaultLanguage,
     logo: logo,
     logoAlt:"Nami Software Solutions",
     navTabs: {

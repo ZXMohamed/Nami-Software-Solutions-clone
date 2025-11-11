@@ -111,7 +111,7 @@ function FooterServicesTab() {
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
                     return <li key={ inx } >
-                        <Link to={ pages_routes(defaultContent.language, defaultContent.tabs.services.items[item].id, defaultContent.tabs.services.items[item].title)["service details"].link } className='footerTabListItemsLink'>
+                        <Link to={ pages_routes(defaultContent.language, defaultContent.tabs.services.items[item].id, defaultContent.tabs.services.items[item].title.replaceAll(" ","-"))["service details"].link } className='footerTabListItemsLink'>
                             { defaultContent.tabs.services.items[item].title }
                         </Link>
                     </li>;

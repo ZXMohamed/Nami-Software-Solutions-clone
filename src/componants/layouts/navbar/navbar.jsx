@@ -13,6 +13,7 @@ import SideMenu from "./sidemenu";
 import LanguageButton from "./languagebutton";
 import LogoLink from "../../shared/logolink";
 //*scripts
+import { defaultLanguage } from "../../../languages/languagesContext";
 import { getPage, navSettings } from "../../../routes/routesmanager";
 import { activeTabAnimation } from "./pageactivetabs";
 //*assets
@@ -30,6 +31,7 @@ const NavBar = () => {
         if (content_isSuccess) {
             return {
                 direction: content.page.direction,
+                language:content.page.language,
                 logo: content.navBar.navLogo,
                 logoAlt:content.navBar.navLogoAlt,
                 navTabs: content.navBar.navTabs
@@ -71,7 +73,7 @@ function Tabs({ defaultContent }) {
 
     const location = useLocation();
 
-    if (getPage(location, defaultContent.language) == "main") { 
+    if (getPage(location, defaultContent.language) == "main") {
         const nav = navSettings(defaultContent.language, true);
         return Object.keys(defaultContent.navTabs).map((tab, inx) => {
             if (nav[tab.toLowerCase()].outerRoute)
@@ -91,6 +93,7 @@ function Tabs({ defaultContent }) {
 
 const firstContent = {
     direction: "ltr",
+    language:defaultLanguage,
     logo: logo,
     logoAlt:"Nami Software Solutions",
     navTabs: {

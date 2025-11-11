@@ -1,5 +1,5 @@
 //*react
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react'
 //*mui
 import { Box, Stack, Typography } from '@mui/material';
 //*hooks
