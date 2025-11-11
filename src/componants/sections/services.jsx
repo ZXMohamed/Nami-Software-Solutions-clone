@@ -1,7 +1,7 @@
 //*react
 import React, { memo, useEffect, useMemo, useRef } from 'react';
 //*route
-import { Link, useParams } from 'react-router';
+import { Link } from 'react-router';
 import { pages_routes } from '../../routes/routes';
 //*mui
 import { Box, Grid, Stack, Typography, Container, Button } from '@mui/material';

@@ -69,7 +69,7 @@ export default function ProjectShowDetails() {
           }
         }
       } /> }
-    <Box dir={ defaultContent.direction }>
+    <Box dir={ defaultContent.direction } className="projectOrderDetails">
       { project_isSuccess && <RoutesBar title={ project.title } storeTab={"Portfolio"} /> }
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -129,7 +129,7 @@ function CashedGallery({ dir, id, mainImage, data, alt }) {
   useEffect(() => {
     cashImage();
   },[])
-console.log(dir,id,mainImage,data,image);
+
   return (
     <Gallery dir={ dir } sideThumbs data={ mainImage ? [image, ...data] : [...data] } alt={ alt } />
   )

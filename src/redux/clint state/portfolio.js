@@ -12,9 +12,6 @@ const portfolioFilterSlice = createSlice({
         search: (state, action) => {
             state.search = action.payload.search;
         },
-        // nextItems: (state) => {
-        //     state.page = state.page + 1;
-        // },
         resetFilters: (state) => {
             state.cat = "all";
             state.search = "";

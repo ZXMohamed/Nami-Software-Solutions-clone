@@ -75,6 +75,7 @@ export function FormSection() {
     }, []);
 
     useEffect(() => {
+        //*call trigger when change language to change error msg to the new language
         if (Object.keys(errors).length > 0)
             trigger();
     }, [content, content_isSuccess])

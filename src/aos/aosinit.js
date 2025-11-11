@@ -1,4 +1,4 @@
-const { default: AOS } = await import('aos');
+import AOS from "aos";
 
 AOS.init({
     once: true,

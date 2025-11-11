@@ -26,11 +26,15 @@ const projectsSlice = createApi({
             },
         }),
         getCategories: builder.query({
-            query: ()=>"/query/portfoliocategory.php",
+            query: () => "/query/portfoliocategory.php",
+        }),
+        getProjectById: builder.query({
+            query: ({ id }) => "/query/projects.php?id=" + id,
+            providesTags: ['ReQueryForMainPage']
         })
     })
 })
 
 
 export default projectsSlice;
-export const { useGetProjectsByCatQuery, useGetCategoriesQuery, useLazyGetNextProjectsByCatQuery, useGetProjectByIdQuery} = projectsSlice;
+export const { useGetProjectsByCatQuery, useGetCategoriesQuery, useLazyGetNextProjectsByCatQuery, useGetProjectByIdQuery } = projectsSlice;

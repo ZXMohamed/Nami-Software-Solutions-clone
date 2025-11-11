@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const fetchImage = createAsyncThunk("imageCash/loadImage",
     async ({ url, section, id }, { fulfillWithValue, rejectWithValue, getState }) => {
         try {
-
+            //*if there is an image in state return it 
+            //*else download it and save it in state
             if (getState().loadImage?.[section]?.[id]) {
                 return fulfillWithValue(getState().loadImage?.[section][id]);
             } else {

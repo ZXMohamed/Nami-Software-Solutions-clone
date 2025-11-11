@@ -46,25 +46,25 @@ export const useLanguage = () => {
     }, [language]);
 
     //*avoid rerender the context (change value memory address) when success != true (for best performance)
-    const prevAddress_languageControls = useRef({ ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
+        const prevAddress_languageControls = useRef({ ...languageStatus, data: { ...languageStatus.data, zodMsgs: initZodMsgs() } });
 
-    const languageControls = useMemo(() => {
+        const languageControls = useMemo(() => {
 
-        if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
+            if (!languageStatus.isSuccess) return prevAddress_languageControls.current;
 
-        let zodMsgs = {};
+            let zodMsgs = {};
 
-        if (languageStatus.data) {
-            zodMsgs = initZodMsgs(languageStatus.data.page.form);
-        } else {
-            zodMsgs = initZodMsgs();
-        }
+            if (languageStatus.data) {
+                zodMsgs = initZodMsgs(languageStatus.data.page.form);
+            } else {
+                zodMsgs = initZodMsgs();
+            }
 
-        prevAddress_languageControls.current = { ...languageStatus, data: { ...languageStatus.data, zodMsgs } };
+            prevAddress_languageControls.current = { ...languageStatus, data: { ...languageStatus.data, zodMsgs } };
 
-        return prevAddress_languageControls.current;
+            return prevAddress_languageControls.current;
 
-    }, [languageStatus.data]);
+        }, [languageStatus.data]);
     //*--------------------------------------------------------------------------------------------------
 
     const isSuccess = languageStatus.isSuccess || currentLanguageStatus.isSuccess;

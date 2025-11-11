@@ -12,7 +12,7 @@ import { theme } from "./mui/MUIinit"
 import Main from "./pages/main"
 import Service from "./pages/service"
 import Products from "./pages/products"
-import ProductDetails from "./pages/productdetails"
+import ProductOrder from "./pages/productorder"
 import Portfolio from "./pages/portfolio"
 import ProjectDetails from "./pages/projectdetails"
 import Blogs from "./pages/blogs"
@@ -35,7 +35,7 @@ function App() {
             <Route index path="/:language?/" element={ <Main/> } />
             <Route index path="/:language?/service-details/:slug?/:id" element={ <Service/> } />
             <Route index path="/:language?/products" element={ <Products/> } />
-            <Route index path="/:language?/product-details/:slug?/:id" element={ <ProductDetails /> } />
+            <Route index path="/:language?/product-details/:slug?/:id" element={ <ProductOrder /> } />
             <Route path="/:language?/portfolio" element={ <Portfolio /> } />
             <Route index path="/:language?/project-details/:slug?/:id" element={ <ProjectDetails /> } />
             <Route index path="/:language?/marketing" element={ <Marketing/> } />

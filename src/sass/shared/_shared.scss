@@ -377,13 +377,13 @@ $gradientLine: linear-gradient(270deg, rgb(94, 248, 63) 0%, rgb(0, 226, 169) 25%
     z-index: 0;
     width: $size;
     height: $size;
-    position: absolute;
     top: -1 * $size / 2;
     animation-name: circleWaveRotate;
     animation-duration: 7s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
     @include center("flex");
+    position: absolute;
     @if $side == "right" {
         right: -1 * $size / 2 ;
     }

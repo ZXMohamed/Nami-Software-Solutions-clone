@@ -5,8 +5,8 @@ import { pages_routes } from '../../../routes/routes';
 //*mui
 import { Box } from '@mui/material';
 //*components
-import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard'
-import { Products } from './ourproducts'
+import InfoCard, { infoCardEffects, typographyForm } from '../../shared/infocard';
+import { Products } from './ourproducts';
 import PageHead from '../../shared/pagehead';
 //*scripts
 import { defaultLanguage } from '../../../languages/languagesContext';
@@ -45,7 +45,7 @@ export default function AllProducts() {
     return (
         <Box className={ "AllProductsCon" } >
             <PageHead pageTitle={defaultContent.pageTitle} title={defaultContent.meta.title} description={ defaultContent.meta.description } image={ defaultContent.meta.image } language={ defaultContent.language } type='Products' url={ pages_routes(defaultContent.language)["our products"].link } />
-            <InfoCard dir={ defaultContent.direction } waveDir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.header.subtitle } animateDescription description={ defaultContent.header.description } />
+            <InfoCard dir={ defaultContent.direction } wave_dir={ "right" } effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } subtitle={ defaultContent.header.subtitle } animateDescription description={ defaultContent.header.description } />
             <br/>
             <br/>
             <Products dir={ defaultContent.direction } language={ defaultContent.language } />

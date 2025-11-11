@@ -2,11 +2,12 @@
 
 html{
     scroll-behavior: smooth;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    @extend %scroll;
 }
 body{
     overflow-x: hidden;
-    overflow-y: scroll;
-    @extend %scroll;
     background-image: url($siteBackground);
     background-repeat: repeat;
 }

@@ -15,9 +15,18 @@ export function createZodObject(defaultContent, pattern) {
     const email = defaultContent.form.inputs.jop;
     
     return zod.object({
-        name: zod.string().nonempty(required).min(nameRules.min, { message: length.less(name, nameRules.min) }).max(nameRules.max, { message: length.more(name, nameRules.max) }).refine((name) => pattern.name(name), { message: valid(name) }),
-        phone: zod.string().min(phoneRules.min, { message: required }).refine((phone) => pattern.phone(phone), { message: valid(phone) }),
-        job: zod.string().refine((selectedJob) => selectedJob != "0", { message: required }),
-        cvFile: zod.any().refine((files) => files.length > 0, { message: required }).refine((files) => files[0]?.size < fileRules.size, { message: fileSize(5) })
+        name: zod.string()
+            .nonempty(required)
+            .min(nameRules.min, { message: length.less(name, nameRules.min) })
+            .max(nameRules.max, { message: length.more(name, nameRules.max) })
+            .refine((name) => pattern.name(name), { message: valid(name) }),
+        phone: zod.string()
+            .min(phoneRules.min, { message: required })
+            .refine((phone) => pattern.phone(phone), { message: valid(phone) }),
+        job: zod.string()
+            .refine((selectedJob) => selectedJob != "0", { message: required }),
+        cvFile: zod.any()
+            .refine((files) => files.length > 0, { message: required })
+            .refine((files) => files[0]?.size < fileRules.size, { message: fileSize(5) })
     });
 }
