@@ -1,15 +1,15 @@
 //*react
-import React, { Fragment, memo, useEffect, useRef } from 'react'
+import React, { Fragment, useEffect, useRef } from 'react'
 //*mui
 import { Box, Stack, Typography } from '@mui/material';
 //*hooks
 import { useContent } from '../../languages/hooks/usecontent';
-//*styles
-import "../../sass/shared/servicesticker.scss"
 //*animation
 import { tickerItemsMover } from '../../animation/servicesticker';
+//*styles
+import "../../sass/shared/servicesticker.scss";
 
-const ServicesTicker = memo(() => {
+const ServicesTicker = () => {
 
   const { isSuccess: content_isSuccess, data: content } = useContent();
   const defaultContent = (() => {
@@ -50,7 +50,7 @@ const ServicesTicker = memo(() => {
       </Stack>
     </Box>
   )
-});
+}
 export default ServicesTicker;
 
 const firstContent = {
