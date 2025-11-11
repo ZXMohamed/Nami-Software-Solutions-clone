@@ -78,7 +78,7 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <meta property="og:site_name" content={ title } />
             <meta property="og:description" content={ description } />
             <meta property="og:type" content={ type } />
-            <meta property="og:image" content={ image } />
+            <meta property="og:image" content={ import.meta.env.VITE_CURRENT_URL + image } />
             <meta property="og:image:alt" content={ title } />
             <meta property="og:url" content={ import.meta.env.VITE_CURRENT_URL + url } />
             <meta property="og:locale" content={ language } />
@@ -88,7 +88,7 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <meta name="twitter:creator" content="@Nami_software" />
             <meta name="twitter:title" content={ title } />
             <meta name="twitter:description" content={ description } />
-            <meta name="twitter:image" content={ image } />
+            <meta name="twitter:image" content={ import.meta.env.VITE_CURRENT_URL + image } />
             <meta name="twitter:image:alt" content={ title } />
 
             {/* <!-- link --> */ }
@@ -98,7 +98,7 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/ar/" } hreflang="ar" />
             <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/en/" } hreflang="en" />
 
-            <link rel="icon" type="image/svg+xml" href={ icon } />
+            <link rel="icon" type="image/svg+xml" href={ import.meta.env.VITE_CURRENT_URL + icon } />
 
             <link rel="preload" href="/src/assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.woff2" as="font" type="font/woff2" crossorigin />
             <link rel="preload" href="/src/assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.woff2" as="font" type="font/woff2" crossorigin />
