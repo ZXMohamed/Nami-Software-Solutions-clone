@@ -1,5 +1,7 @@
 //*react
 import React from 'react'
+//*routs
+import { useParams } from 'react-router'
 //*mui
 import { Box, Container, Grid, Typography } from '@mui/material'
 //*hooks
@@ -35,31 +37,36 @@ export default function ServiceOrderDetails() {
       }
   })();
 
-  const { isSuccess: service_isSuccess, isError: service_isError, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: 1 });
+  const { id: serviceId } = useParams(); 
+
+  const { isSuccess: service_isSuccess, isError: service_isError, error: service_error, data: service, isFetching: service_isFetching, refetch: service_refetch } = useGetServicesQuery({ id: serviceId });
 
   useUpdateEffect(() => {
     service_refetch();
   },[defaultContent.language]);
   
   return (
-    <Box dir={defaultContent.direction}>
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
-            { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service["id-1"].image } gutters title={ service["id-1"].title } description={ service["id-1"].description } /> }
-            { service_isFetching && <IntroCardWaitItemsSkelton/>}
-          </Grid>
-          <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
-            <ListCard dir={defaultContent.direction} title={ defaultContent.objectivesList.title }>
-              { (!service_isFetching && service_isSuccess) && <ObjectivesList dir={defaultContent.direction} data={ service["id-1"].objectives } />}
-              { (!service_isFetching && service_isSuccess) && <OrderService />}
+    <>
+      <Box dir={defaultContent.direction} className="serviceOrderDetailsCon">
+        <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            <Grid size={{md:8,xs:12}} {...introCardAosAnimation}>
+              { (!service_isFetching && service_isSuccess) && <IntroCard dir={defaultContent.direction} icon={ service.image } gutters title={ service.title } description={ service.description } /> }
+              { service_isFetching && <IntroCardWaitItemsSkelton/>}
+            </Grid>
+            <Grid size={{md:4,xs:12}} {...listCardAosAnimation}>
+              { (!service_isFetching && service_isSuccess) &&
+              <ListCard dir={ defaultContent.direction } title={ defaultContent.objectivesList.title }>
+                <ObjectivesList dir={defaultContent.direction} data={ service.objectives } />
+                <OrderService />
+              </ListCard>}
               { service_isFetching && <ListCardWaitItemsSkelton/>}
-            </ListCard>
+            </Grid>
           </Grid>
-        </Grid>
-        { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>data not found !</Typography> }
-      </Container>
-    </Box>
+          { service_isError && <Typography component={ "h1" } variant='h5' color={ "error" }>{service_error.data.error}</Typography> }
+        </Container>
+      </Box>
+    </>
   )
 }
 
