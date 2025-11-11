@@ -11,11 +11,11 @@ import { descriptionWordsUP, infoCardAosAnimation } from '../../animation/infoca
 
 export default function InfoCard({ dir = "ltr", title, subtitle, description, animateDescription = false, wave_dir = "left", typographyForm, effects = [], children, sx }) {
   
-  const descriptionx = useRef();
+  const descriptionRef = useRef();
 
   useEffect(() => {
     requestIdleCallback(() => {
-      animateDescription && descriptionWordsUP(descriptionx)
+      animateDescription && descriptionWordsUP(descriptionRef)
     })
   }, []);
   
@@ -26,7 +26,7 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
             <Stack className='infoCardContent' direction={'column'} spacing={2} alignItems={"center"}>
               { title && <Typography variant='h5' component={'h1'} className="infoCardTitle"><i>{title}</i></Typography> }
               { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
-              { description && <Typography ref={descriptionx} className="infoCardDescription">{description}</Typography> }
+              { description && <Typography ref={descriptionRef} className="infoCardDescription">{description}</Typography> }
               <br/>
               { children && 
                 <>
