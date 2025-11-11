@@ -3,10 +3,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const productsSlice = createApi({
     reducerPath: "products",
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://192.168.1.100:443/nami-clone-data-api/",
+        baseUrl: import.meta.env.VITE_API_URL,
         credentials: 'include'
     }),
     endpoints: (builder) => ({
+
         getProducts: builder.query({
             query: (params) => "query/products.php" + (params?.id ? "?id=" + params.id : ""),
         }),
@@ -25,10 +26,11 @@ const productsSlice = createApi({
                     body: params,
                 }
             }
-        })
+        }),
     })
 
 });
+
 
 export default productsSlice;
 export const { useGetProductsQuery, useOrderProductMutation } = productsSlice;

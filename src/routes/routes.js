@@ -12,7 +12,7 @@ export const main_routes = (urlLang = defaultLanguage) => ({
     "contact us": { link: "#contactus", outerRoute: false },
 });
 
-export const pages_routes = (urlLang = defaultLanguage, id = "") => ({
+export const pages_routes = (urlLang = defaultLanguage, id = "", slug="") => ({
     "home": { link: "/" + urlLang + "/" + "#home", outerRoute: true },
     "about us": { link: "/" + urlLang + "/" + "#aboutus", outerRoute: true },
     "services": { link: "/" + urlLang + "/" + "#services", outerRoute: true },
@@ -23,7 +23,7 @@ export const pages_routes = (urlLang = defaultLanguage, id = "") => ({
     "careers": { link: "/" + urlLang + "/" + "#careers", outerRoute: true },
     "contact us": { link: "/" + urlLang + "/" + "#contactus", outerRoute: true },
     
-    "service details": { link: "/" + urlLang + "/" + "service-details" + "/" + id, outerRoute: true },
-    "product details": { link: "/" + urlLang + "/" + "product-details" + "/" + id, outerRoute: true },
-    "project details": { link: "/" + urlLang + "/" + "project-details" + "/" + id, outerRoute: true },
+    "service details": { link: "/" + urlLang + "/" + "service-details" + "/" + slug + "/" + id, outerRoute: true },
+    "product details": { link: "/" + urlLang + "/" + "product-details" + "/" + slug + "/" + id, outerRoute: true },
+    "project details": { link: "/" + urlLang + "/" + "project-details" + "/" + slug + "/" + id, outerRoute: true },
 });
