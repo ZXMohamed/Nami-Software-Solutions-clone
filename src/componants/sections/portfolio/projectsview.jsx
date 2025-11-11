@@ -13,6 +13,10 @@ import { useLazyGetNextProjectsByCatQuery } from '../../../redux/server state/pr
 import { useSelector } from 'react-redux'
 import useUpdateEffect from '../../../hooks/useupdateeffect'
 import { useContent } from '../../../languages/hooks/usecontent'
+//*scripts
+import { defaultLanguage } from '../../../languages/languagesContext'
+//*assets
+import logo from "../../../assets/photo/global/namilogo.svg"
 
 
 
@@ -24,6 +28,13 @@ export default function ProjectsView() {
     if (content_isSuccess) {
       return {
         direction: content.page.direction,
+        language: content.page.language,
+        pageTitle: content.page.title,
+        meta: {
+          title: content.page.meta.title,
+          description: content.page.meta.description,
+          image: content.page.meta.image
+        },
         subtitle: content.header.subtitle,
         description: content.header.description,
         buttons: {
@@ -39,17 +50,21 @@ export default function ProjectsView() {
 
   const filterValues = useSelector((state) => state.portfolioFilter);
   
-  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, reset: projects_reset, isFetching: projects_isFetching }] = useLazyGetNextProjectsByCatQuery();
+  const [projects_trigger, { isSuccess: projects_isSuccess, data: projects, isError: projects_isError, error: projects_error, reset: projects_reset, isLoading: projects_isLoading, isFetching: projects_isFetching }] = useLazyGetNextProjectsByCatQuery();
 
+  useEffect(() => { 
+    //*reset cash on unmount to start from first on mount (or open page)
+    return ()=> projects_reset();
+  },[]);
+  
   useUpdateEffect(() => {
-    projects_reset()
+    projects_reset();
   }, [content_RequestId]);
-
+  
   useEffect(() => {
     const search = (filterValues.search != "" || filterValues.search != null) ? filterValues.search : null;
     projects_trigger({ cat: filterValues.cat, count: 9, reset: true, search: search });
   }, [filterValues.cat, filterValues.search, content_RequestId]);
-  
 
   const handleLoadMore = () => {
     if (projects_isSuccess) {
@@ -59,38 +74,52 @@ export default function ProjectsView() {
     }
   }
 
-  const projects_isEmpty = projects ? Object.keys(projects).length == 0 : undefined;
+  const projects_isEmpty = projects ? projects.data.length == 0 : undefined;
 
   return (
-    <Box>
-      <InfoCard dir={ defaultContent.direction } waveDir='right' subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } />
-      
-      <br />
-      <br />
+    <>
+      <Box id="Portfolio" className="projectsView">
 
-      <ProjectViewFilter resetProjectsCash={ projects_reset } />
-      
-      <br />
-      <br />
+        <InfoCard dir={ defaultContent.direction } waveDir='right' subtitle={ defaultContent.subtitle } description={ defaultContent.description } animateDescription effects={ [infoCardEffects.sharpEffect] } typographyForm={ { subtitle: [typographyForm.subtitle.size.big] } } />
+        
+        <br />
+        <br />
 
-      <Container maxWidth="lg">
-        { projects_isError && <Typography color={ "error" } variant={ "h5" }>Data Not Found!</Typography> }
-      </Container>
+        <ProjectViewFilter resetProjectsCash={ projects_reset } />
+        
+        <br />
+        <br />
 
-      { <ProjectViewer ref={ viewerRef } dir={ defaultContent.direction } data={ projects_isSuccess && projects } loadMore={ projects_trigger } isSuccess={ projects_isSuccess } isEmpty={ projects_isEmpty } /> }
-      
-      { projects_isFetching && <WaitItemSkeleton num={ 9 } /> }
-      
-      { !projects_isEmpty &&
-        <Container maxWidth="lg" className='loadMoreCon'>
-          <Button variant='text' onClick={ handleLoadMore }> {defaultContent.buttons.loadMore} </Button>
-        </Container>}
-    </Box>
+        { projects_isLoading && <WaitItemSkeleton num={ 9 } /> }
+
+        { projects_isSuccess && <ProjectViewer ref={ viewerRef } dir={ defaultContent.direction } data={ projects.data } /> }
+        
+        { projects_isError && <Container maxWidth="lg">
+          <Typography color={ "error" } variant={ "h5" }>{ projects_error?.data?.error }</Typography>
+        </Container> }
+
+        { <Container maxWidth="lg" className='loadMoreCon'>
+            <Button variant='text' loading={ projects_isFetching } disabled={ projects_isFetching || projects_isError || projects_isEmpty || projects?.error } onClick={ handleLoadMore }>
+              { projects?.error ?
+                projects.error :
+                defaultContent.buttons.loadMore }
+            </Button>
+          </Container> }
+        
+      </Box>
+    </>
   )
 }
 
 const projectsViewFirstContent = {
   direction: "ltr",
+  Language: defaultLanguage,
+  pageTitle: "Our Portfolio | Web Design, Mobile Apps & Branding Projects",
+  meta: {
+    title: "Our Portfolio | Nami Software Solutions",
+    description: "At Nami Corporation, we excel at providing innovative and advanced web and mobile solutions. We specialize inDesign and development of websites and mobile applications tailored to meet the needs of our customers unique. Explore how we can help you achieve your digital goals with the best quality and highest standards.",
+    image: logo
+  },
   subtitle: "We bring your digital vision to life",
   description: "At Nami Corporation, we excel at providing innovative and advanced web and mobile solutions. We specialize inDesign and development of websites and mobile applications tailored to meet the needs of our customers unique. Explore how we can help you achieve your digital goals with the best quality and highest standards.",
   buttons: {

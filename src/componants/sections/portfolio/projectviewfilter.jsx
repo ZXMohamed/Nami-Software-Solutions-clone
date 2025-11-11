@@ -51,7 +51,7 @@ function Categories({ resetProjectsCash }) {
         selectFromResult: ({ isSuccess, data }) => ({ isSuccess, data })
     });
 
-    const activeCategory = useSelector((state) => state.portfolioFilter.cat);
+    const { cat: activeCategory, search } = useSelector((state) => state.portfolioFilter);
     
     const filterAction = useDispatch();
     
@@ -63,7 +63,7 @@ function Categories({ resetProjectsCash }) {
     }
     
     const resetFilter = () => {
-        if (activeCategory != "all") {
+        if (activeCategory != "all" || search !== "") {
             resetProjectsCash();
             filterAction(portfolioFilterSliceActions.resetFilters());
         }
