@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const openJobsSlice = createApi({
     reducerPath: "openjobs",
     baseQuery: fetchBaseQuery({
-        baseUrl:"https://192.168.1.100:443/nami-clone-data-api/"
+        baseUrl: import.meta.env.VITE_API_URL
     }),
     endpoints: (builder) => ({
         getOpenJobs: builder.query({
@@ -18,9 +18,6 @@ const openJobsSlice = createApi({
                 return {
                     url: "query/requestjob.php",
                     method: "POST",
-                    // headers: {
-                    //     'Content-Type': 'multipart/form-data',
-                    // },
                     body: formData,
                 }
             }
