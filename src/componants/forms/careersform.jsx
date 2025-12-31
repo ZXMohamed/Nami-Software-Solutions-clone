@@ -104,7 +104,7 @@ export function FormSection() {
     return (
         <Stack dir={defaultContent.direction} component={'form'} direction={'column'} spacing={2} className='careersFormSection' onSubmit={handleSubmit(onSubmit)} {...formAosAnimation}>
 
-            <Typography variant='h6' component={ 'h3' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
+            <Typography variant='h6' component={ 'h4' } className='careersFormTitle'><i>{ defaultContent.form.title }</i></Typography>
 
             {(requestJob_isSuccess && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="success" color='primary'> {defaultContent.form.alert.success} </Alert>}
             {(requestJob_isError && !requestJob_isLoading && !errors?.recaptcha) && <Alert variant="filled" severity="error" color='error'> {defaultContent.form.alert.error} </Alert>}
@@ -137,7 +137,7 @@ function SelectInput(props) {
     const [job, setJob] = useState("0");
 
     return (
-        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job } disabled={openJobs_isError} onChange={ (e) => { props.onChange(e); setJob(e.target.value); }}>
+        <Select variant='outlined' { ...props } defaultValue={ '0' } value={ job } disabled={openJobs_isError} onChange={ (e) => { props.onChange(e); setJob(e.target.value); }} aria-label="select job">
             { openJobs_isSuccess && <MenuItem value={ "0" }>{ props.title }</MenuItem> }
             {openJobs_isSuccess && Object.values(openJobs).map((openJob,inx) => <MenuItem key={openJob.id} value={openJob.title}>{openJob.title}</MenuItem>)}
             {openJobs_isError && <MenuItem value={"0"}>{openJobs_error.data.error} (You can't apply)</MenuItem>}

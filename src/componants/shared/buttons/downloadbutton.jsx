@@ -15,7 +15,7 @@ const DownloadButton = memo(({ link, title, direction })=> {
   return (
     <a dir={ direction } href={ link } target='_blank' className={ 'downloadButton' } {...aosAnimation}>
       <div dir={ direction } className={ "downloadButtonContent" }>
-        <IconButton component="div" dir={ direction } disableRipple="false" className='arrowIconContainer'>
+        <IconButton component="div" dir={ direction } disableRipple="false" className='arrowIconContainer' aria-label="Download company file">
           { direction == "ltr" ?
             <SubdirectoryArrowRightIcon fontSize="medium" /> :
             <SubdirectoryArrowLeftIcon fontSize="medium" />

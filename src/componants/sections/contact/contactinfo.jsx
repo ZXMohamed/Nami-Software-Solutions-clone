@@ -44,8 +44,8 @@ export function InfoSection() {
     
     return (
         <Stack dir={defaultContent.direction} direction="column" spacing={2} className='contactInfoSection'>
-            <Typography ref={ contactSubtitle } variant='h5' component={ 'h1' } className='contactInfoTitle' {...titleAosAnimation}><i>{defaultContent.title}</i></Typography>
-            <Typography ref={contactTitle} variant='h4' component={'h2'} className='contactInfoSubtitle' {...subtitleAosAnimation}>{defaultContent.subtitle}</Typography>
+            <Typography ref={ contactSubtitle } variant='h5' component={ 'h2' } className='contactInfoTitle' {...titleAosAnimation}><i>{defaultContent.title}</i></Typography>
+            <Typography ref={contactTitle} variant='h4' component={'h3'} className='contactInfoSubtitle' {...subtitleAosAnimation}>{defaultContent.subtitle}</Typography>
             <Typography ref={contactDescription} data-aos="fade-up" className='contactInfoDescription' {...descriptionAosAnimation}>{defaultContent.description}</Typography>
         </Stack>
     )
@@ -93,13 +93,13 @@ function ContactMethodItem({ icon, title, contactMethod, link, target, aosAnimat
         <Grid container {...aosAnimation}>
             <Grid size={ { xs:2,xxs:1 } }>
                 <Box className="contactMethodIconCircle">
-                    <img src={icon} alt={ "Nami "+title } loading='lazy' className='contactMethodIcon'/>
+                    <img src={icon} alt={ "Nami "+title } loading='lazy' className='contactMethodIcon' width={"19"} height={"19"}/>
                 </Box>
             </Grid>
             <Grid size={ { xs:10,xxs:11 } }>
                 <Stack direction={ "column" } spacing={ 1 }>
-                    <Typography variant='h6' component={ 'h3' } className='contactMethodTitle'>{ title}</Typography>
-                    <Typography variant='h6' component={ 'h4' } className='contactMethodLink'><a href={link} target={target}>{contactMethod}</a></Typography>
+                    <Typography variant='h6' component={ 'h4' } className='contactMethodTitle'>{ title}</Typography>
+                    <Typography variant='h6' component={ 'h5' } className='contactMethodLink'><a href={link} target={target}>{contactMethod}</a></Typography>
                 </Stack>
             </Grid>
         </Grid>

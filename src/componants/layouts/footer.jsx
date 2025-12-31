@@ -78,7 +78,7 @@ function FooterAboutTab() {
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,md:3}} className="footerAboutTab">
             <LogoLink>
-                <img src={ defaultContent.footerLogo } alt={defaultContent.footerLogoAlt} loading='lazy' className='footerLogo' />
+                <img src={ defaultContent.footerLogo } alt={defaultContent.footerLogoAlt} loading='lazy' className='footerLogo' width={"175"} height={"60"}/>
             </LogoLink>
             <Typography className='footerDescription'>{ defaultContent.description }</Typography>
         </Grid>
@@ -107,7 +107,7 @@ function FooterServicesTab() {
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerServicesTab'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
+            <Typography variant='h6' component={'h2'} className='footerTabTitle'>{defaultContent.tabs.services.title}</Typography>
             <ul type="none" className='footerTabList'>
                 { Object.keys(defaultContent.tabs.services.items).map((item, inx) => {
                     return <li key={ inx } >
@@ -143,7 +143,7 @@ function FooterLinksTab() {
 
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerLinksTab'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
+            <Typography variant='h6' component={'h2'} className='footerTabTitle'>{defaultContent.tabs.links.title}</Typography>
             <ul type="none" className='footerTabList'>
                 <Links defaultContent={defaultContent}/>
             </ul>
@@ -195,11 +195,11 @@ function FooterContactEmail() {
     
     return (
         <Grid dir={defaultContent.direction} size={{xs:12,xxs:6,md:3}} className='footerContactEmail'>
-            <Typography variant='h6' component={'h1'} className='footerTabTitle'>{defaultContent.tabs.contactEmail.title}</Typography>
+            <Typography variant='h6' component={'h2'} className='footerTabTitle'>{defaultContent.tabs.contactEmail.title}</Typography>
             { social_isSuccess && <ul type="none" className='footerTabList'>
-                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.support["title-" + content.page.language] : social?.email.support.title }</a></li>
-                <li><img src={ mailbox } alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.humanResources["title-" + content.page.language] : social?.email.humanResources.title }</a></li>
-                <li><img src={ mailbox } alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon' /><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.sales["title-" + content.page.language] : social?.email.sales.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Support" loading='lazy' className='footerTabListItemsIcon' width={"20"} height={"20"} /><a href={ social?.email.support.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.support["title-" + content.page.language] : social?.email.support.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Human resources" loading='lazy' className='footerTabListItemsIcon' width={"20"} height={"20"} /><a href={ social?.email.humanResources.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.humanResources["title-" + content.page.language] : social?.email.humanResources.title }</a></li>
+                <li><img src={ mailbox } alt="contact email Sales and marketing" loading='lazy' className='footerTabListItemsIcon' width={"20"} height={"20"} /><a href={ social?.email.sales.link } className='footerTabListItemsLink'>{ content_isSuccess ? social?.email.sales["title-" + content.page.language] : social?.email.sales.title }</a></li>
             </ul> }
         </Grid>
     )

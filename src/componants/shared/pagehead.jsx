@@ -72,8 +72,6 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <meta name="author" content={ title } />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-            <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.google.com https://www.gstatic.com;frame-src https://www.google.com;" />
-
             <meta property="og:title" content={ title } />
             <meta property="og:site_name" content={ title } />
             <meta property="og:description" content={ description } />
@@ -95,13 +93,10 @@ function PageHead({ pageTitle, title = pageInfo.title, description = pageInfo.de
             <link rel="canonical" href={ import.meta.env.VITE_CURRENT_URL + url } />
             <link rel="author" href={import.meta.env.VITE_CURRENT_URL + url} />
 
-            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/ar/" } hreflang="ar" />
-            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/en/" } hreflang="en" />
+            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/ar/"+url } hreflang="ar" />
+            <link rel="alternate" href={ import.meta.env.VITE_CURRENT_URL + "/en/"+url } hreflang="en" />
 
             <link rel="icon" type="image/svg+xml" href={ import.meta.env.VITE_CURRENT_URL + icon } />
-
-            <link rel="preload" href="/src/assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Bold.woff2" as="font" type="font/woff2" crossorigin />
-            <link rel="preload" href="/src/assets/font/IBM_Plex_Sans_Arabic/IBMPlexSansArabic-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
             {/* <!-- script --> */ }
             <script type="application/ld+json">

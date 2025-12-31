@@ -220,11 +220,11 @@ div.aboutSideImgContainer {
     row-gap: 15px;
     font-family: "PlexNormal";
 }
-h1.aboutTitle{
+h2.aboutTitle{
     font-family: "PlexBold";
     color: $secondTextColor;
 }
-h2.aboutSubtitle{
+h3.aboutSubtitle{
     font-family: "PlexBold";
     font-size: 40px;
     text-transform: uppercase;
@@ -263,7 +263,7 @@ span.establishmentTitle{
     top: 40%;
     display: block;
 }
-h3.establishmentDate{
+h4.establishmentDate{
     font-size: 100px;
     font-weight: 600;
     background-image: url($siteBackground);
@@ -411,14 +411,14 @@ span.valueTitle{
     z-index: 2;
     @include center("flex");
 }
-h1.servicesTitle{
+h2.servicesTitle{
     text-align: center;
     font-family: 'PlexBold';
     @media screen and (max-width:768px) {
         font-size: 18px;
     }
 }
-h2.servicesSubtitle{
+h3.servicesSubtitle{
     text-transform: uppercase;
     font-family: 'PlexBold';
     font-size: 40px;
@@ -497,7 +497,7 @@ div.serviceItemHeader{
         }
     }
 }
-h3.serviceItemTitle{
+h4.serviceItemTitle{
     font-family: 'PlexBold';
     font-size: 28px;
     @media screen and (max-width:768px) {
@@ -677,7 +677,7 @@ div.productsSlider{
     height: 100%;
     justify-content: center;
 }
-h1.careersTitle{
+h2.careersTitle{
     font-family: 'PlexBold';
     color: $secondTextColor;
     font-size: 24px;
@@ -685,7 +685,7 @@ h1.careersTitle{
         transform: translateY(10px);
     }
 }
-h2.careersSubtitle{
+h3.careersSubtitle{
     font-family: 'PlexBold';
     font-size: 40px;
     color: $primaryColor;
@@ -745,7 +745,7 @@ p.careersDescription{
     }
 }
 
-h3.careersFormTitle{
+h4.careersFormTitle{
     color: $secondTextColor;
     font-size: 16px;
 }
@@ -1058,7 +1058,7 @@ p.formErrorMsg{
         margin-left: 0px;
     }
 }
-h1.contactInfoTitle{
+h2.contactInfoTitle{
     color: $secondTextColor;
     font-family: "PlexBold";
     div{
@@ -1071,7 +1071,7 @@ h1.contactInfoTitle{
         font-size: 18px ;
     }
 }
-h2.contactInfoSubtitle{
+h3.contactInfoSubtitle{
     text-wrap: balance;
     font-family: "PlexBold";
     max-width: 450px;
@@ -1140,14 +1140,14 @@ div.contactMethodIconCircle{
         width: 45%;
     }
 }
-h3.contactMethodTitle{
+h4.contactMethodTitle{
     padding-left: 10px;
     width: 100%;
     font-family: "PlexBold";
     color: $secondTextColor;
     font-size: 13px;
 }
-h4.contactMethodLink{
+h5.contactMethodLink{
     padding-left: 10px;
     width: 100%;
     color: $primaryColor;

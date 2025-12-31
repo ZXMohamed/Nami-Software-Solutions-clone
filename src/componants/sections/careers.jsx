@@ -62,8 +62,8 @@ function InfoSection() {
 
     return (
         <Stack direction={'column'} spacing={1} className='careersInfoSection'>
-            <Typography ref={careersTitle} variant='h5' component={'h1'} className='careersTitle'{...titleAosAnimation}><i>{defaultContent.title}</i></Typography>
-            <Typography ref={ careersSubtitle } variant='h3' component={ 'h2' } className='careersSubtitle'{ ...subtitleAosAnimation }>{defaultContent.subtitle}</Typography>
+            <Typography ref={careersTitle} variant='h5' component={'h2'} className='careersTitle'{...titleAosAnimation}><i>{defaultContent.title}</i></Typography>
+            <Typography ref={ careersSubtitle } variant='h3' component={ 'h3' } className='careersSubtitle'{ ...subtitleAosAnimation }>{defaultContent.subtitle}</Typography>
             <Typography ref={careersDescription} className='careersDescription'{...descriptionAosAnimation}>{defaultContent.description}</Typography>
         </Stack>
     )

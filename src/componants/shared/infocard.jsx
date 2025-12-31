@@ -24,8 +24,8 @@ export default function InfoCard({ dir = "ltr", title, subtitle, description, an
         <Container maxWidth="lg" className={effects.join(" ")}>
           <WaveAnimation dir={dir} wave_dir={ wave_dir }/>
             <Stack className='infoCardContent' direction={'column'} spacing={2} alignItems={"center"}>
-              { title && <Typography variant='h5' component={'h1'} className="infoCardTitle"><i>{title}</i></Typography> }
-              { subtitle && <Typography variant='h4' component={ 'h2' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
+              { title && <Typography variant='h5' component={'h2'} className="infoCardTitle"><i>{title}</i></Typography> }
+              { subtitle && <Typography variant='h4' component={ 'h3' } className={ "infoCardSubtitle "+typographyForm.subtitle.join(" ") }>{subtitle}</Typography> }
               { description && <Typography ref={descriptionRef} className="infoCardDescription">{description}</Typography> }
               <br/>
               { children && 

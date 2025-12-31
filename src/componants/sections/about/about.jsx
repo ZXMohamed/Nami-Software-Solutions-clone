@@ -52,7 +52,7 @@ const SideImg = memo(() => {
 
   return (
     <Box ref={ sideImgContainer } className="aboutSideImgContainer">
-      <img ref={ sideImg } src={ aboutSideImg } alt="Nami Software Solutions" loading='lazy' className="aboutMovingImg" />
+      <img ref={ sideImg } src={ aboutSideImg } alt="Nami Software Solutions" className="aboutMovingImg" fetchpriority="high" decoding="async" width="857" height="829"/>
     </Box>
   )
 });
@@ -86,8 +86,8 @@ const Info = () => {
   
   return (
   <>
-    <Typography variant="h5" component="h1" className='aboutTitle' {...aboutTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
-    <Typography ref={subtitle} variant="h4" component="h2" className='aboutSubtitle'>{defaultContent.subtitle}</Typography>
+    <Typography variant="h5" component="h2" className='aboutTitle' {...aboutTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
+    <Typography ref={subtitle} variant="h4" component="h3" className='aboutSubtitle'>{defaultContent.subtitle}</Typography>
     <Typography ref={description} className='aboutDescription' {...aboutDescriptionAosAnimation}>{defaultContent.description}</Typography>
   </>
   )
@@ -150,7 +150,7 @@ const Establishment = () => {
   return (
     <Stack ref={establishment} direction="row" dir={defaultContent.direction} className='establishmentCounter' {...establishmentCounterAosAnimation}>
       <span className="establishmentTitle">{defaultContent.establishment.title}</span>
-      <Typography ref={establishmentDate} variant='h1' component='h3' className="establishmentDate" {...establishmentDateAosAnimation}>0</Typography>
+      <Typography ref={establishmentDate} variant='h1' component='h4' className="establishmentDate" {...establishmentDateAosAnimation}>0</Typography>
     </Stack>
   )
 }

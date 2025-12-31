@@ -7,6 +7,10 @@ export default defineConfig({
   server: {
     https: true,
   },
+  build: {
+    assetsInlineLimit:0,
+    target: 'esnext'
+  },
   plugins: [react(), mkcert()],
 
 })

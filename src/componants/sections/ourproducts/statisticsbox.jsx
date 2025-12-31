@@ -41,7 +41,7 @@ export const StatisticsBox = memo(({ data, aosAnimation }) => {
     return (
         <Stack direction={ 'column' } { ...aosAnimation } className='statisticsBox'>
             { data.value && <Typography variant='h4' component={ 'h4' } className='statisticsBoxValue'><span ref={ statisticValue }>0</span> { data.type } </Typography> }
-            { data.title && <Typography variant='h6' component={ 'h3' } className='statisticsBoxTitle'>{ data.title }</Typography> }
+            { data.title && <Typography variant='h6' component={ 'h5' } className='statisticsBoxTitle'>{ data.title }</Typography> }
         </Stack>
     )
 });

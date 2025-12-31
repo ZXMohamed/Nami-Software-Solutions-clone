@@ -27,7 +27,7 @@ export const ProjectCard = memo(({ dir, data, bordered, aosAnimation, style, lan
         <Box dir={ dir } className='projectCard' { ...aosAnimation } sx={style} onClick={ () => navigation(pages_routes(language, data.id, data.title.replaceAll(" ","-"))["project details"].link)}>
             <Stack dir={dir} direction={ "column" } spacing={ 1 } sx={{borderWidth:(bordered?1:0)}}>
                 <Stack direction={ 'row' } className='projectHeader'>
-                    <Typography variant='h6' component={ 'h3' } className='projectTitle'>{ data.title }</Typography>
+                    <Typography variant='h6' component={ 'h4' } className='projectTitle'>{ data.title }</Typography>
                     <Box className="projectArrow">
                         <Box></Box>
                     </Box>

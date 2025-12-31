@@ -51,8 +51,8 @@ export default function Services() {
         <Box id="services" dir={defaultContent.direction} className="servicesSection" >
             <Container disableGutters>
                 <Stack direction={'column'} spacing={2} className='servicesHeader'>
-                    <Typography variant='h5' component='h1' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
-                    <Typography variant='h4' component='h2' className='servicesSubtitle' {...servicesSubtitleAosAnimation}>{defaultContent.subtitle}</Typography>
+                    <Typography variant='h5' component='h2' className='servicesTitle' {...servicesTitleAosAnimation}><i>{defaultContent.title}</i></Typography>
+                    <Typography variant='h4' component='h3' className='servicesSubtitle' {...servicesSubtitleAosAnimation}>{defaultContent.subtitle}</Typography>
                     <Typography ref={description} className='servicesDescription' {...servicesDescriptionAosAnimation}>{defaultContent.description}</Typography>
                 </Stack>
                 <br/>
@@ -108,7 +108,7 @@ const ServiceCard = memo(({ dir, data, language, readMoreButton, size, aosAnimat
                 <Stack dir={ dir } direction={ 'column' } spacing={ 1 } className='serviceItemFace'>
                 
                     <Stack direction={ 'row' } className='serviceItemHeader'>
-                        <img src={ data.image } alt={ data.title } loading='lazy' className='serviceItemIcon' />
+                        <img src={ data.image } alt={ data.title } loading='lazy' className='serviceItemIcon' width={"58"} height={"58"}/>
                         <div className='serviceItemArrow'></div>
                     </Stack>
                 

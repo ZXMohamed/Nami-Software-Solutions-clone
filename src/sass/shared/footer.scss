@@ -46,7 +46,7 @@ div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
     @extend %footerListDirection;
     
     @media screen and (max-width:768px) {
-        h1{
+        h2{
             font-size: 16px;
         }
         li{
@@ -55,7 +55,7 @@ div.footerLinksTab,div.footerServicesTab,div.footerContactEmail{
     }
 
 }
-h1.footerTabTitle{
+h2.footerTabTitle{
     font-family: "PlexNormal";
     font-weight: 600;
 

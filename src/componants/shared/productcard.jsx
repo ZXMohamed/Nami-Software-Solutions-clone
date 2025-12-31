@@ -33,7 +33,7 @@ export const ProductCard = memo(({ dir, data, aosAnimation, language }) => {
                     <img src={ image } alt={ data.title } loading='lazy' />
                     {!image && <HideImageIcon color='error' fontSize="large" sx={{p:1}}/>}
                 </Box>
-                <Typography variant='h6' component={ 'h3' } className='productTitle'>{ data.title }</Typography>
+                <Typography variant='h6' component={ 'h4' } className='productTitle'>{ data.title }</Typography>
                 <Typography className='productDescription'>{ data.description }</Typography>
                 <Box className="badgesContainer">
                     <ServicesBadgesList dir={ dir } type={ servicesBadgesListType.box }>

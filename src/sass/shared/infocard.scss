@@ -16,7 +16,7 @@
         }
     }
 }
-h1.infoCardTitle{
+h2.infoCardTitle{
     text-wrap: balance;
     font-family: "PlexBold";
     text-align: center;
@@ -25,7 +25,7 @@ h1.infoCardTitle{
         font-size: 18px;
     }
 }
-h2.infoCardSubtitle{
+h3.infoCardSubtitle{
     font-family: "PlexBold";
     text-align: center;
     color: $secondColor;
@@ -71,9 +71,9 @@ div.infoCardAttachment{
     }
 }
 
-h2.infoCardSubtitleBig{
+h3.infoCardSubtitleBig{
     font-size: 40px;
 }
-h2.infoCardSubtitleSmall{
+h3.infoCardSubtitleSmall{
     font-size: 30px;
 }

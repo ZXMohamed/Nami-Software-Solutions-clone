@@ -34,7 +34,7 @@ const ContactButton = memo(({link,icon,title}) => {
 
     return (
         <a href={ link } target='_blank' className='contactButton'>
-            <img src={ icon } loading='lazy' alt={ title + " for Nami" } className='contactIcon' />
+            <img src={ icon } loading='lazy' alt={ title + " for Nami" } className='contactIcon' width={"46"} height={"46"}/>
         </a>
     )
 })

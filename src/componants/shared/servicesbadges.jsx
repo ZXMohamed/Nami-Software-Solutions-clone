@@ -21,8 +21,8 @@ export function ServiceBadge({ data, size }) {
 
     return (
         <Stack direction="row" component={"a"} href={data.link} target={"_blank"} gap={ 0.7 } className={"serviceBadge " + (size || serviceBadgeSize.small)} onClick={(e)=>{e.stopPropagation()}}>
-            <img src={data.image} alt={ data.title } className='serviceIcon'/>
-            <Typography variant='h6' component={'h4'} className='serviceTitle'>{data.title}</Typography>
+            <img src={data.image} alt={ data.title } className='serviceIcon' loading='lazy' width={"16"} height={"19"}/>
+            <Typography variant='h6' component={'h5'} className='serviceTitle'>{data.title}</Typography>
         </Stack>
     )
 }

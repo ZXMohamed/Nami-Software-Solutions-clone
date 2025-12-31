@@ -26,7 +26,7 @@ export default function SectionHeader({ dir, title, subtitle, headerButtonTitle,
                 <Typography ref={headerSubtitle} variant="h5" component="h2" className="sectionHeaderTitle" {...sectionHeaderTitleAosAnimation}><i>{title}</i></Typography>
                 <Grid container>
                     <Grid size={ { sm: 10, xs: 12 } } className="sectionHeaderSubtitleContainer" {...containerAosAnimation}>
-                        <Typography ref={headerTitle} variant="h4" component="h1" className="sectionHeaderSubtitle">{subtitle}</Typography>
+                        <Typography ref={headerTitle} variant="h4" component="h3" className="sectionHeaderSubtitle">{subtitle}</Typography>
                     </Grid>
                     <Grid size={ { sm: 2, xs: 12 } } className="sectionHeaderButtonContainer" {...containerAosAnimation}>
                         <Link to={ headerButtonUrl } className="sectionHeaderButton">{ headerButtonTitle }<Box></Box></Link>
